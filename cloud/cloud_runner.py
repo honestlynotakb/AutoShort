@@ -48,12 +48,13 @@ def get_published_topics():
     text = PUBLISHED_FILE.read_text(encoding='utf-8')
     topics = set()
     for line in text.splitlines():
+        line = line.strip()
         if line.startswith('|') and not line.startswith('| Date') and not line.startswith('|---'):
             parts = [p.strip() for p in line.split('|')]
-            if len(parts) >= 3:
+            if len(parts) >= 3 and parts[2]:
                 topics.add(parts[2].lower())
-                if len(parts) >= 5:
-                    topics.add(parts[4].lower())
+            if len(parts) >= 5 and parts[4]:
+                topics.add(parts[4].lower())
     return topics
 
 def generate_with_gemini(api_key, published_topics, slot_info):

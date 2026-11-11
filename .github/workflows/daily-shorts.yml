@@ -1,8 +1,8 @@
 name: Autonomous Daily YouTube Shorts
 
-run-name: ${{ inputs.slot != '' && inputs.slot != 'auto' && format('Short: {0}', inputs.slot) || format('Autonomous Short ({0})', github.event_name) }}
+run-name: "${{ inputs.slot != '' && inputs.slot != 'auto' && format('Short {0}', inputs.slot) || format('Autonomous Short ({0})', github.event_name) }}"
 
-on:
+'on':
   schedule:
     # 5 Daily Runs in Pakistan Time (PKT, UTC+5):
     # Slot 1: 08:00 AM PKT (03:00 UTC) - Geography & Flag Knowledge
