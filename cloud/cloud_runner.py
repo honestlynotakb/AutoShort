@@ -4,9 +4,10 @@ Executes the full pipeline without any human intervention:
 1. Topic Discovery (Gemini API or curated viral queue)
 2. Style Selection & Project Scaffolding
 3. Script Writing (Calm collected tone, 0.88x speed, Whisper sync)
-4. Three.js Video Rendering (Headless Chrome + Software GL)
-5. YouTube Upload (YouTube Data API v3)
-6. Appending to _published.md
+4. Adaptive Three.js Shots generation (zero missing word errors)
+5. Three.js Video Rendering (Headless Chrome + Software GL)
+6. YouTube Upload (YouTube Data API v3)
+7. Appending to _published.md
 """
 import os
 import re
@@ -33,17 +34,17 @@ CURATED_TOPICS = [
         "lines": [
             {"text": "What actually happens if you fall into a black hole?", "caps": "What *happens | if you *fall | in a *black hole?"},
             {"text": "As you get closer, extreme gravity pulls much harder on your feet than your head.", "caps": "Gravity *pulls | harder on *feet | than your *head"},
-            {"text": "This stretches your entire body into a thin, noodle-like strand, a process physicists call spaghettification.", "caps": "Stretching your *body | into a *noodle | *spaghettification"},
+            {"text": "This stretches your entire body into a thin strand, in a process physicists call spaghettification.", "caps": "Stretching your *body | into a *strand | *spaghettification"},
             {"text": "To an observer watching you from outside, time slows down completely.", "caps": "From the *outside | time slows *down | completely"},
-            {"text": "They would see you freeze forever at the edge of the event horizon, slowly fading away.", "caps": "You *freeze | at the *edge | slowly *fading"},
-            {"text": "But from your own perspective, you cross the horizon in seconds.", "caps": "From your *eyes | you cross the *edge | in *seconds"},
+            {"text": "They would see you freeze at the edge of the event horizon, slowly fading away.", "caps": "You *freeze | at the *edge | slowly *fading"},
+            {"text": "From your own view, you cross the horizon in mere seconds.", "caps": "From your *eyes | you cross the *edge | in *seconds"},
             {"text": "Inside, space and time swap roles, and all paths lead inevitably to the singularity.", "caps": "All *paths | lead to the *singularity"},
             {"text": "So if you ever drift through deep space, keep your distance, before you experience...", "caps": "Keep your *distance | before you *experience", "gap": 0.25}
         ]
     },
     {
         "topic": "What happens if you get rabies?",
-        "style": "inside-out",
+        "style": "deep-dive",
         "title": "What Actually Happens If You Get Rabies? #shorts",
         "sources": ["CDC, 'Rabies Virus Pathogenesis and Central Nervous System Infection'", "World Health Organization (WHO), 'Rabies Fact Sheet and Hydrophobia Clinical Data'"],
         "lines": [
@@ -53,7 +54,7 @@ CURATED_TOPICS = [
             {"text": "But the moment it reaches your brain, the survival rate drops to virtually zero.", "caps": "Once in your *brain | survival drops to *zero"},
             {"text": "It triggers intense brain inflammation, confusion, and terrifying spasms whenever you swallow.", "caps": "Severe *spasms | whenever you *swallow"},
             {"text": "This creates severe hydrophobia: a desperate fear of water.", "caps": "Creating intense | fear of *water"},
-            {"text": "Fortunately, a prompt vaccine right after the bite stops the virus before it starts.", "caps": "A quick *vaccine | stops it *completely"},
+            {"text": "Fortunately, a prompt vaccine right after the bite stops the virus completely.", "caps": "A quick *vaccine | stops it *completely"},
             {"text": "So never delay a bite checkup, before you find out...", "caps": "Get *checked | before you *discover", "gap": 0.25}
         ]
     },
@@ -75,7 +76,7 @@ CURATED_TOPICS = [
     },
     {
         "topic": "What happens if you drink ocean water?",
-        "style": "inside-out",
+        "style": "deep-dive",
         "title": "Why You Should Never Drink Ocean Water #shorts",
         "sources": ["NOAA Ocean Service, 'Can Humans Drink Seawater?'", "Kidney International, 'Osmotic Dehydration and Renal Salt Excretion'"],
         "lines": [
@@ -110,11 +111,11 @@ def generate_with_gemini(api_key, published_topics):
 Previously published topics: {list(published_topics)}
 
 Pick a completely fresh, unrepeated, viral curiosity topic in science, human body, space, survival, or weird history.
-Write an original, calm, collected script (~90-100 words, calm explanation pace).
+Write an original, calm, collected script (~80-100 words, calm explanation pace).
 Format strictly as JSON with this schema:
 {{
   "topic": "Short topic description",
-  "style": "deep-dive", // or "inside-out", "stick-story", "dashcam-3d", "tall-tale"
+  "style": "deep-dive",
   "title": "Short title under 60 chars ending in #shorts",
   "sources": ["Source 1", "Source 2"],
   "lines": [
@@ -126,17 +127,33 @@ Format strictly as JSON with this schema:
 }}
 Only return valid JSON."""
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
+    models = ["gemini-1.5-flash", "gemini-2.0-flash", "gemini-1.5-pro"]
     payload = json.dumps({"contents": [{"parts": [{"text": prompt}]}]}).encode('utf-8')
-    req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
-    
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        data = json.loads(resp.read().decode('utf-8'))
-        raw_text = data['candidates'][0]['content']['parts'][0]['text']
-        match = re.search(r'\{.*\}', raw_text, re.DOTALL)
-        if match:
-            return json.loads(match.group(0))
-    raise ValueError("Failed to parse Gemini response")
+
+    for model in models:
+        try:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+            req = urllib.request.Request(
+                url,
+                data=payload,
+                headers={
+                    "Content-Type": "application/json",
+                    "x-goog-api-key": api_key.strip()
+                }
+            )
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                data = json.loads(resp.read().decode('utf-8'))
+                raw_text = data['candidates'][0]['content']['parts'][0]['text']
+                match = re.search(r'\{.*\}', raw_text, re.DOTALL)
+                if match:
+                    res = json.loads(match.group(0))
+                    print(f"Successfully generated script using {model}!")
+                    return res
+        except Exception as e:
+            print(f"Gemini model {model} attempt failed: {e}")
+            continue
+
+    raise ValueError("All Gemini model endpoints failed")
 
 def pick_next_topic(published_topics):
     api_key = os.environ.get('GEMINI_API_KEY')
@@ -151,11 +168,153 @@ def pick_next_topic(published_topics):
         if item['topic'].lower() not in published_topics and item['title'].lower() not in published_topics:
             return item
 
-    # If all in list used, recycle with variation
     return CURATED_TOPICS[0]
 
 def slugify(text):
     return re.sub(r'[^a-z0-9]+', '-', text.lower()).strip('-')[:35]
+
+def write_adaptive_shots(proj_dir, title, lines):
+    """Generates a dynamic Three.js shots.js that perfectly maps to any number of lines without word-lookup errors."""
+    shots_js_path = proj_dir / 'src' / 'shots.js'
+
+    num_lines = len(lines)
+    shot_blocks = []
+    
+    clean_title = title.replace('#shorts', '').strip()
+    
+    for i in range(num_lines):
+        shot_id = f"S{i+1:02d}"
+        if i == 0:
+            # Hook shot
+            block = f"""
+  {{ const st = cut({i});
+    add({{ id: '{shot_id}', at: st, note: 'Hook: Hero pushes in with curiosity', draw(lt, d, t, blit) {{
+      reset();
+      const k = eo(clamp(lt / d));
+      hero.pose({{ head: [-8 * k + 4 * Math.sin(lt * 2), 4, 0], spine: [-3 * k, 0, 0], lid: -0.2, look: [0, -3 * k] }});
+      cam.position.copy(lerpV(V3(0.42, 1.72, 0.45), V3(0.25, 1.7, 0.15), eio(lt / d)));
+      cam.lookAt(FACE);
+      kitchenRender(cam.position.distanceTo(FACE));
+      blit();
+      pill('{clean_title.upper()[:24]}', 540, 340, eob(seg(lt, 0.15, 0.45)), '#FFD43B');
+    }} }});
+    cue(st, 'whoosh'); cue(st + 0.2, 'pop', {{ gain: 0.6 }}); }}"""
+        elif i == num_lines - 1:
+            # Outro shot
+            block = f"""
+  {{ const st = cut({i});
+    add({{ id: '{shot_id}', at: st, note: 'Outro: Hero looks at camera, warning sign', draw(lt, d, t, blit) {{
+      reset();
+      hero.pose({{ head: [-2, 0, 0], lid: 0.05, look: [0, 0] }});
+      cam.position.copy(lerpV(V3(0.0, 1.62, 0.9), V3(0.05, 1.64, 0.55), eio(lt / d)));
+      cam.lookAt(FACE);
+      kitchenRender(cam.position.distanceTo(FACE));
+      blit();
+      warning(540, 1150, eob(seg(lt, 0.25, 0.55)) * 0.95);
+      pill('WHAT HAPPENS NEXT?', 540, 340, eob(seg(lt, 0.2, 0.45)), '#FFD43B');
+    }} }});
+    cue(st, 'whoosh'); cue(st + 0.25, 'slam', {{ gain: 0.7 }}); }}"""
+        else:
+            mode = i % 4
+            if mode == 1:
+                # X-ray lungs / chest shot
+                block = f"""
+  {{ const st = cut({i});
+    add({{ id: '{shot_id}', at: st, note: 'X-ray: Body anatomy & internal effect', draw(lt, d, t, blit) {{
+      reset();
+      lungs(1 + Math.sin(lt * 3) * 0.05);
+      chest(xh, 1);
+      xh.pose({{ head: [4, -6, 0] }});
+      cam.position.copy(lerpV(V3(0.55, 1.5, 1.6), V3(0.3, 1.42, 1.1), eio(lt / d)));
+      cam.lookAt(0, 1.33, 0);
+      E.render(X.scene, cam, {{ ...XLOOK, focus: cam.position.distanceTo(V3(0, 1.33, 0)) }});
+      blit();
+      pill('INTERNAL EFFECT', 540, 340, eob(seg(lt, 0.2, 0.45)), '#4FD1E8');
+    }} }});
+    cue(st, 'whoosh'); cue(st + 0.15, 'thud', {{ gain: 0.45 }}); }}"""
+            elif mode == 2:
+                # Macro vessel shot
+                block = f"""
+  {{ const st = cut({i});
+    add({{ id: '{shot_id}', at: st, note: 'Macro: Cellular / vessel stream', draw(lt, d, t, blit) {{
+      VS.update(t, -lt * 1.6, 0, 0);
+      cam.position.set(0, 0, -lt * 1.6);
+      cam.lookAt(0.15, -0.08, -lt * 1.6 - 5);
+      E.render(VS.scene, cam, VLOOK);
+      blit();
+      pill('MICROSCOPIC VIEW', 540, 340, eob(seg(lt, 0.15, 0.4)), '#7CF29A');
+    }} }});
+    cue(st, 'whoosh'); cue(st + 0.2, 'pop', {{ gain: 0.5 }}); }}"""
+            elif mode == 3:
+                # X-ray Heart close-up
+                block = f"""
+  {{ const st = cut({i});
+    add({{ id: '{shot_id}', at: st, note: 'X-ray: Heart rhythm pulse', draw(lt, d, t, blit) {{
+      reset();
+      const p = 0.5 + 0.5 * Math.sin(lt * 8);
+      I.heart.scale.setScalar(1 + p * 0.15);
+      I.heart.material.emissiveIntensity = 0.2 + p * 0.7;
+      const H0 = V3(0.025, 1.41, 0.07);
+      cam.position.copy(lerpV(V3(0.25, 1.48, 0.62), V3(0.12, 1.44, 0.42), eio(lt / d)));
+      cam.lookAt(H0);
+      E.render(X.scene, cam, {{ ...XLOOK, bloom: 0.6, focus: cam.position.distanceTo(H0) }});
+      blit();
+      pill('CRITICAL RESPONSE', 540, 340, eob(seg(lt, 0.2, 0.45)), '#FF8A8A');
+    }} }});
+    cue(st, 'whoosh'); cue(st + 0.2, 'heartbeat'); }}"""
+            else:
+                # Hero medium orbit
+                block = f"""
+  {{ const st = cut({i});
+    add({{ id: '{shot_id}', at: st, note: 'Medium shot: Hero reaction', draw(lt, d, t, blit) {{
+      reset();
+      hero.pose({{ head: [2, -6 + Math.sin(lt * 2) * 3, 0], lid: -0.15, look: [6, 0] }});
+      const a = lerp(0.55, 0.2, eio(lt / d));
+      cam.position.set(0.1 + Math.sin(a) * 2.1, 1.45, -0.6 + Math.cos(a) * 2.1);
+      cam.lookAt(0.1, 1.25, -0.6);
+      kitchenRender(2.1);
+      blit();
+      pill('SURPRISING REALITY', 540, 340, eob(seg(lt, 0.2, 0.45)), '#C9D6DD');
+    }} }});
+    cue(st, 'whoosh'); cue(st + 0.2, 'pop', {{ gain: 0.5 }}); }}"""
+        shot_blocks.append(block)
+
+    shots_content = f"""// Auto-generated adaptive shots for: {title}
+import * as THREE from 'three';
+import {{ ctx, W, H, clamp, lerp, seg, eo, eio, eob }} from './core/lib.js';
+import {{ L, Wd, T }} from './core/timing.js';
+import {{ camera }} from './core/engine.js';
+import {{ Human }} from './core/human.js';
+import * as SETS from './core/sets.js';
+import {{ label, pill, warning, blackout }} from './core/look2d.js';
+
+const V3 = (x, y, z) => new THREE.Vector3(x, y, z);
+const lerpV = (a, b, k) => a.clone().lerp(b, k);
+function screen(p, cam) {{ const v = p.clone().project(cam); return [(v.x + 1) / 2 * W, (1 - v.y) / 2 * H]; }}
+
+export function buildShots(E) {{
+  const S = [], CUES = [], add = (o) => (S.push(o), o), cue = (t, type, o = {{}}) => CUES.push({{ t: +t.toFixed(3), type, ...o }});
+  const cut = (i) => (i === 0 ? 0 : L(i) - 0.08);
+  const cam = camera(30);
+  const KLOOK = {{ aperture: 0.003, maxblur: 0.01, bloom: 0.2 }}, XLOOK = {{ aperture: 0.0015, bloom: 0.55, bloomThreshold: 0.4, vignette: 0.45 }}, VLOOK = {{ aperture: 0.005, maxblur: 0.012, bloom: 0.6, bloomThreshold: 0.5, focus: 3.2 }};
+
+  const K = SETS.kitchen(E), hero = new Human({{}}); hero.group.position.set(0.1, 0, -0.6); K.scene.add(hero.group);
+  const X = SETS.xrayStage(E), xh = new Human({{}}), xmat = SETS.xrayMaterial(); xh.setBodyMaterial(xmat); const I = SETS.insides(); xh.spine.add(I.group); X.scene.add(xh.group);
+  const VS = SETS.vessel(E);
+  const CYAN = new THREE.Color('#4FD1E8'), RED = new THREE.Color('#FF3B3B');
+  const chest = (h, k) => h.parts[0].scale.set(1 + 0.03 * k, 1 + 0.012 * k, 1 + 0.08 * k);
+  const lungs = (k) => I.lungs.forEach((l) => l.scale.set(1 + 0.12 * k, 1 + 0.1 * k, 1 + 0.12 * k));
+  const reset = () => {{ hero.pose({{}}); chest(hero, 0); xh.pose({{}}); chest(xh, 0); lungs(0); I.heart.scale.setScalar(1); xmat.uniforms.uCol.value.copy(CYAN); }};
+  const kitchenRender = (focus, extra = {{}}) => E.render(K.scene, cam, {{ ...KLOOK, focus, ...extra }});
+  const FACE = V3(0.1, 1.68, -0.6);
+
+{''.join(shot_blocks)}
+
+  return {{ shots: S, cues: CUES }};
+}}
+"""
+    shots_js_path.write_text(shots_content, encoding='utf-8')
+    print(f"Generated adaptive shots.js with {num_lines} dynamic shots.")
 
 def run_cmd(cmd, cwd=None, env=None):
     print(f"\n[RUN] {cmd}")
@@ -210,6 +369,9 @@ def main():
         "lines": item['lines']
     }
     (proj_dir / 'script.json').write_text(json.dumps(script_data, indent=2), encoding='utf-8')
+
+    # Generate adaptive shots.js matching the exact lines
+    write_adaptive_shots(proj_dir, title, item['lines'])
 
     # Python executable (venv or system)
     py = sys.executable

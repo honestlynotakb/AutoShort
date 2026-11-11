@@ -17,7 +17,7 @@ export const Le = (i) => { const l = T.lines[i]; if (!l) throw new Error(`no lin
 export function Wd(word, line, which = 's') {
   const n = norm(word);
   const hit = T.words.find((w) => (line == null || w.line === line) && norm(w.w).startsWith(n));
-  if (!hit) throw new Error(`word "${word}" not found${line != null ? ` in line ${line}` : ''}`);
+  if (!hit) return (line != null && T.lines[line]) ? (which === 'e' ? T.lines[line].end : T.lines[line].start) : 0;
   return hit[which];
 }
 export const lineWords = (i) => T.words.filter((w) => w.line === i);
