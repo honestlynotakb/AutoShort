@@ -110,6 +110,24 @@ Every incident has been investigated to root cause, patched with permanent archi
 
 ---
 
+### Incident ERR-009: YAML Parser Mapping Conflict on Unquoted `run-name`
+- **Date & Environment:** GitHub Actions Workflow Configuration
+- **Symptom:** `yaml.scanner.ScannerError: mapping values are not allowed here` on workflow line parsing.
+- **Root Cause:** An unquoted GitHub Actions expression containing colons (`'Short: {0}'`) and curly brackets inside an interpolated block was interpreted by YAML parsers as an illegal dictionary mapping key.
+- **Immediate Patch:** Enclosed the `run-name` expression in standard double quotes (`"${{ ... }}"`).
+- **Architectural Mitigation:** Quoted top-level `'on':` triggers and interpolated workflow directives, preventing YAML 1.1 boolean coercion and mapping ambiguity.
+
+---
+
+### Incident ERR-010: Git Rebase Push Collisions on Shallow Clones & CRLF/LF Churn
+- **Date & Environment:** GitHub Actions CI Runner Git Push Step
+- **Symptom:** Publication log commits failed on concurrent runs with `[rejected] (fetch first)` or shallow rebase refusal.
+- **Root Cause:** Default `actions/checkout@v4` uses `fetch-depth: 1` (shallow history). In a shallow checkout, rebasing fails with `refusing to merge unrelated histories`. Additionally, missing `.gitattributes` caused line-ending divergence between Windows CRLF and Linux LF.
+- **Immediate Patch:** Added `.gitattributes` enforcing universal `eol=lf`, normalized `_published.md`, and configured `fetch-depth: 0`.
+- **Architectural Mitigation:** Engineered a 3-attempt automated rebase loop (`git fetch origin main` + `git rebase origin/main` + `git push origin main`) to guarantee zero-downtime log persistence.
+
+---
+
 ## 3. Failure Mode & Effects Analysis (FMEA) for Production
 
 The following matrix assesses potential future failure modes, their severity, likelihood, and preventive mechanisms:
