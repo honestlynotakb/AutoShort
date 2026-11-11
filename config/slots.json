@@ -1,0 +1,181 @@
+{
+  "slots": {
+    "1": {
+      "slot_id": 1,
+      "name": "Geography & Flag Knowledge",
+      "time_pkt": "08:00 AM",
+      "cron_utc": "0 3 * * *",
+      "target_hour_utc": 3,
+      "style": "paper-atlas",
+      "category_id": "27",
+      "prompt_theme": "Bizarre flag designs, missing colors (like why no flag uses purple), border oddities, cartography anomalies, countries inside countries, and geopolitical curiosities.",
+      "tags": ["geography", "flags", "geopolitics", "countries", "maps", "trivia", "shorts"],
+      "fallbacks": [
+        {
+          "topic": "Why no national flag in the world uses the color purple",
+          "style": "paper-atlas",
+          "title": "Why No Flag Uses Purple #shorts",
+          "sources": ["Flags of the World (FOTW)", "Smithsonian Magazine, 'The History of Tyrian Purple Dye'"],
+          "lines": [
+            {"text": "Have you ever noticed that almost no national flag in the world uses the color purple?", "caps": "Why *no flag | in the *world | uses *purple?"},
+            {"text": "It isn't because world leaders hated the color.", "caps": "It wasn't because | leaders *hated it"},
+            {"text": "Until the mid-nineteenth century, purple dye was made exclusively from the slime of thousands of sea snails.", "caps": "Purple came from | *sea snail slime"},
+            {"text": "It took ten thousand snails to produce just a single gram of purple dye,", "caps": "10,000 *snails | for *one gram | of dye"},
+            {"text": "making it literally worth more than its weight in pure gold.", "caps": "Worth *more | than its *weight | in *gold"},
+            {"text": "Only royalty could afford purple clothes, and no country could afford a purple flag.", "caps": "No *country | could afford | a *purple flag"},
+            {"text": "Today, synthetic dye is cheap, but flags kept their traditional colors.", "caps": "Synthetic dye | is *cheap today"},
+            {"text": "So next time you look at a world map, see if you can spot...", "caps": "See if you can *spot | any *purple", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The only national flag with a modern assault rifle on it",
+          "style": "paper-atlas",
+          "title": "The Only Flag With An Assault Rifle #shorts",
+          "sources": ["Encyclopedia Britannica, 'Flag of Mozambique'", "Vexillology Association of Southern Africa"],
+          "lines": [
+            {"text": "Did you know there is only one country with a modern assault rifle on its flag?", "caps": "Only *one flag | with an *assault rifle"},
+            {"text": "The national flag of Mozambique features an AK-47 crossed with a farm hoe.", "caps": "Mozambique has an | *AK-47 | and a *hoe"},
+            {"text": "The rifle represents defense and the bloody struggle for national independence in 1975.", "caps": "Rifle represents | national *defense"},
+            {"text": "The hoe represents the country's hardworking agriculture.", "caps": "The hoe stands for | *agriculture"},
+            {"text": "They sit over an open book, symbolizing the vital importance of education.", "caps": "Over a *book | for *education"},
+            {"text": "Several political debates have tried to remove the weapon from the flag,", "caps": "Debates tried to | *remove the rifle"},
+            {"text": "but citizens voted to keep it as a reminder of their hard-fought freedom.", "caps": "Citizens voted | to *keep it"},
+            {"text": "So when you study world flags, remember the story behind...", "caps": "Remember the *story | of *Mozambique", "gap": 0.25}
+          ]
+        }
+      ]
+    },
+    "2": {
+      "slot_id": 2,
+      "name": "Space & Cosmic What-Ifs",
+      "time_pkt": "12:00 PM",
+      "cron_utc": "0 7 * * *",
+      "target_hour_utc": 7,
+      "style": "deep-dive",
+      "category_id": "28",
+      "prompt_theme": "Planetary catastrophes, rogue planets, black holes, neutron stars, asteroid impacts, time dilation, and space exploration what-ifs.",
+      "tags": ["space", "astronomy", "universe", "whatif", "nasa", "physics", "shorts"],
+      "fallbacks": [
+        {
+          "topic": "What happens if you fall into a black hole?",
+          "style": "deep-dive",
+          "title": "What Happens If You Fall In A Black Hole? #shorts",
+          "sources": ["NASA Goddard, 'Black Holes: Gravitational Tidal Forces & Spaghettification'", "Astrophysical Journal, 'Event Horizon Crossing and Time Dilation'"],
+          "lines": [
+            {"text": "What actually happens if you fall into a black hole?", "caps": "What *happens | if you *fall | in a *black hole?"},
+            {"text": "As you get closer, extreme gravity pulls much harder on your feet than your head.", "caps": "Gravity *pulls | harder on *feet | than your *head"},
+            {"text": "This stretches your entire body into a thin strand, in a process physicists call spaghettification.", "caps": "Stretching your *body | into a *strand | *spaghettification"},
+            {"text": "To an observer watching you from outside, time slows down completely.", "caps": "From the *outside | time slows *down | completely"},
+            {"text": "They would see you freeze at the edge of the event horizon, slowly fading away.", "caps": "You *freeze | at the *edge | slowly *fading"},
+            {"text": "From your own view, you cross the horizon in mere seconds.", "caps": "From your *eyes | you cross the *edge | in *seconds"},
+            {"text": "Inside, space and time swap roles, and all paths lead inevitably to the singularity.", "caps": "All *paths | lead to the *singularity"},
+            {"text": "So if you ever drift through deep space, keep your distance, before you experience...", "caps": "Keep your *distance | before you *experience", "gap": 0.25}
+          ]
+        }
+      ]
+    },
+    "3": {
+      "slot_id": 3,
+      "name": "Survival & Extreme Scenarios",
+      "time_pkt": "04:00 PM",
+      "cron_utc": "0 11 * * *",
+      "target_hour_utc": 11,
+      "style": "deep-dive",
+      "category_id": "26",
+      "prompt_theme": "Practical survival science, escaping dangerous physical situations, physiological survival reflexes, surviving quicksand, cold water shock, elevator drops.",
+      "tags": ["survival", "howtosurvive", "whatif", "lifesaving", "emergency", "shorts"],
+      "fallbacks": [
+        {
+          "topic": "What happens if you fall into deep quicksand?",
+          "style": "deep-dive",
+          "title": "What To Do If Trapped In Quicksand #shorts",
+          "sources": ["Nature Magazine, 'Rheology of quicksand'", "Wilderness Medical Society, 'Non-Newtonian Fluid Entrapment'"],
+          "lines": [
+            {"text": "What should you actually do if you start sinking into deep quicksand?", "caps": "What to *do | if you sink | into *quicksand?"},
+            {"text": "First, Hollywood lied: you cannot sink completely underwater in quicksand.", "caps": "Hollywood *lied | you cannot | sink *completely"},
+            {"text": "Humans have a lower density than quicksand, so you will naturally float at waist level.", "caps": "Humans *float | at waist level | in *sand"},
+            {"text": "The real danger is panicking and thrashing your legs.", "caps": "The real *danger | is panicking | and *thrashing"},
+            {"text": "Quicksand is a non-Newtonian fluid: violent movements pack the sand grains tightly around your legs.", "caps": "Thrashing packs | sand *tightly | like *concrete"},
+            {"text": "To escape, lean back slowly onto your back to spread your weight across the surface.", "caps": "Lean back *slowly | spread your *weight"},
+            {"text": "Gently paddle with your hands as if swimming on your back to free your legs.", "caps": "Gently *paddle | back to *safety"},
+            {"text": "So if the ground beneath you liquefies, remember to stay calm before...", "caps": "Stay *calm | before you *sink", "gap": 0.25}
+          ]
+        }
+      ]
+    },
+    "4": {
+      "slot_id": 4,
+      "name": "Mind-Blowing Science & Physics",
+      "time_pkt": "07:30 PM",
+      "cron_utc": "30 14 * * *",
+      "target_hour_utc": 14,
+      "style": "deep-dive",
+      "category_id": "28",
+      "prompt_theme": "Surprising physics facts, strange chemistry, quantum weirdness, optical illusions, extreme physical laws, materials with impossible properties.",
+      "tags": ["science", "physics", "experiments", "curiosity", "mindblown", "shorts"],
+      "fallbacks": [
+        {
+          "topic": "Why glass is actually neither a standard solid nor a liquid",
+          "style": "deep-dive",
+          "title": "Why Glass Is Not A Normal Solid #shorts",
+          "sources": ["American Ceramic Society, 'The Atomic Structure of Amorphous Solids'", "Scientific American, 'Is Glass Liquid or Solid?'"],
+          "lines": [
+            {"text": "Why do physicists say that glass is not actually a normal solid?", "caps": "Why glass is *not | a normal *solid"},
+            {"text": "In a true solid like ice or metal, atoms lock into neat, rigid crystal grids.", "caps": "Normal solids lock | into *crystal grids"},
+            {"text": "In a liquid, atoms move and tumble around freely.", "caps": "In liquids | atoms *tumble | freely"},
+            {"text": "When molten glass cools, it cools so quickly that atoms freeze in place before forming a crystal.", "caps": "Glass freezes | before forming | *crystals"},
+            {"text": "Its atoms are completely scrambled and disordered, exactly like a liquid frozen in time.", "caps": "Disordered like a | *liquid | frozen in *time"},
+            {"text": "Scientists call this bizarre state an amorphous solid.", "caps": "Called an | *amorphous solid"},
+            {"text": "It has the stiffness of a solid, but the atomic chaos of a liquid.", "caps": "Stiff as a *solid | messy as a *liquid"},
+            {"text": "So next time you look through a window, you are looking at...", "caps": "Looking at *frozen | liquid *chaos", "gap": 0.25}
+          ]
+        }
+      ]
+    },
+    "5": {
+      "slot_id": 5,
+      "name": "Historic Torture Techniques",
+      "time_pkt": "10:00 PM",
+      "cron_utc": "0 17 * * *",
+      "target_hour_utc": 17,
+      "style": "deep-dive",
+      "category_id": "27",
+      "prompt_theme": "Historical medieval and ancient punishment devices, mechanical engineering, legal history, psychological origins, anatomical stress mechanics. Focus on historical context, physics, and acoustic/mechanical design from an educational documentary standpoint. Strictly adhere to YouTube advertiser-friendly guidelines with zero graphic gore.",
+      "tags": ["history", "medieval", "ancienthistory", "weirdhistory", "mechanics", "shorts"],
+      "fallbacks": [
+        {
+          "topic": "The acoustic engineering behind the ancient Greek Brazen Bull",
+          "style": "deep-dive",
+          "title": "The Dark Physics Of The Brazen Bull #shorts",
+          "sources": ["Diodorus Siculus, 'Bibliotheca Historica' (Book IX)", "Cambridge Classical Journal, 'Perillos of Athens and the Sicilian Tyranny'"],
+          "lines": [
+            {"text": "How did ancient Greek engineers design the terrifying Brazen Bull?", "caps": "How was the *Brazen Bull | actually *engineered?"},
+            {"text": "Cast entirely from hollow bronze in sixth-century BC Sicily,", "caps": "Cast from *bronze | in ancient *Sicily"},
+            {"text": "the device contained an intricate acoustic pipe system inside the nostrils.", "caps": "An acoustic *pipe system | in the *nose"},
+            {"text": "When a fire was stoked beneath the belly, superheated bronze transferred heat directly inward by conduction.", "caps": "Superheated *bronze | transferred extreme *heat"},
+            {"text": "As the victim inside screamed for air, the sound waves were forced through tuned brass tubes.", "caps": "Screams forced | through *brass tubes"},
+            {"text": "This modulated the human voice so it sounded from the outside like the bellowing of an enraged bull.", "caps": "Sounding like the | roar of a *bull"},
+            {"text": "Legend says the tyrant Phalaris was so disgusted by the invention that he tested it on the maker himself.", "caps": "Tested on the | *inventor himself"},
+            {"text": "A terrifying reminder of ancient mechanical ingenuity, before you discover...", "caps": "Ancient *engineering | at its *darkest", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Why the guillotine was originally invented as a humane medical machine",
+          "style": "deep-dive",
+          "title": "Why The Guillotine Was Called Humane #shorts",
+          "sources": ["Dr. Joseph-Ignace Guillotin medical address (1789)", "Archives Nationales de France, 'Reforme des peines criminelles'"],
+          "lines": [
+            {"text": "Why was the French guillotine originally considered a humane medical breakthrough?", "caps": "Why the *guillotine | was called *humane"},
+            {"text": "Before 1789, French executions were brutal, slow, and depended on the executioner's manual aim.", "caps": "Before 1789 | executions were *brutal | and *slow"},
+            {"text": "Dr. Joseph-Ignace Guillotin, a respected physician, proposed a mechanical solution.", "caps": "A *doctor proposed | a machine *instead"},
+            {"text": "He designed an angled steel blade falling from twelve feet along greased vertical grooves.", "caps": "An angled *blade | dropping from *12 feet"},
+            {"text": "The oblique angle sliced through tissue in less than one fiftieth of a second,", "caps": "Cutting in 1/50th | of a *second"},
+            {"text": "eliminating botched blows and ensuring instant, painless cessation of brain function.", "caps": "Ensuring *instant | painless *stop"},
+            {"text": "What was meant as an egalitarian reform ironically became the symbol of the Reign of Terror.", "caps": "Became the *symbol | of the *Terror"},
+            {"text": "A dark medical paradox from eighteenth-century history, before you learn...", "caps": "A dark *twist | of *history", "gap": 0.25}
+          ]
+        }
+      ]
+    }
+  }
+}

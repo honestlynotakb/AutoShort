@@ -2,12 +2,33 @@ name: Autonomous Daily YouTube Shorts
 
 on:
   schedule:
-    # 8:00 AM Pakistan Time (PKT, UTC+5) is 03:00 UTC
+    # 5 Daily Runs in Pakistan Time (PKT, UTC+5):
+    # Slot 1: 08:00 AM PKT (03:00 UTC) - Geography & Flag Knowledge
     - cron: '0 3 * * *'
-    # 8:10 PM Pakistan Time (PKT, UTC+5) is 15:10 UTC
-    - cron: '10 15 * * *'
-  # Allows triggering the workflow manually from GitHub Actions tab
+    # Slot 2: 12:00 PM PKT (07:00 UTC) - Space & Cosmic What-Ifs
+    - cron: '0 7 * * *'
+    # Slot 3: 04:00 PM PKT (11:00 UTC) - Survival & Extreme Scenarios
+    - cron: '0 11 * * *'
+    # Slot 4: 07:30 PM PKT (14:30 UTC) - Mind-Blowing Science & Physics
+    - cron: '30 14 * * *'
+    # Slot 5: 10:00 PM PKT (17:00 UTC) - Historic Torture Techniques & Bizarre History
+    - cron: '0 17 * * *'
+
+  # Allows triggering manually anytime from GitHub Actions tab
   workflow_dispatch:
+    inputs:
+      slot:
+        description: 'Select Slot / Genre to Run'
+        required: false
+        default: 'auto'
+        type: choice
+        options:
+          - 'auto'
+          - '1 - Geography & Flags (8:00 AM)'
+          - '2 - Space & Cosmic (12:00 PM)'
+          - '3 - Survival Scenarios (4:00 PM)'
+          - '4 - Mind-Blowing Science (7:30 PM)'
+          - '5 - Historic Torture (10:00 PM)'
 
 permissions:
   contents: write
@@ -69,7 +90,7 @@ jobs:
           CHROME: /usr/bin/google-chrome
           SOFTWARE_GL: "1"
         run: |
-          python cloud/cloud_runner.py
+          python cloud/cloud_runner.py --slot "${{ inputs.slot || 'auto' }}"
 
       - name: Upload Video Artifact (Backup)
         uses: actions/upload-artifact@v4
@@ -89,5 +110,5 @@ jobs:
             echo "No new publications to commit."
           else
             git commit -m "chore: record published short [skip ci]"
-            git push
+            git push origin main
           fi

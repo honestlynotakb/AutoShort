@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 """Master Autonomous Cloud Runner for GitHub Actions.
-Executes the full pipeline without any human intervention:
-1. Topic Discovery (Gemini API or curated viral queue)
-2. Style Selection & Project Scaffolding
-3. Script Writing (Calm collected tone, 0.88x speed, Whisper sync)
-4. Adaptive Three.js Shots generation (zero missing word errors)
-5. Three.js Video Rendering (Headless Chrome + Software GL)
-6. YouTube Upload (YouTube Data API v3)
-7. Appending to _published.md
+Supports 5-Times-Daily Scheduled Slots:
+  Slot 1 (08:00 AM PKT / 03:00 UTC): Geography & Flag Knowledge
+  Slot 2 (12:00 PM PKT / 07:00 UTC): Space & Cosmic What-Ifs
+  Slot 3 (04:00 PM PKT / 11:00 UTC): Survival & Extreme Scenarios
+  Slot 4 (07:30 PM PKT / 14:30 UTC): Mind-Blowing Science & Physics
+  Slot 5 (10:00 PM PKT / 17:00 UTC): Historic Torture Techniques & Bizarre History
 """
 import os
 import re
@@ -15,82 +13,34 @@ import sys
 import json
 import time
 import shutil
+import argparse
 import urllib.request
 import subprocess
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLISHED_FILE = ROOT / '_published.md'
 SKILL_DIR = ROOT / 'faceless-shorts'
 PROJECTS_DIR = ROOT / 'projects'
+SLOTS_FILE = ROOT / 'config' / 'slots.json'
 
-CURATED_TOPICS = [
-    {
-        "topic": "What happens if you fall into a black hole?",
-        "style": "deep-dive",
-        "title": "What Happens If You Fall In A Black Hole? #shorts",
-        "sources": ["NASA Goddard, 'Black Holes: Gravitational Tidal Forces & Spaghettification'", "Astrophysical Journal, 'Event Horizon Crossing and Time Dilation'"],
-        "lines": [
-            {"text": "What actually happens if you fall into a black hole?", "caps": "What *happens | if you *fall | in a *black hole?"},
-            {"text": "As you get closer, extreme gravity pulls much harder on your feet than your head.", "caps": "Gravity *pulls | harder on *feet | than your *head"},
-            {"text": "This stretches your entire body into a thin strand, in a process physicists call spaghettification.", "caps": "Stretching your *body | into a *strand | *spaghettification"},
-            {"text": "To an observer watching you from outside, time slows down completely.", "caps": "From the *outside | time slows *down | completely"},
-            {"text": "They would see you freeze at the edge of the event horizon, slowly fading away.", "caps": "You *freeze | at the *edge | slowly *fading"},
-            {"text": "From your own view, you cross the horizon in mere seconds.", "caps": "From your *eyes | you cross the *edge | in *seconds"},
-            {"text": "Inside, space and time swap roles, and all paths lead inevitably to the singularity.", "caps": "All *paths | lead to the *singularity"},
-            {"text": "So if you ever drift through deep space, keep your distance, before you experience...", "caps": "Keep your *distance | before you *experience", "gap": 0.25}
-        ]
-    },
-    {
-        "topic": "What happens if you get rabies?",
-        "style": "deep-dive",
-        "title": "What Actually Happens If You Get Rabies? #shorts",
-        "sources": ["CDC, 'Rabies Virus Pathogenesis and Central Nervous System Infection'", "World Health Organization (WHO), 'Rabies Fact Sheet and Hydrophobia Clinical Data'"],
-        "lines": [
-            {"text": "What actually happens if an infected animal bites you?", "caps": "What *happens | if an infected *animal | *bites you?"},
-            {"text": "The rabies virus enters your muscle tissue and travels silently up your nervous system.", "caps": "Virus travels *silently | up your *nerves"},
-            {"text": "It can creep through your body for weeks or months without causing a single symptom.", "caps": "Creeping for *months | without any *symptoms"},
-            {"text": "But the moment it reaches your brain, the survival rate drops to virtually zero.", "caps": "Once in your *brain | survival drops to *zero"},
-            {"text": "It triggers intense brain inflammation, confusion, and terrifying spasms whenever you swallow.", "caps": "Severe *spasms | whenever you *swallow"},
-            {"text": "This creates severe hydrophobia: a desperate fear of water.", "caps": "Creating intense | fear of *water"},
-            {"text": "Fortunately, a prompt vaccine right after the bite stops the virus completely.", "caps": "A quick *vaccine | stops it *completely"},
-            {"text": "So never delay a bite checkup, before you find out...", "caps": "Get *checked | before you *discover", "gap": 0.25}
-        ]
-    },
-    {
-        "topic": "What happens if you don't sleep for 11 days?",
-        "style": "deep-dive",
-        "title": "What Happens If You Stay Awake For 11 Days? #shorts",
-        "sources": ["National Sleep Foundation, 'Randy Gardner Sleep Deprivation Record & Neurological Changes'", "Harvard Medical School, 'The Cumulative Effects of Total Sleep Loss'"],
-        "lines": [
-            {"text": "What actually happens if you refuse to sleep for 11 straight days?", "caps": "What *happens | if you don't *sleep | for *11 days?"},
-            {"text": "After twenty-four hours, your reaction time slows as much as being legally drunk.", "caps": "After 24 *hours | brain acts legally *drunk"},
-            {"text": "By day three, your brain starts suffering microsleeps, shutting off for seconds without your permission.", "caps": "By day *three | brain forces *microsleeps"},
-            {"text": "By day five, vivid hallucinations begin, and your immune system drops drastically.", "caps": "Day *five | vivid *hallucinations | *begin"},
-            {"text": "Toxic protein waste accumulates in brain cells because the brain only cleans itself during deep sleep.", "caps": "Toxic *waste | builds up in *brain cells"},
-            {"text": "By day eleven, paranoia sets in and cognitive function collapses.", "caps": "Day *eleven | mental function *collapses"},
-            {"text": "Surprisingly, a couple of long nights of sleep allows the brain to recover.", "caps": "Deep *rest | allows brain to *recover"},
-            {"text": "So make sure you get to bed tonight, before you test...", "caps": "Get to *bed | before you *test", "gap": 0.25}
-        ]
-    },
-    {
-        "topic": "What happens if you drink ocean water?",
-        "style": "deep-dive",
-        "title": "Why You Should Never Drink Ocean Water #shorts",
-        "sources": ["NOAA Ocean Service, 'Can Humans Drink Seawater?'", "Kidney International, 'Osmotic Dehydration and Renal Salt Excretion'"],
-        "lines": [
-            {"text": "Why should you never drink ocean water when stranded at sea?", "caps": "Why *never | drink ocean *water | at *sea?"},
-            {"text": "Seawater has about four times more salt than your blood.", "caps": "Seawater has *4x | more *salt | than your *blood"},
-            {"text": "When you drink it, salt floods your bloodstream and draws water directly out of your cells by osmosis.", "caps": "Salt draws *water | right out of *cells"},
-            {"text": "Your cells shrink and shrivel, leaving you far more dehydrated than before.", "caps": "Your cells *shrink | leaving you more *dehydrated"},
-            {"text": "To flush the extra salt out, your kidneys must produce more urine than the water you swallowed.", "caps": "Kidneys must *flush | more liquid than you *drank"},
-            {"text": "This accelerates kidney failure and triggers rapid delirium.", "caps": "Leading to rapid | kidney *failure"},
-            {"text": "Which is why drinking seawater actually speeds up dying of thirst.", "caps": "It speeds up *thirst | instead of *quenching it"},
-            {"text": "So always collect rainwater instead, before you discover...", "caps": "Collect *rainwater | before you *discover", "gap": 0.25}
-        ]
-    }
-]
+def load_slots_config():
+    if not SLOTS_FILE.exists():
+        raise FileNotFoundError(f"Missing config file: {SLOTS_FILE}")
+    return json.loads(SLOTS_FILE.read_text(encoding='utf-8'))['slots']
+
+def detect_current_slot(slots_cfg):
+    """Detects the current slot based on UTC hour (3, 7, 11, 14, 17)."""
+    utc_hour = datetime.now(timezone.utc).hour
+    best_slot = "1"
+    min_diff = 99
+    for slot_id, info in slots_cfg.items():
+        diff = abs(utc_hour - info.get('target_hour_utc', 0))
+        if diff < min_diff:
+            min_diff = diff
+            best_slot = slot_id
+    return best_slot
 
 def get_published_topics():
     if not PUBLISHED_FILE.exists():
@@ -106,17 +56,32 @@ def get_published_topics():
                     topics.add(parts[4].lower())
     return topics
 
-def generate_with_gemini(api_key, published_topics):
-    prompt = f"""You are an expert producer of viral YouTube Shorts in the style of Zack D. Films / Deep Dive 3D.
-Previously published topics: {list(published_topics)}
+def generate_with_gemini(api_key, published_topics, slot_info):
+    prompt_theme = slot_info['prompt_theme']
+    genre_name = slot_info['name']
+    style = slot_info.get('style', 'deep-dive')
 
-Pick a completely fresh, unrepeated, viral curiosity topic in science, human body, space, survival, or weird history.
-Write an original, calm, collected script (~80-100 words, calm explanation pace).
+    prompt = f"""You are an expert producer of viral YouTube Shorts in the style of Zack D. Films / Deep Dive 3D.
+Your channel publishes calm, collected, high-curiosity educational explainers.
+
+Current Specialized Genre: {genre_name}
+Genre Focus & Constraints: {prompt_theme}
+Visual Animation Style: {style}
+Previously published topics to NEVER repeat: {list(published_topics)}
+
+Pick a completely fresh, unrepeated, viral curiosity topic strictly within this genre.
+Write an original script (~80-100 words, calm explanation pace, 0.88x speed).
+Structure:
+1. Hook question first line.
+2. Escalation & physical/historical mechanics.
+3. Surprising twist or lesser-known reality.
+4. Final line that loops back seamlessly to the start question.
+
 Format strictly as JSON with this schema:
 {{
   "topic": "Short topic description",
-  "style": "deep-dive",
-  "title": "Short title under 60 chars ending in #shorts",
+  "style": "{style}",
+  "title": "Curious Title Under 60 Chars Ending In #shorts",
   "sources": ["Source 1", "Source 2"],
   "lines": [
     {{ "text": "Hook question first line?", "caps": "Hook *question | first *line?" }},
@@ -147,7 +112,7 @@ Only return valid JSON."""
                 match = re.search(r'\{.*\}', raw_text, re.DOTALL)
                 if match:
                     res = json.loads(match.group(0))
-                    print(f"Successfully generated script using {model}!")
+                    print(f"Successfully generated {genre_name} script using {model}!")
                     return res
         except Exception as e:
             print(f"Gemini model {model} attempt failed: {e}")
@@ -155,37 +120,49 @@ Only return valid JSON."""
 
     raise ValueError("All Gemini model endpoints failed")
 
-def pick_next_topic(published_topics):
+def pick_topic_for_slot(slot_info, published_topics):
     api_key = os.environ.get('GEMINI_API_KEY')
     if api_key:
         try:
-            print("Querying Gemini API for a trending curiosity topic...")
-            return generate_with_gemini(api_key, published_topics)
+            print(f"Querying Gemini API for genre: {slot_info['name']}...")
+            return generate_with_gemini(api_key, published_topics, slot_info)
         except Exception as e:
-            print(f"Gemini API generation failed ({e}), falling back to curated curriculum...")
+            print(f"Gemini API generation failed ({e}), falling back to slot curriculum...")
 
-    for item in CURATED_TOPICS:
+    fallbacks = slot_info.get('fallbacks', [])
+    for item in fallbacks:
         if item['topic'].lower() not in published_topics and item['title'].lower() not in published_topics:
             return item
 
-    return CURATED_TOPICS[0]
+    if fallbacks:
+        return fallbacks[0]
+
+    # Generic emergency fallback
+    return {
+        "topic": f"Curiosity explainer in {slot_info['name']}",
+        "style": slot_info.get('style', 'deep-dive'),
+        "title": f"The Truth Behind {slot_info['name']} #shorts",
+        "sources": ["Scientific Literature & Historical Records"],
+        "lines": [
+            {"text": f"Have you ever wondered about the biggest mystery in {slot_info['name']}?", "caps": f"The *mystery | of *{slot_info['name'][:12]}"},
+            {"text": "Under the surface, physical laws and human history combine in unexpected ways.", "caps": "Physical *laws | in *unexpected ways"},
+            {"text": "Scientists and historians have spent decades unraveling this exact paradox.", "caps": "Decades of *research | on this *paradox"},
+            {"text": "So remember to look closer next time before you explore...", "caps": "Look *closer | before you *explore", "gap": 0.25}
+        ]
+    }
 
 def slugify(text):
     return re.sub(r'[^a-z0-9]+', '-', text.lower()).strip('-')[:35]
 
-def write_adaptive_shots(proj_dir, title, lines):
-    """Generates a dynamic Three.js shots.js that perfectly maps to any number of lines without word-lookup errors."""
+def write_adaptive_shots(proj_dir, title, lines, style):
     shots_js_path = proj_dir / 'src' / 'shots.js'
-
     num_lines = len(lines)
-    shot_blocks = []
-    
     clean_title = title.replace('#shorts', '').strip()
-    
+    shot_blocks = []
+
     for i in range(num_lines):
         shot_id = f"S{i+1:02d}"
         if i == 0:
-            # Hook shot
             block = f"""
   {{ const st = cut({i});
     add({{ id: '{shot_id}', at: st, note: 'Hook: Hero pushes in with curiosity', draw(lt, d, t, blit) {{
@@ -196,11 +173,10 @@ def write_adaptive_shots(proj_dir, title, lines):
       cam.lookAt(FACE);
       kitchenRender(cam.position.distanceTo(FACE));
       blit();
-      pill('{clean_title.upper()[:24]}', 540, 340, eob(seg(lt, 0.15, 0.45)), '#FFD43B');
+      pill('{clean_title.upper()[:22]}', 540, 340, eob(seg(lt, 0.15, 0.45)), '#FFD43B');
     }} }});
     cue(st, 'whoosh'); cue(st + 0.2, 'pop', {{ gain: 0.6 }}); }}"""
         elif i == num_lines - 1:
-            # Outro shot
             block = f"""
   {{ const st = cut({i});
     add({{ id: '{shot_id}', at: st, note: 'Outro: Hero looks at camera, warning sign', draw(lt, d, t, blit) {{
@@ -211,16 +187,15 @@ def write_adaptive_shots(proj_dir, title, lines):
       kitchenRender(cam.position.distanceTo(FACE));
       blit();
       warning(540, 1150, eob(seg(lt, 0.25, 0.55)) * 0.95);
-      pill('WHAT HAPPENS NEXT?', 540, 340, eob(seg(lt, 0.2, 0.45)), '#FFD43B');
+      pill('DID YOU KNOW THIS?', 540, 340, eob(seg(lt, 0.2, 0.45)), '#FFD43B');
     }} }});
     cue(st, 'whoosh'); cue(st + 0.25, 'slam', {{ gain: 0.7 }}); }}"""
         else:
             mode = i % 4
             if mode == 1:
-                # X-ray lungs / chest shot
                 block = f"""
   {{ const st = cut({i});
-    add({{ id: '{shot_id}', at: st, note: 'X-ray: Body anatomy & internal effect', draw(lt, d, t, blit) {{
+    add({{ id: '{shot_id}', at: st, note: 'X-ray inspection view', draw(lt, d, t, blit) {{
       reset();
       lungs(1 + Math.sin(lt * 3) * 0.05);
       chest(xh, 1);
@@ -229,27 +204,25 @@ def write_adaptive_shots(proj_dir, title, lines):
       cam.lookAt(0, 1.33, 0);
       E.render(X.scene, cam, {{ ...XLOOK, focus: cam.position.distanceTo(V3(0, 1.33, 0)) }});
       blit();
-      pill('INTERNAL EFFECT', 540, 340, eob(seg(lt, 0.2, 0.45)), '#4FD1E8');
+      pill('KEY EVIDENCE', 540, 340, eob(seg(lt, 0.2, 0.45)), '#4FD1E8');
     }} }});
     cue(st, 'whoosh'); cue(st + 0.15, 'thud', {{ gain: 0.45 }}); }}"""
             elif mode == 2:
-                # Macro vessel shot
                 block = f"""
   {{ const st = cut({i});
-    add({{ id: '{shot_id}', at: st, note: 'Macro: Cellular / vessel stream', draw(lt, d, t, blit) {{
+    add({{ id: '{shot_id}', at: st, note: 'Macro detail view', draw(lt, d, t, blit) {{
       VS.update(t, -lt * 1.6, 0, 0);
       cam.position.set(0, 0, -lt * 1.6);
       cam.lookAt(0.15, -0.08, -lt * 1.6 - 5);
       E.render(VS.scene, cam, VLOOK);
       blit();
-      pill('MICROSCOPIC VIEW', 540, 340, eob(seg(lt, 0.15, 0.4)), '#7CF29A');
+      pill('DETAILED REALITY', 540, 340, eob(seg(lt, 0.15, 0.4)), '#7CF29A');
     }} }});
     cue(st, 'whoosh'); cue(st + 0.2, 'pop', {{ gain: 0.5 }}); }}"""
             elif mode == 3:
-                # X-ray Heart close-up
                 block = f"""
   {{ const st = cut({i});
-    add({{ id: '{shot_id}', at: st, note: 'X-ray: Heart rhythm pulse', draw(lt, d, t, blit) {{
+    add({{ id: '{shot_id}', at: st, note: 'Dynamic tension view', draw(lt, d, t, blit) {{
       reset();
       const p = 0.5 + 0.5 * Math.sin(lt * 8);
       I.heart.scale.setScalar(1 + p * 0.15);
@@ -259,14 +232,13 @@ def write_adaptive_shots(proj_dir, title, lines):
       cam.lookAt(H0);
       E.render(X.scene, cam, {{ ...XLOOK, bloom: 0.6, focus: cam.position.distanceTo(H0) }});
       blit();
-      pill('CRITICAL RESPONSE', 540, 340, eob(seg(lt, 0.2, 0.45)), '#FF8A8A');
+      pill('CRITICAL POINT', 540, 340, eob(seg(lt, 0.2, 0.45)), '#FF8A8A');
     }} }});
     cue(st, 'whoosh'); cue(st + 0.2, 'heartbeat'); }}"""
             else:
-                # Hero medium orbit
                 block = f"""
   {{ const st = cut({i});
-    add({{ id: '{shot_id}', at: st, note: 'Medium shot: Hero reaction', draw(lt, d, t, blit) {{
+    add({{ id: '{shot_id}', at: st, note: 'Medium shot reaction', draw(lt, d, t, blit) {{
       reset();
       hero.pose({{ head: [2, -6 + Math.sin(lt * 2) * 3, 0], lid: -0.15, look: [6, 0] }});
       const a = lerp(0.55, 0.2, eio(lt / d));
@@ -274,12 +246,12 @@ def write_adaptive_shots(proj_dir, title, lines):
       cam.lookAt(0.1, 1.25, -0.6);
       kitchenRender(2.1);
       blit();
-      pill('SURPRISING REALITY', 540, 340, eob(seg(lt, 0.2, 0.45)), '#C9D6DD');
+      pill('SURPRISING TWIST', 540, 340, eob(seg(lt, 0.2, 0.45)), '#C9D6DD');
     }} }});
     cue(st, 'whoosh'); cue(st + 0.2, 'pop', {{ gain: 0.5 }}); }}"""
         shot_blocks.append(block)
 
-    shots_content = f"""// Auto-generated adaptive shots for: {title}
+    shots_content = f"""// Adaptive shots for: {title}
 import * as THREE from 'three';
 import {{ ctx, W, H, clamp, lerp, seg, eo, eio, eob }} from './core/lib.js';
 import {{ L, Wd, T }} from './core/timing.js';
@@ -314,7 +286,7 @@ export function buildShots(E) {{
 }}
 """
     shots_js_path.write_text(shots_content, encoding='utf-8')
-    print(f"Generated adaptive shots.js with {num_lines} dynamic shots.")
+    print(f"Generated adaptive shots.js ({num_lines} shots).")
 
 def run_cmd(cmd, cwd=None, env=None):
     print(f"\n[RUN] {cmd}")
@@ -327,24 +299,57 @@ def run_cmd(cmd, cwd=None, env=None):
     return res.stdout
 
 def main():
+    parser = argparse.ArgumentParser(description="Autonomous Cloud Runner for YouTube Shorts")
+    parser.add_argument('--slot', default="auto", help="Slot ID (1-5 or auto)")
+    parser.add_argument('--dry-run', action='store_true', help="Resolve slot and script without rendering/uploading")
+    args = parser.parse_args()
+
     print("=" * 60)
-    print(" AUTONOMOUS CLOUD SHORT GENERATOR & PUBLISHER")
+    print(" 5-TIMES-DAILY AUTONOMOUS SHORTS PIPELINE")
     print("=" * 60)
+
+    slots_cfg = load_slots_config()
+    
+    # Parse slot argument
+    slot_choice = args.slot
+    if not slot_choice or slot_choice.startswith('auto'):
+        slot_id = detect_current_slot(slots_cfg)
+        print(f"Auto-detected Slot: {slot_id} based on current UTC time.")
+    else:
+        # Support formats like '1', '1 - Geography & Flags'
+        m = re.match(r'(\d+)', slot_choice)
+        slot_id = m.group(1) if m else "1"
+
+    slot_info = slots_cfg.get(slot_id, slots_cfg["1"])
+    print(f"Slot {slot_id}: {slot_info['name']} (Scheduled: {slot_info['time_pkt']} PKT)")
 
     published = get_published_topics()
     print(f"Found {len(published)} previously published topics.")
 
-    item = pick_next_topic(published)
+    item = pick_topic_for_slot(slot_info, published)
     topic = item['topic']
-    style = item.get('style', 'deep-dive')
+    style = item.get('style', slot_info.get('style', 'deep-dive'))
     title = item['title']
+    category_id = slot_info.get('category_id', '28')
+    tags = slot_info.get('tags', ["shorts", "facts", "curiosity"])
+
     slug = slugify(title.replace('#shorts', ''))
     proj_dir = PROJECTS_DIR / slug
 
-    print(f"\nSelected Topic: {topic}")
+    print(f"\nTopic: {topic}")
+    print(f"Genre: {slot_info['name']}")
     print(f"Style: {style}")
     print(f"Title: {title}")
+    print(f"Category: {category_id}")
     print(f"Project Folder: {proj_dir}")
+
+    if args.dry_run:
+        print("\n[DRY-RUN] Script Preview:")
+        for idx, line in enumerate(item['lines']):
+            print(f"  Line {idx}: {line['text']}")
+        print(f"[DRY-RUN] Tags: {tags}")
+        print("\nDRY-RUN COMPLETE.")
+        return
 
     # Scaffold project
     src_example = SKILL_DIR / 'styles' / style / 'example'
@@ -365,15 +370,14 @@ def main():
         "outro": 1.0,
         "gap": 0.40,
         "music": "bed",
-        "sources": item.get('sources', ["Scientific Literature & Medical Records"]),
+        "sources": item.get('sources', ["Scientific Literature & Historical Records"]),
         "lines": item['lines']
     }
     (proj_dir / 'script.json').write_text(json.dumps(script_data, indent=2), encoding='utf-8')
 
-    # Generate adaptive shots.js matching the exact lines
-    write_adaptive_shots(proj_dir, title, item['lines'])
+    # Generate adaptive shots
+    write_adaptive_shots(proj_dir, title, item['lines'], style)
 
-    # Python executable (venv or system)
     py = sys.executable
     env = os.environ.copy()
     env['SOFTWARE_GL'] = '1'
@@ -406,18 +410,17 @@ def main():
     short_url = None
     try:
         from cloud.upload_youtube import upload_short
-        desc = f"{item['lines'][0]['text']}\n\n#shorts #science #whatif #curiosity"
-        tags = ["shorts", "science", "what if", "facts", style]
+        desc = f"{item['lines'][0]['text']}\n\n#shorts #{slot_info['name'].replace(' ', '')} #curiosity"
         _, short_url = upload_short(
             video_path=video_out,
             title=title,
             description=desc,
             tags=tags,
-            category_id="28",
+            category_id=category_id,
             privacy_status="public"
         )
     except Exception as e:
-        print(f"Direct YouTube upload failed or not configured: {e}")
+        print(f"Direct YouTube upload failed or pending: {e}")
         short_url = f"[Manual/Pending Upload] {video_out.name}"
 
     # 6. Update _published.md
@@ -427,8 +430,9 @@ def main():
         f.write(log_line)
 
     print("\n" + "=" * 60)
-    print(" RUN COMPLETE!")
+    print(" 5-DAILY RUN COMPLETE!")
     print(f" Published: {title}")
+    print(f" Genre: {slot_info['name']}")
     print(f" URL: {short_url}")
     print("=" * 60)
 
