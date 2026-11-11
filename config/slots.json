@@ -6,14 +6,14 @@
       "time_pkt": "08:00 AM",
       "cron_utc": "0 3 * * *",
       "target_hour_utc": 3,
-      "style": "paper-atlas",
+      "style": "deep-dive",
       "category_id": "27",
       "prompt_theme": "Bizarre flag designs, missing colors (like why no flag uses purple), border oddities, cartography anomalies, countries inside countries, and geopolitical curiosities.",
       "tags": ["geography", "flags", "geopolitics", "countries", "maps", "trivia", "shorts"],
       "fallbacks": [
         {
           "topic": "Why no national flag in the world uses the color purple",
-          "style": "paper-atlas",
+          "style": "deep-dive",
           "title": "Why No Flag Uses Purple #shorts",
           "sources": ["Flags of the World (FOTW)", "Smithsonian Magazine, 'The History of Tyrian Purple Dye'"],
           "lines": [
@@ -29,7 +29,7 @@
         },
         {
           "topic": "The only national flag with a modern assault rifle on it",
-          "style": "paper-atlas",
+          "style": "deep-dive",
           "title": "The Only Flag With An Assault Rifle #shorts",
           "sources": ["Encyclopedia Britannica, 'Flag of Mozambique'", "Vexillology Association of Southern Africa"],
           "lines": [

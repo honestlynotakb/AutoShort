@@ -92,31 +92,32 @@ Format strictly as JSON with this schema:
 }}
 Only return valid JSON."""
 
-    models = ["gemini-1.5-flash", "gemini-2.0-flash", "gemini-1.5-pro"]
+    models = ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-2.5-flash"]
     payload = json.dumps({"contents": [{"parts": [{"text": prompt}]}]}).encode('utf-8')
+    clean_key = api_key.strip()
 
     for model in models:
-        try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
-            req = urllib.request.Request(
-                url,
-                data=payload,
-                headers={
-                    "Content-Type": "application/json",
-                    "x-goog-api-key": api_key.strip()
-                }
-            )
-            with urllib.request.urlopen(req, timeout=30) as resp:
-                data = json.loads(resp.read().decode('utf-8'))
-                raw_text = data['candidates'][0]['content']['parts'][0]['text']
-                match = re.search(r'\{.*\}', raw_text, re.DOTALL)
-                if match:
-                    res = json.loads(match.group(0))
-                    print(f"Successfully generated {genre_name} script using {model}!")
-                    return res
-        except Exception as e:
-            print(f"Gemini model {model} attempt failed: {e}")
-            continue
+        for ver in ["v1beta", "v1"]:
+            try:
+                url = f"https://generativelanguage.googleapis.com/{ver}/models/{model}:generateContent?key={clean_key}"
+                req = urllib.request.Request(
+                    url,
+                    data=payload,
+                    headers={
+                        "Content-Type": "application/json",
+                        "x-goog-api-key": clean_key
+                    }
+                )
+                with urllib.request.urlopen(req, timeout=30) as resp:
+                    data = json.loads(resp.read().decode('utf-8'))
+                    raw_text = data['candidates'][0]['content']['parts'][0]['text']
+                    match = re.search(r'\{.*\}', raw_text, re.DOTALL)
+                    if match:
+                        res = json.loads(match.group(0))
+                        print(f"Successfully generated {genre_name} script using {model} ({ver})!")
+                        return res
+            except Exception as e:
+                continue
 
     raise ValueError("All Gemini model endpoints failed")
 
@@ -351,10 +352,8 @@ def main():
         print("\nDRY-RUN COMPLETE.")
         return
 
-    # Scaffold project
-    src_example = SKILL_DIR / 'styles' / style / 'example'
-    if not src_example.exists():
-        src_example = SKILL_DIR / 'styles' / 'deep-dive' / 'example'
+    # Scaffold project: standardize on deep-dive (3D Zack D. Films style with Three.js vendor bundle)
+    src_example = SKILL_DIR / 'styles' / 'deep-dive' / 'example'
 
     PROJECTS_DIR.mkdir(parents=True, exist_ok=True)
     if proj_dir.exists():
