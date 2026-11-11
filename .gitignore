@@ -20,3 +20,5 @@ __pycache__/
 .faceless-shorts/
 .agent/
 .agents/
+cloud/youtube_tokens.json
+*.json.token
