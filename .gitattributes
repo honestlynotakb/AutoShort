@@ -1,0 +1,27 @@
+# Enforce LF endings universally across all platforms to prevent git diff churn and rebase collisions
+* text=auto eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.py text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.sh text eol=lf
+*.txt text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+
+# Binary media formats
+*.mp4 binary
+*.wav binary
+*.onnx binary
+*.bin binary
+*.part binary
+*.zip binary
+*.otf binary
+*.ttf binary
+*.woff2 binary
+*.png binary
+*.jpg binary
+*.jpeg binary

@@ -1,5 +1,7 @@
 name: Autonomous Daily YouTube Shorts
 
+run-name: ${{ inputs.slot != '' && inputs.slot != 'auto' && format('Short: {0}', inputs.slot) || format('Autonomous Short ({0})', github.event_name) }}
+
 on:
   schedule:
     # 5 Daily Runs in Pakistan Time (PKT, UTC+5):
@@ -30,6 +32,17 @@ on:
           - '4 - Mind-Blowing Science (7:30 PM)'
           - '5 - Historic Torture (10:00 PM)'
 
+  # Run diagnostic audit suite on code changes to prevent pipeline regressions
+  push:
+    branches: [ main ]
+    paths:
+      - 'cloud/**'
+      - 'config/**'
+      - 'tests/**'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [ main ]
+
 permissions:
   contents: write
 
@@ -38,13 +51,44 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Job 1: Fast diagnostic verification (<15s)
+  test-pipeline-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Test Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r cloud/requirements.txt
+
+      - name: Run Pipeline Audit Test Suite
+        run: |
+          python -m unittest tests/test_audit_suite.py -v
+
+  # Job 2: Full video generation & publication (Only on schedule or manual dispatch)
   make-and-publish-short:
+    needs: test-pipeline-audit
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js 22
         uses: actions/setup-node@v4
@@ -62,6 +106,11 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg
 
+      - name: Verify Headless Chrome Presence
+        run: |
+          which google-chrome || which google-chrome-stable || which chromium || echo "Checking Chrome binary paths..."
+          google-chrome --version || google-chrome-stable --version || true
+
       - name: Cache AI Models (Kokoro & Whisper)
         id: cache-models
         uses: actions/cache@v4
@@ -77,13 +126,10 @@ jobs:
           pip install -r cloud/requirements.txt
 
       - name: Download Kokoro & Whisper Models (if not cached)
+        if: steps.cache-models.outputs.cache-hit != 'true'
         run: |
           python faceless-shorts/scripts/voice.py --download
           python -c "from faster_whisper import WhisperModel; WhisperModel('small.en', device='cpu', compute_type='int8')"
-
-      - name: Run Pre-Flight Pipeline Audit Test Suite
-        run: |
-          python -m unittest tests/test_audit_suite.py -v
 
       - name: Run Autonomous Short Generator & Publisher
         env:
@@ -100,9 +146,10 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: generated-shorts
+          name: generated-shorts-${{ inputs.slot || 'auto' }}-${{ github.run_id }}
           path: projects/**/renders/*.mp4
           retention-days: 30
+          if-no-files-found: ignore
 
       - name: Commit & Push Published Log
         run: |
@@ -113,6 +160,15 @@ jobs:
             echo "No new publications to commit."
           else
             git commit -m "chore: record published short [skip ci]"
-            git pull --rebase origin main || true
-            git push origin main
+            for attempt in 1 2 3; do
+              echo "Push attempt $attempt..."
+              git fetch origin main
+              git rebase origin/main || git rebase --abort
+              if git push origin main; then
+                echo "Successfully pushed published short log to main."
+                break
+              fi
+              echo "Push failed, retrying in 5 seconds..."
+              sleep 5
+            done
           fi

@@ -155,6 +155,69 @@ def pick_topic_for_slot(slot_info, published_topics):
 def slugify(text):
     return re.sub(r'[^a-z0-9]+', '-', text.lower()).strip('-')[:35]
 
+def sanitize_text_for_tts(text: str) -> str:
+    """Normalizes Unicode characters, replaces typographic marks, and strips emojis to protect Kokoro ONNX."""
+    if not text:
+        return ""
+    # Standardize smart quotes and dashes
+    text = text.replace('“', '"').replace('”', '"').replace('‘', "'").replace('’', "'")
+    text = text.replace('—', ' - ').replace('–', ' - ').replace('…', '...')
+    # Remove emojis and non-standard non-ASCII symbols that crash Kokoro phonemizer
+    text = re.sub(r'[^\x00-\x7F]+', ' ', text)
+    # Collapse multiple spaces
+    return re.sub(r'\s+', ' ', text).strip()
+
+def verify_youtube_auth():
+    """Fail-fast Stage 0: checks YouTube credentials and token refreshability before running CPU-heavy rendering."""
+    client_id = os.environ.get('YOUTUBE_CLIENT_ID')
+    client_secret = os.environ.get('YOUTUBE_CLIENT_SECRET')
+    refresh_token = os.environ.get('YOUTUBE_REFRESH_TOKEN')
+
+    if not all([client_id, client_secret, refresh_token]):
+        print("[Stage 0] YouTube credentials not fully configured in environment (YOUTUBE_CLIENT_ID/SECRET/REFRESH_TOKEN).")
+        print("[Stage 0] Video will render and be backed up to artifacts, but direct upload will be skipped.")
+        return False
+
+    try:
+        from cloud.upload_youtube import get_authenticated_service
+        get_authenticated_service()
+        print("[Stage 0] Pre-flight YouTube OAuth credentials verified & active.")
+        return True
+    except Exception as e:
+        print(f"[Stage 0 CRITICAL WARNING] YouTube OAuth pre-flight refresh failed: {e}")
+        print("Please check credentials or re-run get_youtube_token.py if token was revoked.")
+        return False
+
+def write_step_summary(title, slot_info, topic, style, video_name, short_url, stage_metrics, total_time):
+    summary_path = os.environ.get('GITHUB_STEP_SUMMARY')
+    if not summary_path:
+        return
+    try:
+        md = [
+            f"# 🎬 Autonomous YouTube Short Published",
+            f"",
+            f"| Metric | Details |",
+            f"|---|---|",
+            f"| **Title** | `{title}` |",
+            f"| **Slot / Genre** | **Slot {slot_info.get('slot_id', 1)}**: {slot_info['name']} |",
+            f"| **Topic** | {topic} |",
+            f"| **Style** | `{style}` |",
+            f"| **Video File** | `{video_name}` |",
+            f"| **YouTube Link** | {short_url} |",
+            f"| **Total Pipeline Time** | **{total_time:.2f}s** |",
+            f"",
+            f"### ⏱️ Execution Telemetry Breakdown",
+            f"| Stage | Duration |",
+            f"|---|---|",
+        ]
+        for stg, dur in stage_metrics.items():
+            md.append(f"| {stg} | {dur:.2f}s |")
+        md.append("")
+        with open(summary_path, 'a', encoding='utf-8') as f:
+            f.write('\n'.join(md) + '\n')
+    except Exception as e:
+        print(f"Failed to write GITHUB_STEP_SUMMARY: {e}")
+
 def write_adaptive_shots(proj_dir, title, lines, style):
     shots_js_path = proj_dir / 'src' / 'shots.js'
     num_lines = len(lines)
@@ -328,6 +391,10 @@ def main():
     print(f"Found {len(published)} previously published topics.")
 
     item = pick_topic_for_slot(slot_info, published)
+    # Sanitize lines to eliminate special Unicode/emojis that crash Kokoro ONNX TTS
+    for line in item['lines']:
+        line['text'] = sanitize_text_for_tts(line['text'])
+
     topic = item['topic']
     style = item.get('style', slot_info.get('style', 'deep-dive'))
     title = item['title']
@@ -382,6 +449,12 @@ def main():
     env['SOFTWARE_GL'] = '1'
     t_pipeline_start = time.time()
     stage_metrics = {}
+
+    # 0. Eager Pre-flight Auth Check (Fail-Fast before 15 min rendering)
+    print("\n--- [Stage 0/5] Pre-Flight YouTube Credential Check ---")
+    t0 = time.time()
+    auth_ok = verify_youtube_auth()
+    stage_metrics['Pre-Flight Auth Check'] = round(time.time() - t0, 2)
 
     # 1. Synthesize Voice
     print("\n--- [Stage 1/5] Synthesizing Calm Voiceover (Kokoro ONNX) ---")
@@ -450,6 +523,19 @@ def main():
         f.write(log_line)
 
     total_time = round(time.time() - t_pipeline_start, 2)
+
+    # 7. Write GitHub Step Summary
+    write_step_summary(
+        title=title,
+        slot_info=slot_info,
+        topic=topic,
+        style=style,
+        video_name=video_out.name,
+        short_url=short_url,
+        stage_metrics=stage_metrics,
+        total_time=total_time
+    )
+
     print("\n" + "=" * 60)
     print(" 5-DAILY AUTONOMOUS RUN COMPLETE!")
     print(f" Published: {title}")

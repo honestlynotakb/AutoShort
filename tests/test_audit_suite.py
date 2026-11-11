@@ -26,7 +26,9 @@ from cloud.cloud_runner import (
     get_published_topics,
     pick_topic_for_slot,
     write_adaptive_shots,
-    slugify
+    slugify,
+    sanitize_text_for_tts,
+    verify_youtube_auth
 )
 
 class TestPipelineAuditSuite(unittest.TestCase):
@@ -84,6 +86,13 @@ class TestPipelineAuditSuite(unittest.TestCase):
                     for line in fb['lines']:
                         self.assertIn('text', line)
                         self.assertIn('caps', line)
+
+    def test_tier1_gitattributes_hygiene(self):
+        """Assert .gitattributes exists and enforces LF line endings to protect git diffs."""
+        gitattributes = ROOT / '.gitattributes'
+        self.assertTrue(gitattributes.exists(), ".gitattributes file is missing from root")
+        content = gitattributes.read_text(encoding='utf-8')
+        self.assertIn("eol=lf", content, ".gitattributes must configure eol=lf")
 
     # =========================================================================
     # Tier 2: Slot Routing & Deterministic Deduplication
@@ -144,6 +153,18 @@ class TestPipelineAuditSuite(unittest.TestCase):
                 finally:
                     if env_backup:
                         os.environ['GEMINI_API_KEY'] = env_backup
+
+    def test_tier3_text_sanitization_for_tts(self):
+        """Verify text sanitization cleans smart quotes, em-dashes, and emojis to protect Kokoro ONNX."""
+        dirty_input = '“What happens if you fall into a black hole?” — asked the astronaut 🚀🔥'
+        clean = sanitize_text_for_tts(dirty_input)
+        self.assertNotIn('“', clean)
+        self.assertNotIn('”', clean)
+        self.assertNotIn('—', clean)
+        self.assertNotIn('🚀', clean)
+        self.assertNotIn('🔥', clean)
+        self.assertIn('"What happens if you fall into a black hole?"', clean)
+        self.assertIn('asked the astronaut', clean)
 
     # =========================================================================
     # Tier 4: Dynamic 3D Scene Graph & Adaptive Shot Generation
@@ -212,6 +233,20 @@ class TestPipelineAuditSuite(unittest.TestCase):
             self.assertIsNotNone(client_id, "Client ID must exist in tokens file")
             self.assertIsNotNone(client_secret, "Client secret must exist in tokens file")
             self.assertTrue(refresh_token.startswith('1//'), "Invalid refresh token prefix (must start with 1//)")
+
+    def test_tier5_youtube_auth_preflight_fail_fast(self):
+        """Verify eager Stage 0 auth verification returns False gracefully when env vars are missing."""
+        backup_env = {k: os.environ.get(k) for k in ['YOUTUBE_CLIENT_ID', 'YOUTUBE_CLIENT_SECRET', 'YOUTUBE_REFRESH_TOKEN']}
+        for k in backup_env:
+            if k in os.environ:
+                del os.environ[k]
+        try:
+            result = verify_youtube_auth()
+            self.assertFalse(result, "verify_youtube_auth() should return False when credentials are absent")
+        finally:
+            for k, v in backup_env.items():
+                if v is not None:
+                    os.environ[k] = v
 
     # =========================================================================
     # End-to-End Simulation: Dry Run All 5 Slots
