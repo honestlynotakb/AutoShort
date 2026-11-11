@@ -1,0 +1,22 @@
+# Git ignore for Shorts auto
+
+# Artifacts & Temporary outputs
+renders/
+review/
+projects/
+swallow-seed/
+*.mp4
+*.wav
+*.part
+
+# Skill archive
+*.zip
+
+# Virtual environments & cache
+venv/
+.venv/
+__pycache__/
+*.pyc
+.faceless-shorts/
+.agent/
+.agents/

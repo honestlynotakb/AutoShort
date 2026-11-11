@@ -1,0 +1,41 @@
+{
+ "duration": 41.051,
+ "cues": [
+  {
+   "t": 0.1,
+   "type": "whoosh"
+  },
+  {
+   "t": 3.2,
+   "type": "engine_rev"
+  },
+  {
+   "t": 6.8,
+   "type": "tire_screech"
+  },
+  {
+   "t": 10.4,
+   "type": "thud"
+  },
+  {
+   "t": 10.6,
+   "type": "yell"
+  },
+  {
+   "t": 14.5,
+   "type": "whoosh"
+  },
+  {
+   "t": 15.2,
+   "type": "gavel_hit"
+  },
+  {
+   "t": 18.2,
+   "type": "beep_record"
+  },
+  {
+   "t": 19,
+   "type": "siren_distant"
+  }
+ ]
+}
