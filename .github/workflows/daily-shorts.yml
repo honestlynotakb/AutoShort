@@ -81,6 +81,10 @@ jobs:
           python faceless-shorts/scripts/voice.py --download
           python -c "from faster_whisper import WhisperModel; WhisperModel('small.en', device='cpu', compute_type='int8')"
 
+      - name: Run Pre-Flight Pipeline Audit Test Suite
+        run: |
+          python -m unittest tests/test_audit_suite.py -v
+
       - name: Run Autonomous Short Generator & Publisher
         env:
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
@@ -104,11 +108,11 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git pull origin main || true
           git add _published.md
           if git diff --staged --quiet; then
             echo "No new publications to commit."
           else
             git commit -m "chore: record published short [skip ci]"
+            git pull --rebase origin main || true
             git push origin main
           fi

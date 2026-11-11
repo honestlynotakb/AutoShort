@@ -380,35 +380,47 @@ def main():
     py = sys.executable
     env = os.environ.copy()
     env['SOFTWARE_GL'] = '1'
+    t_pipeline_start = time.time()
+    stage_metrics = {}
 
     # 1. Synthesize Voice
-    print("\n--- Synthesizing Calm Voiceover (Kokoro ONNX) ---")
+    print("\n--- [Stage 1/5] Synthesizing Calm Voiceover (Kokoro ONNX) ---")
+    t0 = time.time()
     run_cmd(f'"{py}" "{SKILL_DIR}/scripts/voice.py" "{proj_dir}"', env=env)
+    stage_metrics['Voice Synthesis'] = round(time.time() - t0, 2)
 
     # 2. Whisper Word Alignment
-    print("\n--- Subtitle Word Alignment (Faster-Whisper) ---")
+    print("\n--- [Stage 2/5] Subtitle Word Alignment (Faster-Whisper) ---")
+    t0 = time.time()
     run_cmd(f'"{py}" "{SKILL_DIR}/scripts/words.py" "{proj_dir}"', env=env)
+    stage_metrics['Whisper Alignment'] = round(time.time() - t0, 2)
 
     # 3. Audio Cues & Calm Mixing
-    print("\n--- Mixing Procedural Sound & Ambient Bed ---")
+    print("\n--- [Stage 3/5] Mixing Procedural Sound & Ambient Bed ---")
+    t0 = time.time()
     run_cmd('node tools/capture.mjs cues', cwd=proj_dir, env=env)
     run_cmd(f'"{py}" tools/mix.py .', cwd=proj_dir, env=env)
+    stage_metrics['Audio Cues & Mixing'] = round(time.time() - t0, 2)
 
     # 4. Render Video
     renders_dir = proj_dir / 'renders'
     renders_dir.mkdir(exist_ok=True)
     video_out = renders_dir / f"{slug}.mp4"
-    print("\n--- Rendering 1080x1920 MP4 Video (Headless Chrome) ---")
+    print("\n--- [Stage 4/5] Rendering 1080x1920 MP4 Video (Headless Chrome) ---")
+    t0 = time.time()
     run_cmd(f'node tools/capture.mjs video "renders/{slug}.mp4"', cwd=proj_dir, env=env)
+    stage_metrics['Chrome Headless Render'] = round(time.time() - t0, 2)
 
     if not video_out.exists():
         raise FileNotFoundError(f"Render failed, {video_out} not created")
 
     # 5. Upload to YouTube
-    print("\n--- Uploading Short to YouTube ---")
+    print("\n--- [Stage 5/5] Uploading Short to YouTube ---")
+    t0 = time.time()
     short_url = None
     try:
         from cloud.upload_youtube import upload_short
+        from googleapiclient.errors import HttpError
         desc = f"{item['lines'][0]['text']}\n\n#shorts #{slot_info['name'].replace(' ', '')} #curiosity"
         _, short_url = upload_short(
             video_path=video_out,
@@ -418,9 +430,18 @@ def main():
             category_id=category_id,
             privacy_status="public"
         )
+    except HttpError as he:
+        if he.resp.status == 403 and 'quotaExceeded' in str(he):
+            print("\n[CRITICAL WARNING] YouTube Data API daily upload quota exceeded!")
+        elif 'invalid_grant' in str(he):
+            print("\n[CRITICAL WARNING] YouTube OAuth token expired or revoked. Please run get_youtube_token.py.")
+        else:
+            print(f"YouTube HTTP Error {he.resp.status}: {he}")
+        short_url = f"[Quota/Upload Error] {video_out.name}"
     except Exception as e:
         print(f"Direct YouTube upload failed or pending: {e}")
         short_url = f"[Manual/Pending Upload] {video_out.name}"
+    stage_metrics['YouTube Upload'] = round(time.time() - t0, 2)
 
     # 6. Update _published.md
     today = datetime.now().strftime("%Y-%m-%d")
@@ -428,11 +449,18 @@ def main():
     with open(PUBLISHED_FILE, 'a', encoding='utf-8') as f:
         f.write(log_line)
 
+    total_time = round(time.time() - t_pipeline_start, 2)
     print("\n" + "=" * 60)
-    print(" 5-DAILY RUN COMPLETE!")
+    print(" 5-DAILY AUTONOMOUS RUN COMPLETE!")
     print(f" Published: {title}")
-    print(f" Genre: {slot_info['name']}")
-    print(f" URL: {short_url}")
+    print(f" Genre:     {slot_info['name']}")
+    print(f" Output:    {video_out.name}")
+    print(f" URL:       {short_url}")
+    print("-" * 60)
+    print(" Execution Stage Telemetry:")
+    for stage, dur in stage_metrics.items():
+        print(f"   • {stage:<24}: {dur:>6.2f}s")
+    print(f"   • {'TOTAL TIME':<24}: {total_time:>6.2f}s")
     print("=" * 60)
 
 if __name__ == '__main__':
