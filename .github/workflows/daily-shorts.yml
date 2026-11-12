@@ -144,7 +144,9 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           CHROME: /usr/bin/google-chrome
           SOFTWARE_GL: "1"
-          QS: "&res=0.75&aa=1&shadow=1024"
+          PYTHONPATH: "."
+          FPS: "24"
+          QS: "&res=0.55&aa=1&shadow=512"
           PYTHONUNBUFFERED: "1"
         run: |
           python cloud/cloud_runner.py --slot "${INPUT_SLOT:-auto}"

@@ -20,6 +20,14 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+try:
+    from googleapiclient.errors import HttpError
+except ImportError:
+    HttpError = Exception
+
 PUBLISHED_FILE = ROOT / '_published.md'
 SKILL_DIR = ROOT / 'faceless-shorts'
 PROJECTS_DIR = ROOT / 'projects'
@@ -473,7 +481,9 @@ def main():
     py = sys.executable
     env = os.environ.copy()
     env['SOFTWARE_GL'] = '1'
-    env.setdefault('QS', '&res=0.75&aa=1&shadow=1024')
+    env['PYTHONPATH'] = str(ROOT)
+    env.setdefault('FPS', '24')
+    env.setdefault('QS', '&res=0.55&aa=1&shadow=512')
     env.setdefault('PYTHONUNBUFFERED', '1')
     t_pipeline_start = time.time()
     stage_metrics = {}
@@ -521,7 +531,6 @@ def main():
     short_url = None
     try:
         from cloud.upload_youtube import upload_short
-        from googleapiclient.errors import HttpError
         desc = f"{item['lines'][0]['text']}\n\n#shorts #{slot_info['name'].replace(' ', '')} #curiosity"
         _, short_url = upload_short(
             video_path=video_out,
@@ -532,12 +541,14 @@ def main():
             privacy_status="public"
         )
     except HttpError as he:
-        if he.resp.status == 403 and 'quotaExceeded' in str(he):
+        status_code = getattr(getattr(he, 'resp', None), 'status', None)
+        err_str = str(he)
+        if status_code == 403 and 'quotaExceeded' in err_str:
             print("\n[CRITICAL WARNING] YouTube Data API daily upload quota exceeded!")
-        elif 'invalid_grant' in str(he):
+        elif 'invalid_grant' in err_str:
             print("\n[CRITICAL WARNING] YouTube OAuth token expired or revoked. Please run get_youtube_token.py.")
         else:
-            print(f"YouTube HTTP Error {he.resp.status}: {he}")
+            print(f"YouTube HTTP Error {status_code or 'Unknown'}: {he}")
         short_url = f"[Quota/Upload Error] {video_out.name}"
     except Exception as e:
         print(f"Direct YouTube upload failed or pending: {e}")

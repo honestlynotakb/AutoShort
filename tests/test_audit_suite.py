@@ -150,6 +150,17 @@ class TestPipelineAuditSuite(unittest.TestCase):
             "Video generation job timeout must be at least 60 minutes"
         )
 
+    def test_tier1_cloud_module_importability(self):
+        """Assert cloud modules can be imported directly and ROOT is registered in sys.path."""
+        import cloud.cloud_runner as cr
+        self.assertIn(str(ROOT), sys.path, "Repository ROOT must be registered in sys.path")
+        self.assertTrue(callable(cr.main), "cloud_runner.main must be callable")
+        try:
+            import cloud.upload_youtube as uy
+            self.assertTrue(callable(uy.upload_short), "upload_youtube.upload_short must be callable")
+        except ImportError:
+            pass  # Local workstation may lack google-auth outside CI venv
+
     # =========================================================================
     # Tier 2: Slot Routing & Deterministic Deduplication
     # =========================================================================
@@ -285,6 +296,17 @@ class TestPipelineAuditSuite(unittest.TestCase):
             self.assertIn("'S04'", content)
         finally:
             shutil.rmtree(temp_dir)
+
+    def test_tier4_render_performance_invariants(self):
+        """Assert workflow and tools enforce 24 FPS and SwiftShader downsampling parameters."""
+        workflow_path = ROOT / '.github' / 'workflows' / 'daily-shorts.yml'
+        doc = yaml.safe_load(workflow_path.read_text(encoding='utf-8'))
+        steps = doc['jobs']['make-and-publish-short']['steps']
+        gen_step = next(s for s in steps if s.get('name') == 'Run Autonomous Short Generator & Publisher')
+        step_env = gen_step.get('env', {})
+        self.assertEqual(step_env.get('FPS'), '24', "Workflow must set FPS to 24 for cinematic speed")
+        self.assertIn('res=0.55', step_env.get('QS', ''), "Workflow QS must include res=0.55 downsampling")
+        self.assertIn('PYTHONPATH', step_env, "Workflow must declare PYTHONPATH")
 
     # =========================================================================
     # Tier 5: YouTube API Quota Budgeting & Auth Health
