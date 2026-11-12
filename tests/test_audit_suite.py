@@ -96,6 +96,20 @@ class TestPipelineAuditSuite(unittest.TestCase):
         content = gitattributes.read_text(encoding='utf-8')
         self.assertIn("eol=lf", content, ".gitattributes must configure eol=lf")
 
+    def test_tier1_requirements_dependencies(self):
+        """Assert cloud/requirements.txt contains all production runtime dependencies."""
+        req_file = ROOT / 'cloud' / 'requirements.txt'
+        self.assertTrue(req_file.exists(), "cloud/requirements.txt is missing")
+        content = req_file.read_text(encoding='utf-8').lower()
+        required_pkgs = [
+            'numpy', 'scipy', 'soundfile', 'kokoro-onnx',
+            'faster-whisper', 'google-api-python-client',
+            'google-auth-oauthlib', 'google-auth-httplib2',
+            'requests', 'pyyaml'
+        ]
+        for pkg in required_pkgs:
+            self.assertIn(pkg, content, f"Missing required dependency '{pkg}' in cloud/requirements.txt")
+
     def test_tier1_workflow_yaml_integrity(self):
         """Validate .github/workflows/daily-shorts.yml structure, triggers, permissions, and timeout."""
         workflow_path = ROOT / '.github' / 'workflows' / 'daily-shorts.yml'
