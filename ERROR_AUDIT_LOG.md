@@ -128,6 +128,33 @@ Every incident has been investigated to root cause, patched with permanent archi
 
 ---
 
+### Incident ERR-011: SwiftShader CPU Software Rendering Timeout on 30-Minute Job Ceiling
+- **Date & Environment:** GitHub Actions Scheduled Execution (`make-and-publish-short`, Run #43202273942)
+- **Symptom:** Workflow ran for 29 minutes and 15 seconds during `python cloud/cloud_runner.py --slot "auto"`, then abruptly failed with `Error: The operation was canceled.` after exactly 30 minutes 17 seconds.
+- **Root Cause:** In standard 2-vCPU Ubuntu GitHub-hosted runners, Headless Chrome Three.js renders complex 3D scenes via SwiftShader CPU software emulation. At native 1080x1920 with MSAA 4x, 2048x2048 shadow maps, BokehPass, and UnrealBloomPass, rendering ~1,350 frames takes ~1.3s/frame (~29-31 minutes). The workflow's `timeout-minutes: 30` forcibly killed the runner before completion. Additionally, `subprocess.run(capture_output=True)` suppressed all stdout, creating a silent log black hole during the render.
+- **Immediate Patch:** Optimized WebGL query string via `QS: "&res=0.75&aa=1&shadow=1024"`, reducing 3D pixel rasterization by 44% and shadow map size by 75% while keeping 2D text, badges, and captions native 1080x1920. Raised `timeout-minutes` to 60.
+- **Architectural Mitigation:** Re-engineered `cloud_runner.py::run_cmd()` using streaming `subprocess.Popen` with `flush=True` and updated `capture.mjs` to emit `[render] frame X/N (Y%)` newlines, providing real-time telemetry to GitHub Actions.
+
+---
+
+### Incident ERR-012: GitHub Actions Expression Boolean Coercion on `workflow_dispatch` Dropdown Inputs
+- **Date & Environment:** GitHub Actions Manual Trigger UI
+- **Symptom:** When triggering manually with `workflow_dispatch` and selecting any slot (e.g. Slot 2, 3, 4, 5), the pipeline always ran Slot 1 or failed to resolve the slot properly.
+- **Root Cause:** In GitHub Actions expression syntax, the `||` operator evaluates to a boolean rather than value coalescing. Expression `${{ inputs.slot || 'auto' }}` evaluated non-empty strings to `"true"`. When passed to `cloud_runner.py --slot "true"`, regex `re.match(r'(\d+)', "true")` failed, defaulting unconditionally to Slot 1.
+- **Immediate Patch:** Passed input via standard POSIX environment expansion `INPUT_SLOT: ${{ inputs.slot }}` and invoked `--slot "${INPUT_SLOT:-auto}"`.
+- **Architectural Mitigation:** Implemented `parse_slot_selection()` in `cloud_runner.py` with multi-format regex extraction and fallback protection, with full unit test coverage in `test_audit_suite.py`.
+
+---
+
+### Incident ERR-013: Top-of-the-Hour GitHub Queue Starvation & Concurrency Lockout
+- **Date & Environment:** GitHub Actions Cron Scheduling Infrastructure
+- **Symptom:** Scheduled executions were severely delayed (30–90 minutes) or silently dropped by GitHub Actions, appearing to never execute.
+- **Root Cause:** Crons set to minute `0` (e.g. `0 3 * * *`, `0 7 * * *`) suffer extreme queuing delays due to global peak contention on GitHub Actions. Coupled with workflow-level `concurrency: group: daily-shorts, cancel-in-progress: false`, a 30-minute hanging job caused subsequent scheduled runs to be dropped by GitHub's concurrency ceiling (maximum 1 queued run).
+- **Immediate Patch:** Offset all 5 daily crons by 10 minutes (`10 3 * * *`, `10 7 * * *`, `10 11 * * *`, `40 14 * * *`, `10 17 * * *`), bypassing the top-of-the-hour queue bottleneck.
+- **Architectural Mitigation:** Refactored concurrency grouping to `${{ github.workflow }}-${{ github.ref }}-${{ github.event_name == 'push' && github.sha || 'singleton' }}` with `cancel-in-progress: true` on test commits, isolating push audits from scheduled video generation.
+
+---
+
 ## 3. Failure Mode & Effects Analysis (FMEA) for Production
 
 The following matrix assesses potential future failure modes, their severity, likelihood, and preventive mechanisms:
@@ -155,11 +182,12 @@ python -m unittest tests/test_audit_suite.py -v
 1. Navigate to the **Actions** tab on GitHub: `https://github.com/honestlynotakb/AutoShort/actions`.
 2. Select **Autonomous Daily YouTube Shorts** from the left panel.
 3. Click **Run workflow**:
-   - `1 - Geography & Flags (8:00 AM)`
-   - `2 - Space & Cosmic (12:00 PM)`
-   - `3 - Survival Scenarios (4:00 PM)`
-   - `4 - Mind-Blowing Science (7:30 PM)`
-   - `5 - Historic Torture (10:00 PM)`
+   - `auto` (automatically detects current slot based on time)
+   - `1 - Geography & Flags (8:10 AM)`
+   - `2 - Space & Cosmic (12:10 PM)`
+   - `3 - Survival Scenarios (4:10 PM)`
+   - `4 - Mind-Blowing Science (7:40 PM)`
+   - `5 - Historic Torture (10:10 PM)`
 4. Click the green **Run workflow** button.
 
 ### How to Re-Authenticate YouTube if Token is Revoked

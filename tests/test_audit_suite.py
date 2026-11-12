@@ -15,6 +15,7 @@ import shutil
 import tempfile
 import unittest
 import subprocess
+import yaml
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -23,6 +24,7 @@ sys.path.insert(0, str(ROOT))
 from cloud.cloud_runner import (
     load_slots_config,
     detect_current_slot,
+    parse_slot_selection,
     get_published_topics,
     pick_topic_for_slot,
     write_adaptive_shots,
@@ -94,6 +96,46 @@ class TestPipelineAuditSuite(unittest.TestCase):
         content = gitattributes.read_text(encoding='utf-8')
         self.assertIn("eol=lf", content, ".gitattributes must configure eol=lf")
 
+    def test_tier1_workflow_yaml_integrity(self):
+        """Validate .github/workflows/daily-shorts.yml structure, triggers, permissions, and timeout."""
+        workflow_path = ROOT / '.github' / 'workflows' / 'daily-shorts.yml'
+        self.assertTrue(workflow_path.exists(), "daily-shorts.yml workflow file missing")
+        content = workflow_path.read_text(encoding='utf-8')
+        doc = yaml.safe_load(content)
+
+        # Core keys
+        for key in ['name', 'run-name', 'on', 'permissions', 'concurrency', 'jobs']:
+            self.assertIn(key, doc, f"Missing required top-level key: {key}")
+
+        # Permissions
+        perms = doc['permissions']
+        self.assertEqual(perms.get('contents'), 'write')
+        self.assertEqual(perms.get('actions'), 'write')
+
+        # Schedule crons match slots
+        schedules = doc['on'].get('schedule', [])
+        self.assertEqual(len(schedules), 5, "Workflow must declare exactly 5 daily schedules")
+        cron_list = [s['cron'] for s in schedules]
+        for slot_id, info in self.slots_cfg.items():
+            self.assertIn(info['cron_utc'], cron_list, f"Slot {slot_id} cron {info['cron_utc']} missing from workflow")
+
+        # workflow_dispatch choice options
+        dispatch_inputs = doc['on']['workflow_dispatch']['inputs']
+        self.assertIn('slot', dispatch_inputs)
+        options = dispatch_inputs['slot']['options']
+        self.assertIn('auto', options)
+        self.assertEqual(len(options), 6, "Options must include 'auto' plus 5 slots")
+
+        # Job timeouts and permissions
+        jobs = doc['jobs']
+        self.assertIn('test-pipeline-audit', jobs)
+        self.assertIn('make-and-publish-short', jobs)
+        self.assertGreaterEqual(
+            jobs['make-and-publish-short'].get('timeout-minutes', 0),
+            60,
+            "Video generation job timeout must be at least 60 minutes"
+        )
+
     # =========================================================================
     # Tier 2: Slot Routing & Deterministic Deduplication
     # =========================================================================
@@ -127,6 +169,31 @@ class TestPipelineAuditSuite(unittest.TestCase):
         self.assertIsInstance(topics, set)
         for t in topics:
             self.assertEqual(t, t.lower(), "Topics in set must be lowercased for case-insensitive matching")
+
+    def test_tier2_slot_choice_resolution(self):
+        """Verify robust resolution of workflow_dispatch dropdown choice strings and edge cases."""
+        test_inputs = [
+            ("1 - Geography & Flags (8:10 AM)", "1"),
+            ("2 - Space & Cosmic (12:10 PM)", "2"),
+            ("3 - Survival Scenarios (4:10 PM)", "3"),
+            ("4 - Mind-Blowing Science (7:40 PM)", "4"),
+            ("5 - Historic Torture (10:10 PM)", "5"),
+            ("1", "1"),
+            ("2", "2"),
+            ("3", "3"),
+            ("4", "4"),
+            ("5", "5"),
+        ]
+        for raw_val, expected in test_inputs:
+            with self.subTest(raw_val=raw_val):
+                res = parse_slot_selection(raw_val, self.slots_cfg)
+                self.assertEqual(res, expected, f"Value '{raw_val}' did not resolve to '{expected}'")
+
+        # Edge cases: auto, boolean strings (from legacy expression coercion), and None
+        for edge_val in ["auto", "true", "false", "", None]:
+            with self.subTest(edge_val=edge_val):
+                res = parse_slot_selection(edge_val, self.slots_cfg)
+                self.assertIn(res, {"1", "2", "3", "4", "5"}, f"Edge case '{edge_val}' produced invalid slot '{res}'")
 
     # =========================================================================
     # Tier 3: AI Intelligence Fallback & Fault Injection

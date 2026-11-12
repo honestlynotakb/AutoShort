@@ -354,36 +354,61 @@ export function buildShots(E) {{
     print(f"Generated adaptive shots.js ({num_lines} shots).")
 
 def run_cmd(cmd, cwd=None, env=None):
-    print(f"\n[RUN] {cmd}")
-    res = subprocess.run(cmd, shell=True, cwd=cwd, env=env, text=True, capture_output=True)
-    if res.returncode != 0:
-        print(f"STDERR: {res.stderr}")
-        print(f"STDOUT: {res.stdout}")
-        raise RuntimeError(f"Command failed with exit code {res.returncode}: {cmd}")
-    print(res.stdout.strip())
-    return res.stdout
+    print(f"\n[RUN] {cmd}", flush=True)
+    process = subprocess.Popen(
+        cmd,
+        shell=True,
+        cwd=cwd,
+        env=env,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        bufsize=1,
+        universal_newlines=True
+    )
+    collected = []
+    if process.stdout:
+        for line in iter(process.stdout.readline, ''):
+            print(line, end='', flush=True)
+            collected.append(line)
+        process.stdout.close()
+    ret = process.wait()
+    if ret != 0:
+        raise RuntimeError(f"Command failed with exit code {ret}: {cmd}")
+    return ''.join(collected)
+
+def parse_slot_selection(slot_arg: str, slots_cfg: dict) -> str:
+    """Robustly resolves slot ID from manual dispatch choice, CLI flag, or environment variable.
+    Handles 'auto', choice strings like '1 - Geography & Flags (8:10 AM)', booleans, and fallbacks.
+    """
+    if not slot_arg:
+        return detect_current_slot(slots_cfg)
+    clean = str(slot_arg).strip().lower()
+    if clean in ('auto', 'true', 'false', 'none', ''):
+        return detect_current_slot(slots_cfg)
+    m = re.match(r'(\d+)', clean)
+    if m:
+        matched = m.group(1)
+        if matched in slots_cfg:
+            return matched
+    return detect_current_slot(slots_cfg)
 
 def main():
     parser = argparse.ArgumentParser(description="Autonomous Cloud Runner for YouTube Shorts")
-    parser.add_argument('--slot', default="auto", help="Slot ID (1-5 or auto)")
+    parser.add_argument('--slot', default=None, help="Slot ID (1-5 or auto)")
     parser.add_argument('--dry-run', action='store_true', help="Resolve slot and script without rendering/uploading")
     args = parser.parse_args()
 
-    print("=" * 60)
-    print(" 5-TIMES-DAILY AUTONOMOUS SHORTS PIPELINE")
-    print("=" * 60)
+    print("=" * 60, flush=True)
+    print(" 5-TIMES-DAILY AUTONOMOUS SHORTS PIPELINE", flush=True)
+    print("=" * 60, flush=True)
 
     slots_cfg = load_slots_config()
     
-    # Parse slot argument
-    slot_choice = args.slot
-    if not slot_choice or slot_choice.startswith('auto'):
-        slot_id = detect_current_slot(slots_cfg)
-        print(f"Auto-detected Slot: {slot_id} based on current UTC time.")
-    else:
-        # Support formats like '1', '1 - Geography & Flags'
-        m = re.match(r'(\d+)', slot_choice)
-        slot_id = m.group(1) if m else "1"
+    # Resolve slot selection: CLI argument > INPUT_SLOT env var > auto
+    slot_arg = args.slot if args.slot is not None else os.environ.get('INPUT_SLOT', 'auto')
+    slot_id = parse_slot_selection(slot_arg, slots_cfg)
+    print(f"Selected/Detected Slot ID: {slot_id}", flush=True)
 
     slot_info = slots_cfg.get(slot_id, slots_cfg["1"])
     print(f"Slot {slot_id}: {slot_info['name']} (Scheduled: {slot_info['time_pkt']} PKT)")
@@ -448,6 +473,8 @@ def main():
     py = sys.executable
     env = os.environ.copy()
     env['SOFTWARE_GL'] = '1'
+    env.setdefault('QS', '&res=0.75&aa=1&shadow=1024')
+    env.setdefault('PYTHONUNBUFFERED', '1')
     t_pipeline_start = time.time()
     stage_metrics = {}
 

@@ -1,20 +1,21 @@
 name: Autonomous Daily YouTube Shorts
 
-run-name: "${{ inputs.slot != '' && inputs.slot != 'auto' && format('Short {0}', inputs.slot) || format('Autonomous Short ({0})', github.event_name) }}"
+run-name: "${{ inputs.slot != '' && inputs.slot != 'auto' && format('Manual: {0}', inputs.slot) || format('Autonomous Short ({0})', github.event_name) }}"
 
 'on':
   schedule:
-    # 5 Daily Runs in Pakistan Time (PKT, UTC+5):
-    # Slot 1: 08:00 AM PKT (03:00 UTC) - Geography & Flag Knowledge
-    - cron: '0 3 * * *'
-    # Slot 2: 12:00 PM PKT (07:00 UTC) - Space & Cosmic What-Ifs
-    - cron: '0 7 * * *'
-    # Slot 3: 04:00 PM PKT (11:00 UTC) - Survival & Extreme Scenarios
-    - cron: '0 11 * * *'
-    # Slot 4: 07:30 PM PKT (14:30 UTC) - Mind-Blowing Science & Physics
-    - cron: '30 14 * * *'
-    # Slot 5: 10:00 PM PKT (17:00 UTC) - Historic Torture Techniques & Bizarre History
-    - cron: '0 17 * * *'
+    # 5 Daily Runs in Pakistan Time (PKT, UTC+5)
+    # Offset by 10 minutes to avoid top-of-the-hour global queue delays on GitHub Actions:
+    # Slot 1: 08:10 AM PKT (03:10 UTC) - Geography & Flag Knowledge
+    - cron: '10 3 * * *'
+    # Slot 2: 12:10 PM PKT (07:10 UTC) - Space & Cosmic What-Ifs
+    - cron: '10 7 * * *'
+    # Slot 3: 04:10 PM PKT (11:10 UTC) - Survival & Extreme Scenarios
+    - cron: '10 11 * * *'
+    # Slot 4: 07:40 PM PKT (14:40 UTC) - Mind-Blowing Science & Physics
+    - cron: '40 14 * * *'
+    # Slot 5: 10:10 PM PKT (17:10 UTC) - Historic Torture Techniques & Bizarre History
+    - cron: '10 17 * * *'
 
   # Allows triggering manually anytime from GitHub Actions tab
   workflow_dispatch:
@@ -26,11 +27,11 @@ run-name: "${{ inputs.slot != '' && inputs.slot != 'auto' && format('Short {0}',
         type: choice
         options:
           - 'auto'
-          - '1 - Geography & Flags (8:00 AM)'
-          - '2 - Space & Cosmic (12:00 PM)'
-          - '3 - Survival Scenarios (4:00 PM)'
-          - '4 - Mind-Blowing Science (7:30 PM)'
-          - '5 - Historic Torture (10:00 PM)'
+          - '1 - Geography & Flags (8:10 AM)'
+          - '2 - Space & Cosmic (12:10 PM)'
+          - '3 - Survival Scenarios (4:10 PM)'
+          - '4 - Mind-Blowing Science (7:40 PM)'
+          - '5 - Historic Torture (10:10 PM)'
 
   # Run diagnostic audit suite on code changes to prevent pipeline regressions
   push:
@@ -45,10 +46,11 @@ run-name: "${{ inputs.slot != '' && inputs.slot != 'auto' && format('Short {0}',
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
-  group: daily-shorts
-  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name == 'push' && github.sha || 'singleton' }}
+  cancel-in-progress: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
 
 jobs:
   # Job 1: Fast diagnostic verification (<15s)
@@ -60,6 +62,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
 
       - name: Set up Python 3.11
@@ -82,12 +85,13 @@ jobs:
     needs: test-pipeline-audit
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
 
       - name: Set up Node.js 22
@@ -133,20 +137,23 @@ jobs:
 
       - name: Run Autonomous Short Generator & Publisher
         env:
+          INPUT_SLOT: ${{ inputs.slot }}
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           CHROME: /usr/bin/google-chrome
           SOFTWARE_GL: "1"
+          QS: "&res=0.75&aa=1&shadow=1024"
+          PYTHONUNBUFFERED: "1"
         run: |
-          python cloud/cloud_runner.py --slot "${{ inputs.slot || 'auto' }}"
+          python cloud/cloud_runner.py --slot "${INPUT_SLOT:-auto}"
 
       - name: Upload Video Artifact (Backup)
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: generated-shorts-${{ inputs.slot || 'auto' }}-${{ github.run_id }}
+          name: generated-shorts-${{ github.run_id }}
           path: projects/**/renders/*.mp4
           retention-days: 30
           if-no-files-found: ignore
@@ -164,7 +171,7 @@ jobs:
               echo "Push attempt $attempt..."
               git fetch origin main
               git rebase origin/main || git rebase --abort
-              if git push origin main; then
+              if git push origin HEAD:main; then
                 echo "Successfully pushed published short log to main."
                 break
               fi

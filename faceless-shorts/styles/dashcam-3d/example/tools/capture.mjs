@@ -133,7 +133,7 @@ else if (mode === 'stylesheet') {
       for (let i = 0; i < n; i++) {
         const b = jpg(await P.ev(FRAME(a0 + i / FPS, flags.has('--draft') ? 0.8 : 0.93)));
         if (!ff.stdin.write(b)) await new Promise((r) => ff.stdin.once('drain', r));
-        if (i % 150 === 0) process.stdout.write(`\r${i}/${n} frames`);
+        if (i % 150 === 0) process.stdout.write(`[render] frame ${i}/${n} (${Math.round((i / n) * 100)}%)\n`);
       }
       ff.stdin.end(); await new Promise((r) => ff.on('close', r));
       console.log(`\r${out} (${n} frames, ${hasMix ? 'with data/mix.wav' : 'SILENT: no data/mix.wav'}, ${((Date.now() - t0) / 1000).toFixed(0)} s)`);
