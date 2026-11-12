@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 """Master Autonomous Cloud Runner for GitHub Actions.
-Supports 5-Times-Daily Scheduled Slots:
-  Slot 1 (08:00 AM PKT / 03:00 UTC): Geography & Flag Knowledge
-  Slot 2 (12:00 PM PKT / 07:00 UTC): Space & Cosmic What-Ifs
-  Slot 3 (04:00 PM PKT / 11:00 UTC): Survival & Extreme Scenarios
-  Slot 4 (07:30 PM PKT / 14:30 UTC): Mind-Blowing Science & Physics
-  Slot 5 (10:00 PM PKT / 17:00 UTC): Historic Torture Techniques & Bizarre History
+Supports 3-Times-Daily Scheduled Slots (Optimized for Zapier Free Plan):
+  Slot 1 (12:10 PM PKT / 07:10 UTC): Space, Cosmic & Flag Curiosities
+  Slot 2 (06:10 PM PKT / 13:10 UTC): Mind-Blowing Science & Physics
+  Slot 3 (10:10 PM PKT / 17:10 UTC): Survival Scenarios & Dark History
 """
 import os
 import re
@@ -576,7 +574,7 @@ def main():
     )
 
     print("\n" + "=" * 60)
-    print(" 5-DAILY AUTONOMOUS RUN COMPLETE!")
+    print(" 3-DAILY AUTONOMOUS RUN COMPLETE!")
     print(f" Published: {title}")
     print(f" Genre:     {slot_info['name']}")
     print(f" Output:    {video_out.name}")

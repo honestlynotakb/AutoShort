@@ -4,17 +4,13 @@ run-name: "${{ inputs.slot != '' && inputs.slot != 'auto' && format('Manual: {0}
 
 'on':
   schedule:
-    # 5 Daily Runs in Pakistan Time (PKT, UTC+5)
-    # Offset by 10 minutes to avoid top-of-the-hour global queue delays on GitHub Actions:
-    # Slot 1: 08:10 AM PKT (03:10 UTC) - Geography & Flag Knowledge
-    - cron: '10 3 * * *'
-    # Slot 2: 12:10 PM PKT (07:10 UTC) - Space & Cosmic What-Ifs
+    # 3 Daily Runs in Pakistan Time (PKT, UTC+5)
+    # Optimized to stay within Zapier Free Plan (90 tasks/month out of 100 limit):
+    # Slot 1: 12:10 PM PKT (07:10 UTC) - Space, Cosmic & Flag Curiosities
     - cron: '10 7 * * *'
-    # Slot 3: 04:10 PM PKT (11:10 UTC) - Survival & Extreme Scenarios
-    - cron: '10 11 * * *'
-    # Slot 4: 07:40 PM PKT (14:40 UTC) - Mind-Blowing Science & Physics
-    - cron: '40 14 * * *'
-    # Slot 5: 10:10 PM PKT (17:10 UTC) - Historic Torture Techniques & Bizarre History
+    # Slot 2: 06:10 PM PKT (13:10 UTC) - Mind-Blowing Science & Physics
+    - cron: '10 13 * * *'
+    # Slot 3: 10:10 PM PKT (17:10 UTC) - Survival Scenarios & Dark History
     - cron: '10 17 * * *'
 
   # Allows triggering manually anytime from GitHub Actions tab
@@ -27,11 +23,9 @@ run-name: "${{ inputs.slot != '' && inputs.slot != 'auto' && format('Manual: {0}
         type: choice
         options:
           - 'auto'
-          - '1 - Geography & Flags (8:10 AM)'
-          - '2 - Space & Cosmic (12:10 PM)'
-          - '3 - Survival Scenarios (4:10 PM)'
-          - '4 - Mind-Blowing Science (7:40 PM)'
-          - '5 - Historic Torture (10:10 PM)'
+          - '1 - Space & Cosmic (12:10 PM)'
+          - '2 - Mind-Blowing Science (6:10 PM)'
+          - '3 - Survival & History (10:10 PM)'
 
   # Run diagnostic audit suite on code changes to prevent pipeline regressions
   push:
@@ -76,14 +70,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r cloud/requirements.txt
 
-      - name: Run Pipeline Audit Test Suite
+      - name: Run Pipeline Audit & Reliability Suite
         run: |
-          python -m unittest tests/test_audit_suite.py -v
+          python tests/test_audit_suite.py
 
-  # Job 2: Full video generation & publication (Only on schedule or manual dispatch)
+  # Job 2: Master autonomous video generation, render, and Zapier publishing
   make-and-publish-short:
     needs: test-pipeline-audit
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 60
 
@@ -94,28 +87,28 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Set up Node.js 22
+      - name: Set up Node.js 22 (Headless Capture)
         uses: actions/setup-node@v4
         with:
           node-version: '22'
 
-      - name: Set up Python 3.11
+      - name: Set up Python 3.11 (Voice, Alignment & AI)
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: Install System Dependencies
+      - name: Install System Dependencies (FFmpeg)
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg
 
-      - name: Verify Headless Chrome Presence
+      - name: Verify Google Chrome for Headless WebGL
         run: |
           which google-chrome || which google-chrome-stable || which chromium || echo "Checking Chrome binary paths..."
           google-chrome --version || google-chrome-stable --version || true
 
-      - name: Cache AI Models (Kokoro & Whisper)
+      - name: Cache AI Models (Kokoro ONNX & Whisper)
         id: cache-models
         uses: actions/cache@v4
         with:
@@ -129,7 +122,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r cloud/requirements.txt
 
-      - name: Download Kokoro & Whisper Models (if not cached)
+      - name: Pre-download AI Voice & Alignment Models
         if: steps.cache-models.outputs.cache-hit != 'true'
         run: |
           python faceless-shorts/scripts/voice.py --download
@@ -159,6 +152,27 @@ jobs:
           path: projects/**/renders/*.mp4
           retention-days: 30
           if-no-files-found: ignore
+
+      - name: Create GitHub Release for Zapier YouTube Upload
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VIDEO_FILE=$(find projects -type f -name "*.mp4" | head -n 1)
+          if [ -n "$VIDEO_FILE" ] && [ -f "$VIDEO_FILE" ]; then
+            TAG_NAME="short-$(date +%Y%m%d-%H%M%S)"
+            TITLE=$(tail -n 1 _published.md | awk -F '|' '{print $5}' | sed 's/^[ \t]*//;s/[ \t]*$//')
+            if [ -z "$TITLE" ] || [[ "$TITLE" == *"Manual/Pending"* ]] || [[ "$TITLE" == *"Upload Error"* ]]; then
+              TITLE="$(basename "$VIDEO_FILE" .mp4 | tr '-' ' ') #shorts"
+            fi
+            DESC="Watch full explainer! #shorts #curiosity #science"
+            echo "Creating GitHub Release $TAG_NAME with $VIDEO_FILE..."
+            gh release create "$TAG_NAME" "$VIDEO_FILE" \
+              --title "$TITLE" \
+              --notes "$DESC"
+            echo "Release created successfully for Zapier!"
+          else
+            echo "No rendered MP4 found to release."
+          fi
 
       - name: Commit & Push Published Log
         run: |

@@ -44,8 +44,8 @@ class TestPipelineAuditSuite(unittest.TestCase):
     # Tier 1: Static Configuration & Schema Verification
     # =========================================================================
     def test_tier1_slots_configuration_integrity(self):
-        """Assert all 5 slots exist and conform to schema standards."""
-        expected_slots = {"1", "2", "3", "4", "5"}
+        """Assert all 3 daily slots exist and conform to schema standards."""
+        expected_slots = {"1", "2", "3"}
         self.assertEqual(set(self.slots_cfg.keys()), expected_slots, "Missing or unexpected slot IDs")
 
         valid_categories = {"26", "27", "28"} # Howto, Education, Science & Tech
@@ -128,7 +128,7 @@ class TestPipelineAuditSuite(unittest.TestCase):
 
         # Schedule crons match slots
         schedules = doc['on'].get('schedule', [])
-        self.assertEqual(len(schedules), 5, "Workflow must declare exactly 5 daily schedules")
+        self.assertEqual(len(schedules), 3, "Workflow must declare exactly 3 daily schedules")
         cron_list = [s['cron'] for s in schedules]
         for slot_id, info in self.slots_cfg.items():
             self.assertIn(info['cron_utc'], cron_list, f"Slot {slot_id} cron {info['cron_utc']} missing from workflow")
@@ -138,7 +138,7 @@ class TestPipelineAuditSuite(unittest.TestCase):
         self.assertIn('slot', dispatch_inputs)
         options = dispatch_inputs['slot']['options']
         self.assertIn('auto', options)
-        self.assertEqual(len(options), 6, "Options must include 'auto' plus 5 slots")
+        self.assertEqual(len(options), 4, "Options must include 'auto' plus 3 slots")
 
         # Job timeouts and permissions
         jobs = doc['jobs']
@@ -167,14 +167,13 @@ class TestPipelineAuditSuite(unittest.TestCase):
     def test_tier2_slot_auto_detection_boundaries(self):
         """Test UTC hour slot router across all operational windows."""
         test_cases = [
-            (3, "1"),   # Exactly Slot 1 (08:00 AM PKT / 03:00 UTC)
-            (4, "1"),   # Closer to Slot 1 than Slot 2
-            (7, "2"),   # Exactly Slot 2 (12:00 PM PKT / 07:00 UTC)
-            (9, "2"),   # Closer to Slot 2 (diff 2) than Slot 3 (diff 2, tie-breaker)
-            (11, "3"),  # Exactly Slot 3 (04:00 PM PKT / 11:00 UTC)
-            (14, "4"),  # Exactly Slot 4 (07:30 PM PKT / 14:30 UTC approx)
-            (17, "5"),  # Exactly Slot 5 (10:00 PM PKT / 17:00 UTC)
-            (18, "5"),  # Late evening, closest to Slot 5
+            (6, "1"),   # Close to Slot 1 (12:10 PM PKT / 07:10 UTC)
+            (7, "1"),   # Exactly Slot 1
+            (10, "1"),  # Closer to Slot 1 than Slot 2
+            (13, "2"),  # Exactly Slot 2 (06:10 PM PKT / 13:10 UTC)
+            (14, "2"),  # Closer to Slot 2 than Slot 3
+            (17, "3"),  # Exactly Slot 3 (10:10 PM PKT / 17:10 UTC)
+            (18, "3"),  # Late evening, closest to Slot 3
         ]
         for hour, expected_slot in test_cases:
             from unittest.mock import patch
@@ -198,16 +197,12 @@ class TestPipelineAuditSuite(unittest.TestCase):
     def test_tier2_slot_choice_resolution(self):
         """Verify robust resolution of workflow_dispatch dropdown choice strings and edge cases."""
         test_inputs = [
-            ("1 - Geography & Flags (8:10 AM)", "1"),
-            ("2 - Space & Cosmic (12:10 PM)", "2"),
-            ("3 - Survival Scenarios (4:10 PM)", "3"),
-            ("4 - Mind-Blowing Science (7:40 PM)", "4"),
-            ("5 - Historic Torture (10:10 PM)", "5"),
+            ("1 - Space & Cosmic (12:10 PM)", "1"),
+            ("2 - Mind-Blowing Science (6:10 PM)", "2"),
+            ("3 - Survival & History (10:10 PM)", "3"),
             ("1", "1"),
             ("2", "2"),
             ("3", "3"),
-            ("4", "4"),
-            ("5", "5"),
         ]
         for raw_val, expected in test_inputs:
             with self.subTest(raw_val=raw_val):
@@ -218,7 +213,7 @@ class TestPipelineAuditSuite(unittest.TestCase):
         for edge_val in ["auto", "true", "false", "", None]:
             with self.subTest(edge_val=edge_val):
                 res = parse_slot_selection(edge_val, self.slots_cfg)
-                self.assertIn(res, {"1", "2", "3", "4", "5"}, f"Edge case '{edge_val}' produced invalid slot '{res}'")
+                self.assertIn(res, {"1", "2", "3"}, f"Edge case '{edge_val}' produced invalid slot '{res}'")
 
     # =========================================================================
     # Tier 3: AI Intelligence Fallback & Fault Injection
@@ -312,16 +307,20 @@ class TestPipelineAuditSuite(unittest.TestCase):
     # Tier 5: YouTube API Quota Budgeting & Auth Health
     # =========================================================================
     def test_tier5_youtube_quota_budget_verification(self):
-        """Mathematically verify that 5 daily uploads do not breach YouTube Data API daily quota."""
+        """Mathematically verify that 3 daily uploads do not breach YouTube Data API daily quota or Zapier limits."""
         daily_quota_limit = 10000        # Google default YouTube Data API v3 quota
         cost_per_upload = 1600           # videos.insert base cost in API units
-        num_daily_slots = 5
+        num_daily_slots = 3
 
         total_daily_cost = cost_per_upload * num_daily_slots
         remaining_buffer = daily_quota_limit - total_daily_cost
 
-        self.assertEqual(total_daily_cost, 8000, "5 daily uploads must total exactly 8,000 quota units")
-        self.assertGreaterEqual(remaining_buffer, 2000, "Must maintain a minimum 2,000 unit safety buffer")
+        self.assertEqual(total_daily_cost, 4800, "3 daily uploads must total exactly 4,800 quota units")
+        self.assertGreaterEqual(remaining_buffer, 5000, "Must maintain a minimum 5,000 unit safety buffer")
+
+        # Zapier free plan verification
+        monthly_tasks = num_daily_slots * 30
+        self.assertLessEqual(monthly_tasks, 100, f"Monthly uploads ({monthly_tasks}) must stay within Zapier 100 tasks limit")
 
     def test_tier5_youtube_token_file_format(self):
         """If local youtube_tokens.json exists, verify its JSON structure."""
@@ -352,11 +351,11 @@ class TestPipelineAuditSuite(unittest.TestCase):
                     os.environ[k] = v
 
     # =========================================================================
-    # End-to-End Simulation: Dry Run All 5 Slots
+    # End-to-End Simulation: Dry Run All Slots
     # =========================================================================
-    def test_e2e_dry_run_all_five_slots(self):
-        """Simulate end-to-end cloud runner execution for all 5 slots via CLI."""
-        for slot in ["1", "2", "3", "4", "5"]:
+    def test_e2e_dry_run_all_three_slots(self):
+        """Simulate end-to-end cloud runner execution for all 3 slots via CLI."""
+        for slot in ["1", "2", "3"]:
             with self.subTest(slot=slot):
                 cmd = [sys.executable, str(ROOT / 'cloud' / 'cloud_runner.py'), '--dry-run', '--slot', slot]
                 proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, cwd=str(ROOT))
