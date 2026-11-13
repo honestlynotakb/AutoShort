@@ -6,14 +6,14 @@
       "time_pkt": "12:10 PM",
       "cron_utc": "10 7 * * *",
       "target_hour_utc": 7,
-      "style": "deep-dive",
+      "style": "2d-motion",
       "category_id": "28",
       "prompt_theme": "Planetary catastrophes, rogue planets, black holes, neutron stars, asteroid impacts, time dilation, border oddities, missing flag colors, and deep space exploration what-ifs.",
       "tags": ["space", "astronomy", "universe", "whatif", "physics", "curiosity", "shorts"],
       "fallbacks": [
         {
           "topic": "What happens if you fall into a black hole?",
-          "style": "deep-dive",
+          "style": "2d-motion",
           "title": "What Happens If You Fall In A Black Hole? #shorts",
           "sources": ["NASA Goddard, 'Black Holes: Gravitational Tidal Forces & Spaghettification'", "Astrophysical Journal, 'Event Horizon Crossing and Time Dilation'"],
           "lines": [
@@ -29,7 +29,7 @@
         },
         {
           "topic": "Why no national flag in the world uses the color purple",
-          "style": "deep-dive",
+          "style": "2d-motion",
           "title": "Why No Flag Uses Purple #shorts",
           "sources": ["Flags of the World (FOTW)", "Smithsonian Magazine, 'The History of Tyrian Purple Dye'"],
           "lines": [
@@ -51,14 +51,14 @@
       "time_pkt": "06:10 PM",
       "cron_utc": "10 13 * * *",
       "target_hour_utc": 13,
-      "style": "deep-dive",
+      "style": "2d-motion",
       "category_id": "28",
       "prompt_theme": "Surprising physics facts, strange chemistry, quantum weirdness, optical illusions, extreme physical laws, materials with impossible properties.",
       "tags": ["science", "physics", "experiments", "curiosity", "mindblown", "shorts"],
       "fallbacks": [
         {
           "topic": "Why glass is actually neither a standard solid nor a liquid",
-          "style": "deep-dive",
+          "style": "2d-motion",
           "title": "Why Glass Is Not A Normal Solid #shorts",
           "sources": ["American Ceramic Society, 'The Atomic Structure of Amorphous Solids'", "Scientific American, 'Is Glass Liquid or Solid?'"],
           "lines": [
@@ -80,14 +80,14 @@
       "time_pkt": "10:10 PM",
       "cron_utc": "10 17 * * *",
       "target_hour_utc": 17,
-      "style": "deep-dive",
+      "style": "2d-motion",
       "category_id": "27",
       "prompt_theme": "Practical survival science, escaping physical traps, physiological survival reflexes, quicksand mechanics, cold water shock, bizarre medical history, ancient engineering ingenuity, strictly non-graphic documentary style.",
       "tags": ["survival", "history", "whatif", "mechanics", "bizarrehistory", "shorts"],
       "fallbacks": [
         {
           "topic": "What happens if you fall into deep quicksand?",
-          "style": "deep-dive",
+          "style": "2d-motion",
           "title": "What To Do If Trapped In Quicksand #shorts",
           "sources": ["Nature Magazine, 'Rheology of quicksand'", "Wilderness Medical Society, 'Non-Newtonian Fluid Entrapment'"],
           "lines": [
@@ -103,7 +103,7 @@
         },
         {
           "topic": "The acoustic engineering behind the ancient Greek Brazen Bull",
-          "style": "deep-dive",
+          "style": "2d-motion",
           "title": "The Dark Physics Of The Brazen Bull #shorts",
           "sources": ["Diodorus Siculus, 'Bibliotheca Historica' (Book IX)", "Cambridge Classical Journal, 'Perillos of Athens and the Sicilian Tyranny'"],
           "lines": [

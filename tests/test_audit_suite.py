@@ -62,10 +62,10 @@ class TestPipelineAuditSuite(unittest.TestCase):
                 self.assertIn('tags', info)
                 self.assertIn('fallbacks', info)
 
-                # Style MUST be deep-dive to prevent ERR-007 (Three.js missing module error)
+                # Style MUST be 2d-motion for high-quality 2D animated visual pipeline
                 self.assertEqual(
-                    info['style'], 'deep-dive',
-                    f"Slot {slot_id} style must be 'deep-dive', found: {info['style']}"
+                    info['style'], '2d-motion',
+                    f"Slot {slot_id} style must be '2d-motion', found: {info['style']}"
                 )
 
                 # Cron expression validation (5 fields)
@@ -80,7 +80,7 @@ class TestPipelineAuditSuite(unittest.TestCase):
                 self.assertGreater(len(fallbacks), 0, f"Slot {slot_id} has no fallback topics")
                 for fb in fallbacks:
                     self.assertIn('topic', fb)
-                    self.assertEqual(fb.get('style'), 'deep-dive', "Fallback style must be deep-dive")
+                    self.assertEqual(fb.get('style'), '2d-motion', "Fallback style must be 2d-motion")
                     self.assertIn('title', fb)
                     self.assertTrue(fb['title'].endswith('#shorts'), "Title must end with #shorts")
                     self.assertIn('lines', fb)
@@ -241,7 +241,7 @@ class TestPipelineAuditSuite(unittest.TestCase):
                     self.assertIn('topic', result)
                     self.assertIn('title', result)
                     self.assertIn('lines', result)
-                    self.assertEqual(result.get('style', 'deep-dive'), 'deep-dive')
+                    self.assertEqual(result.get('style', '2d-motion'), '2d-motion')
                 finally:
                     if env_backup:
                         os.environ['GEMINI_API_KEY'] = env_backup
@@ -259,10 +259,10 @@ class TestPipelineAuditSuite(unittest.TestCase):
         self.assertIn('asked the astronaut', clean)
 
     # =========================================================================
-    # Tier 4: Dynamic 3D Scene Graph & Adaptive Shot Generation
+    # Tier 4: Dynamic 2D Motion Graphics & Adaptive Shot Generation
     # =========================================================================
     def test_tier4_adaptive_shots_syntax_and_importmap(self):
-        """Verify adaptive shots.js generation has valid Three.js syntax and no undefined cuts."""
+        """Verify adaptive shots.js generation produces valid 2D procedural motion graphics."""
         temp_dir = Path(tempfile.mkdtemp(prefix="test_shots_"))
         try:
             (temp_dir / 'src').mkdir(parents=True)
@@ -273,15 +273,15 @@ class TestPipelineAuditSuite(unittest.TestCase):
                 {"text": "Line four loopback", "caps": "Line *four", "gap": 0.25}
             ]
             title = "Test Adaptive Video #shorts"
-            write_adaptive_shots(temp_dir, title, sample_lines, "deep-dive")
+            write_adaptive_shots(temp_dir, title, sample_lines, "2d-motion")
 
             shots_file = temp_dir / 'src' / 'shots.js'
             self.assertTrue(shots_file.exists(), "shots.js was not generated")
             content = shots_file.read_text(encoding='utf-8')
 
-            # Verify Three.js import presence
-            self.assertIn("import * as THREE from 'three';", content)
-            self.assertIn("export function buildShots(E)", content)
+            # Verify 2D Kit & Canvas import presence
+            self.assertIn("import * as K from './core/kit2d.js';", content)
+            self.assertIn("export function buildShots()", content)
 
             # Verify cut markers match line indices
             self.assertIn("const st = cut(0);", content)
@@ -356,6 +356,49 @@ class TestPipelineAuditSuite(unittest.TestCase):
                     os.environ[k] = v
 
     # =========================================================================
+    # Tier 6: 2D Visual Variation & Deduplication Integrity
+    # =========================================================================
+    def test_tier6_theme_detection_and_palette_cycling(self):
+        """Assert topic classifier accurately routes genres to distinct 2D themes and cycles palettes."""
+        from cloud.visual_engine_2d import detect_topic_theme, pick_variation_palette
+
+        theme_space = detect_topic_theme("What happens if you fall into a black hole?", [{"text": "Extreme gravity and event horizon."}])
+        self.assertEqual(theme_space, "COSMIC_SPACE")
+
+        theme_physics = detect_topic_theme("Why glass is actually neither solid nor liquid", [{"text": "Amorphous atoms and crystal grids."}])
+        self.assertEqual(theme_physics, "ATOMIC_PHYSICS")
+
+        theme_survival = detect_topic_theme("What to do if trapped in deep quicksand", [{"text": "Non-Newtonian fluid packing and escaping."}])
+        self.assertEqual(theme_survival, "SURVIVAL_TACTICAL")
+
+        # Palette non-repetition check
+        p1 = pick_variation_palette("COSMIC_SPACE", [])
+        p2 = pick_variation_palette("COSMIC_SPACE", [p1["id"]])
+        self.assertNotEqual(p1["id"], p2["id"], "Consecutive videos must not reuse the same palette")
+
+    def test_tier6_perceptual_dhash_and_quality_audit(self):
+        """Assert perceptual frame hasher detects Hamming distance differences between dissimilar patterns."""
+        from cloud.duplicate_detector import (
+            compute_dhash_from_grayscale_9x8,
+            hamming_distance,
+            VideoQualityAuditor
+        )
+
+        # 72 bytes of ascending gradient vs descending gradient
+        buf_asc = bytes(range(72))
+        buf_desc = bytes(reversed(range(72)))
+
+        h_asc = compute_dhash_from_grayscale_9x8(buf_asc)
+        h_desc = compute_dhash_from_grayscale_9x8(buf_desc)
+
+        dist = hamming_distance(h_asc, h_desc)
+        self.assertGreater(dist, 40, f"Opposite gradients must have large Hamming distance, got {dist}")
+
+        # Auditor initialization check
+        auditor = VideoQualityAuditor()
+        self.assertIsInstance(auditor.history, list)
+
+    # =========================================================================
     # End-to-End Simulation: Dry Run All Slots
     # =========================================================================
     def test_e2e_dry_run_all_three_slots(self):
@@ -369,7 +412,7 @@ class TestPipelineAuditSuite(unittest.TestCase):
                     f"Dry run failed for Slot {slot}.\nSTDOUT: {proc.stdout}\nSTDERR: {proc.stderr}"
                 )
                 self.assertIn("DRY-RUN COMPLETE.", proc.stdout)
-                self.assertIn("Style: deep-dive", proc.stdout)
+                self.assertIn("Style: 2d-motion", proc.stdout)
 
 if __name__ == '__main__':
     unittest.main()

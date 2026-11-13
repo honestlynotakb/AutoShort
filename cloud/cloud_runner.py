@@ -148,7 +148,7 @@ def pick_topic_for_slot(slot_info, published_topics):
     # Generic emergency fallback
     return {
         "topic": f"Curiosity explainer in {slot_info['name']}",
-        "style": slot_info.get('style', 'deep-dive'),
+        "style": slot_info.get('style', '2d-motion'),
         "title": f"The Truth Behind {slot_info['name']} #shorts",
         "sources": ["Scientific Literature & Historical Records"],
         "lines": [
@@ -226,138 +226,11 @@ def write_step_summary(title, slot_info, topic, style, video_name, short_url, st
         print(f"Failed to write GITHUB_STEP_SUMMARY: {e}")
 
 def write_adaptive_shots(proj_dir, title, lines, style):
-    shots_js_path = proj_dir / 'src' / 'shots.js'
-    num_lines = len(lines)
-    clean_title = title.replace('#shorts', '').strip()
-    shot_blocks = []
-
-    for i in range(num_lines):
-        shot_id = f"S{i+1:02d}"
-        if i == 0:
-            block = f"""
-  {{ const st = cut({i});
-    add({{ id: '{shot_id}', at: st, note: 'Hook: Hero pushes in with curiosity', draw(lt, d, t, blit) {{
-      reset();
-      const k = eo(clamp(lt / d));
-      hero.pose({{ head: [-8 * k + 4 * Math.sin(lt * 2), 4, 0], spine: [-3 * k, 0, 0], lid: -0.2, look: [0, -3 * k] }});
-      cam.position.copy(lerpV(V3(0.42, 1.72, 0.45), V3(0.25, 1.7, 0.15), eio(lt / d)));
-      cam.lookAt(FACE);
-      kitchenRender(cam.position.distanceTo(FACE));
-      blit();
-      pill('{clean_title.upper()[:22]}', 540, 340, eob(seg(lt, 0.15, 0.45)), '#FFD43B');
-    }} }});
-    cue(st, 'whoosh'); cue(st + 0.2, 'pop', {{ gain: 0.6 }}); }}"""
-        elif i == num_lines - 1:
-            block = f"""
-  {{ const st = cut({i});
-    add({{ id: '{shot_id}', at: st, note: 'Outro: Hero looks at camera, warning sign', draw(lt, d, t, blit) {{
-      reset();
-      hero.pose({{ head: [-2, 0, 0], lid: 0.05, look: [0, 0] }});
-      cam.position.copy(lerpV(V3(0.0, 1.62, 0.9), V3(0.05, 1.64, 0.55), eio(lt / d)));
-      cam.lookAt(FACE);
-      kitchenRender(cam.position.distanceTo(FACE));
-      blit();
-      warning(540, 1150, eob(seg(lt, 0.25, 0.55)) * 0.95);
-      pill('DID YOU KNOW THIS?', 540, 340, eob(seg(lt, 0.2, 0.45)), '#FFD43B');
-    }} }});
-    cue(st, 'whoosh'); cue(st + 0.25, 'slam', {{ gain: 0.7 }}); }}"""
-        else:
-            mode = i % 4
-            if mode == 1:
-                block = f"""
-  {{ const st = cut({i});
-    add({{ id: '{shot_id}', at: st, note: 'X-ray inspection view', draw(lt, d, t, blit) {{
-      reset();
-      lungs(1 + Math.sin(lt * 3) * 0.05);
-      chest(xh, 1);
-      xh.pose({{ head: [4, -6, 0] }});
-      cam.position.copy(lerpV(V3(0.55, 1.5, 1.6), V3(0.3, 1.42, 1.1), eio(lt / d)));
-      cam.lookAt(0, 1.33, 0);
-      E.render(X.scene, cam, {{ ...XLOOK, focus: cam.position.distanceTo(V3(0, 1.33, 0)) }});
-      blit();
-      pill('KEY EVIDENCE', 540, 340, eob(seg(lt, 0.2, 0.45)), '#4FD1E8');
-    }} }});
-    cue(st, 'whoosh'); cue(st + 0.15, 'thud', {{ gain: 0.45 }}); }}"""
-            elif mode == 2:
-                block = f"""
-  {{ const st = cut({i});
-    add({{ id: '{shot_id}', at: st, note: 'Macro detail view', draw(lt, d, t, blit) {{
-      VS.update(t, -lt * 1.6, 0, 0);
-      cam.position.set(0, 0, -lt * 1.6);
-      cam.lookAt(0.15, -0.08, -lt * 1.6 - 5);
-      E.render(VS.scene, cam, VLOOK);
-      blit();
-      pill('DETAILED REALITY', 540, 340, eob(seg(lt, 0.15, 0.4)), '#7CF29A');
-    }} }});
-    cue(st, 'whoosh'); cue(st + 0.2, 'pop', {{ gain: 0.5 }}); }}"""
-            elif mode == 3:
-                block = f"""
-  {{ const st = cut({i});
-    add({{ id: '{shot_id}', at: st, note: 'Dynamic tension view', draw(lt, d, t, blit) {{
-      reset();
-      const p = 0.5 + 0.5 * Math.sin(lt * 8);
-      I.heart.scale.setScalar(1 + p * 0.15);
-      I.heart.material.emissiveIntensity = 0.2 + p * 0.7;
-      const H0 = V3(0.025, 1.41, 0.07);
-      cam.position.copy(lerpV(V3(0.25, 1.48, 0.62), V3(0.12, 1.44, 0.42), eio(lt / d)));
-      cam.lookAt(H0);
-      E.render(X.scene, cam, {{ ...XLOOK, bloom: 0.6, focus: cam.position.distanceTo(H0) }});
-      blit();
-      pill('CRITICAL POINT', 540, 340, eob(seg(lt, 0.2, 0.45)), '#FF8A8A');
-    }} }});
-    cue(st, 'whoosh'); cue(st + 0.2, 'heartbeat'); }}"""
-            else:
-                block = f"""
-  {{ const st = cut({i});
-    add({{ id: '{shot_id}', at: st, note: 'Medium shot reaction', draw(lt, d, t, blit) {{
-      reset();
-      hero.pose({{ head: [2, -6 + Math.sin(lt * 2) * 3, 0], lid: -0.15, look: [6, 0] }});
-      const a = lerp(0.55, 0.2, eio(lt / d));
-      cam.position.set(0.1 + Math.sin(a) * 2.1, 1.45, -0.6 + Math.cos(a) * 2.1);
-      cam.lookAt(0.1, 1.25, -0.6);
-      kitchenRender(2.1);
-      blit();
-      pill('SURPRISING TWIST', 540, 340, eob(seg(lt, 0.2, 0.45)), '#C9D6DD');
-    }} }});
-    cue(st, 'whoosh'); cue(st + 0.2, 'pop', {{ gain: 0.5 }}); }}"""
-        shot_blocks.append(block)
-
-    shots_content = f"""// Adaptive shots for: {title}
-import * as THREE from 'three';
-import {{ ctx, W, H, clamp, lerp, seg, eo, eio, eob }} from './core/lib.js';
-import {{ L, Wd, T }} from './core/timing.js';
-import {{ camera }} from './core/engine.js';
-import {{ Human }} from './core/human.js';
-import * as SETS from './core/sets.js';
-import {{ label, pill, warning, blackout }} from './core/look2d.js';
-
-const V3 = (x, y, z) => new THREE.Vector3(x, y, z);
-const lerpV = (a, b, k) => a.clone().lerp(b, k);
-function screen(p, cam) {{ const v = p.clone().project(cam); return [(v.x + 1) / 2 * W, (1 - v.y) / 2 * H]; }}
-
-export function buildShots(E) {{
-  const S = [], CUES = [], add = (o) => (S.push(o), o), cue = (t, type, o = {{}}) => CUES.push({{ t: +t.toFixed(3), type, ...o }});
-  const cut = (i) => (i === 0 ? 0 : L(i) - 0.08);
-  const cam = camera(30);
-  const KLOOK = {{ aperture: 0.003, maxblur: 0.01, bloom: 0.2 }}, XLOOK = {{ aperture: 0.0015, bloom: 0.55, bloomThreshold: 0.4, vignette: 0.45 }}, VLOOK = {{ aperture: 0.005, maxblur: 0.012, bloom: 0.6, bloomThreshold: 0.5, focus: 3.2 }};
-
-  const K = SETS.kitchen(E), hero = new Human({{}}); hero.group.position.set(0.1, 0, -0.6); K.scene.add(hero.group);
-  const X = SETS.xrayStage(E), xh = new Human({{}}), xmat = SETS.xrayMaterial(); xh.setBodyMaterial(xmat); const I = SETS.insides(); xh.spine.add(I.group); X.scene.add(xh.group);
-  const VS = SETS.vessel(E);
-  const CYAN = new THREE.Color('#4FD1E8'), RED = new THREE.Color('#FF3B3B');
-  const chest = (h, k) => h.parts[0].scale.set(1 + 0.03 * k, 1 + 0.012 * k, 1 + 0.08 * k);
-  const lungs = (k) => I.lungs.forEach((l) => l.scale.set(1 + 0.12 * k, 1 + 0.1 * k, 1 + 0.12 * k));
-  const reset = () => {{ hero.pose({{}}); chest(hero, 0); xh.pose({{}}); chest(xh, 0); lungs(0); I.heart.scale.setScalar(1); xmat.uniforms.uCol.value.copy(CYAN); }};
-  const kitchenRender = (focus, extra = {{}}) => E.render(K.scene, cam, {{ ...KLOOK, focus, ...extra }});
-  const FACE = V3(0.1, 1.68, -0.6);
-
-{''.join(shot_blocks)}
-
-  return {{ shots: S, cues: CUES }};
-}}
-"""
-    shots_js_path.write_text(shots_content, encoding='utf-8')
-    print(f"Generated adaptive shots.js ({num_lines} shots).")
+    from cloud.visual_engine_2d import scaffold_2d_project
+    topic = title.replace('#shorts', '').strip()
+    theme, pal, seq = scaffold_2d_project(proj_dir, title, topic, lines, [])
+    print(f"Generated 2D adaptive shots.js ({len(lines)} shots, theme: {theme}, palette: {pal}).")
+    return theme, pal, seq
 
 def run_cmd(cmd, cwd=None, env=None):
     print(f"\n[RUN] {cmd}", flush=True)
@@ -451,13 +324,28 @@ def main():
         print("\nDRY-RUN COMPLETE.")
         return
 
-    # Scaffold project: standardize on deep-dive (3D Zack D. Films style with Three.js vendor bundle)
-    src_example = SKILL_DIR / 'styles' / 'deep-dive' / 'example'
+    # Initialize quality auditor and retrieve recent palettes to prevent consecutive repetition
+    from cloud.duplicate_detector import VideoQualityAuditor
+    from cloud.visual_engine_2d import scaffold_2d_project
 
+    auditor = VideoQualityAuditor()
+    recent_palettes = [entry.get("palette") for entry in reversed(auditor.history[-5:]) if entry.get("palette")]
+
+    print("\n--- [Stage 0.5/5] Scaffolding High-Quality 2D Animated Project ---")
     PROJECTS_DIR.mkdir(parents=True, exist_ok=True)
     if proj_dir.exists():
         shutil.rmtree(proj_dir)
-    shutil.copytree(src_example, proj_dir)
+
+    theme_name, palette_id, scene_sequence = scaffold_2d_project(
+        proj_dir=proj_dir,
+        title=title,
+        topic=topic,
+        lines=item['lines'],
+        recent_palette_ids=recent_palettes
+    )
+    print(f"2D Visual Theme:      {theme_name}")
+    print(f"Active Color Palette: {palette_id}")
+    print(f"Scene Archetypes:     {scene_sequence}")
 
     # Write script.json with mandatory calm collected tone settings
     script_data = {
@@ -472,9 +360,6 @@ def main():
         "lines": item['lines']
     }
     (proj_dir / 'script.json').write_text(json.dumps(script_data, indent=2), encoding='utf-8')
-
-    # Generate adaptive shots
-    write_adaptive_shots(proj_dir, title, item['lines'], style)
 
     py = sys.executable
     env = os.environ.copy()
@@ -522,6 +407,28 @@ def main():
 
     if not video_out.exists():
         raise FileNotFoundError(f"Render failed, {video_out} not created")
+
+    # 4.5. Quality Audit & Duplicate Prevention Check
+    print("\n--- [Stage 4.5/5] Pre-Upload Quality Audit & Duplicate Verification ---")
+    t0 = time.time()
+    is_dup, dup_reason, meta = auditor.audit_and_check_duplicate(
+        video_path=video_out,
+        topic=topic,
+        title=title,
+        theme=theme_name,
+        palette=palette_id,
+        scene_sequence=scene_sequence,
+        max_similarity_threshold=0.78
+    )
+    stage_metrics['Quality & Deduplication Audit'] = round(time.time() - t0, 2)
+
+    if is_dup:
+        print(f"\n[CRITICAL QUALITY REJECTION] Video failed deduplication audit!")
+        print(f"Reason: {dup_reason}")
+        raise ValueError(f"Deduplication Audit Failed: {dup_reason}")
+    else:
+        print(f"[Quality Audit PASSED] {dup_reason}")
+        auditor.record_approved_video(meta)
 
     # 5. Upload to YouTube
     print("\n--- [Stage 5/5] Uploading Short to YouTube ---")
