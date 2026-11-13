@@ -164,11 +164,20 @@ jobs:
             if [ -z "$TITLE" ] || [[ "$TITLE" == *"Manual/Pending"* ]] || [[ "$TITLE" == *"Upload Error"* ]]; then
               TITLE="$(basename "$VIDEO_FILE" .mp4 | tr '-' ' ') #shorts"
             fi
-            DESC="Watch full explainer! #shorts #curiosity #science"
+
+            echo "Uploading $VIDEO_FILE to direct media host for Zapier..."
+            DIRECT_URL=$(python cloud/upload_helper.py "$VIDEO_FILE" || echo "")
+            if [ -z "$DIRECT_URL" ]; then
+              echo "Warning: Direct host upload failed, falling back to default notes"
+              DIRECT_URL="Watch full explainer! #shorts #curiosity"
+            else
+              echo "Direct Public Media Stream: $DIRECT_URL"
+            fi
+
             echo "Creating GitHub Release $TAG_NAME with $VIDEO_FILE..."
             gh release create "$TAG_NAME" "$VIDEO_FILE" \
               --title "$TITLE" \
-              --notes "$DESC"
+              --notes "$DIRECT_URL"
             echo "Release created successfully for Zapier!"
           else
             echo "No rendered MP4 found to release."

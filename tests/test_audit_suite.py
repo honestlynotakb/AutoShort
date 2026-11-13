@@ -161,6 +161,11 @@ class TestPipelineAuditSuite(unittest.TestCase):
         except ImportError:
             pass  # Local workstation may lack google-auth outside CI venv
 
+        import cloud.upload_helper as uh
+        self.assertTrue(callable(uh.upload_to_direct_host), "upload_helper.upload_to_direct_host must be callable")
+        self.assertTrue(callable(uh.verify_direct_url), "upload_helper.verify_direct_url must be callable")
+        self.assertFalse(uh.verify_direct_url("https://invalid-non-existent-domain-404.xyz/test.mp4"))
+
     # =========================================================================
     # Tier 2: Slot Routing & Deterministic Deduplication
     # =========================================================================
