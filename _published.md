@@ -11,3 +11,4 @@
 | 2026-11-13 | What happens if you fall into a black hole? | deep-dive | What Happens If You Fall In A Black Hole? #shorts | [Manual/Pending Upload] what-happens-if-you-fall-in-a-black.mp4 |
 | 2026-11-13 | Why glass is actually neither a standard solid nor a liquid | deep-dive | Why Glass Is Not A Normal Solid #shorts | [Manual/Pending Upload] why-glass-is-not-a-normal-solid.mp4 |
 | 2026-11-13 | Why glass is actually neither a standard solid nor a liquid | deep-dive | Why Glass Is Not A Normal Solid #shorts | [Manual/Pending Upload] why-glass-is-not-a-normal-solid.mp4 |
+| 2026-11-13 | The acoustic engineering behind the ancient Greek Brazen Bull | 2d-motion | The Dark Physics Of The Brazen Bull #shorts | [Manual/Pending Upload] the-dark-physics-of-the-brazen-bull.mp4 |
