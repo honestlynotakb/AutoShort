@@ -12,6 +12,7 @@ Key capabilities:
 5. Synchronized Audio Cues with Word-Level Timing.
 6. Gate 3 Pre-Render Composition & Visual Diversity Verification.
 """
+from __future__ import annotations
 
 import os
 import re

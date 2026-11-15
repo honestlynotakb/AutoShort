@@ -8,6 +8,8 @@ Reads credentials from environment variables:
   YOUTUBE_CLIENT_SECRET
   YOUTUBE_REFRESH_TOKEN
 """
+from __future__ import annotations
+
 import os
 import sys
 import time

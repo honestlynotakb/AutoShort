@@ -13,6 +13,8 @@ Tests all five architectural gates and six core tiers:
   Tier 10: Gate 5 Application-Level Upload Idempotency & Persistence
   Tier 11: End-to-End Three-Slot Operational Simulation
 """
+from __future__ import annotations
+
 import os
 import re
 import sys

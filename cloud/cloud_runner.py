@@ -12,6 +12,8 @@ Enforces 5-Layer Defense-in-Depth Content Uniqueness Gate System:
   Gate 4: Perceptual Video Quality & 10-Frame dHash Auditor (Post-Render)
   Gate 5: Application-Level Publication Idempotency (Pre-Upload)
 """
+from __future__ import annotations
+
 import os
 import re
 import sys
@@ -34,7 +36,7 @@ try:
 except ImportError:
     HttpError = Exception
 
-from cloud.state_manager import get_state_manager
+from cloud.state_manager import StateManager, get_state_manager
 from cloud.topic_guard import TopicGuard
 from cloud.script_guard import ScriptGuard
 from cloud.visual_engine_2d import scaffold_2d_project, evaluate_visual_uniqueness

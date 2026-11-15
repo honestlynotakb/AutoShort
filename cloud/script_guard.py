@@ -7,6 +7,7 @@ Enforces narration uniqueness before neural voice synthesis:
 3. Line-by-line sequence similarity to detect recycled scripts with superficial word edits.
 4. Persistent registration into script_registry.json.
 """
+from __future__ import annotations
 
 import re
 import hashlib

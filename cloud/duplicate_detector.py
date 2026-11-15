@@ -9,6 +9,7 @@ Provides multi-tiered duplicate detection and pre-upload quality verification:
 5. Integration with Unified StateManager for atomic persistence.
 6. Pre-upload container, resolution, duration, and audio stream integrity checks.
 """
+from __future__ import annotations
 
 import os
 import sys

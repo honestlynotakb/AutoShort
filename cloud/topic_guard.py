@@ -9,6 +9,7 @@ Enforces strict semantic topic uniqueness before script generation:
 5. Character sequence similarity via SequenceMatcher (threshold >= 0.70 rejected).
 6. Cross-checking against published, historical, and actively reserved topics.
 """
+from __future__ import annotations
 
 import re
 import difflib

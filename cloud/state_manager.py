@@ -10,6 +10,7 @@ Manages:
 3. video_history.json       - Exact file hashes, 10-frame 64-bit dHashes, theme/palette metadata.
 4. publication_history.json - Upload idempotency records, run IDs, and YouTube video IDs.
 """
+from __future__ import annotations
 
 import os
 import sys
