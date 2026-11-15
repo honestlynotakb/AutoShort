@@ -42,6 +42,198 @@
             {"text": "Today, synthetic dye is cheap, but flags kept their traditional colors.", "caps": "Synthetic dye | is *cheap today"},
             {"text": "So next time you look at a world map, see if you can spot...", "caps": "See if you can *spot | any *purple", "gap": 0.25}
           ]
+        },
+        {
+          "topic": "What happens if a rogue planet enters our solar system?",
+          "style": "2d-motion",
+          "title": "What If A Rogue Planet Invaded? #shorts",
+          "sources": ["Astronomical Journal, 'Dynamical Instabilities from Interstellar Nomads'", "NASA Exoplanet Exploration Archive"],
+          "lines": [
+            {"text": "What would happen if a massive rogue planet drifted into our solar system?", "caps": "What if a *rogue planet | enters our *system?"},
+            {"text": "Billions of rogue planets wander through interstellar space with no host star.", "caps": "Billions of *nomads | wandering deep *space"},
+            {"text": "If a Jupiter-sized planet passed through our asteroid belt, its gravity would disrupt planetary orbits.", "caps": "Gravity would *shatter | planetary *orbits"},
+            {"text": "Earth could be dragged into an elliptical freeze, or hurled into outer darkness.", "caps": "Earth *flung | into eternal *darkness"},
+            {"text": "Within weeks, surface temperatures would plunge below minus one hundred degrees.", "caps": "Temperatures *drop | below *minus 100"},
+            {"text": "The oceans would freeze into an icy armor, trapping humanity beneath frozen crusts.", "caps": "Oceans *freeze | into solid *armor"},
+            {"text": "So remember that our stable cosmic neighborhood is the only reason you don't face...", "caps": "Remember our *stability | before you face", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The mystery of diamond rain on Neptune and Uranus",
+          "style": "2d-motion",
+          "title": "Why It Rains Solid Diamonds In Space #shorts",
+          "sources": ["Nature Astronomy, 'Diamond precipitation in icy giant interiors'", "SLAC National Accelerator Laboratory"],
+          "lines": [
+            {"text": "Did you know that inside Neptune and Uranus, it literally rains solid diamonds?", "caps": "It *rains diamonds | inside *Neptune?"},
+            {"text": "Thousands of miles beneath their pale blue cloud tops, temperatures reach thousands of degrees.", "caps": "Crushing *heat | beneath blue *clouds"},
+            {"text": "Under extreme atmospheric pressure, methane molecules split apart into hydrogen and carbon.", "caps": "Methane *shatters | into *carbon"},
+            {"text": "The carbon atoms squeeze together into pure diamond crystals that hail downward toward the core.", "caps": "Carbon *compresses | into pure *diamonds"},
+            {"text": "Scientists believe massive diamond icebergs float in oceans of liquid carbon.", "caps": "Diamond *icebergs | in liquid *carbon"},
+            {"text": "So while diamonds are precious on Earth, on ice giants they are just...", "caps": "On ice giants | they are just *rain", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Why Nepal has the only non-rectangular flag on Earth",
+          "style": "2d-motion",
+          "title": "The Only Triangular Flag In The World #shorts",
+          "sources": ["Constitution of Nepal (Schedule 1)", "Flag Research Center, 'The Geometry of the Nepalese Pennant'"],
+          "lines": [
+            {"text": "Why is the flag of Nepal the only national flag in the world that is not a rectangle?", "caps": "Why Nepal's *flag | is not a *rectangle?"},
+            {"text": "Every other country uses a four-sided banner, but Nepal uses a double pennant.", "caps": "Every country uses *four sides | Nepal uses *two"},
+            {"text": "The two stacked triangles symbolize the towering peaks of the Himalayas.", "caps": "Two *triangles | for Himalayan *peaks"},
+            {"text": "The crescent moon and sun represent the wish that the nation will endure as long as the celestial bodies.", "caps": "Sun and *moon | for eternal *endurance"},
+            {"text": "Nepal's constitution contains an intricate twenty-four step mathematical formula to draw it with a compass.", "caps": "24-step *geometry | to draw it with *compass"},
+            {"text": "A brilliant masterclass in sacred geometry, showing why Nepal refused...", "caps": "Sacred *geometry | refusing standard *squares", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The terrifying physics of magnetars and magnetic spaghettification",
+          "style": "2d-motion",
+          "title": "The Deadliest Magnetic Field In Space #shorts",
+          "sources": ["Astrophysical Journal, 'Magnetar Flares and Atomic Dissolution'", "Max Planck Institute for Radio Astronomy"],
+          "lines": [
+            {"text": "What is the most magnetically terrifying object in the entire universe?", "caps": "The *deadliest magnetic | object in the *universe?"},
+            {"text": "Meet the magnetar, a hyper-dense neutron star spinning wildly in deep space.", "caps": "Meet the *magnetar | a hyper-dense *beast"},
+            {"text": "Its magnetic field is a quadrillion times stronger than Earth's magnetic core.", "caps": "Quadrillion times *stronger | than Earth's *core"},
+            {"text": "If you came within six hundred miles of one, the magnetic forces would distort your atomic electron orbitals.", "caps": "Distorting your *atoms | into thin *tubes"},
+            {"text": "Your chemistry would literally dissolve, turning your molecules into useless strings.", "caps": "Your *chemistry | instantly *dissolves"},
+            {"text": "Even a minor starquake on its crust releases more energy in seconds than our Sun emits in centuries.", "caps": "A starquake *releases | centuries of *solar energy"},
+            {"text": "A cosmic reminder of the deadly extremes waiting in deep space, before you encounter...", "caps": "Deadly *extremes | before you encounter", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Why the Moon's footprints will survive for millions of years",
+          "style": "2d-motion",
+          "title": "Why Apollo Footprints Never Erase #shorts",
+          "sources": ["NASA Lunar Science Institute, 'Micrometeoroid Erosion on the Lunar Surface'", "Smithsonian National Air and Space Museum"],
+          "lines": [
+            {"text": "Why will the Apollo astronaut footprints on the Moon survive for over a million years?", "caps": "Why moon *footprints | last a *million years?"},
+            {"text": "On Earth, footprints disappear in hours due to rain, wind, and blowing dust.", "caps": "On Earth | wind and *rain erase *tracks"},
+            {"text": "But the Moon has no atmosphere, no weather, and no flowing water.", "caps": "The Moon has | *no atmosphere | or *wind"},
+            {"text": "The lunar soil, called regolith, is made of jagged microscopic volcanic glass that locks into place.", "caps": "Sharp glass *soil | locks firmly in *place"},
+            {"text": "The only thing eroding them is the slow bombardment of microscopic space dust.", "caps": "Only slow *space dust | wears them *down"},
+            {"text": "Scientists calculate it will take tens of millions of years for them to vanish.", "caps": "Tens of *millions of years | to fade *away"},
+            {"text": "So long after human cities crumble, our first steps on another world remain...", "caps": "Our *first steps | preserved in *silence", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The Boomerang Nebula: The coldest place in the natural universe",
+          "style": "2d-motion",
+          "title": "The Coldest Place In The Universe #shorts",
+          "sources": ["Astrophysical Journal, 'Sub-Cosmic Microwave Background Cooling in the Boomerang Nebula'", "European Southern Observatory"],
+          "lines": [
+            {"text": "Did you know there is a place in deep space that is colder than empty space itself?", "caps": "A place in *space | colder than *deep space?"},
+            {"text": "Empty interstellar space has a temperature of two point seven Kelvin from cosmic background radiation.", "caps": "Deep space is *chilled | to 2.7 *Kelvin"},
+            {"text": "Yet five thousand light years away, the Boomerang Nebula sits at just one Kelvin.", "caps": "Boomerang Nebula | sits at *one Kelvin"},
+            {"text": "That is minus four hundred and fifty-eight degrees Fahrenheit, nearly absolute zero.", "caps": "Minus 458 *degrees | near *absolute zero"},
+            {"text": "It achieved this by blasting out gas at over three hundred thousand miles per hour,", "caps": "Blasting gas *clouds | at incredible *speed"},
+            {"text": "acting like a cosmic thermodynamic refrigerator expanding rapidly into the void.", "caps": "A cosmic *refrigerator | in the *void"},
+            {"text": "The only spot in nature where space freezes the cosmic echo, before you discover...", "caps": "Freezing the *void | before you discover", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "What would happen if the Sun vanished for one week?",
+          "style": "2d-motion",
+          "title": "What If The Sun Vanished Right Now? #shorts",
+          "sources": ["Harvard-Smithsonian Center for Astrophysics", "Planetary and Space Science, 'Planetary Climate Without Insolation'"],
+          "lines": [
+            {"text": "What would happen on Earth if the Sun suddenly blinked out of existence?", "caps": "What happens if the *Sun | instantly *vanishes?"},
+            {"text": "For the first eight minutes and twenty seconds, you wouldn't notice a single change.", "caps": "For eight *minutes | nothing changes at *all"},
+            {"text": "Light and gravity both travel at the speed of light, so daylight continues unchanged.", "caps": "Light and *gravity | travel at the *same speed"},
+            {"text": "Then, instant total darkness sweeps across the planet.", "caps": "Instant *darkness | covers the *globe"},
+            {"text": "Earth would break from its elliptical orbit, hurtling in a straight line into deep space.", "caps": "Earth flies *free | into cold *space"},
+            {"text": "Within three days, global temperatures plummet to zero degrees Fahrenheit, collapsing power grids.", "caps": "Temperatures *plummet | freezing power *grids"},
+            {"text": "A terrifying reminder that our entire existence hangs on one single star, before you realize...", "caps": "Our entire *world | hung on one *star", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The acoustic silence of vacuum: Why explosions in space are silent",
+          "style": "2d-motion",
+          "title": "Why Space Explosions Are Completely Silent #shorts",
+          "sources": ["Physics Today, 'Acoustic Wave Propagation in Rarefied Media'", "NASA Glenn Research Center"],
+          "lines": [
+            {"text": "Why do Hollywood movies get space explosions completely wrong?", "caps": "Why space *explosions | make *zero sound?"},
+            {"text": "In sci-fi movies, exploding starships produce thunderous, bone-shaking blasts.", "caps": "Movies show *thunder | and giant *blasts"},
+            {"text": "In reality, sound is a mechanical pressure wave that requires atoms to bump into each other.", "caps": "Sound needs *atoms | to vibrate *waves"},
+            {"text": "Space is a near-perfect vacuum, with only a few hydrogen atoms per cubic meter.", "caps": "Space is a *vacuum | with almost *no atoms"},
+            {"text": "Even if a massive supernova detonates right beside you, you would hear complete, dead silence.", "caps": "A supernova *detonates | in total *silence"},
+            {"text": "The only way you'd hear anything is through vibrations conducted directly through your suit.", "caps": "Only vibrations | through your *spacesuit"},
+            {"text": "A quiet reminder of the true isolation of the cosmos, before you hear...", "caps": "True *silence | of the cosmic *void", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Why the flag of Mozambique features an assault rifle",
+          "style": "2d-motion",
+          "title": "The Only Flag With A Modern Assault Rifle #shorts",
+          "sources": ["National Geographic, 'National Symbols and Post-Colonial Arms'", "Flags of the World Archive"],
+          "lines": [
+            {"text": "Did you know that one national flag in the world features a modern Kalashnikov rifle?", "caps": "A national *flag | with an *assault rifle?"},
+            {"text": "The flag of Mozambique proudly displays an AK-47 crossed with a farming hoe.", "caps": "Mozambique displays | an *AK-47 rifle"},
+            {"text": "Adopted in 1983, the rifle symbolizes the armed struggle that won independence from Portugal.", "caps": "The rifle represents | *defense and *independence"},
+            {"text": "The hoe represents the nation's agriculture, while the book beneath represents universal education.", "caps": "The hoe for *farming | the book for *learning"},
+            {"text": "Despite several parliamentary debates to modernize the banner, citizens voted to keep it.", "caps": "Citizens *voted | to keep the *weapon"},
+            {"text": "A unique historical reminder of a bloody revolution, showing how nations encode...", "caps": "Encoding *history | in bold *symbols", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The Roche Limit: When planets rip moons to shreds",
+          "style": "2d-motion",
+          "title": "How Gravity Rips Moons Into Rings #shorts",
+          "sources": ["Icarus: International Journal of Solar System Studies, 'Tidal Disruption at the Roche Limit'", "Jet Propulsion Laboratory"],
+          "lines": [
+            {"text": "What happens when a moon orbits too close to its host planet?", "caps": "What happens if a *moon | gets too *close?"},
+            {"text": "Every planet is surrounded by an invisible gravitational threshold called the Roche limit.", "caps": "An invisible *threshold | the *Roche limit"},
+            {"text": "Outside this boundary, a moon's own self-gravity keeps it held together as a solid sphere.", "caps": "A moon stays *whole | outside the *line"},
+            {"text": "Cross the threshold, and the planet's tidal gravity pulls harder on the moon's near side than its far side.", "caps": "Tidal *gravity | tears both *sides apart"},
+            {"text": "The moon is violently ripped into trillions of shattered rock and ice fragments.", "caps": "Shattered into *trillions | of icy *fragments"},
+            {"text": "Those shattered pieces spread out over time, forming a magnificent planetary ring system like Saturn's.", "caps": "Spreading out | into glowing *rings"},
+            {"text": "So next time you admire Saturn's rings, you are staring at...", "caps": "Staring at a *shattered | ancient *moon", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The Armstrong Limit: What happens to human blood in space vacuum?",
+          "style": "2d-motion",
+          "title": "Why Blood Boils Without Space Suits #shorts",
+          "sources": ["USAF School of Aerospace Medicine, 'Physiological Effects of Spacecraft Explosive Decompression'", "Aerospace Medical Association"],
+          "lines": [
+            {"text": "At what altitude does your body fluid boil without a pressurized spacesuit?", "caps": "At what *height | does your blood *boil?"},
+            {"text": "It happens at sixty-three thousand feet, an altitude known as the Armstrong Limit.", "caps": "Sixty-three *thousand feet | the *Armstrong Limit"},
+            {"text": "As atmospheric pressure drops, the boiling point of water drops alongside it.", "caps": "Lower *pressure | lowers boiling *points"},
+            {"text": "At this threshold, water boils at normal body temperature: ninety-eight point six degrees.", "caps": "Water *boils | at normal *body heat"},
+            {"text": "Your blood stays under pressure in your veins, but your saliva and tear ducts boil instantly into vapor.", "caps": "Saliva and *tears | boil into *vapor"},
+            {"text": "Without an airtight pressure suit, you lose consciousness in under fifteen seconds.", "caps": "Unconscious | in fifteen *seconds"},
+            {"text": "A chilling biological reality of the thin line keeping us alive, before you face...", "caps": "The thin *boundary | keeping you *alive", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The Great Attractor: The invisible anomaly pulling our galaxy",
+          "style": "2d-motion",
+          "title": "The Cosmic Monster Pulling The Milky Way #shorts",
+          "sources": ["Monthly Notices of the Royal Astronomical Society, 'Streaming Velocities toward the Hydra-Centaurus Supercluster'", "Hubble Space Telescope Science Institute"],
+          "lines": [
+            {"text": "Did you know our entire galaxy is being pulled toward an invisible point in space?", "caps": "Our *galaxy | is being *pulled?"},
+            {"text": "Astronomers call this mysterious cosmic anomaly the Great Attractor.", "caps": "Astronomers call it | the *Great Attractor"},
+            {"text": "It lies two hundred and fifty million light years away, hidden behind the dust of our own galactic core.", "caps": "Hidden behind | thick *galactic dust"},
+            {"text": "It possesses the gravitational mass of tens of thousands of Milky Way galaxies combined.", "caps": "Mass of *thousands | of giant *galaxies"},
+            {"text": "The Milky Way and thousands of surrounding galaxies are accelerating toward it at over a million miles per hour.", "caps": "Rushing *toward it | at million *miles an hour"},
+            {"text": "Scientists still cannot see what lies at the center of this immense gravitational drain.", "caps": "We still cannot *see | what waits *inside"},
+            {"text": "An unsolved cosmic gravity mystery, reminding us how little we know before...", "caps": "An unsolved *mystery | pulling us *all", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The Wow! Signal: The sixty-second radio anomaly from deep space",
+          "style": "2d-motion",
+          "title": "The Unexplained Radio Call From Space #shorts",
+          "sources": ["Astronomical Journal, 'A Search for the Wow! Signal Source'", "Ohio State University Radio Observatory Archive"],
+          "lines": [
+            {"text": "In 1977, an Ohio radio telescope detected the most famous signal from deep space.", "caps": "The most famous *call | from *deep space?"},
+            {"text": "Astronomer Jerry Ehman was reviewing computer printouts from the Big Ear radio observatory.", "caps": "Scanning *printouts | at the *observatory"},
+            {"text": "He spotted a sequence of six characters: 6EQUJ5, denoting an intense narrowband radio burst.", "caps": "A sequence of *letters | 6EQUJ5 *burst"},
+            {"text": "It matched the exact frequency of hydrogen, the universal communication channel expected for extraterrestrials.", "caps": "The exact *frequency | of *hydrogen atoms"},
+            {"text": "The signal lasted for seventy-two seconds before disappearing forever.", "caps": "Seventy-two *seconds | then dead *silence"},
+            {"text": "Despite decades of searching the same coordinates, no radio telescope has ever detected it again.", "caps": "Decades of *searches | found *nothing"},
+            {"text": "A lonely cosmic whisper across the stars, making humanity wonder if anyone is...", "caps": "A cosmic *whisper | across the *stars", "gap": 0.25}
+          ]
         }
       ]
     },
@@ -70,6 +262,217 @@
             {"text": "Scientists call this bizarre state an amorphous solid.", "caps": "Called an | *amorphous solid"},
             {"text": "It has the stiffness of a solid, but the atomic chaos of a liquid.", "caps": "Stiff as a *solid | messy as a *liquid"},
             {"text": "So next time you look through a window, you are looking at...", "caps": "Looking at *frozen | liquid *chaos", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Prince Rupert's Drop: The glass teardrop that shatters bullets",
+          "style": "2d-motion",
+          "title": "The Glass Drop That Stops Bullets #shorts",
+          "sources": ["Applied Physics Letters, 'Residual stress distribution in Prince Rupert's drops'", "Purdue University Engineering Mechanics"],
+          "lines": [
+            {"text": "How can a fragile glass drop survive a direct hit from a rifle bullet?", "caps": "How can *glass | shatter a *bullet?"},
+            {"text": "When molten glass is dropped into cold water, the outside cools and contracts instantly.", "caps": "Molten *glass | in cold *water"},
+            {"text": "The inner core stays red hot and tries to contract later, creating colossal internal compressive stress.", "caps": "Compressive *stress | locked *inside"},
+            {"text": "The bulb can withstand hammer blows and lead bullets without taking a single scratch.", "caps": "Resisting *hammers | and direct *bullets"},
+            {"text": "However, if you snip the microscopic tail with your fingers,", "caps": "Snip the *tiny tail | with *fingers"},
+            {"text": "a crack propagates through the drop at over three thousand miles per hour, exploding it into fine dust.", "caps": "Exploding at *3,000 | miles per *hour"},
+            {"text": "A stunning battle between tension and compression, proving why you must never touch...", "caps": "Tension and *force | before you touch", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Non-Newtonian shear-thickening fluids: Running across liquid water",
+          "style": "2d-motion",
+          "title": "Why You Can Run Across Solid Slime #shorts",
+          "sources": ["Physical Review Letters, 'Dynamic Jamming in Cornstarch Suspensions'", "MIT Department of Mechanical Engineering"],
+          "lines": [
+            {"text": "How is it possible to sprint across a pool of liquid without sinking?", "caps": "How can you *sprint | across *liquid?"},
+            {"text": "Mix equal parts cornstarch and water, and you create oobleck: a non-Newtonian fluid.", "caps": "Mix cornstarch and *water | to make *oobleck"},
+            {"text": "Most normal fluids have a constant viscosity regardless of pressure.", "caps": "Normal fluids keep | constant *viscosity"},
+            {"text": "In shear-thickening fluids, suspended starch particles jam together when struck with sudden impact.", "caps": "Particles *jam | under sudden *impact"},
+            {"text": "The liquid momentarily acts like concrete armor, holding your entire body weight.", "caps": "Acts like *concrete | holding your *weight"},
+            {"text": "Stop running and stand still, and the particles slide apart, sucking your feet into the soup.", "caps": "Stop moving | and you *sink right in"},
+            {"text": "A wild display of fluid dynamics, showing how motion creates solid ground before...", "caps": "Motion creates *stone | before you sink", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Superfluid Helium: The liquid that defies gravity and climbs walls",
+          "style": "2d-motion",
+          "title": "The Liquid That Climbs Out Of Cups #shorts",
+          "sources": ["Reviews of Modern Physics, 'Superfluidity in Helium-4'", "Lancaster University Ultralow Temperature Physics"],
+          "lines": [
+            {"text": "Did you know that when helium gets cold enough, it climbs out of its own container?", "caps": "A liquid that *climbs | out of *cups?"},
+            {"text": "Cool liquid helium to two degrees above absolute zero, and it undergoes a phase transition into a superfluid.", "caps": "Near *absolute zero | it becomes *superfluid"},
+            {"text": "At this point, its viscosity drops to exactly zero.", "caps": "Viscosity drops | to *absolute zero"},
+            {"text": "With zero friction, it creeps up the inner walls of glass beakers in a microscopic layer called a Rollin film.", "caps": "Creeping up *walls | in a *Rollin film"},
+            {"text": "It flows upward against gravity and drips off the bottom until the glass is completely empty.", "caps": "Flows against *gravity | until *empty"},
+            {"text": "Once set in motion, superfluid whirlpools will spin for decades without ever slowing down.", "caps": "Whirlpools spin for *decades | without *friction"},
+            {"text": "Quantum mechanics acting on a macro scale, showing what happens when physics loses...", "caps": "Physics losing *friction | before your eyes", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The Leidenfrost Effect: Dipping your bare hand into liquid nitrogen",
+          "style": "2d-motion",
+          "title": "Why Liquid Nitrogen Doesn't Burn Hands #shorts",
+          "sources": ["American Journal of Physics, 'The Leidenfrost Phenomenon'", "University of Liège Thermodynamics Lab"],
+          "lines": [
+            {"text": "How can scientists dip a bare hand into minus three hundred degree liquid nitrogen unharmed?", "caps": "How hands survive | liquid *nitrogen?"},
+            {"text": "It sounds suicidal, but it relies on a physical law called the Leidenfrost effect.", "caps": "A physical *law | the *Leidenfrost effect"},
+            {"text": "When a cold liquid touches a surface drastically hotter than its boiling point, it boils instantly.", "caps": "Touches a hot *surface | boils *instantly"},
+            {"text": "This creates a microscopic vapor barrier of insulating gas between the liquid and the warm skin.", "caps": "An insulating *vapor | shields the *skin"},
+            {"text": "The gas acts as a thermal shield, keeping the freezing liquid from making direct contact for a fraction of a second.", "caps": "Gas *shields | direct freezing *contact"},
+            {"text": "Linger for more than a second, however, and the vapor collapses, flash-freezing your tissue solid.", "caps": "Wait one *second | and skin *freezes"},
+            {"text": "A miraculous barrier of physics, showing why heat creates protection before...", "caps": "Heat creating *protection | before it burns", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Aerogel: The frozen smoke that insulates against a blowtorch",
+          "style": "2d-motion",
+          "title": "The World's Lightest Solid Metal #shorts",
+          "sources": ["Journal of Non-Crystalline Solids, 'Silica Aerogel Synthesis'", "NASA Jet Propulsion Laboratory Stardust Project"],
+          "lines": [
+            {"text": "What material is ninety-nine point eight percent air, yet can stop a blowtorch flame?", "caps": "99.8% air | yet stops a *blowtorch?"},
+            {"text": "Meet aerogel, also known as frozen smoke.", "caps": "Meet *aerogel | called *frozen smoke"},
+            {"text": "Scientists create it by extracting the liquid from a silica gel and replacing it with gas under supercritical conditions.", "caps": "Replacing *liquid | with supercritical *gas"},
+            {"text": "The resulting material is barely denser than air, yet its nanostructure traps air pockets so tightly that heat cannot pass.", "caps": "Nanostructure *traps | all heat *flow"},
+            {"text": "You can rest a delicate flower on top of aerogel with a thousand-degree blowtorch underneath, and the flower won't even wilt.", "caps": "A flower *survives | a thousand-degree *flame"},
+            {"text": "NASA used it to trap space dust traveling at eighteen thousand miles per hour.", "caps": "Used by *NASA | to catch *space dust"},
+            {"text": "A triumph of materials science, showing how emptiness can shield you before...", "caps": "Pure *emptiness | shielding extreme *heat", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Quantum Tunneling: How particles teleport through solid walls",
+          "style": "2d-motion",
+          "title": "How Atoms Teleport Through Solid Walls #shorts",
+          "sources": ["Physical Review A, 'Quantum Tunneling Times and Wavepacket Dynamics'", "Max Planck Institute of Quantum Optics"],
+          "lines": [
+            {"text": "Did you know that in quantum physics, particles can walk straight through solid walls?", "caps": "Can atoms *walk | through solid *walls?"},
+            {"text": "In the classical world, if you throw a tennis ball at a brick wall, it bounces straight back.", "caps": "In our world | balls *bounce off *bricks"},
+            {"text": "In the subatomic world, electrons exist not as solid points, but as waves of probability.", "caps": "Electrons exist | as *waves of probability"},
+            {"text": "When an electron hits an energy barrier, its wave function leaks through to the other side.", "caps": "Wave functions *leak | through the *barrier"},
+            {"text": "There is a non-zero chance the particle instantly materializes on the opposite side without breaking the wall.", "caps": "Materializing on the *other side | instantly"},
+            {"text": "Without quantum tunneling, the Sun could not fuse hydrogen atoms, and nuclear fusion would shut down.", "caps": "The Sun *fuses atoms | using this *trick"},
+            {"text": "The fundamental engine of the cosmos, showing why solid barriers dissolve before...", "caps": "Barriers *dissolve | in quantum *waves", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Gallium: The metal that melts in your bare hands",
+          "style": "2d-motion",
+          "title": "The Metal That Melts In Your Hand #shorts",
+          "sources": ["Inorganic Chemistry, 'Gallium Liquid Metal Properties and Phase Behavior'", "RSC Chemistry World"],
+          "lines": [
+            {"text": "What metal looks and shines like steel, but liquefies the second you pick it up?", "caps": "A shiny *metal | that melts in your *hand?"},
+            {"text": "This is gallium, element thirty-one on the periodic table.", "caps": "This is *gallium | element thirty-one"},
+            {"text": "Gallium has a melting point of eighty-five point six degrees Fahrenheit.", "caps": "Melts at *eighty-five | degrees *Fahrenheit"},
+            {"text": "Since human body temperature is ninety-eight point six degrees, holding it transfers body heat directly into the metal.", "caps": "Body *heat | liquefies the *bars"},
+            {"text": "Within seconds, solid metal turns into a pool of reflective liquid mercury-like soup.", "caps": "Becomes a *pool | of liquid *mirror"},
+            {"text": "Even crazier: a single drop of liquid gallium compromises the grain boundaries of aluminum, making strong cans crumble like wet chalk.", "caps": "Destroys *aluminum | into soft *chalk"},
+            {"text": "A fascinating chemistry party trick, showing how temperature dissolves strength before...", "caps": "Temperature *dissolving | solid *metal", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Cavitation: How the pistol shrimp shoots water hotter than the Sun",
+          "style": "2d-motion",
+          "title": "The Tiny Shrimp That Shoots Solar Heat #shorts",
+          "sources": ["Science Magazine, 'Snapping shrimp make flash of light and high temperature'", "Max Planck Institute for Fluid Dynamics"],
+          "lines": [
+            {"text": "How can a two-inch shrimp create temperatures hotter than the surface of the Sun?", "caps": "How a *shrimp | shoots *solar heat?"},
+            {"text": "Meet the pistol shrimp, armed with a specialized spring-loaded claw.", "caps": "Meet the *pistol shrimp | armed with a *claw"},
+            {"text": "When it snaps its claw shut at sixty miles per hour, it fires a high-speed water jet.", "caps": "Snaps at *sixty | miles per *hour"},
+            {"text": "The velocity causes local pressure to plummet, creating a low-pressure cavitation bubble.", "caps": "Creates a *cavitation | vacuum *bubble"},
+            {"text": "When surrounding water pressure collapses the bubble, the gases compress instantly.", "caps": "The bubble *collapses | under immense *force"},
+            {"text": "For a nanosecond, temperatures inside reach eight thousand Kelvin, producing a bright flash of light.", "caps": "Reaches 8,000 *Kelvin | with a flash of *light"},
+            {"text": "A process called sonoluminescence, turning sound into blinding heat before...", "caps": "Sound into *heat | beneath ocean *waves", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Ferrofluids: Magnetic liquid spikes that dance to sound",
+          "style": "2d-motion",
+          "title": "The Spiky Liquid That Reacts To Magnets #shorts",
+          "sources": ["Journal of Magnetism and Magnetic Materials, 'Ferrofluid Rosensweig Instabilities'", "NASA Technical Reports on Liquid Seal Robotics"],
+          "lines": [
+            {"text": "What makes this bizarre black liquid sprout sharp spiky needles when touched by a magnet?", "caps": "Why does *liquid | sprout sharp *spikes?"},
+            {"text": "This is ferrofluid, an engineered liquid made of microscopic magnetic iron oxide nanoparticles.", "caps": "This is *ferrofluid | liquid *nanoparticles"},
+            {"text": "Each iron particle is coated with a surfactant so they never clump together in the oil suspension.", "caps": "Coated so *particles | never clump *together"},
+            {"text": "Without a magnetic field, it flows smoothly like dark printer ink.", "caps": "Flows smoothly | like black *ink"},
+            {"text": "Bring a neodymium magnet close, and the liquid enters a state called the Rosensweig instability.", "caps": "Magnets trigger | *Rosensweig instability"},
+            {"text": "Surface tension and magnetic forces battle for balance, forming geometric hedgehog spikes along field lines.", "caps": "Balancing *forces | into spiky *crowns"},
+            {"text": "Alien technology created in human labs, proving how magnetism transforms matter before...", "caps": "Magnetism *transforming | matter before *you", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Why ice floats: The bizarre anomaly of water's density",
+          "style": "2d-motion",
+          "title": "Why Ice Floats While Other Solids Sink #shorts",
+          "sources": ["Journal of Chemical Physics, 'Hydrogen bonding and the density maximum of water'", "Cambridge University Physical Chemistry"],
+          "lines": [
+            {"text": "Why is water one of the only substances on Earth where the solid floats on the liquid?", "caps": "Why does *ice float | on liquid *water?"},
+            {"text": "In almost every known liquid, cooling causes molecules to pack tighter, making solids denser so they sink.", "caps": "Most solids *sink | when they *freeze"},
+            {"text": "Water does this too, until it reaches thirty-nine degrees Fahrenheit.", "caps": "Water shrinks *too | until 39 *degrees"},
+            {"text": "As it cools further toward freezing, hydrogen bonds force molecules into a rigid hexagonal lattice.", "caps": "Hydrogen *bonds | lock in *hexagons"},
+            {"text": "This hexagonal geometry actually pushes water molecules nine percent further apart, decreasing density.", "caps": "Pushing *molecules | nine percent *apart"},
+            {"text": "Because ice floats, lakes freeze from the top down, preserving underwater life through brutal winters.", "caps": "Lakes freeze from *top | saving aquatic *life"},
+            {"text": "If ice sank, every ocean on Earth would be solid permafrost from bottom to top before...", "caps": "A molecular *fluke | keeping Earth *alive", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The Mpemba Effect: Why hot water freezes faster than cold water",
+          "style": "2d-motion",
+          "title": "Why Hot Water Can Freeze Faster #shorts",
+          "sources": ["Nature Scientific Reports, 'Hydrogen bond anomalies and the Mpemba effect'", "Physics World Journal"],
+          "lines": [
+            {"text": "How can a cup of boiling water freeze solid faster than a cup of cold tap water?", "caps": "Can boiling *water | freeze faster than *cold?"},
+            {"text": "This counter-intuitive thermodynamic paradox is known as the Mpemba effect.", "caps": "A paradox known as | the *Mpemba effect"},
+            {"text": "First observed by a Tanzanian student in 1963, physicists debated the mechanism for decades.", "caps": "Observed by a *student | in 1963"},
+            {"text": "Recent molecular dynamic studies show that hot water molecules stretch their covalent hydrogen bonds.", "caps": "Hot water *stretches | molecular *bonds"},
+            {"text": "As heat dissipates rapidly through high evaporation, the stored bond energy releases faster than cold water.", "caps": "Bond energy *releases | faster than *cold"},
+            {"text": "Coupled with active convection currents, the cooling trajectory accelerates toward crystal nucleation.", "caps": "Accelerating *cooling | into rapid *ice"},
+            {"text": "A fascinating reminder that thermodynamic speed is never straightforward before...", "caps": "Thermodynamics *accelerating | in strange *ways", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Triboluminescence: Why peeling Scotch tape glows in the dark",
+          "style": "2d-motion",
+          "title": "Why Peeling Tape Emits Blue Light #shorts",
+          "sources": ["Nature Magazine, 'Correlation between nanosecond X-ray flashes and stick-slip friction in peeling tape'", "UCLA Department of Physics"],
+          "lines": [
+            {"text": "Did you know that if you peel adhesive tape in a pitch black room, it glows neon blue?", "caps": "Why peeling *tape | glows in the *dark?"},
+            {"text": "This phenomenon is called triboluminescence: light produced by breaking chemical bonds.", "caps": "Called *triboluminescence | breaking *bonds"},
+            {"text": "As the sticky adhesive pulls away from the plastic backing, electrical charges separate rapidly.", "caps": "Adhesive *pulls away | separating *charges"},
+            {"text": "Positive charges gather on the tape, while negative electrons build on the roll.", "caps": "Charges *accumulate | on opposite *sides"},
+            {"text": "When charge buildup jumps the gap through air, electrons excite nitrogen gas, creating a faint blue glow.", "caps": "Electrons *jump | exciting nitrogen *gas"},
+            {"text": "In a vacuum chamber, peeling tape generates enough energy to produce actual medical X-rays.", "caps": "In a vacuum | it produces *real X-rays"},
+            {"text": "Everyday office supplies bending atomic physics, showing light hidden in friction before...", "caps": "Light hidden in *friction | right before you", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Negative Absolute Temperature: Systems hotter than infinite degrees",
+          "style": "2d-motion",
+          "title": "The Temperature Beyond Infinity #shorts",
+          "sources": ["Science Magazine, 'Negative Absolute Temperature for Motional Degrees of Freedom'", "Ludwig Maximilian University of Munich"],
+          "lines": [
+            {"text": "Can a physical system ever be hotter than positive infinity degrees?", "caps": "Can anything be *hotter | than *infinity?"},
+            {"text": "In standard thermodynamics, temperature measures the average kinetic entropy of particles.", "caps": "Temperature measures | particle *entropy"},
+            {"text": "Absolute zero represents the complete cessation of thermal motion.", "caps": "Absolute *zero | stops thermal *motion"},
+            {"text": "However, using magnetic traps and quantum optical lattices, physicists created a population inversion.", "caps": "Quantum *lattices | invert the *particles"},
+            {"text": "When higher energy states become more occupied than lower states, entropy decreases as energy climbs.", "caps": "More *energy | with lower *entropy"},
+            {"text": "Mathematically, the system flips past positive infinity into negative Kelvin.", "caps": "Flips past *infinity | into *negative Kelvin"},
+            {"text": "These quantum states don't freeze; heat actually flows from negative temperatures into positive ones.", "caps": "Heat *flows outward | into normal *space"},
+            {"text": "A mind-bending frontier of quantum thermodynamics, proving reality defies common sense before...", "caps": "Defying *common sense | before your eyes", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Optical Cloaking: Bending light waves around solid objects",
+          "style": "2d-motion",
+          "title": "How Science Made Invisibility Cloaks Real #shorts",
+          "sources": ["Optics Express, 'Broadband paraxial cloaking with four spherical lenses'", "University of Rochester Physics Department"],
+          "lines": [
+            {"text": "Did physicists really build working invisibility cloaks in modern laboratories?", "caps": "Did physicists *build | real *invisibility?"},
+            {"text": "It sounds like fantasy, but optical cloaking is real using metamaterials and lenses.", "caps": "Optical *cloaking | is scientifically *real"},
+            {"text": "To see an object, light rays must bounce off its surface and enter your eyes.", "caps": "Vision requires *light | bouncing off *surfaces"},
+            {"text": "Metamaterials use microscopic synthetic structures with negative refractive indexes.", "caps": "Metamaterials with | *negative refraction"},
+            {"text": "Instead of bouncing, incoming light waves bend smoothly around the target like river water around a smooth stone.", "caps": "Light *bends smoothly | around the *object"},
+            {"text": "The light rays recombine seamlessly on the far side, showing the background as if the target vanished.", "caps": "Showing the *background | as if *empty"},
+            {"text": "A triumph of optical physics, hiding solid matter in plain sight before...", "caps": "Hiding solid *matter | in plain *sight", "gap": 0.25}
           ]
         }
       ]
@@ -115,6 +518,206 @@
             {"text": "This modulated the human voice so it sounded from the outside like the bellowing of an enraged bull.", "caps": "Sounding like the | roar of a *bull"},
             {"text": "Legend says the tyrant Phalaris was so disgusted by the invention that he tested it on the maker himself.", "caps": "Tested on the | *inventor himself"},
             {"text": "A terrifying reminder of ancient mechanical ingenuity, before you discover...", "caps": "Ancient *engineering | at its *darkest", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "How to survive a falling elevator: The myth of jumping at the last second",
+          "style": "2d-motion",
+          "title": "How To Survive A Free-Falling Elevator #shorts",
+          "sources": ["MIT Department of Aeronautics and Astronautics", "Elevator Safety Foundation Research"],
+          "lines": [
+            {"text": "Can you actually survive a plunging elevator by jumping right before impact?", "caps": "Can you *jump | to survive a *falling elevator?"},
+            {"text": "This is one of the most dangerous survival myths in history.", "caps": "One of the most *dangerous | urban *myths"},
+            {"text": "If the elevator is falling at fifty miles per hour, jumping upwards at three miles per hour only reduces your speed to forty-seven.", "caps": "Jumping barely *reduces | terminal *speed"},
+            {"text": "Plus, timing the exact millisecond of impact in complete free-fall is virtually impossible.", "caps": "Timing the *millisecond | is impossible"},
+            {"text": "Standing straight up breaks your spine and crushes your femur bones.", "caps": "Standing *straight | shatters your *bones"},
+            {"text": "Instead, immediately lie flat on your back in the center of the cabin floor.", "caps": "Lie flat on your *back | in the *center"},
+            {"text": "This distributes the impact deceleration force evenly across your ribs, skeleton, and body mass.", "caps": "Distributes the *shock | across your *skeleton"},
+            {"text": "Cover your face with your arms to shield against falling ceiling tiles before you hear...", "caps": "Cover your *head | before impact *arrives", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Cold water shock: Why you gasp and drown within two minutes",
+          "style": "2d-motion",
+          "title": "Why Cold Water Kills In 60 Seconds #shorts",
+          "sources": ["Wilderness & Environmental Medicine, 'Physiology of Cold Water Immersion'", "Royal National Lifeboat Institution (RNLI)"],
+          "lines": [
+            {"text": "Why do healthy swimmers drown in cold water in under sixty seconds?", "caps": "Why cold *water | kills in *sixty seconds?"},
+            {"text": "Most people assume hypothermia is the killer, but hypothermia takes thirty minutes to set in.", "caps": "Hypothermia *takes | thirty *minutes"},
+            {"text": "The immediate killer is cold shock response.", "caps": "The real *killer | is cold shock *reflex"},
+            {"text": "When freezing water strikes your skin, skin thermoreceptors trigger an involuntary gasp reflex.", "caps": "A sudden *gasp | reflex is *triggered"},
+            {"text": "If your mouth is underwater when you gasp, you instantly inhale up to two liters of water into your lungs.", "caps": "Inhaling two *liters | of water *instantly"},
+            {"text": "Your blood pressure spikes instantly as peripheral veins contract, risking cardiac arrest.", "caps": "Blood pressure *spikes | risking heart *failure"},
+            {"text": "To survive, fight the instinct to swim: float on your back for ninety seconds until your breathing regulates.", "caps": "Float on your *back | until breathing *clears"},
+            {"text": "A vital reflex to master, before sudden immersion steals your breath...", "caps": "Master your *breath | before cold strikes", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "How to escape a sinking car: The hydrostatic pressure trap",
+          "style": "2d-motion",
+          "title": "How To Escape A Sinking Car #shorts",
+          "sources": ["Dr. Gordon Giesbrecht, University of Manitoba 'Vehicle Submersion Protocol'", "National Highway Traffic Safety Administration"],
+          "lines": [
+            {"text": "Why is it virtually impossible to open your car door when submerged underwater?", "caps": "Why car *doors | won't open *underwater?"},
+            {"text": "When a car plunges into water, water pushes inward against the door with hundreds of pounds of hydrostatic pressure.", "caps": "Hundreds of *pounds | of water *pressure"},
+            {"text": "Trying to force the door open while the cabin has air is physically impossible.", "caps": "Forcing the *door | is physically *impossible"},
+            {"text": "Do not waste time calling emergency services or waiting for water to fill the cabin.", "caps": "Don't call for *help | or wait for *water"},
+            {"text": "Remember four words: Seatbelts off, Windows open, Children out, Exit immediately.", "caps": "Seatbelts off | *Windows open | *Exit now"},
+            {"text": "Power windows typically function for sixty seconds before electrical shorts kill the motor.", "caps": "Windows *work | for sixty *seconds"},
+            {"text": "If electric windows jam, pull off the headrest and slam its steel prongs into the bottom corner of the side window.", "caps": "Use headrest *prongs | on window *corners"},
+            {"text": "Tempered glass shatters instantly, clearing your escape path before...", "caps": "Glass *shatters | opening your *escape", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The Dancing Plague of 1518: When hundreds danced until death",
+          "style": "2d-motion",
+          "title": "The 1518 Epidemic That Forced People To Dance #shorts",
+          "sources": ["John Waller, 'A Time to Dance, a Time to Die' (Strasbourg Historical Archives)", "Lancet Neurology, 'Mass Hysteria and Ergotism'"],
+          "lines": [
+            {"text": "In the summer of 1518, an epidemic broke out where hundreds danced until they dropped dead.", "caps": "The 1518 *plague | where people *danced to death?"},
+            {"text": "In the city of Strasbourg, a woman named Frau Troffea stepped into the street and began dancing uncontrollably.", "caps": "Frau Troffea *danced | without *stopping"},
+            {"text": "Within a week, thirty more joined her; within a month, over four hundred people were dancing in the square.", "caps": "Four hundred *people | joined the *streets"},
+            {"text": "City physicians believed hot blood was the cause, and hired musicians to keep them moving.", "caps": "Musicians *hired | to keep them *moving"},
+            {"text": "Dozens collapsed from heart attacks, dehydration, and sheer physical exhaustion.", "caps": "Dozens *died | from pure *exhaustion"},
+            {"text": "Modern historians believe it was mass psychogenic illness triggered by famine and rye mold ergot poisoning.", "caps": "Mass *hysteria | and rye mold *poisoning"},
+            {"text": "One of history's most terrifying medical mysteries, showing how human minds snap before...", "caps": "Human *minds | snapping in the *streets", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "How to survive a rip current: The shoreline trap",
+          "style": "2d-motion",
+          "title": "How To Escape A Deadly Rip Current #shorts",
+          "sources": ["NOAA National Ocean Service, 'Rip Current Science and Lifeguard Safety'", "United States Lifesaving Association"],
+          "lines": [
+            {"text": "Why do expert swimmers drown in rip currents by making one fatal mistake?", "caps": "Why rip *currents | kill strong *swimmers?"},
+            {"text": "Rip currents are narrow, fast-moving rivers of water that rush directly away from shore.", "caps": "Narrow *rivers | rushing away from *shore"},
+            {"text": "When swimmers feel themselves pulled into open sea, human instinct tells them to swim straight back toward the beach.", "caps": "Instinct tells you | to *fight straight back"},
+            {"text": "Even Olympic sprinters cannot overcome a rip current moving at eight feet per second.", "caps": "Nobody can *outswim | eight feet per *second"},
+            {"text": "Within minutes, panic sets in and fatigue causes you to slip beneath the waves.", "caps": "Panic and *fatigue | drag you *under"},
+            {"text": "To survive: turn ninety degrees and swim completely parallel to the shoreline.", "caps": "Swim *parallel | to the *shoreline"},
+            {"text": "Rip currents are rarely wider than fifty feet; once free of the neck, angle back with incoming waves.", "caps": "Once *free | let waves push you *home"},
+            {"text": "A lifesaving navigation rule, before the ocean's pull takes control...", "caps": "Never fight the *current | swim to the *side", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The London Beer Flood of 1814: The tidal wave of porter",
+          "style": "2d-motion",
+          "title": "The Day A Wave Of Beer Destroyed London #shorts",
+          "sources": ["The Times (London, Oct 19, 1814 Archive)", "BBC History, 'The 1814 Meux Brewery Vat Disaster'"],
+          "lines": [
+            {"text": "Did you know that in 1814, central London was devastated by a fifteen-foot tidal wave of beer?", "caps": "A fifteen-foot *wave | of beer in *London?"},
+            {"text": "At the Meux and Company Brewery, a massive twenty-two foot high wooden vat ruptured with a deafening crack.", "caps": "A giant wooden *vat | ruptured with a *blast"},
+            {"text": "Over three hundred thousand gallons of fermenting dark porter burst into the street.", "caps": "300,000 *gallons | flooded the *streets"},
+            {"text": "The pressure wave smashed through the brewery wall and knocked down adjacent brick tenements.", "caps": "Smashing *walls | and brick *houses"},
+            {"text": "A rushing deluge flooded basements and washed away residents in minutes.", "caps": "Flooding *basements | in minutes of *chaos"},
+            {"text": "Eight people lost their lives in the deluge, which courts officially ruled an act of God.", "caps": "Eight lives *lost | ruled an *act of God"},
+            {"text": "One of the strangest industrial catastrophes in British history, proving how liquid pressure strikes before...", "caps": "Liquid *pressure | striking ancient *cities", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Why you must never eat polar bear liver: Toxic hypervitaminosis A",
+          "style": "2d-motion",
+          "title": "The Arctic Meat That Kills In Hours #shorts",
+          "sources": ["Arctic Medical Research, 'Vitamin A Poisoning from Polar Bear Liver'", "Smithsonian Arctic Studies Center"],
+          "lines": [
+            {"text": "Why did early Arctic explorers die in agony after eating fresh polar bear meat?", "caps": "Why eating *bear liver | is lethal *poison?"},
+            {"text": "Stranded in freezing blizzards, starving expeditions hunted polar bears for survival protein.", "caps": "Starving *explorers | hunted bears for *meat"},
+            {"text": "The muscle meat was fine, but eating the liver caused violent headaches, vomiting, and skin peeling.", "caps": "Eating the *liver | caused violent *agony"},
+            {"text": "Because polar bears consume thousands of seal livers, their bodies concentrate extreme amounts of Vitamin A.", "caps": "Bears store *massive | Vitamin A *levels"},
+            {"text": "A single ounce of polar bear liver contains enough Vitamin A to exceed a human's safe limit for an entire year.", "caps": "One *ounce | exceeds a human *year"},
+            {"text": "The liver cannot process the toxic excess, causing cranial pressure to spike and tissues to peel from bone.", "caps": "Brain pressure *spikes | causing organ *failure"},
+            {"text": "A deadly biological hazard in the frozen north, showing why survival knowledge matters before...", "caps": "Survival *knowledge | saving your *life", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Byford Dolphin explosive decompression: The nine-atmosphere vacuum",
+          "style": "2d-motion",
+          "title": "The Deadliest Pressure Accident In History #shorts",
+          "sources": ["American Journal of Forensic Medicine and Pathology, 'An explosive decompression accident'", "Norwegian Petroleum Directorate"],
+          "lines": [
+            {"text": "What happened during the infamous 1983 Byford Dolphin decompression catastrophe?", "caps": "The *deadliest pressure | disaster in *history?"},
+            {"text": "Deep sea commercial divers were resting inside a hyperbaric decompression chamber at nine atmospheres.", "caps": "Divers *resting | at nine *atmospheres"},
+            {"text": "During a routine clamp adjustment, a dive tender opened the hatch clamp before the trunk was sealed.", "caps": "A hatch was *opened | before chamber *sealed"},
+            {"text": "The pressure dropped from nine atmospheres to one atmosphere in a fraction of a second.", "caps": "Pressure *plummeted | in one *millisecond"},
+            {"text": "The explosive expansion was so violent that gases dissolved in human blood boiled instantly out of solution.", "caps": "Dissolved gases *boiled | inside the *blood"},
+            {"text": "Autopsies revealed massive lipid and protein solidification, killing all occupants with zero pain.", "caps": "Instant *death | faster than nerve *signals"},
+            {"text": "A chilling reminder of the unforgiving physics of deep sea exploration, before you descend...", "caps": "The unforgiving *physics | of the deep *sea", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Lichtenberg figures: The permanent lightning scars on human skin",
+          "style": "2d-motion",
+          "title": "What Lightning Leaves On Human Skin #shorts",
+          "sources": ["New England Journal of Medicine, 'Lichtenberg figures after lightning strike'", "CDC Lightning Safety Research"],
+          "lines": [
+            {"text": "What happens to the skin of someone who survives a direct lightning strike?", "caps": "What happens to *skin | after a lightning *strike?"},
+            {"text": "A bolt of lightning carries up to one billion volts and reaches thirty thousand Kelvin.", "caps": "One *billion volts | hotter than the *Sun"},
+            {"text": "Surviving victims often wake up with intricate, fern-like red patterns tattooed across their skin.", "caps": "Intricate *patterns | tattooed on the *skin"},
+            {"text": "These are called Lichtenberg figures, named after the German physicist who discovered electrostatic branching.", "caps": "Called *Lichtenberg figures | branching *red"},
+            {"text": "As the massive electric current flashes along the skin's surface, it ruptures microscopic capillary blood vessels.", "caps": "Current *ruptures | tiny blood *vessels"},
+            {"text": "The red blood cells leak into dermal tissue, creating a permanent visual roadmap of the electrical discharge.", "caps": "A visual *roadmap | of electrical *power"},
+            {"text": "A living scar from the sky, showing nature's deadliest current before you hear...", "caps": "A living *scar | of raw cosmic *power", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Desert ants and celestial polarization: Navigating without GPS",
+          "style": "2d-motion",
+          "title": "How Tiny Ants Navigate Scorching Deserts #shorts",
+          "sources": ["Science Magazine, 'Polarized light navigation in Cataglyphis desert ants'", "Max Planck Institute for Chemical Ecology"],
+          "lines": [
+            {"text": "How can a desert ant walk hundreds of meters over featureless dunes and sprint straight back home?", "caps": "How tiny *ants | navigate featureless *deserts?"},
+            {"text": "In the Sahara desert, ground temperatures reach one hundred and forty degrees Fahrenheit.", "caps": "140 *degrees | on burning sand *dunes"},
+            {"text": "Pheromone trails would vaporize in seconds on the scorching sand.", "caps": "Chemical *trails | vaporize in *seconds"},
+            {"text": "Instead, Cataglyphis desert ants use specialized dorsal eye lenses to detect polarized ultraviolet sunlight.", "caps": "Dorsal *eyes | detect polarized *light"},
+            {"text": "They combine celestial polarization with an internal neural pedometer that counts every single step.", "caps": "Counting every *step | with a neural *pedometer"},
+            {"text": "Even on winding foraging paths, their brain continuously computes a direct vector arrow pointing directly to the nest hole.", "caps": "Computing a direct *arrow | straight *home"},
+            {"text": "A miracle of miniature biological engineering, surviving extreme heat before...", "caps": "Miniature *engineering | surviving extreme *heat", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The acoustic architecture of ancient Mayan pyramids: The quetzal bird echo",
+          "style": "2d-motion",
+          "title": "Why Mayan Pyramids Chirp Like Birds #shorts",
+          "sources": ["Journal of the Acoustical Society of America, 'Acoustics of the pyramid of Kukulkan at Chichen Itza'", "National Institute of Anthropology and History"],
+          "lines": [
+            {"text": "Why does clapping your hands at the base of Chichen Itza make the pyramid chirp like a bird?", "caps": "Why does a Mayan *pyramid | chirp like a *bird?"},
+            {"text": "Stand at the base of the Kukulkan pyramid and clap loudly, and the echo chirps back in the call of the sacred quetzal bird.", "caps": "Clap your *hands | and hear a *bird chirp"},
+            {"text": "This wasn't an accident; Mayan architects engineered stair treads with varying heights and depths.", "caps": "Engineered *stairs | with calculated *depths"},
+            {"text": "The sound of the clap travels up the ninety-one steps, reflecting off each individual riser at microscopic time delays.", "caps": "Reflecting off *steps | with tiny *delays"},
+            {"text": "The echoes combine acoustically through diffraction, transforming a sharp clap into a descending chirping frequency.", "caps": "Diffraction *transforms | sound into a *bird song"},
+            {"text": "High priest engineers turn stone stairs into acoustic synthesizers over a thousand years ago.", "caps": "Ancient *synthesizers | carved in *stone"},
+            {"text": "A genius mastery of wave physics, proving ancient intelligence before you doubt...", "caps": "Ancient *geniuses | mastering sound *waves", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Paradoxical undressing: Why freezing victims strip off their clothes",
+          "style": "2d-motion",
+          "title": "Why Freezing Victims Strip Naked #shorts",
+          "sources": ["International Journal of Legal Medicine, 'Paradoxical undressing in fatal hypothermia'", "Wilderness Medical Society"],
+          "lines": [
+            {"text": "Why do search and rescue teams often find hypothermia victims completely naked in the snow?", "caps": "Why do freezing *victims | strip naked in *snow?"},
+            {"text": "It seems insane, but forensic doctors call it paradoxical undressing.", "caps": "Called *paradoxical | undressing by *doctors"},
+            {"text": "In severe hypothermia, the human body goes into extreme survival mode, contracting peripheral blood vessels to preserve warm core blood.", "caps": "Vessels *contract | to save warm *core blood"},
+            {"text": "As core temperature plunges below eighty-five degrees, the brain's hypothalamus malfunctions.", "caps": "The *brain | begins to *malfunction"},
+            {"text": "The exhausted smooth muscles controlling vasoconstriction suddenly relax and fail completely.", "caps": "Constricted *muscles | suddenly relax *open"},
+            {"text": "Warm core blood rushes back out into chilled skin, creating a sudden burning sensation that feels like being on fire.", "caps": "Blood *rushes out | feeling like *burning fire"},
+            {"text": "Disoriented victims rip off their winter coats just minutes before freezing to death.", "caps": "Victims *strip coats | in freezing *snow"},
+            {"text": "A tragic physiological illusion of the dying brain, before the cold claims...", "caps": "A tragic *illusion | before freezing *death", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The Halifax Explosion of 1917: The pre-nuclear tsunami",
+          "style": "2d-motion",
+          "title": "The Pre-Nuclear Blast That Shook Canada #shorts",
+          "sources": ["Canadian Medical Association Journal, 'Medical aspects of the Halifax Disaster'", "Halifax Explosion Archives"],
+          "lines": [
+            {"text": "In 1917, the largest man-made explosion before atomic weapons leveled a Canadian city.", "caps": "The largest *blast | before atomic *bombs?"},
+            {"text": "In the harbor of Halifax, Nova Scotia, the French munitions ship Mont-Blanc collided with another vessel.", "caps": "Munitions *ship | collided in *Halifax harbor"},
+            {"text": "Packed with thousands of tons of TNT and picric acid, the ship caught fire and detonated with three kilotons of force.", "caps": "Three *kilotons | of pure *explosive force"},
+            {"text": "The blast wave traveled at thousands of miles per hour, evaporating the harbor seabed instantly.", "caps": "Blast wave *ripped | evaporating the *seabed"},
+            {"text": "The displaced water created a sixty-foot tsunami wave that swept inland, leveling sixteen hundred buildings.", "caps": "A sixty-foot *tsunami | leveled *buildings"},
+            {"text": "Over two thousand people died, and the explosion was heard three hundred miles away.", "caps": "Heard three *hundred | miles *away"},
+            {"text": "A terrifying demonstration of concentrated chemical power, before modern warfare changed...", "caps": "Concentrated *power | that shook the *world", "gap": 0.25}
           ]
         }
       ]

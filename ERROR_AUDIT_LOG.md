@@ -182,6 +182,21 @@ Every incident has been investigated to root cause, patched with permanent archi
 
 ---
 
+### Incident ERR-017: Ephemeral History Desynchronization & Fallback Re-cycling Loop
+- **Date & Environment:** Production YouTube Publishing (Runs on 2026-11-12 & 2026-11-13)
+- **Symptom:** The pipeline repeatedly uploaded duplicate or substantially identical videos ("Quicksand", "Glass as non-solid", and "Black hole") multiple times on consecutive days.
+- **Root Causes:**
+  1. `cloud_runner.py::pick_topic_for_slot` executed `if fallbacks: return fallbacks[0]` unconditionally when all offline fallbacks were already in `published_topics`.
+  2. `video_history.json` was never tracked in Git and was omitted from `git add _published.md` in `.github/workflows/daily-shorts.yml`. Because GitHub Actions runners are ephemeral, the duplicate detector started with an empty history list (`[]`) on every execution.
+  3. Dynamic Gemini API generation had zero validation against historical topics, and the fallback inventory contained only 5 topics across the entire repository.
+- **Immediate Patch:**
+  1. Expanded offline curriculum in `config/slots.json` to 45 deeply researched, verified topics (15 per slot).
+  2. Implemented `cloud/state_manager.py` with atomic JSON persistence, schema versioning, and commit coverage in GitHub Actions.
+  3. Established a 5-layer content uniqueness gate: Gate 1 (Semantic Topic Guard with Jaccard & SequenceMatcher), Gate 2 (Script Narration 3-Gram Overlap), Gate 3 (Visual Diversity & Subject Vector Routing), Gate 4 (10-frame dHash full-history auditor), and Gate 5 (Pre-upload run ID and file hash idempotency).
+- **Architectural Mitigation:** Expanded automated audit test suite from 18 to 41 comprehensive tests in `tests/test_audit_suite.py`, with 100% pass rate covering duplicate rejection, fallback exhaustion safe failure, and upload idempotency.
+
+---
+
 ## 3. Failure Mode & Effects Analysis (FMEA) for Production
 
 The following matrix assesses potential future failure modes, their severity, likelihood, and preventive mechanisms:

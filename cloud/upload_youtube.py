@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Direct YouTube Data API v3 uploader using OAuth2 refresh token.
 Uploads 1080x1920 MP4 Shorts directly to your YouTube channel.
+Includes Gate 5 Application-Level Upload Idempotency protection.
+
 Reads credentials from environment variables:
   YOUTUBE_CLIENT_ID
   YOUTUBE_CLIENT_SECRET
@@ -10,16 +12,34 @@ import os
 import sys
 import time
 import argparse
+import hashlib
 from pathlib import Path
-from google.oauth2.credentials import Credentials
-from google.auth.transport.requests import Request
-from googleapiclient.discovery import build
-from googleapiclient.http import MediaFileUpload
-from googleapiclient.errors import HttpError
+from typing import Tuple, Optional, List
+
+try:
+    from google.oauth2.credentials import Credentials
+    from google.auth.transport.requests import Request
+    from googleapiclient.discovery import build
+    from googleapiclient.http import MediaFileUpload
+    from googleapiclient.errors import HttpError
+except ImportError:
+    Credentials = None
+    Request = None
+    build = None
+    HttpError = Exception
+    MediaFileUpload = None
+
+from cloud.state_manager import get_state_manager
 
 SCOPES = ['https://www.googleapis.com/auth/youtube.upload']
 
+
 def get_authenticated_service():
+    if Credentials is None:
+        raise ImportError(
+            "google-api-python-client or google-auth-oauthlib is not installed in this environment."
+        )
+
     client_id = os.environ.get('YOUTUBE_CLIENT_ID')
     client_secret = os.environ.get('YOUTUBE_CLIENT_SECRET')
     refresh_token = os.environ.get('YOUTUBE_REFRESH_TOKEN')
@@ -41,14 +61,59 @@ def get_authenticated_service():
     creds.refresh(Request())
     return build('youtube', 'v3', credentials=creds)
 
-def upload_short(video_path, title, description, tags=None, category_id="28", privacy_status="public"):
+
+def compute_file_sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        while chunk := f.read(65536):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def upload_short(
+    video_path,
+    title,
+    description,
+    tags=None,
+    category_id="28",
+    privacy_status="public",
+    run_id: Optional[str] = None
+) -> Tuple[str, str]:
+    """Uploads MP4 video to YouTube with Gate 5 idempotency checking.
+
+    Returns:
+        (video_id, short_url)
+    """
     video_path = Path(video_path)
     if not video_path.exists():
         raise FileNotFoundError(f"Video file not found: {video_path}")
 
+    # Gate 5: Pre-Upload Idempotency Verification
+    state_mgr = get_state_manager()
+    video_hash = compute_file_sha256(video_path)
+
+    # 1. Check if video hash was already published
+    existing_record = state_mgr.is_video_hash_published(video_hash)
+    if existing_record:
+        vid_id = existing_record.get("youtube_id", "")
+        short_url = existing_record.get("short_url", f"https://www.youtube.com/shorts/{vid_id}")
+        print(f"[Gate 5 Idempotency] Video file SHA-256 ({video_hash[:12]}) already published!")
+        print(f"[Gate 5 Idempotency] Reusing confirmed YouTube publication: {short_url}")
+        return vid_id, short_url
+
+    # 2. Check if run_id was already published
+    if run_id and state_mgr.is_run_published(run_id):
+        existing_record = state_mgr.publications["records"].get(str(run_id), {})
+        vid_id = existing_record.get("youtube_id", "")
+        short_url = existing_record.get("short_url", f"https://www.youtube.com/shorts/{vid_id}")
+        print(f"[Gate 5 Idempotency] Run ID ({run_id}) already has a confirmed upload record!")
+        print(f"[Gate 5 Idempotency] Skipping duplicate API upload: {short_url}")
+        return vid_id, short_url
+
     print(f"Preparing upload for: {video_path.name}")
     print(f"Title: {title}")
     print(f"File size: {video_path.stat().st_size / (1024*1024):.2f} MB")
+    print(f"SHA-256: {video_hash[:16]}...")
 
     youtube = get_authenticated_service()
 
@@ -88,7 +153,7 @@ def upload_short(video_path, title, description, tags=None, category_id="28", pr
             if status:
                 print(f"Upload progress: {int(status.progress() * 100)}%")
         except HttpError as e:
-            if e.resp.status in [500, 502, 503, 504] and retry_count < 5:
+            if hasattr(e, 'resp') and e.resp.status in [500, 502, 503, 504] and retry_count < 5:
                 retry_count += 1
                 wait_time = 2 ** retry_count
                 print(f"Transient HTTP {e.resp.status}. Retrying in {wait_time}s...")
@@ -101,7 +166,9 @@ def upload_short(video_path, title, description, tags=None, category_id="28", pr
     print(f"\nUpload Successful!")
     print(f"Video ID: {video_id}")
     print(f"Shorts URL: {short_url}")
+
     return video_id, short_url
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Upload YouTube Short")
@@ -111,6 +178,7 @@ if __name__ == '__main__':
     parser.add_argument('--tags', default="shorts,science,curiosity", help="Comma-separated tags")
     parser.add_argument('--category', default="28", help="Category ID (28=Science & Tech, 27=Education)")
     parser.add_argument('--privacy', default="public", choices=['public', 'unlisted', 'private'])
+    parser.add_argument('--run-id', default=None, help="Execution run ID for idempotency")
 
     args = parser.parse_args()
     tags_list = [t.strip() for t in args.tags.split(',') if t.strip()]
@@ -121,5 +189,6 @@ if __name__ == '__main__':
         description=args.desc,
         tags=tags_list,
         category_id=args.category,
-        privacy_status=args.privacy
+        privacy_status=args.privacy,
+        run_id=args.run_id
     )

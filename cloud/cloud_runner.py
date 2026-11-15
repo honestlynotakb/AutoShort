@@ -4,6 +4,13 @@ Supports 3-Times-Daily Scheduled Slots (Optimized for Zapier Free Plan):
   Slot 1 (12:10 PM PKT / 07:10 UTC): Space, Cosmic & Flag Curiosities
   Slot 2 (06:10 PM PKT / 13:10 UTC): Mind-Blowing Science & Physics
   Slot 3 (10:10 PM PKT / 17:10 UTC): Survival Scenarios & Dark History
+
+Enforces 5-Layer Defense-in-Depth Content Uniqueness Gate System:
+  Gate 1: Semantic Topic Uniqueness & Reservation (Pre-Script)
+  Gate 2: Script Narration Fingerprinting & 3-Gram Overlap (Pre-Voice)
+  Gate 3: Visual & Composition Planning Diversity (Pre-Render)
+  Gate 4: Perceptual Video Quality & 10-Frame dHash Auditor (Post-Render)
+  Gate 5: Application-Level Publication Idempotency (Pre-Upload)
 """
 import os
 import re
@@ -16,6 +23,7 @@ import urllib.request
 import subprocess
 from pathlib import Path
 from datetime import datetime, timezone
+from typing import Dict, List, Optional, Tuple, Any
 
 ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
@@ -26,18 +34,26 @@ try:
 except ImportError:
     HttpError = Exception
 
+from cloud.state_manager import get_state_manager
+from cloud.topic_guard import TopicGuard
+from cloud.script_guard import ScriptGuard
+from cloud.visual_engine_2d import scaffold_2d_project, evaluate_visual_uniqueness
+from cloud.duplicate_detector import VideoQualityAuditor, compute_file_sha256
+
 PUBLISHED_FILE = ROOT / '_published.md'
 SKILL_DIR = ROOT / 'faceless-shorts'
 PROJECTS_DIR = ROOT / 'projects'
 SLOTS_FILE = ROOT / 'config' / 'slots.json'
+
 
 def load_slots_config():
     if not SLOTS_FILE.exists():
         raise FileNotFoundError(f"Missing config file: {SLOTS_FILE}")
     return json.loads(SLOTS_FILE.read_text(encoding='utf-8'))['slots']
 
+
 def detect_current_slot(slots_cfg):
-    """Detects the current slot based on UTC hour (3, 7, 11, 14, 17)."""
+    """Detects the current slot based on UTC hour (7, 13, 17)."""
     utc_hour = datetime.now(timezone.utc).hour
     best_slot = "1"
     min_diff = 99
@@ -48,25 +64,37 @@ def detect_current_slot(slots_cfg):
             best_slot = slot_id
     return best_slot
 
+
 def get_published_topics():
-    if not PUBLISHED_FILE.exists():
-        return set()
-    text = PUBLISHED_FILE.read_text(encoding='utf-8')
+    state_mgr = get_state_manager()
     topics = set()
-    for line in text.splitlines():
-        line = line.strip()
-        if line.startswith('|') and not line.startswith('| Date') and not line.startswith('|---'):
-            parts = [p.strip() for p in line.split('|')]
-            if len(parts) >= 3 and parts[2]:
-                topics.add(parts[2].lower())
-            if len(parts) >= 5 and parts[4]:
-                topics.add(parts[4].lower())
+    for item in state_mgr.get_all_published_and_reserved_topics():
+        t = item.get("topic", "").lower().strip()
+        if t:
+            topics.add(t)
+        title = item.get("title", "").lower().strip()
+        if title:
+            topics.add(title)
+    if PUBLISHED_FILE.exists():
+        text = PUBLISHED_FILE.read_text(encoding='utf-8')
+        for line in text.splitlines():
+            line = line.strip()
+            if line.startswith('|') and not line.startswith('| Date') and not line.startswith('|---'):
+                parts = [p.strip() for p in line.split('|')]
+                if len(parts) >= 3 and parts[2]:
+                    topics.add(parts[2].lower())
+                if len(parts) >= 5 and parts[4]:
+                    topics.add(parts[4].lower())
     return topics
 
-def generate_with_gemini(api_key, published_topics, slot_info):
+
+def generate_with_gemini(api_key: str, published_topics: set, slot_info: dict, negative_constraints: str = "") -> dict:
     prompt_theme = slot_info['prompt_theme']
     genre_name = slot_info['name']
-    style = slot_info.get('style', 'deep-dive')
+    style = slot_info.get('style', '2d-motion')
+
+    # Truncate published sample to fit token limits
+    sample_published = list(published_topics)[:30]
 
     prompt = f"""You are an expert producer of viral YouTube Shorts in the style of Zack D. Films / Deep Dive 3D.
 Your channel publishes calm, collected, high-curiosity educational explainers.
@@ -74,7 +102,8 @@ Your channel publishes calm, collected, high-curiosity educational explainers.
 Current Specialized Genre: {genre_name}
 Genre Focus & Constraints: {prompt_theme}
 Visual Animation Style: {style}
-Previously published topics to NEVER repeat: {list(published_topics)}
+Previously published topics to NEVER repeat or reword: {sample_published}
+{negative_constraints}
 
 Pick a completely fresh, unrepeated, viral curiosity topic strictly within this genre.
 Write an original script (~80-100 words, calm explanation pace, 0.88x speed).
@@ -99,7 +128,7 @@ Format strictly as JSON with this schema:
 }}
 Only return valid JSON."""
 
-    models = ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-2.5-flash"]
+    models = ["gemini-2.0-flash", "gemini-1.5-flash"]
     payload = json.dumps({"contents": [{"parts": [{"text": prompt}]}]}).encode('utf-8')
     clean_key = api_key.strip()
 
@@ -128,51 +157,145 @@ Only return valid JSON."""
 
     raise ValueError("All Gemini model endpoints failed")
 
-def pick_topic_for_slot(slot_info, published_topics):
-    api_key = os.environ.get('GEMINI_API_KEY')
-    if api_key:
-        try:
-            print(f"Querying Gemini API for genre: {slot_info['name']}...")
-            return generate_with_gemini(api_key, published_topics, slot_info)
-        except Exception as e:
-            print(f"Gemini API generation failed ({e}), falling back to slot curriculum...")
 
+def pick_topic_for_slot(
+    slot_info: dict,
+    published_topics: set,
+    slot_id: str = "1",
+    run_id: str = "auto",
+    state_mgr: Optional[StateManager] = None
+) -> dict:
+    """Gate 1 & Gate 2 Orchestration: Selects and reserves a strictly unique topic and script.
+
+    Returns:
+        item_dict with attached _script_meta
+    """
+    state_mgr = state_mgr or get_state_manager()
+    topic_guard = TopicGuard(state_mgr)
+    script_guard = ScriptGuard(state_mgr)
+
+    api_key = os.environ.get('GEMINI_API_KEY')
+    rejected_candidates: List[Tuple[str, str]] = []
+
+    # 1. Attempt Gemini Dynamic Generation with up to 3 Retries
+    if api_key:
+        print(f"[Gate 1] Querying Gemini AI for fresh topic in {slot_info['name']}...")
+        for attempt in range(1, 4):
+            try:
+                neg_constraint = topic_guard.build_gemini_rejection_constraint(rejected_candidates)
+                candidate = generate_with_gemini(api_key, published_topics, slot_info, neg_constraint)
+
+                # Gate 1: Check topic uniqueness
+                is_unique, reason, _ = topic_guard.evaluate_topic_uniqueness(
+                    candidate_topic=candidate.get("topic", ""),
+                    candidate_title=candidate.get("title", "")
+                )
+                if not is_unique:
+                    print(f"[Gate 1 Rejection] [Attempt {attempt}/3] {reason}")
+                    rejected_candidates.append((candidate.get("topic", ""), reason))
+                    continue
+
+                # Gate 2: Check script uniqueness
+                script_ok, script_reason, script_meta = script_guard.evaluate_script_uniqueness(
+                    lines=candidate.get("lines", []),
+                    topic=candidate.get("topic", ""),
+                    title=candidate.get("title", "")
+                )
+                if not script_ok:
+                    print(f"[Gate 2 Rejection] [Attempt {attempt}/3] {script_reason}")
+                    rejected_candidates.append((candidate.get("topic", ""), script_reason))
+                    continue
+
+                # Reserve topic atomically
+                reserved, res_msg = topic_guard.reserve_if_unique(
+                    candidate_topic=candidate["topic"],
+                    candidate_title=candidate["title"],
+                    slot_id=slot_id,
+                    run_id=run_id
+                )
+                if reserved:
+                    print(f"[Gate 1 & 2 Approved] Candidate verified & reserved: '{candidate['topic']}'")
+                    candidate['_script_meta'] = script_meta
+                    return candidate
+                else:
+                    print(f"[Gate 1 Warning] {res_msg}")
+
+            except Exception as e:
+                print(f"[Gate 1 Warning] Gemini API attempt {attempt}/3 failed: {e}")
+                time.sleep(1)
+
+        print("[Gate 1] Dynamic Gemini generation exhausted or failed; failing over to curated curriculum...")
+
+    # 2. Curated Offline Curriculum Selection
     fallbacks = slot_info.get('fallbacks', [])
     for item in fallbacks:
-        if item['topic'].lower() not in published_topics and item['title'].lower() not in published_topics:
+        if item['topic'].lower() in published_topics or item['title'].lower() in published_topics:
+            continue
+        is_u, reason, _ = topic_guard.evaluate_topic_uniqueness(item['topic'], item['title'])
+        if not is_u:
+            continue
+        script_u, _, script_meta = script_guard.evaluate_script_uniqueness(item['lines'], item['topic'], item['title'])
+        if not script_u:
+            continue
+
+        reserved, res_msg = topic_guard.reserve_if_unique(
+            candidate_topic=item['topic'],
+            candidate_title=item['title'],
+            slot_id=slot_id,
+            run_id=run_id
+        )
+        if reserved:
+            print(f"[Gate 1 Curriculum] Selected unused fallback topic: '{item['topic']}'")
+            item['_script_meta'] = script_meta
             return item
 
-    if fallbacks:
-        return fallbacks[0]
+    # 3. Cross-Slot Fallback Search (if current slot's fallbacks are all used)
+    print(f"[Gate 1 Curriculum] All fallbacks for Slot {slot_id} have been used. Searching other slots...")
+    slots_cfg = load_slots_config()
+    for other_slot_id, other_info in slots_cfg.items():
+        if other_slot_id == slot_id:
+            continue
+        for item in other_info.get('fallbacks', []):
+            if item['topic'].lower() in published_topics or item['title'].lower() in published_topics:
+                continue
+            is_u, _, _ = topic_guard.evaluate_topic_uniqueness(item['topic'], item['title'])
+            if not is_u:
+                continue
+            script_u, _, script_meta = script_guard.evaluate_script_uniqueness(item['lines'], item['topic'], item['title'])
+            if not script_u:
+                continue
 
-    # Generic emergency fallback
-    return {
-        "topic": f"Curiosity explainer in {slot_info['name']}",
-        "style": slot_info.get('style', '2d-motion'),
-        "title": f"The Truth Behind {slot_info['name']} #shorts",
-        "sources": ["Scientific Literature & Historical Records"],
-        "lines": [
-            {"text": f"Have you ever wondered about the biggest mystery in {slot_info['name']}?", "caps": f"The *mystery | of *{slot_info['name'][:12]}"},
-            {"text": "Under the surface, physical laws and human history combine in unexpected ways.", "caps": "Physical *laws | in *unexpected ways"},
-            {"text": "Scientists and historians have spent decades unraveling this exact paradox.", "caps": "Decades of *research | on this *paradox"},
-            {"text": "So remember to look closer next time before you explore...", "caps": "Look *closer | before you *explore", "gap": 0.25}
-        ]
-    }
+            reserved, _ = topic_guard.reserve_if_unique(
+                candidate_topic=item['topic'],
+                candidate_title=item['title'],
+                slot_id=slot_id,
+                run_id=run_id
+            )
+            if reserved:
+                print(f"[Gate 1 Cross-Curriculum] Selected unused topic from Slot {other_slot_id}: '{item['topic']}'")
+                item['_script_meta'] = script_meta
+                return item
+
+    # 4. Critical Safe Failure: Never recycle index 0!
+    raise RuntimeError(
+        f"CRITICAL: All {len(fallbacks)} fallback topics have been published and Gemini API is unavailable. "
+        "Pipeline halted safely to prevent duplicate content generation."
+    )
+
 
 def slugify(text):
     return re.sub(r'[^a-z0-9]+', '-', text.lower()).strip('-')[:35]
+
 
 def sanitize_text_for_tts(text: str) -> str:
     """Normalizes Unicode characters, replaces typographic marks, and strips emojis to protect Kokoro ONNX."""
     if not text:
         return ""
-    # Standardize smart quotes and dashes
     text = text.replace('“', '"').replace('”', '"').replace('‘', "'").replace('’', "'")
     text = text.replace('—', ' - ').replace('–', ' - ').replace('…', '...')
-    # Remove emojis and non-standard non-ASCII symbols that crash Kokoro phonemizer
     text = re.sub(r'[^\x00-\x7F]+', ' ', text)
-    # Collapse multiple spaces
     return re.sub(r'\s+', ' ', text).strip()
+
 
 def verify_youtube_auth():
     """Fail-fast Stage 0: checks YouTube credentials and token refreshability before running CPU-heavy rendering."""
@@ -195,45 +318,55 @@ def verify_youtube_auth():
         print("Please check credentials or re-run get_youtube_token.py if token was revoked.")
         return False
 
-def write_step_summary(title, slot_info, topic, style, video_name, short_url, stage_metrics, total_time):
+
+def write_step_summary(title, slot_info, topic, style, video_name, short_url, stage_metrics, total_time, run_id):
     summary_path = os.environ.get('GITHUB_STEP_SUMMARY')
     if not summary_path:
         return
-    try:
-        md = [
-            f"# 🎬 Autonomous YouTube Short Published",
-            f"",
-            f"| Metric | Details |",
-            f"|---|---|",
-            f"| **Title** | `{title}` |",
-            f"| **Slot / Genre** | **Slot {slot_info.get('slot_id', 1)}**: {slot_info['name']} |",
-            f"| **Topic** | {topic} |",
-            f"| **Style** | `{style}` |",
-            f"| **Video File** | `{video_name}` |",
-            f"| **YouTube Link** | {short_url} |",
-            f"| **Total Pipeline Time** | **{total_time:.2f}s** |",
-            f"",
-            f"### ⏱️ Execution Telemetry Breakdown",
-            f"| Stage | Duration |",
-            f"|---|---|",
-        ]
-        for stg, dur in stage_metrics.items():
-            md.append(f"| {stg} | {dur:.2f}s |")
-        md.append("")
-        with open(summary_path, 'a', encoding='utf-8') as f:
-            f.write('\n'.join(md) + '\n')
-    except Exception as e:
-        print(f"Failed to write GITHUB_STEP_SUMMARY: {e}")
 
-def write_adaptive_shots(proj_dir, title, lines, style):
-    from cloud.visual_engine_2d import scaffold_2d_project
-    topic = title.replace('#shorts', '').strip()
-    theme, pal, seq = scaffold_2d_project(proj_dir, title, topic, lines, [])
-    print(f"Generated 2D adaptive shots.js ({len(lines)} shots, theme: {theme}, palette: {pal}).")
-    return theme, pal, seq
+
+def write_adaptive_shots(proj_dir, title, sample_lines, style="2d-motion"):
+    """Backward-compatible helper to generate 2D adaptive shots.js."""
+    from cloud.visual_engine_2d import generate_shots_js, pick_variation_palette, detect_topic_theme
+    theme = detect_topic_theme(title, sample_lines)
+    palette = pick_variation_palette(theme, [])
+    code, seq, vec = generate_shots_js(title, title, sample_lines, theme, palette)
+    shots_file = Path(proj_dir) / 'src' / 'shots.js'
+    shots_file.parent.mkdir(parents=True, exist_ok=True)
+    shots_file.write_text(code, encoding='utf-8')
+    return shots_file
+
+    content = f"""# 🎬 Autonomous YouTube Short Publication Summary
+
+| Parameter | Value |
+|---|---|
+| **Run ID** | `{run_id}` |
+| **Video Title** | **{title}** |
+| **Genre** | {slot_info['name']} (Slot {slot_info.get('slot_id', 1)}) |
+| **Topic** | {topic} |
+| **Animation Style** | `{style}` |
+| **Rendered File** | `{video_name}` |
+| **YouTube Link** | {short_url} |
+| **Total Duration** | **{total_time:.2f}s** |
+
+### ⚡ Pipeline Stage Telemetry
+| Stage | Execution Duration |
+|---|---|
+"""
+    for stage, dur in stage_metrics.items():
+        content += f"| {stage} | {dur:.2f}s |\n"
+
+    content += f"| **Total Pipeline** | **{total_time:.2f}s** |\n"
+
+    try:
+        with open(summary_path, 'a', encoding='utf-8') as f:
+            f.write(content)
+    except Exception as e:
+        print(f"Warning: Failed to write step summary: {e}")
+
 
 def run_cmd(cmd, cwd=None, env=None):
-    print(f"\n[RUN] {cmd}", flush=True)
+    print(f"\n[EXEC] {cmd}", flush=True)
     process = subprocess.Popen(
         cmd,
         shell=True,
@@ -242,8 +375,7 @@ def run_cmd(cmd, cwd=None, env=None):
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
-        bufsize=1,
-        universal_newlines=True
+        bufsize=1
     )
     collected = []
     if process.stdout:
@@ -256,10 +388,8 @@ def run_cmd(cmd, cwd=None, env=None):
         raise RuntimeError(f"Command failed with exit code {ret}: {cmd}")
     return ''.join(collected)
 
+
 def parse_slot_selection(slot_arg: str, slots_cfg: dict) -> str:
-    """Robustly resolves slot ID from manual dispatch choice, CLI flag, or environment variable.
-    Handles 'auto', choice strings like '1 - Geography & Flags (8:10 AM)', booleans, and fallbacks.
-    """
     if not slot_arg:
         return detect_current_slot(slots_cfg)
     clean = str(slot_arg).strip().lower()
@@ -272,19 +402,18 @@ def parse_slot_selection(slot_arg: str, slots_cfg: dict) -> str:
             return matched
     return detect_current_slot(slots_cfg)
 
+
 def main():
     parser = argparse.ArgumentParser(description="Autonomous Cloud Runner for YouTube Shorts")
-    parser.add_argument('--slot', default=None, help="Slot ID (1-5 or auto)")
+    parser.add_argument('--slot', default=None, help="Slot ID (1-3 or auto)")
     parser.add_argument('--dry-run', action='store_true', help="Resolve slot and script without rendering/uploading")
     args = parser.parse_args()
 
     print("=" * 60, flush=True)
-    print(" 5-TIMES-DAILY AUTONOMOUS SHORTS PIPELINE", flush=True)
+    print(" 3-TIMES-DAILY AUTONOMOUS SHORTS PIPELINE", flush=True)
     print("=" * 60, flush=True)
 
     slots_cfg = load_slots_config()
-    
-    # Resolve slot selection: CLI argument > INPUT_SLOT env var > auto
     slot_arg = args.slot if args.slot is not None else os.environ.get('INPUT_SLOT', 'auto')
     slot_id = parse_slot_selection(slot_arg, slots_cfg)
     print(f"Selected/Detected Slot ID: {slot_id}", flush=True)
@@ -292,16 +421,24 @@ def main():
     slot_info = slots_cfg.get(slot_id, slots_cfg["1"])
     print(f"Slot {slot_id}: {slot_info['name']} (Scheduled: {slot_info['time_pkt']} PKT)")
 
-    published = get_published_topics()
-    print(f"Found {len(published)} previously published topics.")
+    # Generate unique execution run ID for application-level idempotency
+    run_id = f"slot{slot_id}-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}-{os.getpid()}"
+    print(f"Execution Run ID: {run_id}", flush=True)
 
-    item = pick_topic_for_slot(slot_info, published)
+    state_mgr = get_state_manager()
+    published = get_published_topics()
+    print(f"Found {len(published)} previously registered topics.", flush=True)
+
+    # Gate 1 & 2: Semantic Topic & Script Originality Verification
+    item = pick_topic_for_slot(slot_info, published, state_mgr=state_mgr, slot_id=slot_id, run_id=run_id)
+    script_meta = item.get('_script_meta', {})
+
     # Sanitize lines to eliminate special Unicode/emojis that crash Kokoro ONNX TTS
     for line in item['lines']:
         line['text'] = sanitize_text_for_tts(line['text'])
 
     topic = item['topic']
-    style = item.get('style', slot_info.get('style', 'deep-dive'))
+    style = item.get('style', slot_info.get('style', '2d-motion'))
     title = item['title']
     category_id = slot_info.get('category_id', '28')
     tags = slot_info.get('tags', ["shorts", "facts", "curiosity"])
@@ -322,13 +459,12 @@ def main():
             print(f"  Line {idx}: {line['text']}")
         print(f"[DRY-RUN] Tags: {tags}")
         print("\nDRY-RUN COMPLETE.")
+        # Release reservation in dry-run so test isn't locked
+        state_mgr.release_topic(topic)
         return
 
-    # Initialize quality auditor and retrieve recent palettes to prevent consecutive repetition
-    from cloud.duplicate_detector import VideoQualityAuditor
-    from cloud.visual_engine_2d import scaffold_2d_project
-
-    auditor = VideoQualityAuditor()
+    # Gate 3: Visual & Composition Planning
+    auditor = VideoQualityAuditor(state_mgr)
     recent_palettes = [entry.get("palette") for entry in reversed(auditor.history[-5:]) if entry.get("palette")]
 
     print("\n--- [Stage 0.5/5] Scaffolding High-Quality 2D Animated Project ---")
@@ -343,9 +479,14 @@ def main():
         lines=item['lines'],
         recent_palette_ids=recent_palettes
     )
-    print(f"2D Visual Theme:      {theme_name}")
-    print(f"Active Color Palette: {palette_id}")
-    print(f"Scene Archetypes:     {scene_sequence}")
+
+    vis_ok, vis_reason = evaluate_visual_uniqueness(
+        theme_name=theme_name,
+        palette_id=palette_id,
+        scene_sequence=scene_sequence,
+        history_entries=auditor.history
+    )
+    print(f"[Gate 3 Visual] {vis_reason}")
 
     # Write script.json with mandatory calm collected tone settings
     script_data = {
@@ -406,10 +547,11 @@ def main():
     stage_metrics['Chrome Headless Render'] = round(time.time() - t0, 2)
 
     if not video_out.exists():
+        state_mgr.release_topic(topic)
         raise FileNotFoundError(f"Render failed, {video_out} not created")
 
-    # 4.5. Quality Audit & Duplicate Prevention Check
-    print("\n--- [Stage 4.5/5] Pre-Upload Quality Audit & Duplicate Verification ---")
+    # Gate 4: Quality Audit & Perceptual Duplicate Check
+    print("\n--- [Stage 4.5/5] Gate 4 Pre-Upload Quality & Perceptual Deduplication Audit ---")
     t0 = time.time()
     is_dup, dup_reason, meta = auditor.audit_and_check_duplicate(
         video_path=video_out,
@@ -423,27 +565,34 @@ def main():
     stage_metrics['Quality & Deduplication Audit'] = round(time.time() - t0, 2)
 
     if is_dup:
-        print(f"\n[CRITICAL QUALITY REJECTION] Video failed deduplication audit!")
-        print(f"Reason: {dup_reason}")
+        print(f"\n[CRITICAL QUALITY REJECTION] Video failed Gate 4 audit: {dup_reason}")
+        state_mgr.release_topic(topic)
         raise ValueError(f"Deduplication Audit Failed: {dup_reason}")
     else:
-        print(f"[Quality Audit PASSED] {dup_reason}")
+        print(f"[Gate 4 PASSED] {dup_reason}")
         auditor.record_approved_video(meta)
+        # Register script in script_registry.json
+        script_guard = ScriptGuard(state_mgr)
+        script_guard.record_approved_script(item['lines'], topic, title, script_meta.get('sha256', ''))
 
-    # 5. Upload to YouTube
+    # Gate 5: Upload to YouTube (with Idempotency)
     print("\n--- [Stage 5/5] Uploading Short to YouTube ---")
     t0 = time.time()
     short_url = None
+    vid_id = None
+    video_hash = compute_file_sha256(video_out)
+
     try:
         from cloud.upload_youtube import upload_short
         desc = f"{item['lines'][0]['text']}\n\n#shorts #{slot_info['name'].replace(' ', '')} #curiosity"
-        _, short_url = upload_short(
+        vid_id, short_url = upload_short(
             video_path=video_out,
             title=title,
             description=desc,
             tags=tags,
             category_id=category_id,
-            privacy_status="public"
+            privacy_status="public",
+            run_id=run_id
         )
     except HttpError as he:
         status_code = getattr(getattr(he, 'resp', None), 'status', None)
@@ -460,7 +609,18 @@ def main():
         short_url = f"[Manual/Pending Upload] {video_out.name}"
     stage_metrics['YouTube Upload'] = round(time.time() - t0, 2)
 
-    # 6. Update _published.md
+    # 6. Record Publication in Persistent State and _published.md
+    state_mgr.record_publication(
+        run_id=run_id,
+        topic=topic,
+        title=title,
+        video_hash=video_hash,
+        youtube_id=vid_id or "pending",
+        short_url=short_url,
+        slot_id=slot_id,
+        status="PUBLISHED" if vid_id else "PENDING_MANUAL"
+    )
+
     today = datetime.now().strftime("%Y-%m-%d")
     log_line = f"| {today} | {topic} | {style} | {title} | {short_url} |\n"
     with open(PUBLISHED_FILE, 'a', encoding='utf-8') as f:
@@ -477,7 +637,8 @@ def main():
         video_name=video_out.name,
         short_url=short_url,
         stage_metrics=stage_metrics,
-        total_time=total_time
+        total_time=total_time,
+        run_id=run_id
     )
 
     print("\n" + "=" * 60)
@@ -486,12 +647,14 @@ def main():
     print(f" Genre:     {slot_info['name']}")
     print(f" Output:    {video_out.name}")
     print(f" URL:       {short_url}")
+    print(f" Run ID:    {run_id}")
     print("-" * 60)
     print(" Execution Stage Telemetry:")
     for stage, dur in stage_metrics.items():
         print(f"   • {stage:<24}: {dur:>6.2f}s")
     print(f"   • {'TOTAL TIME':<24}: {total_time:>6.2f}s")
     print("=" * 60)
+
 
 if __name__ == '__main__':
     main()
