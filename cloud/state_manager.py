@@ -125,9 +125,9 @@ class StateManager:
         return data
 
     def _init_video_history(self) -> List[Dict[str, Any]]:
-        # Load from state_dir first, then check legacy path
+        # Load from state_dir first, then check legacy path only for default state_dir
         data = load_json_safe(self.video_hist_file, None)
-        if data is None and LEGACY_VIDEO_HISTORY.exists():
+        if data is None and self.state_dir == STATE_DIR and LEGACY_VIDEO_HISTORY.exists():
             data = load_json_safe(LEGACY_VIDEO_HISTORY, None)
         if not isinstance(data, list):
             data = []
@@ -331,11 +331,12 @@ class StateManager:
 
     def save_video_history(self):
         atomic_save(self.video_hist_file, self.video_history)
-        # Also sync to legacy location for backward compatibility
-        try:
-            atomic_save(LEGACY_VIDEO_HISTORY, self.video_history)
-        except Exception:
-            pass
+        # Also sync to legacy location for backward compatibility if default state_dir
+        if self.state_dir == STATE_DIR:
+            try:
+                atomic_save(LEGACY_VIDEO_HISTORY, self.video_history)
+            except Exception:
+                pass
 
     # ═════════════════════════════════════════════════════════════════════════
     # Publication & Idempotency Registry
