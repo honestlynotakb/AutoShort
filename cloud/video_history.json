@@ -58,5 +58,35 @@
       "0c0e16aab21761c4"
     ],
     "similarity_score": 0.762
+  },
+  {
+    "title": "How To Escape A Sinking Car #shorts",
+    "topic": "How to escape a sinking car: The hydrostatic pressure trap",
+    "theme": "SURVIVAL_TACTICAL",
+    "palette": "arctic_frost",
+    "scene_sequence": [
+      "HOOK_ATOMIC_LATTICE",
+      "MECH_ATOMIC_LATTICE",
+      "METRIC_TELEMETRY",
+      "HAZARD_TWIST",
+      "MECH_ATOMIC_LATTICE",
+      "METRIC_TELEMETRY",
+      "HAZARD_TWIST",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "8ad7d1f40e6dd082b1079cc7efab2c179d85c24ed4e86eca69fcbeed895b6c24",
+    "frame_hashes": [
+      "96ae25155a333788",
+      "0c0ea51b0a2b13c4",
+      "0081000401a6cc02",
+      "0e4c962ab22b33c4",
+      "0e860337192727d8",
+      "0c0ca5172a0f4db0",
+      "0c8e0a8e330f8e70",
+      "0e4c962a332b23c0",
+      "868e033711079668",
+      "0c0e0e8e170f0fc0"
+    ],
+    "similarity_score": 0.708
   }
 ]

@@ -22,6 +22,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-16T18:52:34.300829+00:00"
+    },
+    "slot3-20261116225300-3388": {
+      "run_id": "slot3-20261116225300-3388",
+      "topic": "How to escape a sinking car: The hydrostatic pressure trap",
+      "title": "How To Escape A Sinking Car #shorts",
+      "video_hash": "8ad7d1f40e6dd082b1079cc7efab2c179d85c24ed4e86eca69fcbeed895b6c24",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] how-to-escape-a-sinking-car.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-16T22:56:36.769788+00:00"
     }
   },
   "by_video_hash": {
@@ -46,6 +57,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-16T18:52:34.300829+00:00"
+    },
+    "8ad7d1f40e6dd082b1079cc7efab2c179d85c24ed4e86eca69fcbeed895b6c24": {
+      "run_id": "slot3-20261116225300-3388",
+      "topic": "How to escape a sinking car: The hydrostatic pressure trap",
+      "title": "How To Escape A Sinking Car #shorts",
+      "video_hash": "8ad7d1f40e6dd082b1079cc7efab2c179d85c24ed4e86eca69fcbeed895b6c24",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] how-to-escape-a-sinking-car.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-16T22:56:36.769788+00:00"
     }
   }
 }

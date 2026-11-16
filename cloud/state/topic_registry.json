@@ -148,6 +148,25 @@
       "status": "published",
       "published_at": "2026-11-16T18:52:34.301993+00:00",
       "youtube_url": "[Manual/Pending Upload] why-cold-water-kills-in-60-seconds.mp4"
+    },
+    "why cold water kills in 60 seconds": {
+      "topic": "Why Cold Water Kills In 60 Seconds #shorts",
+      "title": "Why Cold Water Kills In 60 Seconds #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-16",
+      "youtube_url": "[Manual/Pending Upload] why-cold-water-kills-in-60-seconds.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-why cold wat"
+    },
+    "how to escape a sinking car the hydrostatic pressure trap": {
+      "topic": "How to escape a sinking car: The hydrostatic pressure trap",
+      "title": "How To Escape A Sinking Car #shorts",
+      "slot_id": "3",
+      "run_id": "slot3-20261116225300-3388",
+      "status": "published",
+      "published_at": "2026-11-16T22:56:36.770662+00:00",
+      "youtube_url": "[Manual/Pending Upload] how-to-escape-a-sinking-car.mp4"
     }
   }
 }
