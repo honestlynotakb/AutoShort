@@ -23,9 +23,9 @@ from pathlib import Path
 from typing import Dict, List, Tuple, Any, Optional
 
 ROOT = Path(__file__).resolve().parent.parent
-SKILL_DIR = ROOT / ".agent" / "skills" / "faceless-shorts"
+SKILL_DIR = ROOT / "faceless-shorts"
 if not SKILL_DIR.exists():
-    SKILL_DIR = ROOT / "faceless-shorts"
+    SKILL_DIR = ROOT / ".agent" / "skills" / "faceless-shorts"
 
 # ═════════════════════════════════════════════════════════════════════════════
 # 1. DYNAMIC COLOR PALETTES & THEMES
@@ -859,99 +859,90 @@ def scaffold_2d_project(
     )
     (src_dir / "shots.js").write_text(shots_code, encoding="utf-8")
 
-    # Write main.js
-    main_code = f"""// 2D Motion Graphics Master Canvas Controller
-import {{ ctx, W, H }} from './core/lib.js';
-import {{ buildCaptions }} from './core/captions.js';
+    # Write main.js complying fully with window.OP contract expected by tools/capture.mjs
+    bg_color = palette.get("bg", "#0B1120")
+    main_code = f"""// Boot: fonts -> script + timing -> captions -> shots. Then draw(t) renders film time t (pure function of t).
+// window.OP is the API tools/capture.mjs drives: ready, bootError, duration(), draw(t), frame(t, q), cues(), shots().
+import {{ W, H, setCtx, ctx, clamp, eo, eio }} from './core/lib.js';
+import {{ T, loadTiming }} from './core/timing.js';
+import {{ buildCaptions, drawCaption, captionList }} from './core/captions.js';
 import {{ buildShots }} from './shots.js';
 
-let shotsData = null;
-let captionsData = null;
-let totalDuration = 30.0;
+const cv = document.getElementById('cv');
+setCtx(cv.getContext('2d'));
+const OP = (window.OP = {{ ready: false }});
 
-export async function init(duration) {{
-  totalDuration = duration || 30.0;
-  shotsData = buildShots();
-  captionsData = buildCaptions();
-  return {{ duration: totalDuration, cues: shotsData.cues }};
-}}
-
-export function render(t) {{
-  ctx.save();
-  ctx.clearRect(0, 0, W, H);
-
-  // Active shot rendering
-  const {{ shots }} = shotsData;
-  let activeShot = shots[0];
-  for (let i = 0; i < shots.length; i++) {{
-    if (t >= shots[i].at) {{
-      activeShot = shots[i];
-    }} else {{
-      break;
-    }}
-  }}
-
-  if (activeShot) {{
-    const lt = t - activeShot.at;
-    const nextShot = shots[shots.indexOf(activeShot) + 1];
-    const shotDuration = nextShot ? (nextShot.at - activeShot.at) : (totalDuration - activeShot.at);
-    activeShot.draw(lt, shotDuration, t);
-  }}
-
-  // High-contrast word-by-word animated captions
-  if (captionsData && captionsData.draw) {{
-    captionsData.draw(t);
-  }}
-
+function draw(t) {{
+  t = clamp(t, 0, T.dur - 1e-4);
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.letterSpacing = '0px';
+  ctx.fillStyle = '{bg_color}'; ctx.fillRect(0, 0, W, H);
+  const S = OP._shots; let i = S.length - 1; while (i > 0 && S[i].at > t) i--;
+  const sh = S[i], end = i < S.length - 1 ? S[i + 1].at : T.dur, d = end - sh.at, lt = t - sh.at;
+  // camera: punch-in on the cut + a slow push across the shot ("camera always moving")
+  const punch = 1 + 0.13 * (1 - eo(clamp(lt / 0.32)));
+  const drift = 1 + (sh.zoom ?? 0.06) * eio(clamp(lt / d));
+  const [cx, cy] = sh.cam || [540, 900];
+  ctx.save(); ctx.translate(cx, cy); ctx.scale(punch * drift, punch * drift); ctx.translate(-cx, -cy);
+  sh.draw(lt, d, t);
   ctx.restore();
+  ctx.globalAlpha = 1; ctx.letterSpacing = '0px';
+  if (i > 0 && lt < 0.12) {{ ctx.fillStyle = '#FFFFFF'; ctx.globalAlpha = 0.55 * (1 - lt / 0.12); ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }}
+  // fade from / to black on the first and last 0.25 s
+  const fade = Math.min(clamp(t / 0.25), clamp((T.dur - t) / 0.35));
+  if (fade < 1) {{ ctx.fillStyle = '#000'; ctx.globalAlpha = 1 - fade; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }}
+  drawCaption(t);
 }}
+
+(async () => {{
+  try {{
+    await document.fonts.load('900 100px Inter');
+    const script = await (await fetch('script.json', {{ cache: 'no-store' }})).json();
+    await loadTiming();
+    buildCaptions(script);
+    const {{ shots, cues }} = buildShots();
+    shots.sort((a, b) => a.at - b.at);
+    OP._shots = shots; OP.script = script;
+    OP.duration = () => T.dur;
+    OP.draw = draw;
+    OP.frame = (t, q = 0.92) => {{ draw(t); return cv.toDataURL('image/jpeg', q); }};
+    OP.shots = () => shots.map((s, i) => ({{ id: s.id, at: +s.at.toFixed(3), end: +(i < shots.length - 1 ? shots[i + 1].at : T.dur).toFixed(3), note: s.note || '' }}));
+    OP.captions = () => captionList().map((c) => ({{ s: +c.s.toFixed(3), e: +c.e.toFixed(3), text: c.words.map((w) => (w.hi ? '*' : '') + w.txt).join(' ') }}));
+    OP.cues = () => cues.slice().sort((a, b) => a.t - b.t);
+    OP.ready = true;
+    // preview mode (not capture): play in real time, ?t=12.3 to hold a frame
+    const q = new URLSearchParams(location.search);
+    if (!q.has('capture')) {{
+      if (q.has('t')) draw(+q.get('t'));
+      else {{
+        const audio = new Audio('data/mix.wav'); let t0 = null;
+        const btn = document.getElementById('play'); btn.hidden = false;
+        btn.onclick = () => {{ btn.hidden = true; t0 = performance.now(); audio.currentTime = 0; audio.play().catch(() => {{}}); }};
+        const loop = (now) => {{ const t = t0 == null ? 0 : (now - t0) / 1000; draw(t0 == null ? 0 : t); if (t0 != null && t > T.dur) {{ t0 = null; btn.hidden = false; }} requestAnimationFrame(loop); }};
+        requestAnimationFrame(loop);
+      }}
+    }}
+  }} catch (e) {{ OP.bootError = String(e && e.stack || e); console.error(e); }}
+}})();
 """
     (src_dir / "main.js").write_text(main_code, encoding="utf-8")
 
-    # Write index.html
-    html_code = f"""<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>{title}</title>
-  <style>
-    @font-face {{
-      font-family: 'Inter';
-      src: url('fonts/Inter-Black.otf') format('opentype');
-      font-weight: 900;
-      font-style: normal;
-    }}
-    * {{ box-sizing: border-box; margin: 0; padding: 0; }}
-    html, body {{
-      width: 1080px; height: 1920px;
-      overflow: hidden; background: {palette['bg']};
-      font-family: 'Inter', sans-serif;
-    }}
-    #c {{
-      width: 1080px; height: 1920px;
-      display: block;
-    }}
-  </style>
-</head>
+    # Write index.html matching tools/capture.mjs expectations
+    html_code = f"""<!doctype html>
+<html><head><meta charset="utf-8"><title>{title}</title>
+<style>
+@font-face {{ font-family: 'Inter'; font-weight: 900; src: url('fonts/Inter-Black.otf') format('opentype'); }}
+html, body {{ margin: 0; background: {bg_color}; height: 100%; }}
+body {{ display: flex; align-items: center; justify-content: center; }}
+canvas {{ display: block; height: 100vh; width: auto; max-width: 100vw; object-fit: contain; }}
+body.capture canvas {{ height: auto; width: auto; }}
+#play {{ position: fixed; font: 900 28px Inter, sans-serif; padding: 18px 36px; border: 0; border-radius: 40px; background: #FFD43B; color: #1A1A1E; cursor: pointer; }}
+</style></head>
 <body>
-  <canvas id="c" width="1080" height="1920"></canvas>
-  <script type="module">
-    import {{ init, render }} from './src/main.js';
-    import {{ ctx }} from './src/core/lib.js';
-
-    window.OP = {{
-      ready: false,
-      init: async (dur) => {{
-        await document.fonts.ready;
-        const res = await init(dur);
-        window.OP.ready = true;
-        return res;
-      }},
-      render: (t) => render(t)
-    }};
-  </script>
-</body>
-</html>
+<canvas id="cv" width="1080" height="1920"></canvas>
+<button id="play" hidden>▶ PLAY</button>
+<script>if (location.search.includes('capture')) document.body.className = 'capture';</script>
+<script type="module" src="src/main.js"></script>
+</body></html>
 """
     (proj_dir / "index.html").write_text(html_code, encoding="utf-8")
 

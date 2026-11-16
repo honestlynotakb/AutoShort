@@ -63,7 +63,10 @@ async function openPage(port) {
     const st = await ev('window.OP ? (OP.bootError ? "ERR:" + OP.bootError : OP.ready) : false').catch(() => false);
     if (st === true) break;
     if (typeof st === 'string') throw new Error('boot failed: ' + st + '\n' + logs.join('\n'));
-    if (i > 1200) throw new Error('boot timeout\n' + logs.join('\n'));
+    if (i > 1200) {
+      const debugInfo = await ev('JSON.stringify({ hasOP: !!window.OP, opKeys: window.OP ? Object.keys(window.OP) : [], readyState: document.readyState, ready: window.OP ? window.OP.ready : null, bootError: window.OP ? window.OP.bootError : null })').catch((e) => `eval failed: ${e.message}`);
+      throw new Error(`boot timeout after 120s (state: ${debugInfo})\n` + logs.join('\n'));
+    }
     await sleep(100);
   }
   const close = () => { try { ws.close(); } catch {} chrome.kill('SIGKILL'); setTimeout(() => { try { fs.rmSync(prof, { recursive: true, force: true }); } catch {} }, 300); };

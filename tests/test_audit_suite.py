@@ -275,6 +275,43 @@ class TestPipelineAuditSuite(unittest.TestCase):
         finally:
             shutil.rmtree(temp_dir, ignore_errors=True)
 
+    def test_tier4_scaffold_2d_project_capture_compatibility(self):
+        """Verify scaffold_2d_project creates index.html and main.js complying with tools/capture.mjs OP API."""
+        from cloud.visual_engine_2d import scaffold_2d_project
+        temp_dir = Path(tempfile.mkdtemp(prefix="test_scaffold_"))
+        try:
+            sample_lines = [
+                {"text": "Hook line text", "caps": "Hook *line"},
+                {"text": "Conclusion loop text", "caps": "Conclusion *loop", "gap": 0.25}
+            ]
+            scaffold_2d_project(temp_dir, "Test Title #shorts", "glass is an amorphous solid", sample_lines, [])
+
+            # Check index.html
+            index_html = temp_dir / "index.html"
+            self.assertTrue(index_html.exists())
+            html_text = index_html.read_text(encoding="utf-8")
+            self.assertIn('id="cv"', html_text)
+            self.assertIn('src="src/main.js"', html_text)
+
+            # Check main.js
+            main_js = temp_dir / "src" / "main.js"
+            self.assertTrue(main_js.exists())
+            main_text = main_js.read_text(encoding="utf-8")
+            self.assertIn("window.OP", main_text)
+            self.assertIn("OP.ready = true", main_text)
+            self.assertIn("OP.duration =", main_text)
+            self.assertIn("OP.draw =", main_text)
+            self.assertIn("OP.frame =", main_text)
+            self.assertIn("OP.cues =", main_text)
+            self.assertIn("OP.shots =", main_text)
+            self.assertIn("loadTiming()", main_text)
+
+            # Check tools
+            self.assertTrue((temp_dir / "tools" / "capture.mjs").exists())
+            self.assertTrue((temp_dir / "tools" / "mix.py").exists())
+        finally:
+            shutil.rmtree(temp_dir, ignore_errors=True)
+
     def test_tier4_render_performance_invariants(self):
         """Assert workflow enforces 24 FPS and SwiftShader downsampling parameters."""
         workflow_path = ROOT / '.github' / 'workflows' / 'daily-shorts.yml'
