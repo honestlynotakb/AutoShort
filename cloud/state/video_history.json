@@ -1,0 +1,32 @@
+[
+  {
+    "title": "How To Survive A Free-Falling Elevator #shorts",
+    "topic": "How to survive a falling elevator: The myth of jumping at the last second",
+    "theme": "SURVIVAL_TACTICAL",
+    "palette": "tactical_hazard",
+    "scene_sequence": [
+      "HOOK_SUBMERGED_CABIN",
+      "MECH_SUBMERGED_CABIN",
+      "METRIC_TELEMETRY",
+      "HAZARD_TWIST",
+      "MECH_SUBMERGED_CABIN",
+      "METRIC_TELEMETRY",
+      "HAZARD_TWIST",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "ee699f04f6cf60fd3e402f55a836b8b35f616d6dd5369963531e15a395a8962f",
+    "frame_hashes": [
+      "86862b2717272b90",
+      "0e4c96168e8e9660",
+      "0e0ebeae13135788",
+      "0e0c962a330517e0",
+      "0e8e033f031b3dc2",
+      "0c4c169606270760",
+      "8e0c088e132b33c8",
+      "0e8e0337cc2b23d0",
+      "0e96037f011b27c8",
+      "0d0e0e8e123333cc"
+    ],
+    "similarity_score": 0.0
+  }
+]

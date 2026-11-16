@@ -1,4 +1,13 @@
 {
   "version": 1,
-  "scripts": {}
+  "scripts": {
+    "f6c83cab1fbe8ed14c248c70ce67dd6a4f1b8f291bad826d5f6d91dc31fe1494": {
+      "topic": "How to survive a falling elevator: The myth of jumping at the last second",
+      "title": "How To Survive A Free-Falling Elevator #shorts",
+      "full_text": "Can you actually survive a plunging elevator by jumping right before impact? This is one of the most dangerous survival myths in history. If the elevator is falling at fifty miles per hour, jumping upwards at three miles per hour only reduces your speed to forty-seven. Plus, timing the exact millisecond of impact in complete free-fall is virtually impossible. Standing straight up breaks your spine and crushes your femur bones. Instead, immediately lie flat on your back in the center of the cabin floor. This distributes the impact deceleration force evenly across your ribs, skeleton, and body mass. Cover your face with your arms to shield against falling ceiling tiles before you hear...",
+      "line_count": 8,
+      "created_at": "2026-11-16T18:20:54.134752+00:00",
+      "sha256": "f6c83cab1fbe8ed14c248c70ce67dd6a4f1b8f291bad826d5f6d91dc31fe1494"
+    }
+  }
 }

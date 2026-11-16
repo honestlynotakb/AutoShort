@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "records": {
+    "slot3-20261116181320-3346": {
+      "run_id": "slot3-20261116181320-3346",
+      "topic": "How to survive a falling elevator: The myth of jumping at the last second",
+      "title": "How To Survive A Free-Falling Elevator #shorts",
+      "video_hash": "ee699f04f6cf60fd3e402f55a836b8b35f616d6dd5369963531e15a395a8962f",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] how-to-survive-a-free-falling-eleva.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-16T18:20:54.274444+00:00"
+    }
+  },
+  "by_video_hash": {
+    "ee699f04f6cf60fd3e402f55a836b8b35f616d6dd5369963531e15a395a8962f": {
+      "run_id": "slot3-20261116181320-3346",
+      "topic": "How to survive a falling elevator: The myth of jumping at the last second",
+      "title": "How To Survive A Free-Falling Elevator #shorts",
+      "video_hash": "ee699f04f6cf60fd3e402f55a836b8b35f616d6dd5369963531e15a395a8962f",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] how-to-survive-a-free-falling-eleva.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-16T18:20:54.274444+00:00"
+    }
+  }
+}

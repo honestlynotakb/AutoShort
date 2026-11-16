@@ -18,3 +18,4 @@
 | 2026-11-14 | What happens if you fall into deep quicksand? | 2d-motion | What To Do If Trapped In Quicksand #shorts | [Manual/Pending Upload] what-to-do-if-trapped-in-quicksand.mp4 |
 | 2026-11-14 | What happens if you fall into deep quicksand? | 2d-motion | What To Do If Trapped In Quicksand #shorts | [Manual/Pending Upload] what-to-do-if-trapped-in-quicksand.mp4 |
 | 2026-11-15 | Why glass is actually neither a standard solid nor a liquid | 2d-motion | Why Glass Is Not A Normal Solid #shorts | [Manual/Pending Upload] why-glass-is-not-a-normal-solid.mp4 |
+| 2026-11-16 | How to survive a falling elevator: The myth of jumping at the last second | 2d-motion | How To Survive A Free-Falling Elevator #shorts | [Manual/Pending Upload] how-to-survive-a-free-falling-eleva.mp4 |
