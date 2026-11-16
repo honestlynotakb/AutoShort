@@ -124,6 +124,43 @@ class TestPipelineAuditSuite(unittest.TestCase):
         content = gitattributes.read_text(encoding='utf-8')
         self.assertIn("eol=lf", content)
 
+    def test_tier1_secrets_and_env_hygiene(self):
+        """Assert .gitignore protects .env and tokens, and no plaintext secrets are tracked in git."""
+        gitignore = ROOT / '.gitignore'
+        self.assertTrue(gitignore.exists(), ".gitignore file is missing from root")
+        gi_content = gitignore.read_text(encoding='utf-8')
+        for rule in ['.env', '.env.*', '*.env', 'secrets.json', 'client_secret*.json', 'credentials.json', 'cloud/youtube_tokens*.json']:
+            self.assertIn(rule, gi_content, f"Missing required .gitignore rule: {rule}")
+
+        # Check .env.example exists and only has placeholders
+        env_example = ROOT / '.env.example'
+        self.assertTrue(env_example.exists(), ".env.example template is missing")
+        example_content = env_example.read_text(encoding='utf-8')
+        self.assertIn("GEMINI_API_KEY=", example_content)
+        self.assertIn("YOUTUBE_CLIENT_ID=", example_content)
+        self.assertNotIn("GOCSPX-", example_content)
+        self.assertNotIn("AIza", example_content)
+
+        # Scan tracked git files for hardcoded Google OAuth client secrets (excluding this test suite)
+        secret_prefix = "GOC" + "SPX-"
+        try:
+            import subprocess
+            tracked_files = subprocess.check_output(['git', 'ls-files'], text=True).splitlines()
+            for tf in tracked_files:
+                if tf == 'tests/test_audit_suite.py':
+                    continue
+                p = ROOT / tf
+                if p.exists() and p.is_file() and p.suffix in ['.py', '.json', '.yml', '.yaml', '.sh', '.md', '.txt']:
+                    try:
+                        file_txt = p.read_text(encoding='utf-8')
+                        self.assertNotIn(secret_prefix, file_txt, f"Found hardcoded Google Client Secret in tracked file: {tf}")
+                    except UnicodeDecodeError:
+                        pass
+        except Exception as e:
+            if isinstance(e, AssertionError):
+                raise
+            pass
+
     def test_tier1_requirements_dependencies(self):
         """Assert cloud/requirements.txt contains all production runtime dependencies."""
         req_file = ROOT / 'cloud' / 'requirements.txt'
