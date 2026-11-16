@@ -11,6 +11,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-16T18:20:54.274444+00:00"
+    },
+    "slot3-20261116184747-4221": {
+      "run_id": "slot3-20261116184747-4221",
+      "topic": "Cold water shock: Why you gasp and drown within two minutes",
+      "title": "Why Cold Water Kills In 60 Seconds #shorts",
+      "video_hash": "db4665dffd6a43ae16ab39dbf4df0087066f0948beca673a36183474692cb9dd",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] why-cold-water-kills-in-60-seconds.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-16T18:52:34.300829+00:00"
     }
   },
   "by_video_hash": {
@@ -24,6 +35,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-16T18:20:54.274444+00:00"
+    },
+    "db4665dffd6a43ae16ab39dbf4df0087066f0948beca673a36183474692cb9dd": {
+      "run_id": "slot3-20261116184747-4221",
+      "topic": "Cold water shock: Why you gasp and drown within two minutes",
+      "title": "Why Cold Water Kills In 60 Seconds #shorts",
+      "video_hash": "db4665dffd6a43ae16ab39dbf4df0087066f0948beca673a36183474692cb9dd",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] why-cold-water-kills-in-60-seconds.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-16T18:52:34.300829+00:00"
     }
   }
 }
