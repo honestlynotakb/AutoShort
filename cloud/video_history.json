@@ -88,5 +88,35 @@
       "0c0e0e8e170f0fc0"
     ],
     "similarity_score": 0.708
+  },
+  {
+    "title": "Why No Flag Uses Purple #shorts",
+    "topic": "Why no national flag in the world uses the color purple",
+    "theme": "HISTORIC_DOCUMENTARY",
+    "palette": "bronze_antiquity",
+    "scene_sequence": [
+      "HOOK_TELEMETRY_COMPASS",
+      "MECH_TELEMETRY_COMPASS",
+      "METRIC_TELEMETRY",
+      "HAZARD_TWIST",
+      "MECH_TELEMETRY_COMPASS",
+      "METRIC_TELEMETRY",
+      "HAZARD_TWIST",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "c46b897b3dd921edd864037089992b3600db9a5cc36f55876674a13d1d6af21c",
+    "frame_hashes": [
+      "06860c8e8e1555a8",
+      "0c0c0c0ecc2f27c0",
+      "0e0c0a8e13071380",
+      "0e0c962ab2173380",
+      "0e96033723179e60",
+      "0c0c0c0e8c7b7b80",
+      "0c0c0a8e13236580",
+      "0e4c962ab21515c8",
+      "0e8e0337130f8660",
+      "0c0e16aa123337c8"
+    ],
+    "similarity_score": 0.755
   }
 ]

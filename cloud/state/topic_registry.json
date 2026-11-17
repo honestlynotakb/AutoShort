@@ -167,6 +167,25 @@
       "status": "published",
       "published_at": "2026-11-16T22:56:36.770662+00:00",
       "youtube_url": "[Manual/Pending Upload] how-to-escape-a-sinking-car.mp4"
+    },
+    "how to escape a sinking car": {
+      "topic": "How To Escape A Sinking Car #shorts",
+      "title": "How To Escape A Sinking Car #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-16",
+      "youtube_url": "[Manual/Pending Upload] how-to-escape-a-sinking-car.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-how to escap"
+    },
+    "why no national flag in the world uses the color purple": {
+      "topic": "Why no national flag in the world uses the color purple",
+      "title": "Why No Flag Uses Purple #shorts",
+      "slot_id": "1",
+      "run_id": "slot1-20261117004729-3396",
+      "status": "published",
+      "published_at": "2026-11-17T00:50:36.960108+00:00",
+      "youtube_url": "[Manual/Pending Upload] why-no-flag-uses-purple.mp4"
     }
   }
 }

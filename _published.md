@@ -21,3 +21,4 @@
 | 2026-11-16 | How to survive a falling elevator: The myth of jumping at the last second | 2d-motion | How To Survive A Free-Falling Elevator #shorts | [Manual/Pending Upload] how-to-survive-a-free-falling-eleva.mp4 |
 | 2026-11-16 | Cold water shock: Why you gasp and drown within two minutes | 2d-motion | Why Cold Water Kills In 60 Seconds #shorts | [Manual/Pending Upload] why-cold-water-kills-in-60-seconds.mp4 |
 | 2026-11-16 | How to escape a sinking car: The hydrostatic pressure trap | 2d-motion | How To Escape A Sinking Car #shorts | [Manual/Pending Upload] how-to-escape-a-sinking-car.mp4 |
+| 2026-11-17 | Why no national flag in the world uses the color purple | 2d-motion | Why No Flag Uses Purple #shorts | [Manual/Pending Upload] why-no-flag-uses-purple.mp4 |

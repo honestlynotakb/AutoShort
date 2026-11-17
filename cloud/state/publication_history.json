@@ -33,6 +33,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-16T22:56:36.769788+00:00"
+    },
+    "slot1-20261117004729-3396": {
+      "run_id": "slot1-20261117004729-3396",
+      "topic": "Why no national flag in the world uses the color purple",
+      "title": "Why No Flag Uses Purple #shorts",
+      "video_hash": "c46b897b3dd921edd864037089992b3600db9a5cc36f55876674a13d1d6af21c",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] why-no-flag-uses-purple.mp4",
+      "slot_id": "1",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-17T00:50:36.959197+00:00"
     }
   },
   "by_video_hash": {
@@ -68,6 +79,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-16T22:56:36.769788+00:00"
+    },
+    "c46b897b3dd921edd864037089992b3600db9a5cc36f55876674a13d1d6af21c": {
+      "run_id": "slot1-20261117004729-3396",
+      "topic": "Why no national flag in the world uses the color purple",
+      "title": "Why No Flag Uses Purple #shorts",
+      "video_hash": "c46b897b3dd921edd864037089992b3600db9a5cc36f55876674a13d1d6af21c",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] why-no-flag-uses-purple.mp4",
+      "slot_id": "1",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-17T00:50:36.959197+00:00"
     }
   }
 }
