@@ -186,6 +186,25 @@
       "status": "published",
       "published_at": "2026-11-17T00:50:36.960108+00:00",
       "youtube_url": "[Manual/Pending Upload] why-no-flag-uses-purple.mp4"
+    },
+    "why no flag uses purple": {
+      "topic": "Why No Flag Uses Purple #shorts",
+      "title": "Why No Flag Uses Purple #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-17",
+      "youtube_url": "[Manual/Pending Upload] why-no-flag-uses-purple.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-why no flag "
+    },
+    "the dancing plague of 1518 when hundreds danced until death": {
+      "topic": "The Dancing Plague of 1518: When hundreds danced until death",
+      "title": "The 1518 Epidemic That Forced People To Dance #shorts",
+      "slot_id": "3",
+      "run_id": "slot3-20261117165212-3389",
+      "status": "published",
+      "published_at": "2026-11-17T16:55:43.170334+00:00",
+      "youtube_url": "[Manual/Pending Upload] the-1518-epidemic-that-forced-peopl.mp4"
     }
   }
 }

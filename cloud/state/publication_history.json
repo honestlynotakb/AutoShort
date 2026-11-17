@@ -44,6 +44,17 @@
       "slot_id": "1",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-17T00:50:36.959197+00:00"
+    },
+    "slot3-20261117165212-3389": {
+      "run_id": "slot3-20261117165212-3389",
+      "topic": "The Dancing Plague of 1518: When hundreds danced until death",
+      "title": "The 1518 Epidemic That Forced People To Dance #shorts",
+      "video_hash": "6a6cc69da7741079c896e5a161dd0de1425b59b457bd056a86a38ae61ef267fc",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] the-1518-epidemic-that-forced-peopl.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-17T16:55:43.169347+00:00"
     }
   },
   "by_video_hash": {
@@ -90,6 +101,17 @@
       "slot_id": "1",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-17T00:50:36.959197+00:00"
+    },
+    "6a6cc69da7741079c896e5a161dd0de1425b59b457bd056a86a38ae61ef267fc": {
+      "run_id": "slot3-20261117165212-3389",
+      "topic": "The Dancing Plague of 1518: When hundreds danced until death",
+      "title": "The 1518 Epidemic That Forced People To Dance #shorts",
+      "video_hash": "6a6cc69da7741079c896e5a161dd0de1425b59b457bd056a86a38ae61ef267fc",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] the-1518-epidemic-that-forced-peopl.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-17T16:55:43.169347+00:00"
     }
   }
 }

@@ -118,5 +118,34 @@
       "0c0e16aa123337c8"
     ],
     "similarity_score": 0.755
+  },
+  {
+    "title": "The 1518 Epidemic That Forced People To Dance #shorts",
+    "topic": "The Dancing Plague of 1518: When hundreds danced until death",
+    "theme": "HISTORIC_DOCUMENTARY",
+    "palette": "royal_purple",
+    "scene_sequence": [
+      "HOOK_THERMAL_GRADIENT",
+      "MECH_THERMAL_GRADIENT",
+      "METRIC_TELEMETRY",
+      "HAZARD_TWIST",
+      "MECH_THERMAL_GRADIENT",
+      "METRIC_TELEMETRY",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "6a6cc69da7741079c896e5a161dd0de1425b59b457bd056a86a38ae61ef267fc",
+    "frame_hashes": [
+      "8e06168e0f170e00",
+      "0c4c0e0e4e231700",
+      "0e0c0e0e0e0f0b00",
+      "0e0c092c111b1600",
+      "0e0c062aa20f1700",
+      "0e00033f21171600",
+      "0c4d0e0e1c171700",
+      "0e0c080c111f0f00",
+      "0e0c162a222b3b00",
+      "0c4c0e0e162b2b00"
+    ],
+    "similarity_score": 0.739
   }
 ]
