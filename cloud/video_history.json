@@ -147,5 +147,35 @@
       "0c4c0e0e162b2b00"
     ],
     "similarity_score": 0.739
+  },
+  {
+    "title": "How To Escape A Deadly Rip Current #shorts",
+    "topic": "How to survive a rip current: The shoreline trap",
+    "theme": "SURVIVAL_TACTICAL",
+    "palette": "tactical_hazard",
+    "scene_sequence": [
+      "HOOK_HYDRO_FLOW",
+      "MECH_HYDRO_FLOW",
+      "COMPARE_SPLIT",
+      "HAZARD_TWIST",
+      "MECH_HYDRO_FLOW",
+      "COMPARE_SPLIT",
+      "HAZARD_TWIST",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "c0355692a03c1823fa3d856ec9d770b1eeed4fab35544139c4e3147d294f501f",
+    "frame_hashes": [
+      "96862323232b3780",
+      "8ccc1313823b33c8",
+      "0c0e3333031317e8",
+      "868e2333113959a6",
+      "868e033f111b07c0",
+      "0c4c1313133b0ee0",
+      "8e0e233333179668",
+      "868e3333513123c8",
+      "8696017f011b36c0",
+      "0c0e96aab2636b94"
+    ],
+    "similarity_score": 0.758
   }
 ]

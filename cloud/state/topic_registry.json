@@ -205,6 +205,25 @@
       "status": "published",
       "published_at": "2026-11-17T16:55:43.170334+00:00",
       "youtube_url": "[Manual/Pending Upload] the-1518-epidemic-that-forced-peopl.mp4"
+    },
+    "the 1518 epidemic that forced people to dance": {
+      "topic": "The 1518 Epidemic That Forced People To Dance #shorts",
+      "title": "The 1518 Epidemic That Forced People To Dance #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-17",
+      "youtube_url": "[Manual/Pending Upload] the-1518-epidemic-that-forced-peopl.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-the 1518 epi"
+    },
+    "how to survive a rip current the shoreline trap": {
+      "topic": "How to survive a rip current: The shoreline trap",
+      "title": "How To Escape A Deadly Rip Current #shorts",
+      "slot_id": "3",
+      "run_id": "slot3-20261119200548-3671",
+      "status": "published",
+      "published_at": "2026-11-19T20:09:41.007567+00:00",
+      "youtube_url": "[Manual/Pending Upload] how-to-escape-a-deadly-rip-current.mp4"
     }
   }
 }

@@ -55,6 +55,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-17T16:55:43.169347+00:00"
+    },
+    "slot3-20261119200548-3671": {
+      "run_id": "slot3-20261119200548-3671",
+      "topic": "How to survive a rip current: The shoreline trap",
+      "title": "How To Escape A Deadly Rip Current #shorts",
+      "video_hash": "c0355692a03c1823fa3d856ec9d770b1eeed4fab35544139c4e3147d294f501f",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] how-to-escape-a-deadly-rip-current.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-19T20:09:41.006174+00:00"
     }
   },
   "by_video_hash": {
@@ -112,6 +123,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-17T16:55:43.169347+00:00"
+    },
+    "c0355692a03c1823fa3d856ec9d770b1eeed4fab35544139c4e3147d294f501f": {
+      "run_id": "slot3-20261119200548-3671",
+      "topic": "How to survive a rip current: The shoreline trap",
+      "title": "How To Escape A Deadly Rip Current #shorts",
+      "video_hash": "c0355692a03c1823fa3d856ec9d770b1eeed4fab35544139c4e3147d294f501f",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] how-to-escape-a-deadly-rip-current.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-19T20:09:41.006174+00:00"
     }
   }
 }
