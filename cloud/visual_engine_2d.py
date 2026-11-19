@@ -218,15 +218,23 @@ def detect_topic_focal_vector(topic: str, lines: List[Dict]) -> Tuple[str, str, 
             "K.drawAsteroidField(540, 840, 560, 440, lt * 1.5, 45); K.drawRadialGauge(540, 1320, 140, seg(lt, 0, d), 'IMPACT PRESSURE', (seg(lt, 0, d) * 50).toFixed(0) + ' GPa', eob(seg(lt, 0.15, 0.45)));"
         )
 
-    # 6. Navigational Compass / Flags / Rip Current Survival Navigation / Ants
-    if has_keyword(text, ["flag", "nepal", "mozambique", "purple", "dye", "snails", "ant", "desert", "navigate", "navigation", "polarization", "rip current", "shoreline", "current", "swim", "swimmer"]):
+    # 6. Ocean Rip Currents & Hydrodynamic Water Flow
+    if has_keyword(text, ["rip current", "shoreline", "current", "undertow", "waves", "swimmer", "swimming", "tsunami"]):
+        return (
+            "HYDRO_FLOW",
+            "K.drawHydroFlow(540, 920, 600, 420, lt, 2.5);",
+            "K.drawHydroFlow(540, 840, 560, 380, lt * 1.3, 3.0); K.drawComparisonBar(540, 1320, 780, 70, 0.85, 'SEAWARD VELOCITY: 8 FT/S', 'ESCAPE: 90° PARALLEL', eob(seg(lt, 0.2, 0.5)));"
+        )
+
+    # 7. Navigational Compass / Flags / Ants Navigation
+    if has_keyword(text, ["flag", "nepal", "mozambique", "purple", "dye", "snails", "ant", "desert", "navigate", "navigation", "polarization"]):
         return (
             "TELEMETRY_COMPASS",
             "K.drawTelemetryCompass(540, 920, 190, lt * 0.4, lt);",
-            "K.drawTelemetryCompass(540, 840, 160, lt * 0.6, lt); K.drawComparisonBar(540, 1320, 780, 70, 0.85, 'ESCAPE BEARING', 'PARALLEL 90°', eob(seg(lt, 0.2, 0.5)));"
+            "K.drawTelemetryCompass(540, 840, 160, lt * 0.6, lt); K.drawComparisonBar(540, 1320, 780, 70, 0.85, 'HEMISPHERIC VECTOR', 'BEARING 240°', eob(seg(lt, 0.2, 0.5)));"
         )
 
-    # 7. Submerged Vehicle & Structural Cabin Escape (Elevator / Sinking Car)
+    # 8. Submerged Vehicle & Structural Cabin Escape (Elevator / Sinking Car)
     if has_keyword(text, ["car", "elevator", "submerged", "door", "pressure", "hydrostatic"]):
         return (
             "SUBMERGED_CABIN",
@@ -234,7 +242,7 @@ def detect_topic_focal_vector(topic: str, lines: List[Dict]) -> Tuple[str, str, 
             "K.drawSubmergedCabin(540, 840, 440, 320, lt, 0.85); K.drawRadialGauge(540, 1320, 140, seg(lt, 0, d), 'CABIN PRESSURE', (seg(lt, 0, d) * 10).toFixed(1) + ' BAR', eob(seg(lt, 0.15, 0.45)));"
         )
 
-    # 8. Atomic Lattice & Molecular Crystals (Glass / Solids)
+    # 9. Atomic Lattice & Molecular Crystals (Glass / Solids)
     if has_keyword(text, ["glass", "crystal", "amorphous", "solid", "rupert", "lattice"]):
         return (
             "ATOMIC_LATTICE",
@@ -578,6 +586,22 @@ export function drawThermalGradient(x, y, w, h, coldRatio = 0.5, t = 0) {{
   for (let i = -w/2 + 30; i <= w/2 - 30; i += 40) {{
     line([[i, -h/2 + 20], [i, h/2 - 20]], P.primary + '40', 4);
   }}
+  ctx.restore();
+}}
+
+/** Hydrodynamic Ocean & Rip Current Streamlines */
+export function drawHydroFlow(x, y, w, h, t, speed = 2) {{
+  ctx.save();
+  ctx.translate(x, y);
+  rr(-w/2, -h/2, w, h, 28);
+  ctx.fillStyle = P.card; ctx.fill();
+  ctx.strokeStyle = P.primary; ctx.lineWidth = 6; ctx.stroke();
+  for (let row = -h/2 + 50; row <= h/2 - 50; row += 55) {{
+    const offX = ((t * speed * 80) + Math.sin(row * 0.05 + t) * 30) % (w - 80);
+    line([[-w/2 + 40 + offX, row], [-w/2 + 100 + offX, row]], P.danger, 5);
+  }}
+  line([[0, 20], [w/2 - 60, 20]], P.accent, 8);
+  circle(w/2 - 60, 20, 12, P.accent);
   ctx.restore();
 }}
 

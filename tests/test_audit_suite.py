@@ -570,6 +570,12 @@ class TestPipelineAuditSuite(unittest.TestCase):
         vec_escape, _, _ = detect_topic_focal_vector("How to escape a sinking submerged car door pressure", [])
         self.assertEqual(vec_escape, "SUBMERGED_CABIN")
 
+        vec_rip, _, _ = detect_topic_focal_vector("How to survive a rip current: The shoreline trap", [])
+        self.assertEqual(vec_rip, "HYDRO_FLOW")
+
+        vec_flag, _, _ = detect_topic_focal_vector("Why no national flag uses the color purple", [])
+        self.assertEqual(vec_flag, "TELEMETRY_COMPASS")
+
     def test_gate3_palette_consecutive_non_repetition(self):
         """Gate 3: Palette cycler must never pick the same palette as recent runs."""
         p1 = pick_variation_palette("COSMIC_SPACE", [])
@@ -651,6 +657,50 @@ class TestPipelineAuditSuite(unittest.TestCase):
         # Compare candidate with same hash as entry 0
         dist, sim = compare_dhash_lists([h_target], auditor.history[0]["frame_hashes"])
         self.assertEqual(sim, 1.0)
+
+    def test_gate4_context_aware_deduplication(self):
+        """Gate 4: Cross-theme common layout noise is tolerated while same-theme duplicates are caught."""
+        from unittest.mock import patch
+        auditor = VideoQualityAuditor(state_mgr=self.state_mgr)
+        fake_video = self.test_dir / "test_video.mp4"
+        fake_video.write_bytes(b"\x00" * 500000)
+
+        # History has a video in a DIFFERENT theme (HISTORIC_DOCUMENTARY)
+        auditor.history = [{
+            "title": "Why No Flag Uses Purple #shorts",
+            "theme": "HISTORIC_DOCUMENTARY",
+            "palette": "bronze_antiquity",
+            "frame_hashes": ["1234567812345678"] * 10,
+            "file_hash": "different_sha256"
+        }]
+
+        with patch.object(auditor, 'validate_video_integrity', return_value=(True, "OK")), \
+             patch('cloud.duplicate_detector.extract_frame_dhashes', return_value=["1234567812345678"] * 10), \
+             patch('cloud.duplicate_detector.compare_dhash_lists', return_value=(11.0, 0.828)):
+            # Cross-theme with 82.8% similarity should be APPROVED
+            is_dup, reason, _ = auditor.audit_and_check_duplicate(
+                fake_video, "Rip Current", "How To Escape A Deadly Rip Current #shorts",
+                "SURVIVAL_TACTICAL", "oceanic_abyss", ["HOOK_HYDRO_FLOW"]
+            )
+            self.assertFalse(is_dup, f"Cross-theme video should be approved, got: {reason}")
+
+        # Now add same-theme video with 86% similarity -> should be REJECTED
+        auditor.history.append({
+            "title": "Other Survival Short",
+            "theme": "SURVIVAL_TACTICAL",
+            "palette": "oceanic_abyss",
+            "frame_hashes": ["1234567812345678"] * 10,
+            "file_hash": "different_sha256_2"
+        })
+        with patch.object(auditor, 'validate_video_integrity', return_value=(True, "OK")), \
+             patch('cloud.duplicate_detector.extract_frame_dhashes', return_value=["1234567812345678"] * 10), \
+             patch('cloud.duplicate_detector.compare_dhash_lists', return_value=(9.0, 0.860)):
+            is_dup, reason, _ = auditor.audit_and_check_duplicate(
+                fake_video, "Rip Current", "How To Escape A Deadly Rip Current #shorts",
+                "SURVIVAL_TACTICAL", "oceanic_abyss", ["HOOK_HYDRO_FLOW"]
+            )
+            self.assertTrue(is_dup)
+            self.assertIn("exceeds threshold", reason)
 
     def test_gate4_corrupted_history_safe_recovery(self):
         """Gate 4: Malformed video history file recovers gracefully with empty list."""

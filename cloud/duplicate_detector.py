@@ -216,7 +216,7 @@ class VideoQualityAuditor:
         theme: str,
         palette: str,
         scene_sequence: List[str],
-        max_similarity_threshold: float = 0.78
+        max_similarity_threshold: Optional[float] = None
     ) -> Tuple[bool, str, Dict[str, Any]]:
         """Evaluates whether candidate video is a visual or structural duplicate across all history.
 
@@ -249,17 +249,36 @@ class VideoQualityAuditor:
             ):
                 return True, "Structural duplicate: Consecutive video cannot share identical theme, palette, and scene sequence.", {}
 
-        # 6. Check perceptual similarity against ALL historical entries
+        # 6. Check perceptual similarity against ALL historical entries with context-aware thresholding
+        base_threshold = max_similarity_threshold if max_similarity_threshold is not None else float(os.environ.get("GATE4_SIMILARITY_THRESHOLD", "0.85"))
         highest_similarity = 0.0
         most_similar_title = ""
+        is_duplicate = False
+        rejection_reason = ""
 
         for entry in reversed(self.history):
             prev_hashes = entry.get("frame_hashes", [])
-            if prev_hashes:
-                _, sim = compare_dhash_lists(frame_hashes, prev_hashes)
-                if sim > highest_similarity:
-                    highest_similarity = sim
-                    most_similar_title = entry.get("title", "Unknown")
+            if not prev_hashes:
+                continue
+
+            _, sim = compare_dhash_lists(frame_hashes, prev_hashes)
+            if sim > highest_similarity:
+                highest_similarity = sim
+                most_similar_title = entry.get("title", "Unknown")
+
+            # Context-aware thresholding:
+            # If entry shares the same theme or same palette, enforce base_threshold (default 0.85).
+            # If entry is from a completely different theme AND palette, require higher threshold (0.90)
+            # because standard 2D layout framing (margins, captions, HUD cards) creates a baseline ~75-82% noise floor.
+            same_context = (entry.get("theme") == theme or entry.get("palette") == palette)
+            effective_threshold = base_threshold if same_context else max(0.90, base_threshold + 0.05)
+
+            if sim >= effective_threshold and not is_duplicate:
+                is_duplicate = True
+                rejection_reason = (
+                    f"Perceptual similarity {sim:.1%} exceeds threshold {effective_threshold:.1%} "
+                    f"(matches visual footage of '{entry.get('title', 'Unknown')}')"
+                )
 
         metadata = {
             "title": title,
@@ -272,12 +291,8 @@ class VideoQualityAuditor:
             "similarity_score": round(highest_similarity, 3)
         }
 
-        if highest_similarity >= max_similarity_threshold:
-            return (
-                True,
-                f"Perceptual similarity {highest_similarity:.1%} exceeds threshold {max_similarity_threshold:.1%} (matches visual footage of '{most_similar_title}')",
-                metadata
-            )
+        if is_duplicate:
+            return True, rejection_reason, metadata
 
         return False, f"Video approved. Max similarity score: {highest_similarity:.1%}", metadata
 

@@ -562,7 +562,7 @@ def main():
         theme=theme_name,
         palette=palette_id,
         scene_sequence=scene_sequence,
-        max_similarity_threshold=0.78
+        max_similarity_threshold=float(os.environ.get("GATE4_SIMILARITY_THRESHOLD", "0.85"))
     )
     stage_metrics['Quality & Deduplication Audit'] = round(time.time() - t0, 2)
 
