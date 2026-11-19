@@ -77,6 +77,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-19T21:32:05.621219+00:00"
+    },
+    "slot3-20261119233149-3587": {
+      "run_id": "slot3-20261119233149-3587",
+      "topic": "Why you must never eat polar bear liver: Toxic hypervitaminosis A",
+      "title": "The Arctic Meat That Kills In Hours #shorts",
+      "video_hash": "4f465461a3f52bbac9c4bcbe4f98a5c9466653d7f439c954a07818e24454a402",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] the-arctic-meat-that-kills-in-hours.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-19T23:35:53.973327+00:00"
     }
   },
   "by_video_hash": {
@@ -156,6 +167,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-19T21:32:05.621219+00:00"
+    },
+    "4f465461a3f52bbac9c4bcbe4f98a5c9466653d7f439c954a07818e24454a402": {
+      "run_id": "slot3-20261119233149-3587",
+      "topic": "Why you must never eat polar bear liver: Toxic hypervitaminosis A",
+      "title": "The Arctic Meat That Kills In Hours #shorts",
+      "video_hash": "4f465461a3f52bbac9c4bcbe4f98a5c9466653d7f439c954a07818e24454a402",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] the-arctic-meat-that-kills-in-hours.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-19T23:35:53.973327+00:00"
     }
   }
 }

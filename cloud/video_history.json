@@ -206,5 +206,34 @@
       "0e0c962ab2095986"
     ],
     "similarity_score": 0.722
+  },
+  {
+    "title": "The Arctic Meat That Kills In Hours #shorts",
+    "topic": "Why you must never eat polar bear liver: Toxic hypervitaminosis A",
+    "theme": "SURVIVAL_TACTICAL",
+    "palette": "oceanic_abyss",
+    "scene_sequence": [
+      "HOOK_SUBMERGED_CABIN",
+      "MECH_SUBMERGED_CABIN",
+      "COMPARE_SPLIT",
+      "HAZARD_TWIST",
+      "MECH_SUBMERGED_CABIN",
+      "COMPARE_SPLIT",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "4f465461a3f52bbac9c4bcbe4f98a5c9466653d7f439c954a07818e24454a402",
+    "frame_hashes": [
+      "06160b07070f3f40",
+      "8c4d06969e131be0",
+      "068e233303173640",
+      "0686213345153580",
+      "0e8c033f131317c0",
+      "0c8c9696866327c0",
+      "8c8c06168e0f1b84",
+      "068e3333330f0e60",
+      "8e0e2133051333c8",
+      "050e96aa221733e4"
+    ],
+    "similarity_score": 0.762
   }
 ]

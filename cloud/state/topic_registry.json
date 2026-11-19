@@ -243,6 +243,25 @@
       "status": "published",
       "published_at": "2026-11-19T21:32:05.622538+00:00",
       "youtube_url": "[Manual/Pending Upload] the-day-a-wave-of-beer-destroyed-lo.mp4"
+    },
+    "the day a wave of beer destroyed london": {
+      "topic": "The Day A Wave Of Beer Destroyed London #shorts",
+      "title": "The Day A Wave Of Beer Destroyed London #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-19",
+      "youtube_url": "[Manual/Pending Upload] the-day-a-wave-of-beer-destroyed-lo.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-the day a wa"
+    },
+    "why you must never eat polar bear liver toxic hypervitaminosis a": {
+      "topic": "Why you must never eat polar bear liver: Toxic hypervitaminosis A",
+      "title": "The Arctic Meat That Kills In Hours #shorts",
+      "slot_id": "3",
+      "run_id": "slot3-20261119233149-3587",
+      "status": "published",
+      "published_at": "2026-11-19T23:35:53.974644+00:00",
+      "youtube_url": "[Manual/Pending Upload] the-arctic-meat-that-kills-in-hours.mp4"
     }
   }
 }

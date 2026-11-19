@@ -25,3 +25,4 @@
 | 2026-11-17 | The Dancing Plague of 1518: When hundreds danced until death | 2d-motion | The 1518 Epidemic That Forced People To Dance #shorts | [Manual/Pending Upload] the-1518-epidemic-that-forced-peopl.mp4 |
 | 2026-11-19 | How to survive a rip current: The shoreline trap | 2d-motion | How To Escape A Deadly Rip Current #shorts | [Manual/Pending Upload] how-to-escape-a-deadly-rip-current.mp4 |
 | 2026-11-19 | The London Beer Flood of 1814: The tidal wave of porter | 2d-motion | The Day A Wave Of Beer Destroyed London #shorts | [Manual/Pending Upload] the-day-a-wave-of-beer-destroyed-lo.mp4 |
+| 2026-11-19 | Why you must never eat polar bear liver: Toxic hypervitaminosis A | 2d-motion | The Arctic Meat That Kills In Hours #shorts | [Manual/Pending Upload] the-arctic-meat-that-kills-in-hours.mp4 |
