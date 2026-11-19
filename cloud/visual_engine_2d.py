@@ -218,15 +218,23 @@ def detect_topic_focal_vector(topic: str, lines: List[Dict]) -> Tuple[str, str, 
             "K.drawAsteroidField(540, 840, 560, 440, lt * 1.5, 45); K.drawRadialGauge(540, 1320, 140, seg(lt, 0, d), 'IMPACT PRESSURE', (seg(lt, 0, d) * 50).toFixed(0) + ' GPa', eob(seg(lt, 0.15, 0.45)));"
         )
 
-    # 6. Navigational Compass / Flags / Ants Navigation
-    if has_keyword(text, ["flag", "nepal", "mozambique", "purple", "dye", "snails", "ant", "desert", "navigate", "polarization"]):
+    # 6. Navigational Compass / Flags / Rip Current Survival Navigation / Ants
+    if has_keyword(text, ["flag", "nepal", "mozambique", "purple", "dye", "snails", "ant", "desert", "navigate", "navigation", "polarization", "rip current", "shoreline", "current", "swim", "swimmer"]):
         return (
             "TELEMETRY_COMPASS",
             "K.drawTelemetryCompass(540, 920, 190, lt * 0.4, lt);",
-            "K.drawTelemetryCompass(540, 840, 160, lt * 0.6, lt); K.drawComparisonBar(540, 1320, 780, 70, 0.85, 'HEMISPHERIC VECTOR', 'BEARING 240°', eob(seg(lt, 0.2, 0.5)));"
+            "K.drawTelemetryCompass(540, 840, 160, lt * 0.6, lt); K.drawComparisonBar(540, 1320, 780, 70, 0.85, 'ESCAPE BEARING', 'PARALLEL 90°', eob(seg(lt, 0.2, 0.5)));"
         )
 
-    # 7. Atomic Lattice & Molecular Crystals (Glass / Solids)
+    # 7. Submerged Vehicle & Structural Cabin Escape (Elevator / Sinking Car)
+    if has_keyword(text, ["car", "elevator", "submerged", "door", "pressure", "hydrostatic"]):
+        return (
+            "SUBMERGED_CABIN",
+            "K.drawSubmergedCabin(540, 920, 480, 360, lt, seg(lt, 0, d));",
+            "K.drawSubmergedCabin(540, 840, 440, 320, lt, 0.85); K.drawRadialGauge(540, 1320, 140, seg(lt, 0, d), 'CABIN PRESSURE', (seg(lt, 0, d) * 10).toFixed(1) + ' BAR', eob(seg(lt, 0.15, 0.45)));"
+        )
+
+    # 8. Atomic Lattice & Molecular Crystals (Glass / Solids)
     if has_keyword(text, ["glass", "crystal", "amorphous", "solid", "rupert", "lattice"]):
         return (
             "ATOMIC_LATTICE",
@@ -258,13 +266,6 @@ def detect_topic_focal_vector(topic: str, lines: List[Dict]) -> Tuple[str, str, 
             "K.drawQuicksandVortex(540, 840, 220, lt, 0.8); K.drawComparisonBar(540, 1320, 780, 70, 0.65, 'HUMAN DENSITY: 1.0', 'SAND: 2.0', eob(seg(lt, 0.2, 0.5)));"
         )
 
-    # 11. Submerged Vehicle & Structural Cabin Escape
-    if has_keyword(text, ["car", "elevator", "submerged", "door", "pressure", "hydrostatic"]):
-        return (
-            "SUBMERGED_CABIN",
-            "K.drawSubmergedCabin(540, 920, 480, 360, lt, seg(lt, 0, d));",
-            "K.drawSubmergedCabin(540, 840, 440, 320, lt, 0.85); K.drawRadialGauge(540, 1320, 140, seg(lt, 0, d), 'CABIN PRESSURE', (seg(lt, 0, d) * 10).toFixed(1) + ' BAR', eob(seg(lt, 0.15, 0.45)));"
-        )
 
     # 12. Acoustic Wave Chamber (Brazen Bull / Mayan Pyramids)
     if has_keyword(text, ["brazen bull", "acoustic", "pyramid", "mayan", "echo", "sound", "chirp"]):
