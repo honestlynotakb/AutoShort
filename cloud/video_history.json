@@ -177,5 +177,34 @@
       "0c0e96aab2636b94"
     ],
     "similarity_score": 0.758
+  },
+  {
+    "title": "The Day A Wave Of Beer Destroyed London #shorts",
+    "topic": "The London Beer Flood of 1814: The tidal wave of porter",
+    "theme": "HISTORIC_DOCUMENTARY",
+    "palette": "vellum_manuscript",
+    "scene_sequence": [
+      "HOOK_SUBMERGED_CABIN",
+      "MECH_SUBMERGED_CABIN",
+      "PIPELINE_FLOW",
+      "HAZARD_TWIST",
+      "MECH_SUBMERGED_CABIN",
+      "PIPELINE_FLOW",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "347c6da376edaee7999484c1aa2db618729dc8f8a36a27416dea399de3cdb129",
+    "frame_hashes": [
+      "8606022316190f20",
+      "96060a17170b0fc0",
+      "0c4c16968e0f0db2",
+      "0c0e324d091b9e60",
+      "0e0eb24d4c292b94",
+      "0e8e033f05339668",
+      "0c4c16969e1b1388",
+      "0c0eb24d2b0b1bc4",
+      "0e0e22cc4c092bd4",
+      "0e0c962ab2095986"
+    ],
+    "similarity_score": 0.722
   }
 ]

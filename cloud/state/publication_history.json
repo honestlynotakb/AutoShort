@@ -66,6 +66,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-19T20:09:41.006174+00:00"
+    },
+    "slot3-20261119212843-3388": {
+      "run_id": "slot3-20261119212843-3388",
+      "topic": "The London Beer Flood of 1814: The tidal wave of porter",
+      "title": "The Day A Wave Of Beer Destroyed London #shorts",
+      "video_hash": "347c6da376edaee7999484c1aa2db618729dc8f8a36a27416dea399de3cdb129",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] the-day-a-wave-of-beer-destroyed-lo.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-19T21:32:05.621219+00:00"
     }
   },
   "by_video_hash": {
@@ -134,6 +145,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-19T20:09:41.006174+00:00"
+    },
+    "347c6da376edaee7999484c1aa2db618729dc8f8a36a27416dea399de3cdb129": {
+      "run_id": "slot3-20261119212843-3388",
+      "topic": "The London Beer Flood of 1814: The tidal wave of porter",
+      "title": "The Day A Wave Of Beer Destroyed London #shorts",
+      "video_hash": "347c6da376edaee7999484c1aa2db618729dc8f8a36a27416dea399de3cdb129",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] the-day-a-wave-of-beer-destroyed-lo.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-19T21:32:05.621219+00:00"
     }
   }
 }
