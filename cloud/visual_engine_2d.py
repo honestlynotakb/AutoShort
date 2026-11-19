@@ -349,6 +349,124 @@ export function bgConcentricWaves(t, count = 5, color = P.secondary) {{
   ctx.restore();
 }}
 
+/** Flowing Topographic & Oceanic Depth Contour Lines */
+export function bgContours(t, count = 7, color = P.secondary) {{
+  ctx.fillStyle = P.bg;
+  ctx.fillRect(-300, -300, W + 600, H + 600);
+  ctx.save();
+  ctx.lineWidth = 3;
+  for (let i = 0; i < count; i++) {{
+    const yBase = (H / (count + 1)) * (i + 1);
+    const alpha = 0.08 + (i % 3) * 0.05;
+    ctx.strokeStyle = color + Math.floor(alpha * 255).toString(16).padStart(2, '0');
+    ctx.beginPath();
+    ctx.moveTo(0, yBase);
+    for (let x = 0; x <= W + 60; x += 60) {{
+      const wave = Math.sin(x * 0.005 + t * 0.8 + i) * 45 + Math.cos(x * 0.01 - t * 0.5) * 25;
+      ctx.lineTo(x, yBase + wave);
+    }}
+    ctx.stroke();
+  }}
+  ctx.restore();
+}}
+
+/** Hexagonal Technical Honeycomb Matrix */
+export function bgHex(t, size = 65, speed = 15, color = P.primary) {{
+  ctx.fillStyle = P.bg;
+  ctx.fillRect(-300, -300, W + 600, H + 600);
+  ctx.save();
+  ctx.strokeStyle = color + '15';
+  ctx.lineWidth = 2;
+  const h = size * Math.sqrt(3);
+  const offY = (t * speed) % h;
+  for (let y = -h + offY; y <= H + h; y += h) {{
+    for (let x = -size; x <= W + size * 2; x += size * 3) {{
+      for (let row = 0; row < 2; row++) {{
+        const cx = x + (row === 1 ? size * 1.5 : 0);
+        const cy = y + (row === 1 ? h / 2 : 0);
+        ctx.beginPath();
+        for (let a = 0; a < 6; a++) {{
+          const angle = (Math.PI / 3) * a;
+          const px = cx + size * 0.55 * Math.cos(angle);
+          const py = cy + size * 0.55 * Math.sin(angle);
+          if (a === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        }}
+        ctx.closePath();
+        ctx.stroke();
+      }}
+    }}
+  }}
+  ctx.restore();
+}}
+
+/** 3D Perspective Warp Cosmic Starfield */
+export function bgStarfield(t, count = 60, speed = 140, color = P.primary) {{
+  ctx.fillStyle = P.bg;
+  ctx.fillRect(-300, -300, W + 600, H + 600);
+  ctx.save();
+  const cx = W / 2, cy = H / 2;
+  for (let i = 0; i < count; i++) {{
+    const ang = rnd(i * 3) * TAU;
+    const baseDist = rnd(i * 7) * 900;
+    const dist = ((baseDist + t * speed) % 900);
+    const px = cx + Math.cos(ang) * dist;
+    const py = cy + Math.sin(ang) * dist;
+    const r = 1 + (dist / 900) * 4;
+    const alpha = clamp(dist / 900) * 0.7;
+    circle(px, py, r, color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
+  }}
+  ctx.restore();
+}}
+
+/** Concentric Radar Telemetry Sweep */
+export function bgRadar(t, speed = 1, color = P.secondary) {{
+  ctx.fillStyle = P.bg;
+  ctx.fillRect(-300, -300, W + 600, H + 600);
+  ctx.save();
+  const cx = W / 2, cy = H / 2;
+  for (let r = 160; r <= 800; r += 160) {{
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, TAU);
+    ctx.strokeStyle = color + '20';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }}
+  line([[cx - 800, cy], [cx + 800, cy]], color + '18', 2);
+  line([[cx, cy - 800], [cx, cy + 800]], color + '18', 2);
+  const sweepAng = (t * speed * 1.5) % TAU;
+  const grad = ctx.createRadialGradient(cx, cy, 20, cx, cy, 750);
+  grad.addColorStop(0, P.accent + '30');
+  grad.addColorStop(1, 'transparent');
+  ctx.beginPath();
+  ctx.moveTo(cx, cy);
+  ctx.arc(cx, cy, 750, sweepAng - 0.45, sweepAng);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+  line([[cx, cy], [cx + Math.cos(sweepAng) * 750, cy + Math.sin(sweepAng) * 750]], P.accent + '80', 3);
+  ctx.restore();
+}}
+
+/** Context-Aware Theme Parallax Background Router */
+export function bgThemeParallax(t, theme = 'COSMIC_SPACE', shotIndex = 0) {{
+  if (theme === 'COSMIC_SPACE') {{
+    bgStarfield(t, 55, 130);
+    bgParticles(t, 25, P.accent);
+  }} else if (theme === 'ATOMIC_PHYSICS') {{
+    bgHex(t, 65, 16);
+    bgParticles(t, 20, P.primary);
+  }} else if (theme === 'SURVIVAL_TACTICAL') {{
+    bgContours(t, 7, P.secondary);
+    bgParticles(t, 20, P.accent);
+  }} else if (theme === 'HISTORIC_DOCUMENTARY') {{
+    bgRadar(t, 0.8, P.primary);
+    bgConcentricWaves(t, 4, P.secondary);
+  }} else {{
+    bgGrid(t, 25);
+    bgParticles(t, 30);
+  }}
+}}
+
 // ═══════════════════════ PROCEDURAL TOPIC VECTORS ═══════════════════════
 
 /** Swirling 2D Black Hole with accretion disk */
@@ -697,6 +815,100 @@ export function drawTopicPill(text, x, y, sc = 1) {{
   ctx.fillText(text.toUpperCase(), 0, 2);
   ctx.restore();
 }}
+
+export function drawBigStat(valText, label, x, y, sc = 1, accentColor = P.accent) {{
+  if (sc <= 0) return;
+  ctx.save();
+  ctx.translate(x, y); ctx.scale(sc, sc);
+  const w = 780, h = 260;
+  rr(-w / 2, -h / 2, w, h, 28);
+  ctx.fillStyle = P.card; ctx.shadowColor = accentColor + '40'; ctx.shadowBlur = 30; ctx.fill();
+  ctx.strokeStyle = accentColor; ctx.lineWidth = 4; ctx.stroke();
+  ctx.font = '900 84px Inter'; ctx.fillStyle = P.ink; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(valText, 0, -25);
+  ctx.font = '900 24px Inter'; ctx.fillStyle = accentColor;
+  ctx.fillText(label.toUpperCase(), 0, 55);
+  ctx.restore();
+}}
+
+export function drawSplitComparison(labelA, titleA, labelB, titleB, x, y, sc = 1) {{
+  if (sc <= 0) return;
+  ctx.save();
+  ctx.translate(x, y); ctx.scale(sc, sc);
+  const boxW = 380, boxH = 300;
+  // Box A (Left - Danger/Myth)
+  rr(-boxW - 15, -boxH / 2, boxW, boxH, 24);
+  ctx.fillStyle = P.card; ctx.fill();
+  ctx.strokeStyle = P.danger; ctx.lineWidth = 4; ctx.stroke();
+  ctx.font = '900 24px Inter'; ctx.fillStyle = P.danger; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(labelA.toUpperCase(), -boxW / 2 - 15, -boxH / 2 + 50);
+  ctx.font = '900 32px Inter'; ctx.fillStyle = P.ink;
+  ctx.fillText(titleA.toUpperCase(), -boxW / 2 - 15, 10);
+
+  // Box B (Right - Safe/Fact)
+  rr(15, -boxH / 2, boxW, boxH, 24);
+  ctx.fillStyle = P.card; ctx.fill();
+  ctx.strokeStyle = P.accent; ctx.lineWidth = 4; ctx.stroke();
+  ctx.font = '900 24px Inter'; ctx.fillStyle = P.accent; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(labelB.toUpperCase(), boxW / 2 + 15, -boxH / 2 + 50);
+  ctx.font = '900 32px Inter'; ctx.fillStyle = P.ink;
+  ctx.fillText(titleB.toUpperCase(), boxW / 2 + 15, 10);
+
+  // Central VS Badge
+  circle(0, 0, 38, P.card);
+  ctx.strokeStyle = P.primary; ctx.lineWidth = 4; ctx.stroke();
+  ctx.font = '900 24px Inter'; ctx.fillStyle = P.primary; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('VS', 0, 2);
+  ctx.restore();
+}}
+
+export function drawWaveform(x, y, w, h, t, freq = 3, label = 'SIGNAL FLUX', sc = 1) {{
+  if (sc <= 0) return;
+  ctx.save();
+  ctx.translate(x, y); ctx.scale(sc, sc);
+  rr(-w / 2, -h / 2, w, h, 24);
+  ctx.fillStyle = P.card; ctx.fill();
+  ctx.strokeStyle = P.primary; ctx.lineWidth = 4; ctx.stroke();
+  ctx.strokeStyle = P.primary + '18'; ctx.lineWidth = 1;
+  for (let gy = -h / 2 + 30; gy <= h / 2 - 30; gy += 40) {{
+    ctx.beginPath(); ctx.moveTo(-w / 2 + 20, gy); ctx.lineTo(w / 2 - 20, gy); ctx.stroke();
+  }}
+  ctx.beginPath();
+  for (let wx = -w / 2 + 30; wx <= w / 2 - 30; wx += 6) {{
+    const normX = (wx / (w / 2));
+    const amp = (h / 3) * Math.sin(normX * freq + t * 4);
+    if (wx === -w / 2 + 30) ctx.moveTo(wx, amp); else ctx.lineTo(wx, amp);
+  }}
+  ctx.strokeStyle = P.accent; ctx.lineWidth = 5; ctx.shadowColor = P.accent; ctx.shadowBlur = 15; ctx.stroke();
+  ctx.font = '900 22px Inter'; ctx.fillStyle = P.primary; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(label.toUpperCase(), 0, -h / 2 + 30);
+  ctx.restore();
+}}
+
+export function drawPipelineNodes(x, y, w, activeStep = 1, labels = ['TRIGGER', 'PROCESS', 'RESULT'], sc = 1) {{
+  if (sc <= 0) return;
+  ctx.save();
+  ctx.translate(x, y); ctx.scale(sc, sc);
+  const count = labels.length;
+  const gap = w / (count - 1);
+  line([[-w / 2, 0], [w / 2, 0]], P.primary + '40', 8);
+  const progLine = -w / 2 + clamp(activeStep - 1, 0, count - 1) * gap;
+  if (progLine > -w / 2) {{
+    line([[-w / 2, 0], [progLine, 0]], P.accent, 8);
+  }}
+  for (let i = 0; i < count; i++) {{
+    const nx = -w / 2 + i * gap;
+    const isActive = (i + 1) <= activeStep;
+    circle(nx, 0, 36, isActive ? P.accent : P.card);
+    ctx.strokeStyle = isActive ? '#FFFFFF' : P.primary; ctx.lineWidth = 4; ctx.stroke();
+    ctx.font = '900 28px Inter'; ctx.fillStyle = isActive ? '#0F172A' : P.primary;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(String(i + 1), nx, 2);
+    ctx.font = '900 20px Inter'; ctx.fillStyle = isActive ? P.ink : P.subtext;
+    ctx.fillText(labels[i].toUpperCase(), nx, 60);
+  }}
+  ctx.restore();
+}}
 """
 
 
@@ -733,8 +945,7 @@ def generate_shots_js(
             block = f"""
   {{ const st = cut({i});
     add({{ id: '{shot_id}', at: st, cam: [540, 900], zoom: 0.18, note: 'Hook: High-impact hero vector with kinetic title', draw(lt, d, t) {{
-      K.bgGrid(t, 35);
-      K.bgParticles(t, 30);
+      K.bgThemeParallax(t, '{theme}', 0);
       {hook_draw}
       K.drawTopicPill('{clean_title[:24]}', 540, 280, eob(seg(lt, 0.1, 0.45)));
     }} }});
@@ -746,8 +957,7 @@ def generate_shots_js(
             block = f"""
   {{ const st = cut({i});
     add({{ id: '{shot_id}', at: st, cam: [540, 880], zoom: 0.15, note: 'Outro: Kinetic loop card and final takeaway', draw(lt, d, t) {{
-      K.bgGrid(t, 25);
-      K.bgParticles(t, 40);
+      K.bgThemeParallax(t, '{theme}', {i});
       const pulse = 1 + Math.sin(lt * 6) * 0.08;
       K.drawRadialGauge(540, 860, 220, 1.0, 'CURIOUS REALITY', '100%', eob(seg(lt, 0.1, 0.45)) * pulse);
       K.drawStepCard(3, 'REMEMBER TO LOOK CLOSER', 540, 1320, eob(seg(lt, 0.25, 0.55)));
@@ -763,20 +973,72 @@ def generate_shots_js(
                 block = f"""
   {{ const st = cut({i});
     add({{ id: '{shot_id}', at: st, cam: [540, 880], zoom: 0.12, note: 'Mechanism: Detailed vector dynamics & comparative scale', draw(lt, d, t) {{
-      K.bgGrid(t, 20);
+      K.bgThemeParallax(t, '{theme}', {i});
       {mech_draw}
       K.drawTopicPill('KEY MECHANISM', 540, 280, eob(seg(lt, 0.1, 0.4)));
     }} }});
     cue(st, 'whoosh'); cue(st + 0.15, 'pop', {{ gain: 0.5 }}); }}"""
 
             elif mode == 2:
-                archetype = "METRIC_TELEMETRY"
-                scene_sequence.append("METRIC_TELEMETRY")
-                block = f"""
+                if theme == "SURVIVAL_TACTICAL":
+                    archetype = "COMPARE_SPLIT"
+                    scene_sequence.append("COMPARE_SPLIT")
+                    block = f"""
+  {{ const st = cut({i});
+    add({{ id: '{shot_id}', at: st, cam: [540, 900], zoom: 0.14, note: 'Comparison: Danger vs survival action', draw(lt, d, t) {{
+      K.bgThemeParallax(t, '{theme}', {i});
+      K.drawSplitComparison('COMMON INSTINCT', 'FIGHT RESISTANCE', 'SURVIVAL PROTOCOL', '90° DEGREE ANGLE', 540, 860, eob(seg(lt, 0.15, 0.45)));
+      K.drawStepCard(1, 'OBSERVE THE DIFFERENCE', 540, 1280, eob(seg(lt, 0.2, 0.5)));
+      K.drawTopicPill('CRUCIAL DISTINCTION', 540, 280, eob(seg(lt, 0.1, 0.4)));
+    }} }});
+    cue(st, 'whoosh'); cue(st + 0.2, 'pop', {{ gain: 0.6 }}); }}"""
+
+                elif theme == "COSMIC_SPACE":
+                    archetype = "BIG_STAT_METRIC"
+                    scene_sequence.append("BIG_STAT_METRIC")
+                    block = f"""
+  {{ const st = cut({i});
+    add({{ id: '{shot_id}', at: st, cam: [540, 900], zoom: 0.14, note: 'Telemetry: Dynamic astronomical scale multiplier', draw(lt, d, t) {{
+      K.bgThemeParallax(t, '{theme}', {i});
+      K.drawBigStat('10,000X', 'GRAVITATIONAL TIDAL MULTIPLIER', 540, 840, eob(seg(lt, 0.15, 0.45)));
+      K.drawStepCard(1, 'SCALE OF THE UNIVERSE', 540, 1260, eob(seg(lt, 0.2, 0.5)));
+      K.drawTopicPill('ASTRONOMICAL SCALE', 540, 280, eob(seg(lt, 0.1, 0.4)));
+    }} }});
+    cue(st, 'whoosh'); cue(st + 0.2, 'pop', {{ gain: 0.6 }}); }}"""
+
+                elif theme == "ATOMIC_PHYSICS":
+                    archetype = "WAVE_OSCILLATION"
+                    scene_sequence.append("WAVE_OSCILLATION")
+                    block = f"""
+  {{ const st = cut({i});
+    add({{ id: '{shot_id}', at: st, cam: [540, 900], zoom: 0.14, note: 'Telemetry: Quantum frequency and wave oscillation', draw(lt, d, t) {{
+      K.bgThemeParallax(t, '{theme}', {i});
+      K.drawWaveform(540, 840, 780, 340, lt, 3.5, 'ATOMIC OSCILLATION', eob(seg(lt, 0.15, 0.45)));
+      K.drawStepCard(1, 'MOLECULAR LEVEL DYNAMICS', 540, 1280, eob(seg(lt, 0.2, 0.5)));
+      K.drawTopicPill('PHYSICAL LAW', 540, 280, eob(seg(lt, 0.1, 0.4)));
+    }} }});
+    cue(st, 'whoosh'); cue(st + 0.2, 'pop', {{ gain: 0.6 }}); }}"""
+
+                elif theme == "HISTORIC_DOCUMENTARY":
+                    archetype = "PIPELINE_FLOW"
+                    scene_sequence.append("PIPELINE_FLOW")
+                    block = f"""
+  {{ const st = cut({i});
+    add({{ id: '{shot_id}', at: st, cam: [540, 900], zoom: 0.14, note: 'Timeline: Historical progression and causal chain', draw(lt, d, t) {{
+      K.bgThemeParallax(t, '{theme}', {i});
+      K.drawPipelineNodes(540, 860, 740, 2, ['ORIGIN', 'CRUCIAL PIVOT', 'AFTERMATH'], eob(seg(lt, 0.15, 0.45)));
+      K.drawStepCard(1, 'HISTORICAL EVIDENCE', 540, 1280, eob(seg(lt, 0.2, 0.5)));
+      K.drawTopicPill('RECORDED HISTORY', 540, 280, eob(seg(lt, 0.1, 0.4)));
+    }} }});
+    cue(st, 'whoosh'); cue(st + 0.2, 'pop', {{ gain: 0.6 }}); }}"""
+
+                else:
+                    archetype = "METRIC_TELEMETRY"
+                    scene_sequence.append("METRIC_TELEMETRY")
+                    block = f"""
   {{ const st = cut({i});
     add({{ id: '{shot_id}', at: st, cam: [540, 920], zoom: 0.14, note: 'Telemetry: Dynamic HUD gauge and metric measurement', draw(lt, d, t) {{
-      K.bgGrid(t, 25);
-      K.bgParticles(t, 25);
+      K.bgThemeParallax(t, '{theme}', {i});
       const prog = eio(seg(lt, 0.1, d * 0.9));
       K.drawRadialGauge(540, 820, 220, prog, 'CRITICAL RATIO', (prog * 99.9).toFixed(1) + '%', eob(seg(lt, 0.1, 0.4)));
       K.drawStepCard(1, 'OBSERVE THE PATTERN', 540, 1280, eob(seg(lt, 0.2, 0.5)));
@@ -785,12 +1047,39 @@ def generate_shots_js(
     cue(st, 'whoosh'); cue(st + 0.2, 'pop', {{ gain: 0.6 }}); }}"""
 
             else:
-                archetype = "HAZARD_TWIST"
-                scene_sequence.append("HAZARD_TWIST")
-                block = f"""
+                if theme == "COSMIC_SPACE":
+                    archetype = "METRIC_COMPARISON"
+                    scene_sequence.append("METRIC_COMPARISON")
+                    block = f"""
+  {{ const st = cut({i});
+    add({{ id: '{shot_id}', at: st, cam: [540, 860], zoom: 0.16, note: 'Comparison: Extreme physical boundaries', draw(lt, d, t) {{
+      K.bgThemeParallax(t, '{theme}', {i});
+      K.drawComparisonBar(540, 800, 780, 80, 0.88, 'CRITICAL EVENT HORIZON', 'ROCHE LIMIT', eob(seg(lt, 0.15, 0.45)));
+      K.drawStepCard(2, 'THE POINT OF NO RETURN', 540, 1220, eob(seg(lt, 0.25, 0.55)));
+      K.drawTopicPill('COSMIC BOUNDARY', 540, 280, eob(seg(lt, 0.1, 0.4)));
+    }} }});
+    cue(st, 'whoosh'); cue(st + 0.2, 'thud', {{ gain: 0.7 }}); }}"""
+
+                elif theme == "ATOMIC_PHYSICS":
+                    archetype = "BIG_STAT_METRIC"
+                    scene_sequence.append("BIG_STAT_METRIC")
+                    block = f"""
+  {{ const st = cut({i});
+    add({{ id: '{shot_id}', at: st, cam: [540, 860], zoom: 0.16, note: 'Measurement: Extreme atomic scale and limits', draw(lt, d, t) {{
+      K.bgThemeParallax(t, '{theme}', {i});
+      K.drawBigStat('0.001s', 'INSTANTANEOUS PHASE SHIFT', 540, 800, eob(seg(lt, 0.15, 0.45)));
+      K.drawStepCard(2, 'ATOMIC SHATTER THRESHOLD', 540, 1220, eob(seg(lt, 0.25, 0.55)));
+      K.drawTopicPill('PHYSICAL REALITY', 540, 280, eob(seg(lt, 0.1, 0.4)));
+    }} }});
+    cue(st, 'whoosh'); cue(st + 0.2, 'thud', {{ gain: 0.7 }}); }}"""
+
+                else:
+                    archetype = "HAZARD_TWIST"
+                    scene_sequence.append("HAZARD_TWIST")
+                    block = f"""
   {{ const st = cut({i});
     add({{ id: '{shot_id}', at: st, cam: [540, 860], zoom: 0.16, note: 'Twist: High-contrast alert & tactical breakdown', draw(lt, d, t) {{
-      K.bgGrid(t, 35);
+      K.bgThemeParallax(t, '{theme}', {i});
       K.drawHazardBanner('CRITICAL TURNING POINT', 540, 720, eob(seg(lt, 0.1, 0.45)));
       K.drawStepCard(2, 'AVOID THE INSTINCTIVE TRAP', 540, 1180, eob(seg(lt, 0.25, 0.55)));
       K.drawTopicPill('SURPRISING PARADOX', 540, 280, eob(seg(lt, 0.1, 0.4)));

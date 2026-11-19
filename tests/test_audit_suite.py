@@ -50,6 +50,8 @@ from cloud.visual_engine_2d import (
     detect_topic_focal_vector,
     pick_variation_palette,
     evaluate_visual_uniqueness,
+    generate_kit2d_js,
+    generate_shots_js,
     THEMES
 )
 from cloud.duplicate_detector import (
@@ -600,6 +602,51 @@ class TestPipelineAuditSuite(unittest.TestCase):
         )
         self.assertFalse(vis_ok)
         self.assertIn("Visual stagnation", reason)
+
+    def test_tier8_procedural_background_and_widget_catalog(self):
+        """Assert kit2d.js exports all 4 procedural backgrounds and 4 infographic widgets."""
+        palette = THEMES["COSMIC_SPACE"]["palettes"][0]
+        kit_code = generate_kit2d_js(palette)
+        expected_primitives = [
+            # 4 Procedural Parallax Backgrounds
+            "bgContours",
+            "bgHex",
+            "bgStarfield",
+            "bgRadar",
+            "bgThemeParallax",
+            # 4 Infographic & HUD Widgets
+            "drawBigStat",
+            "drawSplitComparison",
+            "drawWaveform",
+            "drawPipelineNodes"
+        ]
+        for fn in expected_primitives:
+            self.assertIn(f"export function {fn}", kit_code, f"Missing required export {fn} in kit2d.js")
+
+    def test_tier8_theme_shot_sequence_diversity(self):
+        """Assert each genre theme generates distinct scene sequences and diverse widget archetypes."""
+        lines = [
+            {"text": "Line 1"},
+            {"text": "Line 2"},
+            {"text": "Line 3"},
+            {"text": "Line 4"},
+            {"text": "Line 5"}
+        ]
+        # Survival Tactical should generate COMPARE_SPLIT
+        _, seq_surv, _ = generate_shots_js("Survival", "Survival", lines, "SURVIVAL_TACTICAL", THEMES["SURVIVAL_TACTICAL"]["palettes"][0])
+        self.assertIn("COMPARE_SPLIT", seq_surv)
+
+        # Cosmic Space should generate BIG_STAT_METRIC
+        _, seq_space, _ = generate_shots_js("Space", "Space", lines, "COSMIC_SPACE", THEMES["COSMIC_SPACE"]["palettes"][0])
+        self.assertIn("BIG_STAT_METRIC", seq_space)
+
+        # Atomic Physics should generate WAVE_OSCILLATION
+        _, seq_phys, _ = generate_shots_js("Physics", "Physics", lines, "ATOMIC_PHYSICS", THEMES["ATOMIC_PHYSICS"]["palettes"][0])
+        self.assertIn("WAVE_OSCILLATION", seq_phys)
+
+        # Historic Documentary should generate PIPELINE_FLOW
+        _, seq_hist, _ = generate_shots_js("History", "History", lines, "HISTORIC_DOCUMENTARY", THEMES["HISTORIC_DOCUMENTARY"]["palettes"][0])
+        self.assertIn("PIPELINE_FLOW", seq_hist)
 
     # =========================================================================
     # Tier 9: Gate 4 Perceptual Quality & Full-History dHash Auditor
