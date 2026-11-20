@@ -300,6 +300,25 @@
       "status": "published",
       "published_at": "2026-11-20T21:08:44.454228+00:00",
       "youtube_url": "[Manual/Pending Upload] what-lightning-leaves-on-human-skin.mp4"
+    },
+    "what lightning leaves on human skin": {
+      "topic": "What Lightning Leaves On Human Skin #shorts",
+      "title": "What Lightning Leaves On Human Skin #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-20",
+      "youtube_url": "[Manual/Pending Upload] what-lightning-leaves-on-human-skin.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-what lightni"
+    },
+    "desert ants and celestial polarization navigating without gps": {
+      "topic": "Desert ants and celestial polarization: Navigating without GPS",
+      "title": "How Tiny Ants Navigate Scorching Deserts #shorts",
+      "slot_id": "3",
+      "run_id": "slot3-20261120230437-3581",
+      "status": "published",
+      "published_at": "2026-11-20T23:08:27.344795+00:00",
+      "youtube_url": "[Manual/Pending Upload] how-tiny-ants-navigate-scorching-de.mp4"
     }
   }
 }

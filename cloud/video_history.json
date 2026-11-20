@@ -293,5 +293,34 @@
       "0e0d96aa320f0f30"
     ],
     "similarity_score": 0.775
+  },
+  {
+    "title": "How Tiny Ants Navigate Scorching Deserts #shorts",
+    "topic": "Desert ants and celestial polarization: Navigating without GPS",
+    "theme": "SURVIVAL_TACTICAL",
+    "palette": "tactical_hazard",
+    "scene_sequence": [
+      "HOOK_TELEMETRY_COMPASS",
+      "MECH_TELEMETRY_COMPASS",
+      "COMPARE_SPLIT",
+      "HAZARD_TWIST",
+      "MECH_TELEMETRY_COMPASS",
+      "COMPARE_SPLIT",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "63f2fa8e0f5d8487981d32a118ad8497e8d0eb6603ec442dfec826e27b1f90fb",
+    "frame_hashes": [
+      "96060c8e8e171f60",
+      "4c8c0c0ece133580",
+      "8e0e23332b0f8e21",
+      "0c8c033f131b5b80",
+      "8e96037f011b5b80",
+      "8c0c0c0e8c331bc4",
+      "8e0e0c8e8c2733c0",
+      "8e0e2333231b5184",
+      "86862333710517e0",
+      "0c0e96aab22b35c2"
+    ],
+    "similarity_score": 0.787
   }
 ]

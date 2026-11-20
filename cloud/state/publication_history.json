@@ -110,6 +110,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-20T21:08:44.452705+00:00"
+    },
+    "slot3-20261120230437-3581": {
+      "run_id": "slot3-20261120230437-3581",
+      "topic": "Desert ants and celestial polarization: Navigating without GPS",
+      "title": "How Tiny Ants Navigate Scorching Deserts #shorts",
+      "video_hash": "63f2fa8e0f5d8487981d32a118ad8497e8d0eb6603ec442dfec826e27b1f90fb",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] how-tiny-ants-navigate-scorching-de.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-20T23:08:27.341613+00:00"
     }
   },
   "by_video_hash": {
@@ -222,6 +233,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-20T21:08:44.452705+00:00"
+    },
+    "63f2fa8e0f5d8487981d32a118ad8497e8d0eb6603ec442dfec826e27b1f90fb": {
+      "run_id": "slot3-20261120230437-3581",
+      "topic": "Desert ants and celestial polarization: Navigating without GPS",
+      "title": "How Tiny Ants Navigate Scorching Deserts #shorts",
+      "video_hash": "63f2fa8e0f5d8487981d32a118ad8497e8d0eb6603ec442dfec826e27b1f90fb",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] how-tiny-ants-navigate-scorching-de.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-20T23:08:27.341613+00:00"
     }
   }
 }

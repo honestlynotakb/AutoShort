@@ -28,3 +28,4 @@
 | 2026-11-19 | Why you must never eat polar bear liver: Toxic hypervitaminosis A | 2d-motion | The Arctic Meat That Kills In Hours #shorts | [Manual/Pending Upload] the-arctic-meat-that-kills-in-hours.mp4 |
 | 2026-11-20 | Byford Dolphin explosive decompression: The nine-atmosphere vacuum | 2d-motion | The Deadliest Pressure Accident In History #shorts | [Manual/Pending Upload] the-deadliest-pressure-accident-in-.mp4 |
 | 2026-11-20 | Lichtenberg figures: The permanent lightning scars on human skin | 2d-motion | What Lightning Leaves On Human Skin #shorts | [Manual/Pending Upload] what-lightning-leaves-on-human-skin.mp4 |
+| 2026-11-20 | Desert ants and celestial polarization: Navigating without GPS | 2d-motion | How Tiny Ants Navigate Scorching Deserts #shorts | [Manual/Pending Upload] how-tiny-ants-navigate-scorching-de.mp4 |

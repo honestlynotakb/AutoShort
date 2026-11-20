@@ -80,6 +80,14 @@
       "line_count": 7,
       "created_at": "2026-11-20T21:08:44.194250+00:00",
       "sha256": "50cca84b03ab76e80cdff1f5bb09371db90d1fa9921a827f99f3147e56cd9094"
+    },
+    "f4f35c2ca374e2596d2927c413e55947a3eaa46d8b7e7279edd32e7fbf8b4824": {
+      "topic": "Desert ants and celestial polarization: Navigating without GPS",
+      "title": "How Tiny Ants Navigate Scorching Deserts #shorts",
+      "full_text": "How can a desert ant walk hundreds of meters over featureless dunes and sprint straight back home? In the Sahara desert, ground temperatures reach one hundred and forty degrees Fahrenheit. Pheromone trails would vaporize in seconds on the scorching sand. Instead, Cataglyphis desert ants use specialized dorsal eye lenses to detect polarized ultraviolet sunlight. They combine celestial polarization with an internal neural pedometer that counts every single step. Even on winding foraging paths, their brain continuously computes a direct vector arrow pointing directly to the nest hole. A miracle of miniature biological engineering, surviving extreme heat before...",
+      "line_count": 7,
+      "created_at": "2026-11-20T23:08:27.078933+00:00",
+      "sha256": "f4f35c2ca374e2596d2927c413e55947a3eaa46d8b7e7279edd32e7fbf8b4824"
     }
   }
 }
