@@ -99,6 +99,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-20T16:12:27.713819+00:00"
+    },
+    "slot3-20261120210446-3582": {
+      "run_id": "slot3-20261120210446-3582",
+      "topic": "Lichtenberg figures: The permanent lightning scars on human skin",
+      "title": "What Lightning Leaves On Human Skin #shorts",
+      "video_hash": "229eedebdfa1b95973f9717a8dacd61c5c0add97d9c6bd54b901dfc59fec9748",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] what-lightning-leaves-on-human-skin.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-20T21:08:44.452705+00:00"
     }
   },
   "by_video_hash": {
@@ -200,6 +211,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-20T16:12:27.713819+00:00"
+    },
+    "229eedebdfa1b95973f9717a8dacd61c5c0add97d9c6bd54b901dfc59fec9748": {
+      "run_id": "slot3-20261120210446-3582",
+      "topic": "Lichtenberg figures: The permanent lightning scars on human skin",
+      "title": "What Lightning Leaves On Human Skin #shorts",
+      "video_hash": "229eedebdfa1b95973f9717a8dacd61c5c0add97d9c6bd54b901dfc59fec9748",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] what-lightning-leaves-on-human-skin.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-20T21:08:44.452705+00:00"
     }
   }
 }

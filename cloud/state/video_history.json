@@ -264,5 +264,34 @@
       "0d0d168e96173b80"
     ],
     "similarity_score": 0.756
+  },
+  {
+    "title": "What Lightning Leaves On Human Skin #shorts",
+    "topic": "Lichtenberg figures: The permanent lightning scars on human skin",
+    "theme": "SURVIVAL_TACTICAL",
+    "palette": "arctic_frost",
+    "scene_sequence": [
+      "HOOK_THERMAL_GRADIENT",
+      "MECH_THERMAL_GRADIENT",
+      "COMPARE_SPLIT",
+      "HAZARD_TWIST",
+      "MECH_THERMAL_GRADIENT",
+      "COMPARE_SPLIT",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "229eedebdfa1b95973f9717a8dacd61c5c0add97d9c6bd54b901dfc59fec9748",
+    "frame_hashes": [
+      "0606160f8e4d0f30",
+      "8e8c8e8e0e171768",
+      "0e8e333333131be0",
+      "0686313325195ba4",
+      "0696033f130f4c30",
+      "0c4c0e8e06171be0",
+      "0e4c8e8e0e0f1760",
+      "0e8e3333132b0bd4",
+      "0e863133711f96e8",
+      "0e0d96aa320f0f30"
+    ],
+    "similarity_score": 0.775
   }
 ]

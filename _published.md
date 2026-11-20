@@ -27,3 +27,4 @@
 | 2026-11-19 | The London Beer Flood of 1814: The tidal wave of porter | 2d-motion | The Day A Wave Of Beer Destroyed London #shorts | [Manual/Pending Upload] the-day-a-wave-of-beer-destroyed-lo.mp4 |
 | 2026-11-19 | Why you must never eat polar bear liver: Toxic hypervitaminosis A | 2d-motion | The Arctic Meat That Kills In Hours #shorts | [Manual/Pending Upload] the-arctic-meat-that-kills-in-hours.mp4 |
 | 2026-11-20 | Byford Dolphin explosive decompression: The nine-atmosphere vacuum | 2d-motion | The Deadliest Pressure Accident In History #shorts | [Manual/Pending Upload] the-deadliest-pressure-accident-in-.mp4 |
+| 2026-11-20 | Lichtenberg figures: The permanent lightning scars on human skin | 2d-motion | What Lightning Leaves On Human Skin #shorts | [Manual/Pending Upload] what-lightning-leaves-on-human-skin.mp4 |

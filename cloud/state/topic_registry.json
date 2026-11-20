@@ -281,6 +281,25 @@
       "status": "published",
       "published_at": "2026-11-20T16:12:27.715540+00:00",
       "youtube_url": "[Manual/Pending Upload] the-deadliest-pressure-accident-in-.mp4"
+    },
+    "the deadliest pressure accident in history": {
+      "topic": "The Deadliest Pressure Accident In History #shorts",
+      "title": "The Deadliest Pressure Accident In History #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-20",
+      "youtube_url": "[Manual/Pending Upload] the-deadliest-pressure-accident-in-.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-the deadlies"
+    },
+    "lichtenberg figures the permanent lightning scars on human skin": {
+      "topic": "Lichtenberg figures: The permanent lightning scars on human skin",
+      "title": "What Lightning Leaves On Human Skin #shorts",
+      "slot_id": "3",
+      "run_id": "slot3-20261120210446-3582",
+      "status": "published",
+      "published_at": "2026-11-20T21:08:44.454228+00:00",
+      "youtube_url": "[Manual/Pending Upload] what-lightning-leaves-on-human-skin.mp4"
     }
   }
 }
