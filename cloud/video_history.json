@@ -235,5 +235,34 @@
       "050e96aa221733e4"
     ],
     "similarity_score": 0.762
+  },
+  {
+    "title": "The Deadliest Pressure Accident In History #shorts",
+    "topic": "Byford Dolphin explosive decompression: The nine-atmosphere vacuum",
+    "theme": "ATOMIC_PHYSICS",
+    "palette": "quantum_matrix",
+    "scene_sequence": [
+      "HOOK_THERMAL_GRADIENT",
+      "MECH_THERMAL_GRADIENT",
+      "WAVE_OSCILLATION",
+      "BIG_STAT_METRIC",
+      "MECH_THERMAL_GRADIENT",
+      "WAVE_OSCILLATION",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "304fbfb4f877d89802ff0ed298eeb673371389d7c97e431bc2809e392a039bcf",
+    "frame_hashes": [
+      "8606178e0e2f1fc0",
+      "8d8c0f8e179e8640",
+      "0e4d0e0e0e074f80",
+      "0d8c0d1b072f2d00",
+      "0c0c0f0d230b6380",
+      "00200e8e963333c0",
+      "8c4d0e0e8e0f2380",
+      "0c4c0f0b33179640",
+      "4c8c4f1969337580",
+      "0d0d168e96173b80"
+    ],
+    "similarity_score": 0.756
   }
 ]

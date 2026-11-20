@@ -262,6 +262,25 @@
       "status": "published",
       "published_at": "2026-11-19T23:35:53.974644+00:00",
       "youtube_url": "[Manual/Pending Upload] the-arctic-meat-that-kills-in-hours.mp4"
+    },
+    "the arctic meat that kills in hours": {
+      "topic": "The Arctic Meat That Kills In Hours #shorts",
+      "title": "The Arctic Meat That Kills In Hours #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-19",
+      "youtube_url": "[Manual/Pending Upload] the-arctic-meat-that-kills-in-hours.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-the arctic m"
+    },
+    "byford dolphin explosive decompression the nineatmosphere vacuum": {
+      "topic": "Byford Dolphin explosive decompression: The nine-atmosphere vacuum",
+      "title": "The Deadliest Pressure Accident In History #shorts",
+      "slot_id": "3",
+      "run_id": "slot3-20261120160707-3610",
+      "status": "published",
+      "published_at": "2026-11-20T16:12:27.715540+00:00",
+      "youtube_url": "[Manual/Pending Upload] the-deadliest-pressure-accident-in-.mp4"
     }
   }
 }

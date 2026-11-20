@@ -88,6 +88,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-19T23:35:53.973327+00:00"
+    },
+    "slot3-20261120160707-3610": {
+      "run_id": "slot3-20261120160707-3610",
+      "topic": "Byford Dolphin explosive decompression: The nine-atmosphere vacuum",
+      "title": "The Deadliest Pressure Accident In History #shorts",
+      "video_hash": "304fbfb4f877d89802ff0ed298eeb673371389d7c97e431bc2809e392a039bcf",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] the-deadliest-pressure-accident-in-.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-20T16:12:27.713819+00:00"
     }
   },
   "by_video_hash": {
@@ -178,6 +189,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-19T23:35:53.973327+00:00"
+    },
+    "304fbfb4f877d89802ff0ed298eeb673371389d7c97e431bc2809e392a039bcf": {
+      "run_id": "slot3-20261120160707-3610",
+      "topic": "Byford Dolphin explosive decompression: The nine-atmosphere vacuum",
+      "title": "The Deadliest Pressure Accident In History #shorts",
+      "video_hash": "304fbfb4f877d89802ff0ed298eeb673371389d7c97e431bc2809e392a039bcf",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] the-deadliest-pressure-accident-in-.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-20T16:12:27.713819+00:00"
     }
   }
 }
