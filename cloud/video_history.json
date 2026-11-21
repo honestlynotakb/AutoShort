@@ -322,5 +322,34 @@
       "0c0e96aab22b35c2"
     ],
     "similarity_score": 0.787
+  },
+  {
+    "title": "The Glass Drop That Stops Bullets #shorts",
+    "topic": "Prince Rupert's Drop: The glass teardrop that shatters bullets",
+    "theme": "SURVIVAL_TACTICAL",
+    "palette": "tactical_hazard",
+    "scene_sequence": [
+      "HOOK_THERMAL_GRADIENT",
+      "MECH_THERMAL_GRADIENT",
+      "COMPARE_SPLIT",
+      "HAZARD_TWIST",
+      "MECH_THERMAL_GRADIENT",
+      "COMPARE_SPLIT",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "42b56181157a9b29297af003d3ab735d301b87b4bb9fa69b77b61746eedd1e65",
+    "frame_hashes": [
+      "9696160e8e070fc0",
+      "0c4c0e8e96968e61",
+      "00000000441f0c20",
+      "8606333351178668",
+      "0c8e033f032333c0",
+      "168e017f112f8e70",
+      "0e0c8e8e0e171768",
+      "0e0e33330b3323c8",
+      "868e3333412137c8",
+      "8e8e16aab21737c0"
+    ],
+    "similarity_score": 0.747
   }
 ]

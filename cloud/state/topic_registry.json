@@ -319,6 +319,25 @@
       "status": "published",
       "published_at": "2026-11-20T23:08:27.344795+00:00",
       "youtube_url": "[Manual/Pending Upload] how-tiny-ants-navigate-scorching-de.mp4"
+    },
+    "how tiny ants navigate scorching deserts": {
+      "topic": "How Tiny Ants Navigate Scorching Deserts #shorts",
+      "title": "How Tiny Ants Navigate Scorching Deserts #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-20",
+      "youtube_url": "[Manual/Pending Upload] how-tiny-ants-navigate-scorching-de.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-how tiny ant"
+    },
+    "prince ruperts drop the glass teardrop that shatters bullets": {
+      "topic": "Prince Rupert's Drop: The glass teardrop that shatters bullets",
+      "title": "The Glass Drop That Stops Bullets #shorts",
+      "slot_id": "2",
+      "run_id": "slot2-20261121151833-3546",
+      "status": "published",
+      "published_at": "2026-11-21T15:21:28.395694+00:00",
+      "youtube_url": "[Manual/Pending Upload] the-glass-drop-that-stops-bullets.mp4"
     }
   }
 }
