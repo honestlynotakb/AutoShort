@@ -30,3 +30,4 @@
 | 2026-11-20 | Lichtenberg figures: The permanent lightning scars on human skin | 2d-motion | What Lightning Leaves On Human Skin #shorts | [Manual/Pending Upload] what-lightning-leaves-on-human-skin.mp4 |
 | 2026-11-20 | Desert ants and celestial polarization: Navigating without GPS | 2d-motion | How Tiny Ants Navigate Scorching Deserts #shorts | [Manual/Pending Upload] how-tiny-ants-navigate-scorching-de.mp4 |
 | 2026-11-21 | Prince Rupert's Drop: The glass teardrop that shatters bullets | 2d-motion | The Glass Drop That Stops Bullets #shorts | [Manual/Pending Upload] the-glass-drop-that-stops-bullets.mp4 |
+| 2026-11-21 | The acoustic architecture of ancient Mayan pyramids: The quetzal bird echo | 2d-motion | Why Mayan Pyramids Chirp Like Birds #shorts | [Manual/Pending Upload] why-mayan-pyramids-chirp-like-birds.mp4 |

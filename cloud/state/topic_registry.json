@@ -338,6 +338,25 @@
       "status": "published",
       "published_at": "2026-11-21T15:21:28.395694+00:00",
       "youtube_url": "[Manual/Pending Upload] the-glass-drop-that-stops-bullets.mp4"
+    },
+    "the glass drop that stops bullets": {
+      "topic": "The Glass Drop That Stops Bullets #shorts",
+      "title": "The Glass Drop That Stops Bullets #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-21",
+      "youtube_url": "[Manual/Pending Upload] the-glass-drop-that-stops-bullets.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-the glass dr"
+    },
+    "the acoustic architecture of ancient mayan pyramids the quetzal bird echo": {
+      "topic": "The acoustic architecture of ancient Mayan pyramids: The quetzal bird echo",
+      "title": "Why Mayan Pyramids Chirp Like Birds #shorts",
+      "slot_id": "3",
+      "run_id": "slot3-20261121200453-3378",
+      "status": "published",
+      "published_at": "2026-11-21T20:07:35.258810+00:00",
+      "youtube_url": "[Manual/Pending Upload] why-mayan-pyramids-chirp-like-birds.mp4"
     }
   }
 }

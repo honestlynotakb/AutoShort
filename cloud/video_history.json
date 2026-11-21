@@ -351,5 +351,34 @@
       "8e8e16aab21737c0"
     ],
     "similarity_score": 0.747
+  },
+  {
+    "title": "Why Mayan Pyramids Chirp Like Birds #shorts",
+    "topic": "The acoustic architecture of ancient Mayan pyramids: The quetzal bird echo",
+    "theme": "HISTORIC_DOCUMENTARY",
+    "palette": "bronze_antiquity",
+    "scene_sequence": [
+      "HOOK_ACOUSTIC_RESONATOR",
+      "MECH_ACOUSTIC_RESONATOR",
+      "PIPELINE_FLOW",
+      "HAZARD_TWIST",
+      "MECH_ACOUSTIC_RESONATOR",
+      "PIPELINE_FLOW",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "cbaea43af5072d0c70b09a61771a014668245de2707bb9620ed988c3e95bcec8",
+    "frame_hashes": [
+      "86062b2323168e60",
+      "0e4c03238e3723c0",
+      "0c4d07239a272380",
+      "0e0e0e4d69179e60",
+      "0e8c032f133323c0",
+      "060e231f21179660",
+      "0e4c062b862b1180",
+      "0e4d172b8e135180",
+      "0e0fb24d4d272fc0",
+      "0e8e068e161b13c4"
+    ],
+    "similarity_score": 0.747
   }
 ]

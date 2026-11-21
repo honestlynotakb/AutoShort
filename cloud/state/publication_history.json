@@ -132,6 +132,17 @@
       "slot_id": "2",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-21T15:21:28.394582+00:00"
+    },
+    "slot3-20261121200453-3378": {
+      "run_id": "slot3-20261121200453-3378",
+      "topic": "The acoustic architecture of ancient Mayan pyramids: The quetzal bird echo",
+      "title": "Why Mayan Pyramids Chirp Like Birds #shorts",
+      "video_hash": "cbaea43af5072d0c70b09a61771a014668245de2707bb9620ed988c3e95bcec8",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] why-mayan-pyramids-chirp-like-birds.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-21T20:07:35.257486+00:00"
     }
   },
   "by_video_hash": {
@@ -266,6 +277,17 @@
       "slot_id": "2",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-21T15:21:28.394582+00:00"
+    },
+    "cbaea43af5072d0c70b09a61771a014668245de2707bb9620ed988c3e95bcec8": {
+      "run_id": "slot3-20261121200453-3378",
+      "topic": "The acoustic architecture of ancient Mayan pyramids: The quetzal bird echo",
+      "title": "Why Mayan Pyramids Chirp Like Birds #shorts",
+      "video_hash": "cbaea43af5072d0c70b09a61771a014668245de2707bb9620ed988c3e95bcec8",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] why-mayan-pyramids-chirp-like-birds.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-21T20:07:35.257486+00:00"
     }
   }
 }
