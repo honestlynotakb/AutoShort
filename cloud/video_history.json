@@ -380,5 +380,35 @@
       "0e8e068e161b13c4"
     ],
     "similarity_score": 0.747
+  },
+  {
+    "title": "Why Freezing Victims Strip Naked #shorts",
+    "topic": "Paradoxical undressing: Why freezing victims strip off their clothes",
+    "theme": "SURVIVAL_TACTICAL",
+    "palette": "oceanic_abyss",
+    "scene_sequence": [
+      "HOOK_THERMAL_GRADIENT",
+      "MECH_THERMAL_GRADIENT",
+      "COMPARE_SPLIT",
+      "HAZARD_TWIST",
+      "MECH_THERMAL_GRADIENT",
+      "COMPARE_SPLIT",
+      "HAZARD_TWIST",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "facec8fdf3682103e7133b2da48f9946dbd7afb45f9438146321e5d8f70d55f2",
+    "frame_hashes": [
+      "9606960e8e3727d0",
+      "8e8c8e8e8e0f4da0",
+      "068e2333010b0f40",
+      "068e2133410327c8",
+      "0e8e033f031b1bc4",
+      "8c0c0e8e46171740",
+      "00000000c81b37c8",
+      "06063333150b4184",
+      "858c033f0b1713cc",
+      "060d16aa33271768"
+    ],
+    "similarity_score": 0.778
   }
 ]
