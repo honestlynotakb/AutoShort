@@ -395,6 +395,25 @@
       "status": "published",
       "published_at": "2026-11-22T15:20:02.964110+00:00",
       "youtube_url": "[Manual/Pending Upload] why-you-can-run-across-solid-slime.mp4"
+    },
+    "why you can run across solid slime": {
+      "topic": "Why You Can Run Across Solid Slime #shorts",
+      "title": "Why You Can Run Across Solid Slime #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-22",
+      "youtube_url": "[Manual/Pending Upload] why-you-can-run-across-solid-slime.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-why you can "
+    },
+    "the halifax explosion of 1917 the prenuclear tsunami": {
+      "topic": "The Halifax Explosion of 1917: The pre-nuclear tsunami",
+      "title": "The Pre-Nuclear Blast That Shook Canada #shorts",
+      "slot_id": "3",
+      "run_id": "slot3-20261122202026-3553",
+      "status": "published",
+      "published_at": "2026-11-22T20:23:57.795754+00:00",
+      "youtube_url": "[Manual/Pending Upload] the-pre-nuclear-blast-that-shook-ca.mp4"
     }
   }
 }

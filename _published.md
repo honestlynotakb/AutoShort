@@ -33,3 +33,4 @@
 | 2026-11-21 | The acoustic architecture of ancient Mayan pyramids: The quetzal bird echo | 2d-motion | Why Mayan Pyramids Chirp Like Birds #shorts | [Manual/Pending Upload] why-mayan-pyramids-chirp-like-birds.mp4 |
 | 2026-11-21 | Paradoxical undressing: Why freezing victims strip off their clothes | 2d-motion | Why Freezing Victims Strip Naked #shorts | [Manual/Pending Upload] why-freezing-victims-strip-naked.mp4 |
 | 2026-11-22 | Non-Newtonian shear-thickening fluids: Running across liquid water | 2d-motion | Why You Can Run Across Solid Slime #shorts | [Manual/Pending Upload] why-you-can-run-across-solid-slime.mp4 |
+| 2026-11-22 | The Halifax Explosion of 1917: The pre-nuclear tsunami | 2d-motion | The Pre-Nuclear Blast That Shook Canada #shorts | [Manual/Pending Upload] the-pre-nuclear-blast-that-shook-ca.mp4 |

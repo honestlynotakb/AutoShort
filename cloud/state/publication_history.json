@@ -165,6 +165,17 @@
       "slot_id": "2",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-22T15:20:02.963035+00:00"
+    },
+    "slot3-20261122202026-3553": {
+      "run_id": "slot3-20261122202026-3553",
+      "topic": "The Halifax Explosion of 1917: The pre-nuclear tsunami",
+      "title": "The Pre-Nuclear Blast That Shook Canada #shorts",
+      "video_hash": "c836d152fde2537c396360a03a2f22ba1466f68c007ab3291d84cad99846fb41",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] the-pre-nuclear-blast-that-shook-ca.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-22T20:23:57.794577+00:00"
     }
   },
   "by_video_hash": {
@@ -332,6 +343,17 @@
       "slot_id": "2",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-22T15:20:02.963035+00:00"
+    },
+    "c836d152fde2537c396360a03a2f22ba1466f68c007ab3291d84cad99846fb41": {
+      "run_id": "slot3-20261122202026-3553",
+      "topic": "The Halifax Explosion of 1917: The pre-nuclear tsunami",
+      "title": "The Pre-Nuclear Blast That Shook Canada #shorts",
+      "video_hash": "c836d152fde2537c396360a03a2f22ba1466f68c007ab3291d84cad99846fb41",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] the-pre-nuclear-blast-that-shook-ca.mp4",
+      "slot_id": "3",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-22T20:23:57.794577+00:00"
     }
   }
 }
