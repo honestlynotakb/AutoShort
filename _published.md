@@ -32,3 +32,4 @@
 | 2026-11-21 | Prince Rupert's Drop: The glass teardrop that shatters bullets | 2d-motion | The Glass Drop That Stops Bullets #shorts | [Manual/Pending Upload] the-glass-drop-that-stops-bullets.mp4 |
 | 2026-11-21 | The acoustic architecture of ancient Mayan pyramids: The quetzal bird echo | 2d-motion | Why Mayan Pyramids Chirp Like Birds #shorts | [Manual/Pending Upload] why-mayan-pyramids-chirp-like-birds.mp4 |
 | 2026-11-21 | Paradoxical undressing: Why freezing victims strip off their clothes | 2d-motion | Why Freezing Victims Strip Naked #shorts | [Manual/Pending Upload] why-freezing-victims-strip-naked.mp4 |
+| 2026-11-22 | Non-Newtonian shear-thickening fluids: Running across liquid water | 2d-motion | Why You Can Run Across Solid Slime #shorts | [Manual/Pending Upload] why-you-can-run-across-solid-slime.mp4 |

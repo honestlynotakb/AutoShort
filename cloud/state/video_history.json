@@ -410,5 +410,34 @@
       "060d16aa33271768"
     ],
     "similarity_score": 0.778
+  },
+  {
+    "title": "Why You Can Run Across Solid Slime #shorts",
+    "topic": "Non-Newtonian shear-thickening fluids: Running across liquid water",
+    "theme": "ATOMIC_PHYSICS",
+    "palette": "quantum_matrix",
+    "scene_sequence": [
+      "HOOK_SUBMERGED_CABIN",
+      "MECH_SUBMERGED_CABIN",
+      "WAVE_OSCILLATION",
+      "BIG_STAT_METRIC",
+      "MECH_SUBMERGED_CABIN",
+      "WAVE_OSCILLATION",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "14b355983e331debdcbfd00855fe3be25e54aaf0c3b138e32845fab8cae84759",
+    "frame_hashes": [
+      "0606030707969640",
+      "4c4d17969e5717c0",
+      "8d8c0d1b0f171180",
+      "0c0c0d3751233380",
+      "0e8e0d4d330f8c20",
+      "0e960d0f31378e40",
+      "8e4d16160e0f6380",
+      "8c8c0f1b03272580",
+      "0e8e0d3779272580",
+      "0e0d962a321f1b80"
+    ],
+    "similarity_score": 0.75
   }
 ]

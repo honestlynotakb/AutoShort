@@ -112,6 +112,14 @@
       "line_count": 8,
       "created_at": "2026-11-21T22:14:50.245142+00:00",
       "sha256": "332b187edcd70fd35184d826d33f6432f773e80be69608d2cd7f7ca0217f6ab1"
+    },
+    "9187b9a12e9f6fba12f6929458202a370896a8b6f0af3cafd6b2cfa67edb6f6e": {
+      "topic": "Non-Newtonian shear-thickening fluids: Running across liquid water",
+      "title": "Why You Can Run Across Solid Slime #shorts",
+      "full_text": "How is it possible to sprint across a pool of liquid without sinking? Mix equal parts cornstarch and water, and you create oobleck: a non-Newtonian fluid. Most normal fluids have a constant viscosity regardless of pressure. In shear-thickening fluids, suspended starch particles jam together when struck with sudden impact. The liquid momentarily acts like concrete armor, holding your entire body weight. Stop running and stand still, and the particles slide apart, sucking your feet into the soup. A wild display of fluid dynamics, showing how motion creates solid ground before...",
+      "line_count": 7,
+      "created_at": "2026-11-22T15:20:02.744139+00:00",
+      "sha256": "9187b9a12e9f6fba12f6929458202a370896a8b6f0af3cafd6b2cfa67edb6f6e"
     }
   }
 }

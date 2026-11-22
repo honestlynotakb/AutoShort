@@ -154,6 +154,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-21T22:14:50.639901+00:00"
+    },
+    "slot2-20261122151611-3646": {
+      "run_id": "slot2-20261122151611-3646",
+      "topic": "Non-Newtonian shear-thickening fluids: Running across liquid water",
+      "title": "Why You Can Run Across Solid Slime #shorts",
+      "video_hash": "14b355983e331debdcbfd00855fe3be25e54aaf0c3b138e32845fab8cae84759",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] why-you-can-run-across-solid-slime.mp4",
+      "slot_id": "2",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-22T15:20:02.963035+00:00"
     }
   },
   "by_video_hash": {
@@ -310,6 +321,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-21T22:14:50.639901+00:00"
+    },
+    "14b355983e331debdcbfd00855fe3be25e54aaf0c3b138e32845fab8cae84759": {
+      "run_id": "slot2-20261122151611-3646",
+      "topic": "Non-Newtonian shear-thickening fluids: Running across liquid water",
+      "title": "Why You Can Run Across Solid Slime #shorts",
+      "video_hash": "14b355983e331debdcbfd00855fe3be25e54aaf0c3b138e32845fab8cae84759",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] why-you-can-run-across-solid-slime.mp4",
+      "slot_id": "2",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-22T15:20:02.963035+00:00"
     }
   }
 }
