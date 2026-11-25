@@ -767,6 +767,134 @@ class TestPipelineAuditSuite(unittest.TestCase):
         _, seq_hist, _ = generate_shots_js("History", "History", lines, "HISTORIC_DOCUMENTARY", THEMES["HISTORIC_DOCUMENTARY"]["palettes"][0])
         self.assertIn("PIPELINE_FLOW", seq_hist)
 
+    def test_gate3_zero_boilerplate_cards_across_all_curriculum_topics(self):
+        """Scaffold all 60 topics and verify zero stuck boilerplate cards and valid JS syntax."""
+        from cloud.asset_guard import check_boilerplate_cards
+        from cloud.visual_engine_2d import scaffold_2d_project
+        has_node = shutil.which("node") is not None
+
+        for sid, info in self.slots_cfg.items():
+            for idx, fb in enumerate(info.get("fallbacks", [])):
+                with self.subTest(slot=sid, idx=idx, topic=fb["topic"]):
+                    pdir = self.test_dir / f"s{sid}_{idx}"
+                    scaffold_2d_project(
+                        proj_dir=pdir,
+                        title=fb["title"],
+                        topic=fb["topic"],
+                        lines=fb["lines"],
+                        recent_palette_ids=[],
+                        run_id=f"test-bp-{sid}-{idx}"
+                    )
+                    manifest = json.loads((pdir / "asset_manifest.json").read_text(encoding="utf-8"))
+                    cards = manifest.get("card_texts", [])
+                    self.assertGreater(len(cards), 0)
+                    script_txt = " ".join(l["text"] for l in fb["lines"])
+                    ok, violations = check_boilerplate_cards(cards, topic=fb["topic"], title=fb["title"], script_text=script_txt)
+                    self.assertTrue(ok, f"Boilerplate violation in Slot {sid}[{idx}]: {violations}")
+
+                    if has_node:
+                        for rel in ["src/shots.js", "src/core/kit2d.js", "src/main.js"]:
+                            chk = subprocess.run(["node", "--check", str(pdir / rel)], capture_output=True, text=True)
+                            self.assertEqual(chk.returncode, 0, f"JS syntax error in {rel} for {fb['topic']}: {chk.stderr}")
+
+    def test_gate3_caption_safe_zone_no_overlap(self):
+        """Verify generated shots place all cards and widgets above the y=1250..1550 caption zone."""
+        from cloud.visual_engine_2d import scaffold_2d_project
+        sample_topics = [
+            self.slots_cfg["1"]["fallbacks"][3],
+            self.slots_cfg["2"]["fallbacks"][3],
+            self.slots_cfg["3"]["fallbacks"][15],
+            self.slots_cfg["3"]["fallbacks"][18],
+        ]
+        draw_y_re = re.compile(
+            r'K\.(?:drawTopicPill|drawStepCard|drawBigStat|drawSplitComparison|drawComparisonBar|drawHazardBanner|drawRadialGauge|drawWaveform|drawPipelineNodes|drawPointerTag)\([^)]*?\)'
+        )
+        for idx, fb in enumerate(sample_topics):
+            pdir = self.test_dir / f"safe_{idx}"
+            scaffold_2d_project(pdir, fb["title"], fb["topic"], fb["lines"], [], run_id=f"safe-{idx}")
+            shots_js = (pdir / "src" / "shots.js").read_text(encoding="utf-8")
+            # Check no hardcoded y=1320 or y inside 1200..1600 caption overlap band
+            self.assertNotIn("1320", shots_js)
+            for call in draw_y_re.findall(shots_js):
+                nums = [int(n) for n in re.findall(r',\s*(\d{3,4})\b', call)]
+                for val in nums:
+                    if 1200 <= val <= 1650:
+                        self.fail(f"Widget coordinate {val} overlaps caption zone in call: {call}")
+
+    def test_gate3_fresh_assets_enforced_never_reused(self):
+        """Gate 3B: Reject boilerplate cards, duplicate seeds, reused cards, stale manifests, and consecutive asset clones."""
+        from cloud.asset_guard import AssetGuard
+        from cloud.visual_engine_2d import scaffold_2d_project
+        ag = AssetGuard(self.state_mgr)
+
+        fb_a = self.slots_cfg["3"]["fallbacks"][15]
+        fb_b = self.slots_cfg["1"]["fallbacks"][3]
+        p1 = self.test_dir / "fresh_1"
+        scaffold_2d_project(p1, fb_a["title"], fb_a["topic"], fb_a["lines"], [], run_id="run-fresh-1")
+        m1 = json.loads((p1 / "asset_manifest.json").read_text(encoding="utf-8"))
+        ok1, r1 = ag.evaluate_asset_uniqueness(m1, topic=fb_a["topic"], title=fb_a["title"])
+        self.assertTrue(ok1, r1)
+        fresh1, fr1 = ag.verify_project_freshness(p1, "run-fresh-1")
+        self.assertTrue(fresh1, fr1)
+        ag.record_approved_assets(m1)
+
+        # Reject duplicate asset_seed / workspace
+        dup_seed = dict(m1)
+        dup_seed["project_dir_name"] = "different_dir"
+        ok_dup, _ = ag.evaluate_asset_uniqueness(dup_seed)
+        self.assertFalse(ok_dup)
+
+        # Reject reused boilerplate cards
+        bad_bp = dict(m1)
+        bad_bp["asset_seed"] = "brandnewseed1234"
+        bad_bp["project_dir_name"] = "fresh_bp"
+        bad_bp["shots_sha256"] = "unique_hash"
+        bad_bp["card_texts"] = ["90° DEGREE ANGLE", "DID YOU KNOW THIS?"]
+        ok_bp, bp_reason = ag.evaluate_asset_uniqueness(bad_bp, topic=fb_b["topic"], title=fb_b["title"])
+        self.assertFalse(ok_bp)
+        self.assertIn("Boilerplate", bp_reason.title() if "boilerplate" in bp_reason.lower() else bp_reason)
+
+        # Reject stale or tampered manifest
+        fresh_wrong_run, _ = ag.verify_project_freshness(p1, "run-other")
+        self.assertFalse(fresh_wrong_run)
+        (p1 / "src" / "shots.js").write_text("// tampered", encoding="utf-8")
+        fresh_tampered, _ = ag.verify_project_freshness(p1, "run-fresh-1")
+        self.assertFalse(fresh_tampered)
+
+        # Second genuinely distinct video must pass
+        p2 = self.test_dir / "fresh_2"
+        scaffold_2d_project(
+            p2, fb_b["title"], fb_b["topic"], fb_b["lines"],
+            [m1["palette_id"]], run_id="run-fresh-2", recent_assets=self.state_mgr.get_asset_history()
+        )
+        m2 = json.loads((p2 / "asset_manifest.json").read_text(encoding="utf-8"))
+        ok2, r2 = ag.evaluate_asset_uniqueness(m2, topic=fb_b["topic"], title=fb_b["title"])
+        self.assertTrue(ok2, r2)
+
+    def test_gate3_word_sync_wd_and_shot_diversity(self):
+        """Verify shots.js uses Wd() word timing and avoids consecutive duplicate shot layouts."""
+        from cloud.visual_engine_2d import scaffold_2d_project
+        fb = self.slots_cfg["3"]["fallbacks"][18]
+        pdir = self.test_dir / "wd_check"
+        _, _, seq = scaffold_2d_project(pdir, fb["title"], fb["topic"], fb["lines"], [], run_id="run-wd-1")
+        shots_code = (pdir / "src" / "shots.js").read_text(encoding="utf-8")
+        self.assertIn("Wd(", shots_code)
+        for k in range(len(seq) - 1):
+            self.assertNotEqual(seq[k], seq[k + 1], f"Consecutive duplicate shot layout at index {k}: {seq}")
+
+    def test_audio_mix_config_varies_per_video(self):
+        """Verify per-video music_config and generated mix.py vary across consecutive videos."""
+        from cloud.visual_engine_2d import build_music_config, generate_mix_py
+        mc1 = build_music_config("SURVIVAL_TACTICAL", "seed-aaa-111", [])
+        mc2 = build_music_config("SURVIVAL_TACTICAL", "seed-aaa-111", [{"music_config": mc1}])
+        self.assertNotEqual(
+            (mc1["mode"], mc1["root_hz"], mc1["bpm"]),
+            (mc2["mode"], mc2["root_hz"], mc2["bpm"])
+        )
+        mix_code = generate_mix_py(mc2)
+        self.assertIn("music_config", mix_code)
+        self.assertIn("music_ambient", mix_code)
+
     # =========================================================================
     # Tier 9: Gate 4 Perceptual Quality & Full-History dHash Auditor
     # =========================================================================

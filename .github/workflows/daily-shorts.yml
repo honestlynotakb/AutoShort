@@ -54,13 +54,13 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: main
           fetch-depth: 0
 
       - name: Set up Python 3.11
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: '3.11'
           cache: 'pip'
@@ -83,18 +83,18 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: main
           fetch-depth: 0
 
       - name: Set up Node.js 22 (Headless Capture)
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
 
       - name: Set up Python 3.11 (Voice, Alignment & AI)
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: '3.11'
           cache: 'pip'
@@ -111,7 +111,7 @@ jobs:
 
       - name: Cache AI Models (Kokoro ONNX & Whisper)
         id: cache-models
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             ~/.faceless-shorts
@@ -144,7 +144,7 @@ jobs:
           python cloud/cloud_runner.py --slot "${INPUT_SLOT:-auto}"
 
       - name: Upload Video Artifact (Backup)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: generated-shorts-${{ github.run_id }}

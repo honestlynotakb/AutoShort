@@ -9,6 +9,7 @@ Manages:
 2. script_registry.json     - SHA-256 fingerprints, line hashes, and word 3-grams.
 3. video_history.json       - Exact file hashes, 10-frame 64-bit dHashes, theme/palette metadata.
 4. publication_history.json - Upload idempotency records, run IDs, and YouTube video IDs.
+5. asset_registry.json      - Per-video asset manifests, seeds, palettes, and card labels.
 """
 from __future__ import annotations
 
@@ -118,11 +119,13 @@ class StateManager:
         self.script_reg_file = self.state_dir / "script_registry.json"
         self.video_hist_file = self.state_dir / "video_history.json"
         self.pub_hist_file = self.state_dir / "publication_history.json"
+        self.asset_reg_file = self.state_dir / "asset_registry.json"
 
         self.topics: Dict[str, Any] = self._init_topics()
         self.scripts: Dict[str, Any] = self._init_scripts()
         self.video_history: List[Dict[str, Any]] = self._init_video_history()
         self.publications: Dict[str, Any] = self._init_publications()
+        self.assets: Dict[str, Any] = self._init_assets()
 
         # Seed from published log if present for this state instance
         self._bootstrap_from_published_log()
@@ -156,6 +159,12 @@ class StateManager:
         data = load_json_safe(self.pub_hist_file, None)
         if not data or not isinstance(data, dict) or "records" not in data:
             data = {"version": STATE_SCHEMA_VERSION, "records": {}, "by_video_hash": {}}
+        return data
+
+    def _init_assets(self) -> Dict[str, Any]:
+        data = load_json_safe(self.asset_reg_file, None)
+        if not data or not isinstance(data, dict) or "assets" not in data:
+            data = {"version": STATE_SCHEMA_VERSION, "assets": []}
         return data
 
     def _bootstrap_from_published_log(self):
@@ -407,6 +416,23 @@ class StateManager:
 
     def save_publications(self):
         atomic_save(self.pub_hist_file, self.publications)
+
+    # ═════════════════════════════════════════════════════════════════════════
+    # Per-Video Fresh Asset Provenance Registry
+    # ═════════════════════════════════════════════════════════════════════════
+
+    def get_asset_history(self) -> List[Dict[str, Any]]:
+        return self.assets.get("assets", [])
+
+    def record_asset_manifest(self, manifest: Dict[str, Any]):
+        """Records freshly generated per-video visual and audio asset metadata."""
+        entry = dict(manifest)
+        entry.setdefault("recorded_at", _now_iso())
+        self.assets.setdefault("assets", []).append(entry)
+        self.save_assets()
+
+    def save_assets(self):
+        atomic_save(self.asset_reg_file, self.assets)
 
 
 # Global singleton instance accessor

@@ -47,29 +47,31 @@
           "topic": "What happens if a rogue planet enters our solar system?",
           "style": "2d-motion",
           "title": "What If A Rogue Planet Invaded? #shorts",
+          "music_mood": "tension",
           "sources": ["Astronomical Journal, 'Dynamical Instabilities from Interstellar Nomads'", "NASA Exoplanet Exploration Archive"],
           "lines": [
-            {"text": "What would happen if a massive rogue planet drifted into our solar system?", "caps": "What if a *rogue planet | enters our *system?"},
-            {"text": "Billions of rogue planets wander through interstellar space with no host star.", "caps": "Billions of *nomads | wandering deep *space"},
-            {"text": "If a Jupiter-sized planet passed through our asteroid belt, its gravity would disrupt planetary orbits.", "caps": "Gravity would *shatter | planetary *orbits"},
-            {"text": "Earth could be dragged into an elliptical freeze, or hurled into outer darkness.", "caps": "Earth *flung | into eternal *darkness"},
-            {"text": "Within weeks, surface temperatures would plunge below minus one hundred degrees.", "caps": "Temperatures *drop | below *minus 100"},
-            {"text": "The oceans would freeze into an icy armor, trapping humanity beneath frozen crusts.", "caps": "Oceans *freeze | into solid *armor"},
-            {"text": "So remember that our stable cosmic neighborhood is the only reason you don't face...", "caps": "Remember our *stability | before you face", "gap": 0.25}
+            {"text": "What would happen if a massive rogue planet drifted into our solar system?", "caps": "What if a *rogue planet | enters our *system?", "visual": {"pill": "ROGUE PLANET INVASION", "focus_word": "rogue"}},
+            {"text": "Billions of rogue planets wander through interstellar space with no host star.", "caps": "Billions of *nomads | wandering deep *space", "visual": {"pill": "STARLESS NOMADS", "focus_word": "nomads", "card_data": {"value": "BILLIONS", "label": "WANDERING ROGUE PLANETS"}}},
+            {"text": "If a Jupiter-sized planet passed through our asteroid belt, its gravity would disrupt planetary orbits.", "caps": "Gravity would *shatter | planetary *orbits", "visual": {"pill": "ORBITAL DISRUPTION", "focus_word": "shatter", "card_data": {"value": "JUPITER MASS", "label": "ASTEROID BELT PERTURBATION"}}},
+            {"text": "Earth could be dragged into an elliptical freeze, or hurled into outer darkness.", "caps": "Earth *flung | into eternal *darkness", "visual": {"pill": "EARTH EJECTED", "focus_word": "flung"}},
+            {"text": "Within weeks, surface temperatures would plunge below minus one hundred degrees.", "caps": "Temperatures *drop | below *minus 100", "visual": {"pill": "BELOW -100 DEGREES", "focus_word": "drop", "card_data": {"value": "-100 DEGREES", "label": "SURFACE FREEZE IN WEEKS"}}},
+            {"text": "The oceans would freeze into an icy armor, trapping humanity beneath frozen crusts.", "caps": "Oceans *freeze | into solid *armor", "visual": {"pill": "FROZEN OCEANS", "focus_word": "freeze"}},
+            {"text": "So remember that our stable cosmic neighborhood is the only reason you don't face...", "caps": "Remember our *stability | before you face", "gap": 0.25, "visual": {"pill": "ORBITAL STABILITY", "focus_word": "stability", "card_data": {"takeaway": "FRAGILE ORBITAL BALANCE"}}}
           ]
         },
         {
           "topic": "The mystery of diamond rain on Neptune and Uranus",
           "style": "2d-motion",
           "title": "Why It Rains Solid Diamonds In Space #shorts",
+          "music_mood": "ambient",
           "sources": ["Nature Astronomy, 'Diamond precipitation in icy giant interiors'", "SLAC National Accelerator Laboratory"],
           "lines": [
-            {"text": "Did you know that inside Neptune and Uranus, it literally rains solid diamonds?", "caps": "It *rains diamonds | inside *Neptune?"},
-            {"text": "Thousands of miles beneath their pale blue cloud tops, temperatures reach thousands of degrees.", "caps": "Crushing *heat | beneath blue *clouds"},
-            {"text": "Under extreme atmospheric pressure, methane molecules split apart into hydrogen and carbon.", "caps": "Methane *shatters | into *carbon"},
-            {"text": "The carbon atoms squeeze together into pure diamond crystals that hail downward toward the core.", "caps": "Carbon *compresses | into pure *diamonds"},
-            {"text": "Scientists believe massive diamond icebergs float in oceans of liquid carbon.", "caps": "Diamond *icebergs | in liquid *carbon"},
-            {"text": "So while diamonds are precious on Earth, on ice giants they are just...", "caps": "On ice giants | they are just *rain", "gap": 0.25}
+            {"text": "Did you know that inside Neptune and Uranus, it literally rains solid diamonds?", "caps": "It *rains diamonds | inside *Neptune?", "visual": {"pill": "NEPTUNE DIAMOND RAIN", "focus_word": "diamonds"}},
+            {"text": "Thousands of miles beneath their pale blue cloud tops, temperatures reach thousands of degrees.", "caps": "Crushing *heat | beneath blue *clouds", "visual": {"pill": "DEEP MANTLE HEAT", "focus_word": "heat", "card_data": {"value": "5,000+ K", "label": "EXTREME ICE GIANT HEAT"}}},
+            {"text": "Under extreme atmospheric pressure, methane molecules split apart into hydrogen and carbon.", "caps": "Methane *shatters | into *carbon", "visual": {"pill": "METHANE SPLITS", "focus_word": "carbon", "card_data": {"value": "CH4 -> C", "label": "METHANE CRUSHED TO CARBON"}}},
+            {"text": "The carbon atoms squeeze together into pure diamond crystals that hail downward toward the core.", "caps": "Carbon *compresses | into pure *diamonds", "visual": {"pill": "CARBON CRYSTALLIZES", "focus_word": "diamonds"}},
+            {"text": "Scientists believe massive diamond icebergs float in oceans of liquid carbon.", "caps": "Diamond *icebergs | in liquid *carbon", "visual": {"pill": "LIQUID CARBON SEA", "focus_word": "icebergs"}},
+            {"text": "So while diamonds are precious on Earth, on ice giants they are just...", "caps": "On ice giants | they are just *rain", "gap": 0.25, "visual": {"pill": "ICE GIANT WEATHER", "focus_word": "rain", "card_data": {"takeaway": "SOLID DIAMOND HAIL"}}}
           ]
         },
         {
@@ -724,60 +726,64 @@
           "topic": "Grain silo entrapment: Why flowing corn behaves like liquid",
           "style": "2d-motion",
           "title": "Why You Cannot Escape A Flowing Grain Silo #shorts",
+          "music_mood": "tension",
           "sources": ["Purdue University Agricultural Confined Spaces Report", "OSHA Grain Handling Safety Standards"],
           "lines": [
-            {"text": "Why can a grown adult disappear inside a grain silo in less than fifteen seconds?", "caps": "Vanish in a *grain silo | in *fifteen seconds?"},
-            {"text": "When an auger unloads grain from the bottom, the center drops into a fast-moving vertical funnel.", "caps": "Bottom unloading | forms a *funnel"},
-            {"text": "Within four seconds, flowing kernels bury your ankles; within twenty seconds, you are chest deep.", "caps": "Chest *deep | in *twenty seconds"},
-            {"text": "Once buried to the waist, the surrounding grain exerts over nine hundred pounds of lateral friction.", "caps": "Nine hundred *pounds | of locking *friction"},
-            {"text": "Pulling straight up can tear ligaments before the kernels budge a single inch.", "caps": "Pulling up *fails | against locked *grain"},
-            {"text": "Every time you exhale, loose kernels settle tighter around your ribs, blocking your next breath.", "caps": "Exhaling *tightens | the crushing *grip"},
-            {"text": "A silent mechanical hazard on modern farms, proving why solid seeds act like...", "caps": "Solid *seeds | acting like a *trap", "gap": 0.25}
+            {"text": "Why can a grown adult disappear inside a grain silo in less than fifteen seconds?", "caps": "Vanish in a *grain silo | in *fifteen seconds?", "visual": {"pill": "15-SECOND SILO TRAP", "focus_word": "silo"}},
+            {"text": "When an auger unloads grain from the bottom, the center drops into a fast-moving vertical funnel.", "caps": "Bottom unloading | forms a *funnel", "visual": {"pill": "VERTICAL SUCTION FUNNEL", "focus_word": "funnel"}},
+            {"text": "Within four seconds, flowing kernels bury your ankles; within twenty seconds, you are chest deep.", "caps": "Chest *deep | in *twenty seconds", "visual": {"pill": "CHEST DEEP IN 20S", "focus_word": "twenty", "card_data": {"label_a": "4 SECONDS", "title_a": "ANKLES BURIED", "label_b": "20 SECONDS", "title_b": "CHEST TRAPPED"}}},
+            {"text": "Once buried to the waist, the surrounding grain exerts over nine hundred pounds of lateral friction.", "caps": "Nine hundred *pounds | of locking *friction", "visual": {"pill": "900 LB LOCKING FORCE", "focus_word": "pounds", "card_data": {"value": "900 LBS", "label": "LATERAL GRAIN FRICTION"}}},
+            {"text": "Pulling straight up can tear ligaments before the kernels budge a single inch.", "caps": "Pulling up *fails | against locked *grain", "visual": {"pill": "PULLING UP FAILS", "focus_word": "fails"}},
+            {"text": "Every time you exhale, loose kernels settle tighter around your ribs, blocking your next breath.", "caps": "Exhaling *tightens | the crushing *grip", "visual": {"pill": "RIB CAGE COMPRESSION", "focus_word": "tightens", "card_data": {"value": "RIB LOCK", "label": "EACH BREATH PACKS KERNELS"}}},
+            {"text": "A silent mechanical hazard on modern farms, proving why solid seeds act like...", "caps": "Solid *seeds | acting like a *trap", "gap": 0.25, "visual": {"pill": "FLOWING GRAIN PHYSICS", "focus_word": "trap", "card_data": {"takeaway": "900 LB GRAIN LOCK"}}}
           ]
         },
         {
           "topic": "Crowd crush fluid dynamics: Why massive crowds act like ocean waves",
           "style": "2d-motion",
           "title": "How To Survive A Massive Crowd Crush #shorts",
+          "music_mood": "tension",
           "sources": ["Dr. Keith Still, Crowd Safety & Risk Analysis", "Nature Human Behaviour, 'Collective Motion in Dense Crowds'"],
           "lines": [
-            {"text": "How does a densely packed crowd suddenly behave like a deadly ocean wave?", "caps": "How a dense *crowd | becomes a *wave?"},
-            {"text": "Once density exceeds six people per square meter, individual walking control vanishes completely.", "caps": "Above six *people | control *vanishes"},
-            {"text": "At that threshold, a small stumble at the back sends a compressive shockwave rippling forward.", "caps": "Compressive *waves | ripple *forward"},
-            {"text": "Victims rarely die from being trampled; the true cause is compressive asphyxiation while standing upright.", "caps": "Crushed *upright | unable to *breathe"},
-            {"text": "To survive, keep your arms raised like a boxer in front of your ribcage to protect lung expansion.", "caps": "Raise your *arms | guard your *ribcage"},
-            {"text": "Never fight against the crowd surge; move diagonally with the flow toward sturdy side walls.", "caps": "Angle *diagonally | toward the *edge"},
-            {"text": "Staying calm and protecting your chest space keeps you breathing until the pressure...", "caps": "Protect your *chest | until pressure *clears", "gap": 0.25}
+            {"text": "How does a densely packed crowd suddenly behave like a deadly ocean wave?", "caps": "How a dense *crowd | becomes a *wave?", "visual": {"pill": "CROWD WAVE PHYSICS", "focus_word": "crowd"}},
+            {"text": "Once density exceeds six people per square meter, individual walking control vanishes completely.", "caps": "Above six *people | control *vanishes", "visual": {"pill": "6+ PEOPLE PER SQ M", "focus_word": "six", "card_data": {"value": "6 / M2", "label": "CRITICAL CROWD DENSITY"}}},
+            {"text": "At that threshold, a small stumble at the back sends a compressive shockwave rippling forward.", "caps": "Compressive *waves | ripple *forward", "visual": {"pill": "SHOCKWAVE RIPPLE", "focus_word": "waves", "card_data": {"label_a": "PUSH BACK", "title_a": "NO CONTROL", "label_b": "WAVE FRONT", "title_b": "PRESSURE SURGE"}}},
+            {"text": "Victims rarely die from being trampled; the true cause is compressive asphyxiation while standing upright.", "caps": "Crushed *upright | unable to *breathe", "visual": {"pill": "UPRIGHT ASPHYXIATION", "focus_word": "upright"}},
+            {"text": "To survive, keep your arms raised like a boxer in front of your ribcage to protect lung expansion.", "caps": "Raise your *arms | guard your *ribcage", "visual": {"pill": "BOXER GUARD STANCE", "focus_word": "arms"}},
+            {"text": "Never fight against the crowd surge; move diagonally with the flow toward sturdy side walls.", "caps": "Angle *diagonally | toward the *edge", "visual": {"pill": "DIAGONAL ESCAPE PATH", "focus_word": "diagonally"}},
+            {"text": "Staying calm and protecting your chest space keeps you breathing until the pressure...", "caps": "Protect your *chest | until pressure *clears", "gap": 0.25, "visual": {"pill": "PROTECT LUNG SPACE", "focus_word": "chest", "card_data": {"takeaway": "ARMS UP MOVE DIAGONAL"}}}
           ]
         },
         {
           "topic": "Avalanche burial survival: Creating an emergency breathing pocket",
           "style": "2d-motion",
           "title": "What To Do If Buried Under An Avalanche #shorts",
+          "music_mood": "tension",
           "sources": ["Swiss Federal Institute for Snow and Avalanche Research (SLF)", "Wilderness Medical Society Avalanche Guidelines"],
           "lines": [
-            {"text": "If an avalanche sweeps you downhill, what single move keeps you alive once the snow stops?", "caps": "What keeps you *alive | under an *avalanche?"},
-            {"text": "Moving avalanche debris feels powdery while flowing, but freezes solid the instant it halts.", "caps": "Flowing *snow | freezes like *concrete"},
-            {"text": "Friction melts microscopic snow grains, which instantly refreeze into an impenetrable icy cast.", "caps": "Melted *grains | lock into solid *ice"},
-            {"text": "As the slide slows down, cup both hands firmly over your mouth and nose to carve an air pocket.", "caps": "Cup your *hands | carve an *air pocket"},
-            {"text": "Without an air space, exhaled carbon dioxide freezes into an airtight ice mask within minutes.", "caps": "Exhaled *breath | forms an *ice mask"},
-            {"text": "If buried in darkness, spit gently to let gravity show which direction is down before digging.", "caps": "Spit to find *gravity | in total *darkness"},
-            {"text": "Saving oxygen and shielding your airway buys precious time before rescuers reach...", "caps": "Shield your *airway | before rescuers *arrive", "gap": 0.25}
+            {"text": "If an avalanche sweeps you downhill, what single move keeps you alive once the snow stops?", "caps": "What keeps you *alive | under an *avalanche?", "visual": {"pill": "AVALANCHE SURVIVAL", "focus_word": "avalanche"}},
+            {"text": "Moving avalanche debris feels powdery while flowing, but freezes solid the instant it halts.", "caps": "Flowing *snow | freezes like *concrete", "visual": {"pill": "INSTANT CONCRETE SNOW", "focus_word": "snow"}},
+            {"text": "Friction melts microscopic snow grains, which instantly refreeze into an impenetrable icy cast.", "caps": "Melted *grains | lock into solid *ice", "visual": {"pill": "MELT REFREEZE CAST", "focus_word": "ice", "card_data": {"label_a": "MOVING", "title_a": "POWDER FLOW", "label_b": "STOPPED", "title_b": "SOLID ICE CAST"}}},
+            {"text": "As the slide slows down, cup both hands firmly over your mouth and nose to carve an air pocket.", "caps": "Cup your *hands | carve an *air pocket", "visual": {"pill": "CARVE AN AIR POCKET", "focus_word": "hands"}},
+            {"text": "Without an air space, exhaled carbon dioxide freezes into an airtight ice mask within minutes.", "caps": "Exhaled *breath | forms an *ice mask", "visual": {"pill": "CO2 ICE MASK RISK", "focus_word": "breath"}},
+            {"text": "If buried in darkness, spit gently to let gravity show which direction is down before digging.", "caps": "Spit to find *gravity | in total *darkness", "visual": {"pill": "GRAVITY SPIT CHECK", "focus_word": "gravity"}},
+            {"text": "Saving oxygen and shielding your airway buys precious time before rescuers reach...", "caps": "Shield your *airway | before rescuers *arrive", "gap": 0.25, "visual": {"pill": "AIRWAY SURVIVAL RULE", "focus_word": "airway", "card_data": {"takeaway": "CARVE POCKET BEFORE HALT"}}}
           ]
         },
         {
           "topic": "The Great Molasses Flood of 1919: The 35 mph Boston syrup surge",
           "style": "2d-motion",
           "title": "The 35 MPH Molasses Disaster In Boston #shorts",
+          "music_mood": "tension",
           "sources": ["Boston Globe Archives (January 15, 1919)", "Harvard Applied Physics Study on the 1919 Molasses Fluid Dynamics"],
           "lines": [
-            {"text": "How did a wall of sweet molasses surge through Boston at thirty-five miles per hour?", "caps": "Molasses surging at *35 | miles per *hour?"},
-            {"text": "In January 1919, a fifty-foot steel storage tank in Boston held two million gallons of fermented syrup.", "caps": "Two million *gallons | in a weak *steel tank"},
-            {"text": "Warmer daytime temperatures triggered fermentation inside, building immense gas pressure against thin rivets.", "caps": "Fermentation *gas | strained weak *rivets"},
-            {"text": "At noon, rivets popped like machine gun fire, unleashing a twenty-five-foot viscous wall into the streets.", "caps": "A 25-foot *wall | slammed the *streets"},
-            {"text": "The dense syrup snapped elevated train steel columns and crushed nearby buildings off their foundations.", "caps": "Dense *syrup | snapped *steel beams"},
-            {"text": "As the molasses cooled in winter air, its viscosity spiked, trapping victims like amber.", "caps": "Cooling *syrup | locked victims in *place"},
-            {"text": "A bizarre industrial tragedy that changed structural engineering codes forever, reminding cities of...", "caps": "Changing *engineering | after sweet *chaos", "gap": 0.25}
+            {"text": "How did a wall of sweet molasses surge through Boston at thirty-five miles per hour?", "caps": "Molasses surging at *35 | miles per *hour?", "visual": {"pill": "35 MPH MOLASSES WAVE", "focus_word": "molasses"}},
+            {"text": "In January 1919, a fifty-foot steel storage tank in Boston held two million gallons of fermented syrup.", "caps": "Two million *gallons | in a weak *steel tank", "visual": {"pill": "2 MILLION GALLON TANK", "focus_word": "gallons"}},
+            {"text": "Warmer daytime temperatures triggered fermentation inside, building immense gas pressure against thin rivets.", "caps": "Fermentation *gas | strained weak *rivets", "visual": {"pill": "FERMENTATION PRESSURE", "focus_word": "gas", "card_data": {"stages": ["WARM DAY", "GAS BUILDUP", "RIVET SNAP"]}}},
+            {"text": "At noon, rivets popped like machine gun fire, unleashing a twenty-five-foot viscous wall into the streets.", "caps": "A 25-foot *wall | slammed the *streets", "visual": {"pill": "25-FOOT SYRUP WALL", "focus_word": "wall", "card_data": {"left": "RIVETS SNAPPED", "right": "25-FOOT SURGE"}}},
+            {"text": "The dense syrup snapped elevated train steel columns and crushed nearby buildings off their foundations.", "caps": "Dense *syrup | snapped *steel beams", "visual": {"pill": "CRUSHED STEEL GIRDERS", "focus_word": "snapped", "card_data": {"value": "35 MPH", "label": "VISCOUS BOSTON SURGE"}}},
+            {"text": "As the molasses cooled in winter air, its viscosity spiked, trapping victims like amber.", "caps": "Cooling *syrup | locked victims in *place", "visual": {"pill": "WINTER VISCOSITY SPIKE", "focus_word": "syrup", "card_data": {"value": "AMBER LOCK", "label": "COLD SYRUP THICKENED"}}},
+            {"text": "A bizarre industrial tragedy that changed structural engineering codes forever, reminding cities of...", "caps": "Changing *engineering | after sweet *chaos", "gap": 0.25, "visual": {"pill": "BOSTON 1919 CODES", "focus_word": "engineering", "card_data": {"takeaway": "2M GALLONS AT 35 MPH"}}}
           ]
         },
         {

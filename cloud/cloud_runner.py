@@ -40,7 +40,8 @@ except ImportError:
 from cloud.state_manager import StateManager, get_state_manager
 from cloud.topic_guard import TopicGuard
 from cloud.script_guard import ScriptGuard
-from cloud.visual_engine_2d import scaffold_2d_project, evaluate_visual_uniqueness
+from cloud.asset_guard import AssetGuard, compute_asset_seed
+from cloud.visual_engine_2d import scaffold_2d_project, evaluate_visual_uniqueness, build_music_config
 from cloud.duplicate_detector import VideoQualityAuditor, compute_file_sha256
 
 PUBLISHED_FILE = ROOT / '_published.md'
@@ -132,14 +133,29 @@ Format strictly as JSON with this schema:
   "topic": "Short topic description",
   "style": "{style}",
   "title": "Curious Title Under 60 Chars Ending In #shorts",
+  "music_mood": "bed or tension or ambient",
   "sources": ["Source 1", "Source 2"],
   "lines": [
-    {{ "text": "Hook question first line?", "caps": "Hook *question | first *line?" }},
-    {{ "text": "Escalation line...", "caps": "Escalation *line" }},
+    {{
+      "text": "Hook question first line?",
+      "caps": "Hook *question | first *line?",
+      "visual": {{ "pill": "SHORT 2-3 WORD TOPIC LABEL", "focus_word": "question" }}
+    }},
+    {{
+      "text": "Escalation line with concrete numbers or mechanism...",
+      "caps": "Escalation *line",
+      "visual": {{ "pill": "FACT LABEL FROM THIS LINE", "focus_word": "mechanism", "card_data": {{ "value": "900 LBS", "label": "GRAIN FRICTION" }} }}
+    }},
     ...
-    {{ "text": "Last line looping back to start...", "caps": "Looping back | to *start", "gap": 0.25 }}
+    {{
+      "text": "Last line looping back to start...",
+      "caps": "Looping back | to *start",
+      "gap": 0.25,
+      "visual": {{ "pill": "TOPIC CALLBACK LABEL", "focus_word": "start", "card_data": {{ "takeaway": "SHORT TOPIC SUMMARY" }} }}
+    }}
   ]
 }}
+CRITICAL: Every visual.pill and card_data label MUST be 100% specific to that exact line and topic. NEVER use generic filler cards like "Curious Reality", "Did You Know This?", "Remember To Look Closer", or "Observe The Difference".
 Only return valid JSON."""
 
     env_models = [m.strip() for m in os.environ.get("GEMINI_MODELS", "").split(",") if m.strip()]
@@ -524,7 +540,7 @@ def main():
     tags = effective_slot_info.get('tags', ["shorts", "facts", "curiosity"])
 
     slug = slugify(title.replace('#shorts', ''))
-    proj_dir = PROJECTS_DIR / slug
+    proj_dir = PROJECTS_DIR / f"{run_id}_{slug}"
 
     print(f"\nTopic: {topic}")
     print(f"Genre: {effective_slot_info['name']}" + (f" (Cross-Slot from Slot {effective_slot_id})" if effective_slot_id != slot_id else ""))
@@ -545,40 +561,93 @@ def main():
             state_mgr.release_topic(topic)
         return
 
-    # Gate 3: Visual & Composition Planning
+    # Gate 3 & 3B: Visual Composition + Fresh Per-Video Asset Verification
     auditor = VideoQualityAuditor(state_mgr)
-    recent_palettes = [entry.get("palette") for entry in reversed(auditor.history[-5:]) if entry.get("palette")]
+    asset_guard = AssetGuard(state_mgr)
+    recent_assets = state_mgr.get_asset_history()
+    recent_palettes = [
+        p for p in (
+            [entry.get("palette") for entry in reversed(auditor.history[-5:]) if entry.get("palette")] +
+            [entry.get("palette_id") for entry in reversed(recent_assets[-5:]) if entry.get("palette_id")]
+        )
+    ]
+    recent_palettes = list(dict.fromkeys(recent_palettes))
 
-    print("\n--- [Stage 0.5/5] Scaffolding High-Quality 2D Animated Project ---")
+    print("\n--- [Stage 0.5/5] Scaffolding Fresh Per-Video 2D Assets ---")
     PROJECTS_DIR.mkdir(parents=True, exist_ok=True)
-    if proj_dir.exists():
-        shutil.rmtree(proj_dir)
+    script_text_all = " ".join(l.get("text", "") for l in item['lines'])
 
-    theme_name, palette_id, scene_sequence = scaffold_2d_project(
-        proj_dir=proj_dir,
-        title=title,
-        topic=topic,
-        lines=item['lines'],
-        recent_palette_ids=recent_palettes
-    )
+    theme_name = ""
+    palette_id = ""
+    scene_sequence: List[str] = []
+    manifest: Dict[str, Any] = {}
+    last_gate3_reason = ""
 
-    vis_ok, vis_reason = evaluate_visual_uniqueness(
-        theme_name=theme_name,
-        palette_id=palette_id,
-        scene_sequence=scene_sequence,
-        history_entries=auditor.history
-    )
-    print(f"[Gate 3 Visual] {vis_reason}")
+    for variant in range(5):
+        if proj_dir.exists():
+            shutil.rmtree(proj_dir)
+
+        asset_seed = compute_asset_seed(run_id, topic, variant=variant)
+        prelim_theme = item.get("theme") or ""
+        music_cfg = build_music_config(
+            prelim_theme or ("HISTORIC_DOCUMENTARY" if effective_slot_id == "3" else "COSMIC_SPACE"),
+            asset_seed,
+            recent_assets=recent_assets,
+            requested_mood=item.get("music_mood", "")
+        )
+
+        theme_name, palette_id, scene_sequence = scaffold_2d_project(
+            proj_dir=proj_dir,
+            title=title,
+            topic=topic,
+            lines=item['lines'],
+            recent_palette_ids=recent_palettes,
+            run_id=run_id,
+            asset_seed=asset_seed,
+            recent_assets=recent_assets,
+            music_config=music_cfg,
+            variant_offset=variant,
+        )
+
+        manifest = json.loads((proj_dir / "asset_manifest.json").read_text(encoding="utf-8"))
+        vis_ok, vis_reason = evaluate_visual_uniqueness(
+            theme_name=theme_name,
+            palette_id=palette_id,
+            scene_sequence=scene_sequence,
+            history_entries=auditor.history
+        )
+        asset_ok, asset_reason = asset_guard.evaluate_asset_uniqueness(
+            manifest=manifest,
+            topic=topic,
+            title=title,
+            script_text=script_text_all
+        )
+        fresh_ok, fresh_reason = asset_guard.verify_project_freshness(proj_dir, run_id)
+
+        if vis_ok and asset_ok and fresh_ok:
+            print(f"[Gate 3 Visual] {vis_reason}")
+            print(f"[Gate 3B Assets] {asset_reason} | {fresh_reason}")
+            break
+        last_gate3_reason = f"{vis_reason}; {asset_reason}; {fresh_reason}"
+        print(f"[Gate 3 Retry {variant + 1}/5] {last_gate3_reason}")
+    else:
+        state_mgr.release_topic(topic)
+        raise ValueError(f"Gate 3 Asset/Visual Uniqueness Rejected after 5 attempts: {last_gate3_reason}")
+
+    # Choose calm voice & per-video music configuration
+    voice_id = "bm_george" if theme_name == "HISTORIC_DOCUMENTARY" else "am_michael"
+    final_music_cfg = manifest.get("music_config", {"mode": "bed", "bpm": 82, "root_hz": 220.0, "music_seed": 17})
 
     # Write script.json with mandatory calm collected tone settings
     script_data = {
         "title": title,
-        "voice": "am_michael",
+        "voice": voice_id,
         "speed": 0.88,
         "lead": 0.35,
         "outro": 1.0,
         "gap": 0.40,
-        "music": "bed",
+        "music": final_music_cfg.get("mode", "bed"),
+        "music_config": final_music_cfg,
         "sources": item.get('sources', ["Scientific Literature & Historical Records"]),
         "lines": item['lines']
     }
@@ -653,6 +722,7 @@ def main():
     else:
         print(f"[Gate 4 PASSED] {dup_reason}")
         auditor.record_approved_video(meta)
+        asset_guard.record_approved_assets(manifest)
         # Register script in script_registry.json
         script_guard = ScriptGuard(state_mgr)
         script_guard.record_approved_script(item['lines'], topic, title, script_meta.get('sha256', ''))
