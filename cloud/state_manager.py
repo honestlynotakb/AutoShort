@@ -42,7 +42,7 @@ def atomic_save(file_path: Path, data: Any):
     file_path.parent.mkdir(parents=True, exist_ok=True)
     temp_path = file_path.with_suffix(f".tmp.{os.getpid()}.{time.time_ns()}")
     try:
-        with open(temp_path, "w", encoding="utf-8") as f:
+        with open(temp_path, "w", encoding="utf-8", newline="\n") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
             f.flush()
             os.fsync(f.fileno())
@@ -59,7 +59,7 @@ def atomic_save(file_path: Path, data: Any):
 
         if not replaced:
             # Fallback: direct atomic overwrite
-            with open(file_path, "w", encoding="utf-8") as f:
+            with open(file_path, "w", encoding="utf-8", newline="\n") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
             try:
                 if temp_path.exists():
@@ -91,8 +91,27 @@ def load_json_safe(file_path: Path, default: Any) -> Any:
 class StateManager:
     """Manages persistent pipeline registries with atomic updates and automatic synchronization."""
 
-    def __init__(self, state_dir: Optional[Path] = None):
-        self.state_dir = Path(state_dir) if state_dir else STATE_DIR
+    def __init__(self, state_dir: Optional[Path] = None, published_file: Optional[Path] = None):
+        env_state_dir = os.environ.get("AUTOSHORT_STATE_DIR")
+        env_pub_file = os.environ.get("AUTOSHORT_PUBLISHED_FILE")
+
+        if state_dir is not None:
+            self.state_dir = Path(state_dir)
+        elif env_state_dir:
+            self.state_dir = Path(env_state_dir)
+        else:
+            self.state_dir = STATE_DIR
+
+        if published_file is not None:
+            self.published_file = Path(published_file)
+        elif env_pub_file:
+            self.published_file = Path(env_pub_file)
+        elif state_dir is not None or env_state_dir:
+            # Keep isolated test/temp state dirs decoupled from live _published.md
+            self.published_file = self.state_dir / "_published.md"
+        else:
+            self.published_file = PUBLISHED_MD
+
         self.state_dir.mkdir(parents=True, exist_ok=True)
 
         self.topic_reg_file = self.state_dir / "topic_registry.json"
@@ -105,7 +124,7 @@ class StateManager:
         self.video_history: List[Dict[str, Any]] = self._init_video_history()
         self.publications: Dict[str, Any] = self._init_publications()
 
-        # Seed from _published.md if state is newly initialized
+        # Seed from published log if present for this state instance
         self._bootstrap_from_published_log()
 
     # ═════════════════════════════════════════════════════════════════════════
@@ -140,11 +159,11 @@ class StateManager:
         return data
 
     def _bootstrap_from_published_log(self):
-        """Reads _published.md to ensure all historical entries are indexed."""
-        if not PUBLISHED_MD.exists():
+        """Reads the configured published log to ensure historical entries are indexed."""
+        if not self.published_file.exists():
             return
         try:
-            lines = PUBLISHED_MD.read_text(encoding="utf-8").splitlines()
+            lines = self.published_file.read_text(encoding="utf-8").splitlines()
             mutated = False
             for line in lines:
                 line = line.strip()
@@ -393,8 +412,16 @@ class StateManager:
 # Global singleton instance accessor
 _STATE_INSTANCE: Optional[StateManager] = None
 
-def get_state_manager(state_dir: Optional[Path] = None) -> StateManager:
+def get_state_manager(
+    state_dir: Optional[Path] = None,
+    published_file: Optional[Path] = None
+) -> StateManager:
     global _STATE_INSTANCE
-    if _STATE_INSTANCE is None or state_dir is not None:
-        _STATE_INSTANCE = StateManager(state_dir)
+    env_state_dir = os.environ.get("AUTOSHORT_STATE_DIR")
+    target_dir = Path(state_dir) if state_dir is not None else (Path(env_state_dir) if env_state_dir else None)
+
+    if state_dir is not None or published_file is not None:
+        _STATE_INSTANCE = StateManager(state_dir=state_dir, published_file=published_file)
+    elif _STATE_INSTANCE is None or (target_dir is not None and _STATE_INSTANCE.state_dir != target_dir):
+        _STATE_INSTANCE = StateManager(state_dir=target_dir)
     return _STATE_INSTANCE

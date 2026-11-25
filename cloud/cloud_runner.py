@@ -22,6 +22,7 @@ import time
 import shutil
 import argparse
 import urllib.request
+import urllib.error
 import subprocess
 from pathlib import Path
 from datetime import datetime, timezone
@@ -54,21 +55,32 @@ def load_slots_config():
     return json.loads(SLOTS_FILE.read_text(encoding='utf-8'))['slots']
 
 
-def detect_current_slot(slots_cfg):
-    """Detects the current slot based on UTC hour (7, 13, 17)."""
+def detect_current_slot(slots_cfg: dict, schedule_cron: Optional[str] = None) -> str:
+    """Detects the current slot from GitHub schedule cron or circular UTC hour distance (7, 13, 17)."""
+    cron = (schedule_cron if schedule_cron is not None else os.environ.get("GITHUB_SCHEDULE", "")).strip()
+    if cron:
+        for slot_id, info in slots_cfg.items():
+            if info.get("cron_utc", "").strip() == cron:
+                return slot_id
+
     utc_hour = datetime.now(timezone.utc).hour
     best_slot = "1"
     min_diff = 99
     for slot_id, info in slots_cfg.items():
-        diff = abs(utc_hour - info.get('target_hour_utc', 0))
+        raw_diff = abs(utc_hour - info.get('target_hour_utc', 0))
+        diff = min(raw_diff, 24 - raw_diff)
         if diff < min_diff:
             min_diff = diff
             best_slot = slot_id
     return best_slot
 
 
-def get_published_topics():
-    state_mgr = get_state_manager()
+def get_published_topics(
+    published_file: Optional[Path] = None,
+    state_mgr: Optional[StateManager] = None
+) -> set:
+    state_mgr = state_mgr or get_state_manager()
+    pub_file = Path(published_file) if published_file else getattr(state_mgr, "published_file", PUBLISHED_FILE)
     topics = set()
     for item in state_mgr.get_all_published_and_reserved_topics():
         t = item.get("topic", "").lower().strip()
@@ -77,8 +89,8 @@ def get_published_topics():
         title = item.get("title", "").lower().strip()
         if title:
             topics.add(title)
-    if PUBLISHED_FILE.exists():
-        text = PUBLISHED_FILE.read_text(encoding='utf-8')
+    if pub_file.exists():
+        text = pub_file.read_text(encoding='utf-8')
         for line in text.splitlines():
             line = line.strip()
             if line.startswith('|') and not line.startswith('| Date') and not line.startswith('|---'):
@@ -130,12 +142,17 @@ Format strictly as JSON with this schema:
 }}
 Only return valid JSON."""
 
-    models = ["gemini-2.0-flash", "gemini-1.5-flash"]
-    payload = json.dumps({"contents": [{"parts": [{"text": prompt}]}]}).encode('utf-8')
+    env_models = [m.strip() for m in os.environ.get("GEMINI_MODELS", "").split(",") if m.strip()]
+    models = env_models or ["gemini-3.8-flash", "gemini-3.5-flash-lite", "gemini-2.5-flash-lite"]
     clean_key = api_key.strip()
+    errors: List[str] = []
 
     for model in models:
         for ver in ["v1beta", "v1"]:
+            body: Dict[str, Any] = {"contents": [{"parts": [{"text": prompt}]}]}
+            if ver == "v1beta":
+                body["generationConfig"] = {"responseMimeType": "application/json"}
+            payload = json.dumps(body).encode('utf-8')
             try:
                 url = f"https://generativelanguage.googleapis.com/{ver}/models/{model}:generateContent?key={clean_key}"
                 req = urllib.request.Request(
@@ -152,12 +169,65 @@ Only return valid JSON."""
                     match = re.search(r'\{.*\}', raw_text, re.DOTALL)
                     if match:
                         res = json.loads(match.group(0))
-                        print(f"Successfully generated {genre_name} script using {model} ({ver})!")
-                        return res
+                        if isinstance(res, dict) and res.get("topic") and res.get("title") and isinstance(res.get("lines"), list) and res["lines"]:
+                            print(f"Successfully generated {genre_name} script using {model} ({ver})!")
+                            return res
+                        errors.append(f"{model} ({ver}): incomplete JSON schema")
+                    else:
+                        errors.append(f"{model} ({ver}): no JSON object in response")
+            except urllib.error.HTTPError as he:
+                err_body = ""
+                try:
+                    err_body = he.read().decode('utf-8', errors='replace')[:160].replace('\n', ' ')
+                except Exception:
+                    pass
+                err_body = re.sub(r'([?&]key=)[^&\s\'"]+', r'\1REDACTED', err_body)
+                errors.append(f"{model} ({ver}): HTTP {he.code} {err_body}")
             except Exception as e:
-                continue
+                safe_err = re.sub(r'([?&]key=)[^&\s\'"]+', r'\1REDACTED', str(e))
+                errors.append(f"{model} ({ver}): {type(e).__name__}: {safe_err}")
 
-    raise ValueError("All Gemini model endpoints failed")
+    summary = "; ".join(errors[:4])
+    raise ValueError(f"All Gemini model endpoints failed ({summary})")
+
+
+def _select_available_fallback(
+    fallbacks: List[dict],
+    published_topics: set,
+    topic_guard: TopicGuard,
+    script_guard: ScriptGuard,
+    target_slot_id: str,
+    run_id: str,
+    source_slot_id: Optional[str] = None,
+    source_slot_info: Optional[dict] = None,
+) -> Optional[dict]:
+    """Selects and atomically reserves the first fallback passing Gates 1 and 2."""
+    for item in fallbacks:
+        if item['topic'].lower() in published_topics or item['title'].lower() in published_topics:
+            continue
+        is_u, _, _ = topic_guard.evaluate_topic_uniqueness(item['topic'], item['title'])
+        if not is_u:
+            continue
+        script_u, _, script_meta = script_guard.evaluate_script_uniqueness(item['lines'], item['topic'], item['title'])
+        if not script_u:
+            continue
+
+        reserved, _ = topic_guard.reserve_if_unique(
+            candidate_topic=item['topic'],
+            candidate_title=item['title'],
+            slot_id=target_slot_id,
+            run_id=run_id
+        )
+        if reserved:
+            selected = dict(item)
+            selected['lines'] = [dict(line) for line in item.get('lines', [])]
+            selected['_script_meta'] = script_meta
+            if source_slot_id is not None:
+                selected['_source_slot_id'] = source_slot_id
+            if source_slot_info is not None:
+                selected['_source_slot_info'] = source_slot_info
+            return selected
+    return None
 
 
 def pick_topic_for_slot(
@@ -230,53 +300,53 @@ def pick_topic_for_slot(
 
     # 2. Curated Offline Curriculum Selection
     fallbacks = slot_info.get('fallbacks', [])
-    for item in fallbacks:
-        if item['topic'].lower() in published_topics or item['title'].lower() in published_topics:
-            continue
-        is_u, reason, _ = topic_guard.evaluate_topic_uniqueness(item['topic'], item['title'])
-        if not is_u:
-            continue
-        script_u, _, script_meta = script_guard.evaluate_script_uniqueness(item['lines'], item['topic'], item['title'])
-        if not script_u:
-            continue
+    selected = _select_available_fallback(
+        fallbacks=fallbacks,
+        published_topics=published_topics,
+        topic_guard=topic_guard,
+        script_guard=script_guard,
+        target_slot_id=slot_id,
+        run_id=run_id
+    )
+    if selected is not None:
+        print(f"[Gate 1 Curriculum] Selected unused fallback topic: '{selected['topic']}'")
+        return selected
 
-        reserved, res_msg = topic_guard.reserve_if_unique(
-            candidate_topic=item['topic'],
-            candidate_title=item['title'],
-            slot_id=slot_id,
-            run_id=run_id
-        )
-        if reserved:
-            print(f"[Gate 1 Curriculum] Selected unused fallback topic: '{item['topic']}'")
-            item['_script_meta'] = script_meta
-            return item
-
-    # 3. Cross-Slot Fallback Search (if current slot's fallbacks are all used)
+    # 3. Cross-Slot Fallback Search (balanced by most remaining unused fallbacks)
     print(f"[Gate 1 Curriculum] All fallbacks for Slot {slot_id} have been used. Searching other slots...")
     slots_cfg = load_slots_config()
-    for other_slot_id, other_info in slots_cfg.items():
-        if other_slot_id == slot_id:
-            continue
-        for item in other_info.get('fallbacks', []):
-            if item['topic'].lower() in published_topics or item['title'].lower() in published_topics:
-                continue
-            is_u, _, _ = topic_guard.evaluate_topic_uniqueness(item['topic'], item['title'])
-            if not is_u:
-                continue
-            script_u, _, script_meta = script_guard.evaluate_script_uniqueness(item['lines'], item['topic'], item['title'])
-            if not script_u:
-                continue
 
-            reserved, _ = topic_guard.reserve_if_unique(
-                candidate_topic=item['topic'],
-                candidate_title=item['title'],
-                slot_id=slot_id,
-                run_id=run_id
-            )
-            if reserved:
-                print(f"[Gate 1 Cross-Curriculum] Selected unused topic from Slot {other_slot_id}: '{item['topic']}'")
-                item['_script_meta'] = script_meta
-                return item
+    def _remaining_count(info: dict) -> int:
+        count = 0
+        for fb in info.get('fallbacks', []):
+            if fb['topic'].lower() in published_topics or fb['title'].lower() in published_topics:
+                continue
+            is_u, _, _ = topic_guard.evaluate_topic_uniqueness(fb['topic'], fb['title'])
+            if is_u:
+                count += 1
+        return count
+
+    other_slots = [
+        (other_id, other_info)
+        for other_id, other_info in slots_cfg.items()
+        if other_id != slot_id
+    ]
+    other_slots.sort(key=lambda pair: _remaining_count(pair[1]), reverse=True)
+
+    for other_slot_id, other_info in other_slots:
+        selected = _select_available_fallback(
+            fallbacks=other_info.get('fallbacks', []),
+            published_topics=published_topics,
+            topic_guard=topic_guard,
+            script_guard=script_guard,
+            target_slot_id=slot_id,
+            run_id=run_id,
+            source_slot_id=other_slot_id,
+            source_slot_info=other_info
+        )
+        if selected is not None:
+            print(f"[Gate 1 Cross-Curriculum] Selected unused topic from Slot {other_slot_id}: '{selected['topic']}'")
+            return selected
 
     # 4. Critical Safe Failure: Never recycle index 0!
     raise RuntimeError(
@@ -321,12 +391,6 @@ def verify_youtube_auth():
         return False
 
 
-def write_step_summary(title, slot_info, topic, style, video_name, short_url, stage_metrics, total_time, run_id):
-    summary_path = os.environ.get('GITHUB_STEP_SUMMARY')
-    if not summary_path:
-        return
-
-
 def write_adaptive_shots(proj_dir, title, sample_lines, style="2d-motion"):
     """Backward-compatible helper to generate 2D adaptive shots.js."""
     from cloud.visual_engine_2d import generate_shots_js, pick_variation_palette, detect_topic_theme
@@ -337,6 +401,12 @@ def write_adaptive_shots(proj_dir, title, sample_lines, style="2d-motion"):
     shots_file.parent.mkdir(parents=True, exist_ok=True)
     shots_file.write_text(code, encoding='utf-8')
     return shots_file
+
+
+def write_step_summary(title, slot_info, topic, style, video_name, short_url, stage_metrics, total_time, run_id):
+    summary_path = os.environ.get('GITHUB_STEP_SUMMARY')
+    if not summary_path:
+        return
 
     content = f"""# 🎬 Autonomous YouTube Short Publication Summary
 
@@ -409,6 +479,9 @@ def main():
     parser = argparse.ArgumentParser(description="Autonomous Cloud Runner for YouTube Shorts")
     parser.add_argument('--slot', default=None, help="Slot ID (1-3 or auto)")
     parser.add_argument('--dry-run', action='store_true', help="Resolve slot and script without rendering/uploading")
+    parser.add_argument('--state-dir', default=None, help="Override state directory (useful for isolated tests)")
+    parser.add_argument('--published-file', default=None, help="Override _published.md path")
+    parser.add_argument('--keep-reservation', action='store_true', help="Keep dry-run topic reservation active across sequential checks")
     args = parser.parse_args()
 
     print("=" * 60, flush=True)
@@ -427,42 +500,49 @@ def main():
     run_id = f"slot{slot_id}-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}-{os.getpid()}"
     print(f"Execution Run ID: {run_id}", flush=True)
 
-    state_mgr = get_state_manager()
-    published = get_published_topics()
+    state_mgr = get_state_manager(
+        state_dir=Path(args.state_dir) if args.state_dir else None,
+        published_file=Path(args.published_file) if args.published_file else None
+    )
+    published = get_published_topics(state_mgr=state_mgr)
     print(f"Found {len(published)} previously registered topics.", flush=True)
 
     # Gate 1 & 2: Semantic Topic & Script Originality Verification
     item = pick_topic_for_slot(slot_info, published, state_mgr=state_mgr, slot_id=slot_id, run_id=run_id)
     script_meta = item.get('_script_meta', {})
+    effective_slot_info = item.get('_source_slot_info', slot_info)
+    effective_slot_id = item.get('_source_slot_id', slot_id)
 
     # Sanitize lines to eliminate special Unicode/emojis that crash Kokoro ONNX TTS
     for line in item['lines']:
         line['text'] = sanitize_text_for_tts(line['text'])
 
     topic = item['topic']
-    style = item.get('style', slot_info.get('style', '2d-motion'))
+    style = item.get('style', effective_slot_info.get('style', '2d-motion'))
     title = item['title']
-    category_id = slot_info.get('category_id', '28')
-    tags = slot_info.get('tags', ["shorts", "facts", "curiosity"])
+    category_id = effective_slot_info.get('category_id', '28')
+    tags = effective_slot_info.get('tags', ["shorts", "facts", "curiosity"])
 
     slug = slugify(title.replace('#shorts', ''))
     proj_dir = PROJECTS_DIR / slug
 
     print(f"\nTopic: {topic}")
-    print(f"Genre: {slot_info['name']}")
+    print(f"Genre: {effective_slot_info['name']}" + (f" (Cross-Slot from Slot {effective_slot_id})" if effective_slot_id != slot_id else ""))
     print(f"Style: {style}")
     print(f"Title: {title}")
     print(f"Category: {category_id}")
     print(f"Project Folder: {proj_dir}")
 
+    keep_reservation = args.keep_reservation or os.environ.get("AUTOSHORT_KEEP_RESERVATION") == "1"
     if args.dry_run:
         print("\n[DRY-RUN] Script Preview:")
         for idx, line in enumerate(item['lines']):
             print(f"  Line {idx}: {line['text']}")
         print(f"[DRY-RUN] Tags: {tags}")
         print("\nDRY-RUN COMPLETE.")
-        # Release reservation in dry-run so test isn't locked
-        state_mgr.release_topic(topic)
+        if not keep_reservation:
+            # Release reservation in single-shot dry-run so live state isn't locked
+            state_mgr.release_topic(topic)
         return
 
     # Gate 3: Visual & Composition Planning
@@ -586,7 +666,8 @@ def main():
 
     try:
         from cloud.upload_youtube import upload_short
-        desc = f"{item['lines'][0]['text']}\n\n#shorts #{slot_info['name'].replace(' ', '')} #curiosity"
+        genre_tag = effective_slot_info['name'].replace(' ', '')
+        desc = f"{item['lines'][0]['text']}\n\n#shorts #{genre_tag} #curiosity"
         vid_id, short_url = upload_short(
             video_path=video_out,
             title=title,
@@ -619,13 +700,13 @@ def main():
         video_hash=video_hash,
         youtube_id=vid_id or "pending",
         short_url=short_url,
-        slot_id=slot_id,
+        slot_id=effective_slot_id,
         status="PUBLISHED" if vid_id else "PENDING_MANUAL"
     )
 
     today = datetime.now().strftime("%Y-%m-%d")
     log_line = f"| {today} | {topic} | {style} | {title} | {short_url} |\n"
-    with open(PUBLISHED_FILE, 'a', encoding='utf-8') as f:
+    with open(state_mgr.published_file, 'a', encoding='utf-8') as f:
         f.write(log_line)
 
     total_time = round(time.time() - t_pipeline_start, 2)
@@ -633,7 +714,7 @@ def main():
     # 7. Write GitHub Step Summary
     write_step_summary(
         title=title,
-        slot_info=slot_info,
+        slot_info=effective_slot_info,
         topic=topic,
         style=style,
         video_name=video_out.name,
@@ -646,7 +727,7 @@ def main():
     print("\n" + "=" * 60)
     print(" 3-DAILY AUTONOMOUS RUN COMPLETE!")
     print(f" Published: {title}")
-    print(f" Genre:     {slot_info['name']}")
+    print(f" Genre:     {effective_slot_info['name']}")
     print(f" Output:    {video_out.name}")
     print(f" URL:       {short_url}")
     print(f" Run ID:    {run_id}")

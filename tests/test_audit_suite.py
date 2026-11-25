@@ -37,7 +37,9 @@ from cloud.cloud_runner import (
     parse_slot_selection,
     get_published_topics,
     pick_topic_for_slot,
+    generate_with_gemini,
     write_adaptive_shots,
+    write_step_summary,
     slugify,
     sanitize_text_for_tts,
     verify_youtube_auth
@@ -230,9 +232,16 @@ class TestPipelineAuditSuite(unittest.TestCase):
                 self.assertEqual(detected, expected_slot)
 
     def test_tier2_published_history_deduplication(self):
-        """Test published history parser indexes lowercased topics."""
-        topics = get_published_topics()
+        """Test published history parser indexes lowercased topics without mutating live state."""
+        pub_copy = self.test_dir / "_published.md"
+        if (ROOT / "_published.md").exists():
+            shutil.copy2(ROOT / "_published.md", pub_copy)
+        else:
+            pub_copy.write_text("| Date | Topic | Style | Title | YouTube Link |\n|---|---|---|---|---|\n| 2026-11-11 | Test Topic | 2d-motion | Test Title #shorts | https://example.com |\n", encoding="utf-8")
+        isolated_sm = StateManager(state_dir=self.test_dir / "pub_state", published_file=pub_copy)
+        topics = get_published_topics(published_file=pub_copy, state_mgr=isolated_sm)
         self.assertIsInstance(topics, set)
+        self.assertGreater(len(topics), 0)
         for t in topics:
             self.assertEqual(t, t.lower())
 
@@ -250,6 +259,116 @@ class TestPipelineAuditSuite(unittest.TestCase):
             with self.subTest(raw_val=raw_val):
                 res = parse_slot_selection(raw_val, self.slots_cfg)
                 self.assertEqual(res, expected)
+
+    def test_tier2_schedule_cron_routing_ignores_runner_delay(self):
+        """Verify GITHUB_SCHEDULE routes delayed crons to intended slot and uses 24h wrap-around."""
+        from unittest.mock import patch
+        delayed_time = datetime(2026, 11, 20, 16, 15, 0, tzinfo=timezone.utc)
+        with patch('cloud.cloud_runner.datetime') as mock_dt:
+            mock_dt.now.return_value = delayed_time
+            self.assertEqual(detect_current_slot(self.slots_cfg, schedule_cron="10 7 * * *"), "1")
+            self.assertEqual(detect_current_slot(self.slots_cfg, schedule_cron="10 13 * * *"), "2")
+            self.assertEqual(detect_current_slot(self.slots_cfg, schedule_cron="10 17 * * *"), "3")
+
+        # Verify circular 24h wrap-around when no cron is specified
+        late_night = datetime(2026, 11, 20, 23, 15, 0, tzinfo=timezone.utc)
+        with patch('cloud.cloud_runner.datetime') as mock_dt:
+            mock_dt.now.return_value = late_night
+            self.assertEqual(detect_current_slot(self.slots_cfg, schedule_cron=""), "3")
+
+        early_morning = datetime(2026, 11, 20, 2, 15, 0, tzinfo=timezone.utc)
+        with patch('cloud.cloud_runner.datetime') as mock_dt:
+            mock_dt.now.return_value = early_morning
+            self.assertEqual(detect_current_slot(self.slots_cfg, schedule_cron=""), "1")
+
+    def test_tier1_write_step_summary_generates_markdown(self):
+        """Verify write_step_summary writes telemetry summary markdown instead of returning early."""
+        summary_file = self.test_dir / "step_summary.md"
+        backup = os.environ.get("GITHUB_STEP_SUMMARY")
+        os.environ["GITHUB_STEP_SUMMARY"] = str(summary_file)
+        try:
+            write_step_summary(
+                title="Test Video #shorts",
+                slot_info={"name": "Survival Scenarios & Dark History", "slot_id": 3},
+                topic="Test Topic",
+                style="2d-motion",
+                video_name="test-video.mp4",
+                short_url="[Manual/Pending Upload] test-video.mp4",
+                stage_metrics={"Voice Synthesis": 1.25},
+                total_time=3.50,
+                run_id="slot3-test-run"
+            )
+            self.assertTrue(summary_file.exists())
+            content = summary_file.read_text(encoding="utf-8")
+            self.assertIn("Autonomous YouTube Short Publication Summary", content)
+            self.assertIn("slot3-test-run", content)
+            self.assertIn("Voice Synthesis", content)
+        finally:
+            if backup is not None:
+                os.environ["GITHUB_STEP_SUMMARY"] = backup
+            else:
+                os.environ.pop("GITHUB_STEP_SUMMARY", None)
+
+    def test_tier1_gemini_models_not_retired(self):
+        """Verify generate_with_gemini uses active Gemini models rather than retired 1.5/2.0 endpoints."""
+        from unittest.mock import patch, MagicMock
+        called_urls = []
+        fake_response = {
+            "candidates": [{
+                "content": {
+                    "parts": [{
+                        "text": json.dumps({
+                            "topic": "Fresh AI Topic",
+                            "style": "2d-motion",
+                            "title": "Fresh AI Title #shorts",
+                            "sources": ["Test Source"],
+                            "lines": [{"text": "Hook question?", "caps": "Hook *question?"}]
+                        })
+                    }]
+                }
+            }]
+        }
+
+        def fake_urlopen(req, timeout=30):
+            called_urls.append(req.full_url)
+            cm = MagicMock()
+            cm.__enter__.return_value.read.return_value = json.dumps(fake_response).encode("utf-8")
+            return cm
+
+        with patch('urllib.request.urlopen', side_effect=fake_urlopen):
+            res = generate_with_gemini("fake-key", set(), self.slots_cfg["3"])
+            self.assertEqual(res["topic"], "Fresh AI Topic")
+            self.assertTrue(called_urls)
+            self.assertNotIn("gemini-1.5-flash", called_urls[0])
+            self.assertNotIn("gemini-2.0-flash", called_urls[0])
+
+    def test_tier1_all_curriculum_topics_pass_topic_and_script_guards(self):
+        """Verify all curriculum scripts are mutually unique and all remaining/new fallbacks pass TopicGuard."""
+        sg = ScriptGuard(state_mgr=self.state_mgr)
+        for sid, info in self.slots_cfg.items():
+            for idx, fb in enumerate(info.get("fallbacks", [])):
+                with self.subTest(phase="script", slot=sid, idx=idx, topic=fb["topic"]):
+                    s_u, s_reason, s_meta = sg.evaluate_script_uniqueness(fb["lines"], fb["topic"], fb["title"])
+                    self.assertTrue(s_u, f"ScriptGuard collision in Slot {sid}[{idx}]: {s_reason}")
+                    sg.record_approved_script(fb["lines"], fb["topic"], fb["title"], s_meta["sha256"])
+
+        # Check all currently unused and replenished topics against live history + each other
+        sim_state_dir = self.test_dir / "curriculum_tg_state"
+        live_state = ROOT / "cloud" / "state"
+        if live_state.exists():
+            shutil.copytree(live_state, sim_state_dir)
+        sim_pub = self.test_dir / "curriculum_published.md"
+        if (ROOT / "_published.md").exists():
+            shutil.copy2(ROOT / "_published.md", sim_pub)
+
+        sm_hist = StateManager(state_dir=sim_state_dir, published_file=sim_pub)
+        tg = TopicGuard(state_mgr=sm_hist)
+        for idx, fb in enumerate(self.slots_cfg["3"]["fallbacks"][15:], start=15):
+            with self.subTest(phase="slot3_replenished", idx=idx, topic=fb["topic"]):
+                is_u, reason, _ = tg.evaluate_topic_uniqueness(fb["topic"], fb["title"])
+                self.assertTrue(is_u, f"New Slot 3[{idx}] failed TopicGuard: {reason}")
+                reserved, _ = tg.reserve_if_unique(fb["topic"], fb["title"], "3", f"curr-3-{idx}")
+                self.assertTrue(reserved)
 
     # =========================================================================
     # Tier 3: AI Intelligence Fallback & Audio Pre-flight
@@ -846,25 +965,92 @@ class TestPipelineAuditSuite(unittest.TestCase):
     # =========================================================================
     # Tier 11: End-to-End Three-Slot Operational Simulation
     # =========================================================================
-    def test_e2e_dry_run_all_three_slots_produce_unique_topics(self):
-        """Simulate end-to-end cloud runner execution for all 3 slots via CLI, verifying unique topics."""
-        chosen_topics = set()
+    def _run_isolated_three_slot_dry_run(self, state_dir: Path, pub_file: Path) -> dict[str, str]:
+        env = os.environ.copy()
+        env.pop("GEMINI_API_KEY", None)
+        env["AUTOSHORT_STATE_DIR"] = str(state_dir)
+        env["AUTOSHORT_PUBLISHED_FILE"] = str(pub_file)
+        env["AUTOSHORT_KEEP_RESERVATION"] = "1"
+
+        chosen: dict[str, str] = {}
         for slot in ["1", "2", "3"]:
             with self.subTest(slot=slot):
-                cmd = [sys.executable, str(ROOT / 'cloud' / 'cloud_runner.py'), '--dry-run', '--slot', slot]
-                proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, cwd=str(ROOT))
+                cmd = [
+                    sys.executable,
+                    str(ROOT / 'cloud' / 'cloud_runner.py'),
+                    '--dry-run',
+                    '--slot', slot,
+                    '--state-dir', str(state_dir),
+                    '--published-file', str(pub_file),
+                    '--keep-reservation'
+                ]
+                proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, cwd=str(ROOT), env=env)
                 self.assertEqual(
                     proc.returncode, 0,
                     f"Dry run failed for Slot {slot}.\nSTDOUT: {proc.stdout}\nSTDERR: {proc.stderr}"
                 )
                 self.assertIn("DRY-RUN COMPLETE.", proc.stdout)
 
-                # Extract selected topic from stdout
                 match = re.search(r"Topic:\s*(.+)", proc.stdout)
                 self.assertIsNotNone(match, f"Failed to match selected topic in Slot {slot} stdout")
                 topic = match.group(1).strip()
-                self.assertNotIn(topic, chosen_topics, f"Slot {slot} duplicated previously chosen topic: '{topic}'")
-                chosen_topics.add(topic)
+                self.assertNotIn(topic, chosen.values(), f"Slot {slot} duplicated previously chosen topic: '{topic}'")
+                chosen[slot] = topic
+        return chosen
+
+    def test_e2e_dry_run_all_three_slots_produce_unique_topics(self):
+        """Simulate end-to-end cloud runner execution for all 3 slots via CLI in isolated state."""
+        sim_state_dir = self.test_dir / "e2e_state"
+        live_state_dir = ROOT / "cloud" / "state"
+        if live_state_dir.exists():
+            shutil.copytree(live_state_dir, sim_state_dir)
+        else:
+            sim_state_dir.mkdir(parents=True, exist_ok=True)
+
+        sim_pub_file = self.test_dir / "_published.md"
+        live_pub_file = ROOT / "_published.md"
+        if live_pub_file.exists():
+            shutil.copy2(live_pub_file, sim_pub_file)
+
+        # If fewer than 3 unused offline fallbacks remain globally in live history,
+        # simulate against a clean baseline so CI doesn't block Gemini-backed production runs.
+        probe_sm = StateManager(state_dir=sim_state_dir, published_file=sim_pub_file)
+        probe_tg = TopicGuard(probe_sm)
+        available_count = sum(
+            1
+            for info in self.slots_cfg.values()
+            for fb in info.get("fallbacks", [])
+            if probe_tg.evaluate_topic_uniqueness(fb["topic"], fb["title"])[0]
+        )
+        if available_count < 3:
+            shutil.rmtree(sim_state_dir)
+            sim_state_dir.mkdir(parents=True, exist_ok=True)
+            if sim_pub_file.exists():
+                sim_pub_file.unlink()
+
+        chosen = self._run_isolated_three_slot_dry_run(sim_state_dir, sim_pub_file)
+        self.assertEqual(len(set(chosen.values())), 3)
+
+    def test_gate1_cross_slot_selection_never_duplicates_active_session(self):
+        """When Slot 3 exhausts all fallbacks, cross-slot search never duplicates Slot 1 or 2."""
+        cross_state_dir = self.test_dir / "cross_slot_state"
+        cross_pub_file = self.test_dir / "cross_published.md"
+        sm = StateManager(state_dir=cross_state_dir, published_file=cross_pub_file)
+
+        # Mark every Slot 3 fallback as already published
+        for idx, fb in enumerate(self.slots_cfg["3"]["fallbacks"]):
+            sm.confirm_topic_published(
+                topic=fb["topic"],
+                title=fb["title"],
+                youtube_url=f"https://example.com/{idx}",
+                slot_id="3",
+                run_id=f"exhaust-slot3-{idx}"
+            )
+
+        chosen = self._run_isolated_three_slot_dry_run(cross_state_dir, cross_pub_file)
+        self.assertEqual(len(set(chosen.values())), 3)
+        slot3_topics = {fb["topic"] for fb in self.slots_cfg["3"]["fallbacks"]}
+        self.assertNotIn(chosen["3"], slot3_topics)
 
 
 if __name__ == '__main__':

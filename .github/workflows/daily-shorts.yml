@@ -132,6 +132,7 @@ jobs:
       - name: Run Autonomous Short Generator & Publisher
         env:
           INPUT_SLOT: ${{ inputs.slot }}
+          GITHUB_SCHEDULE: ${{ github.event.schedule }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           CHROME: /usr/bin/google-chrome
           SOFTWARE_GL: "1"

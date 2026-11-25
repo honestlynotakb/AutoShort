@@ -719,6 +719,231 @@
             {"text": "Over two thousand people died, and the explosion was heard three hundred miles away.", "caps": "Heard three *hundred | miles *away"},
             {"text": "A terrifying demonstration of concentrated chemical power, before modern warfare changed...", "caps": "Concentrated *power | that shook the *world", "gap": 0.25}
           ]
+        },
+        {
+          "topic": "Grain silo entrapment: Why flowing corn behaves like liquid",
+          "style": "2d-motion",
+          "title": "Why You Cannot Escape A Flowing Grain Silo #shorts",
+          "sources": ["Purdue University Agricultural Confined Spaces Report", "OSHA Grain Handling Safety Standards"],
+          "lines": [
+            {"text": "Why can a grown adult disappear inside a grain silo in less than fifteen seconds?", "caps": "Vanish in a *grain silo | in *fifteen seconds?"},
+            {"text": "When an auger unloads grain from the bottom, the center drops into a fast-moving vertical funnel.", "caps": "Bottom unloading | forms a *funnel"},
+            {"text": "Within four seconds, flowing kernels bury your ankles; within twenty seconds, you are chest deep.", "caps": "Chest *deep | in *twenty seconds"},
+            {"text": "Once buried to the waist, the surrounding grain exerts over nine hundred pounds of lateral friction.", "caps": "Nine hundred *pounds | of locking *friction"},
+            {"text": "Pulling straight up can tear ligaments before the kernels budge a single inch.", "caps": "Pulling up *fails | against locked *grain"},
+            {"text": "Every time you exhale, loose kernels settle tighter around your ribs, blocking your next breath.", "caps": "Exhaling *tightens | the crushing *grip"},
+            {"text": "A silent mechanical hazard on modern farms, proving why solid seeds act like...", "caps": "Solid *seeds | acting like a *trap", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Crowd crush fluid dynamics: Why massive crowds act like ocean waves",
+          "style": "2d-motion",
+          "title": "How To Survive A Massive Crowd Crush #shorts",
+          "sources": ["Dr. Keith Still, Crowd Safety & Risk Analysis", "Nature Human Behaviour, 'Collective Motion in Dense Crowds'"],
+          "lines": [
+            {"text": "How does a densely packed crowd suddenly behave like a deadly ocean wave?", "caps": "How a dense *crowd | becomes a *wave?"},
+            {"text": "Once density exceeds six people per square meter, individual walking control vanishes completely.", "caps": "Above six *people | control *vanishes"},
+            {"text": "At that threshold, a small stumble at the back sends a compressive shockwave rippling forward.", "caps": "Compressive *waves | ripple *forward"},
+            {"text": "Victims rarely die from being trampled; the true cause is compressive asphyxiation while standing upright.", "caps": "Crushed *upright | unable to *breathe"},
+            {"text": "To survive, keep your arms raised like a boxer in front of your ribcage to protect lung expansion.", "caps": "Raise your *arms | guard your *ribcage"},
+            {"text": "Never fight against the crowd surge; move diagonally with the flow toward sturdy side walls.", "caps": "Angle *diagonally | toward the *edge"},
+            {"text": "Staying calm and protecting your chest space keeps you breathing until the pressure...", "caps": "Protect your *chest | until pressure *clears", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Avalanche burial survival: Creating an emergency breathing pocket",
+          "style": "2d-motion",
+          "title": "What To Do If Buried Under An Avalanche #shorts",
+          "sources": ["Swiss Federal Institute for Snow and Avalanche Research (SLF)", "Wilderness Medical Society Avalanche Guidelines"],
+          "lines": [
+            {"text": "If an avalanche sweeps you downhill, what single move keeps you alive once the snow stops?", "caps": "What keeps you *alive | under an *avalanche?"},
+            {"text": "Moving avalanche debris feels powdery while flowing, but freezes solid the instant it halts.", "caps": "Flowing *snow | freezes like *concrete"},
+            {"text": "Friction melts microscopic snow grains, which instantly refreeze into an impenetrable icy cast.", "caps": "Melted *grains | lock into solid *ice"},
+            {"text": "As the slide slows down, cup both hands firmly over your mouth and nose to carve an air pocket.", "caps": "Cup your *hands | carve an *air pocket"},
+            {"text": "Without an air space, exhaled carbon dioxide freezes into an airtight ice mask within minutes.", "caps": "Exhaled *breath | forms an *ice mask"},
+            {"text": "If buried in darkness, spit gently to let gravity show which direction is down before digging.", "caps": "Spit to find *gravity | in total *darkness"},
+            {"text": "Saving oxygen and shielding your airway buys precious time before rescuers reach...", "caps": "Shield your *airway | before rescuers *arrive", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The Great Molasses Flood of 1919: The 35 mph Boston syrup surge",
+          "style": "2d-motion",
+          "title": "The 35 MPH Molasses Disaster In Boston #shorts",
+          "sources": ["Boston Globe Archives (January 15, 1919)", "Harvard Applied Physics Study on the 1919 Molasses Fluid Dynamics"],
+          "lines": [
+            {"text": "How did a wall of sweet molasses surge through Boston at thirty-five miles per hour?", "caps": "Molasses surging at *35 | miles per *hour?"},
+            {"text": "In January 1919, a fifty-foot steel storage tank in Boston held two million gallons of fermented syrup.", "caps": "Two million *gallons | in a weak *steel tank"},
+            {"text": "Warmer daytime temperatures triggered fermentation inside, building immense gas pressure against thin rivets.", "caps": "Fermentation *gas | strained weak *rivets"},
+            {"text": "At noon, rivets popped like machine gun fire, unleashing a twenty-five-foot viscous wall into the streets.", "caps": "A 25-foot *wall | slammed the *streets"},
+            {"text": "The dense syrup snapped elevated train steel columns and crushed nearby buildings off their foundations.", "caps": "Dense *syrup | snapped *steel beams"},
+            {"text": "As the molasses cooled in winter air, its viscosity spiked, trapping victims like amber.", "caps": "Cooling *syrup | locked victims in *place"},
+            {"text": "A bizarre industrial tragedy that changed structural engineering codes forever, reminding cities of...", "caps": "Changing *engineering | after sweet *chaos", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The 1920s Radium Girls: Why factory watch painters glowed in the dark",
+          "style": "2d-motion",
+          "title": "Why Watch Painters Glowed In The Dark #shorts",
+          "sources": ["Kate Moore, 'The Radium Girls'", "Argonne National Laboratory Radium Dial Worker Studies"],
+          "lines": [
+            {"text": "In the 1920s, why did young watch factory workers literally glow in the dark after work?", "caps": "Why watch *painters | glowed in the *dark?"},
+            {"text": "Companies hired women to paint luminous military clock dials using paint mixed with radioactive radium.", "caps": "Luminous *paint | mixed with pure *radium"},
+            {"text": "Supervisors taught painters to lick their camel-hair brushes between strokes to sharpen the tip.", "caps": "Told to *lick brushes | to keep *sharp tips"},
+            {"text": "Each tiny swallow delivered radium straight into the bloodstream, where the body mistook it for calcium.", "caps": "Body mistook *radium | for bone *calcium"},
+            {"text": "Radium locked permanently inside jawbones and spines, bombarding living cells with alpha radiation.", "caps": "Alpha *radiation | ate bones from *inside"},
+            {"text": "Their courageous lawsuits against the dial corporations created modern workplace radiation safety laws.", "caps": "Their *lawsuits | created *safety laws"},
+            {"text": "A haunting chapter of industrial medicine, showing the hidden price paid before science understood...", "caps": "Hidden *price | before science knew *danger", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Step voltage hazard: Why walking near a downed power line is fatal",
+          "style": "2d-motion",
+          "title": "Why Walking Near Downed Power Lines Kills #shorts",
+          "sources": ["IEEE Guide for Safety in AC Substation Grounding", "Electrical Safety Foundation International"],
+          "lines": [
+            {"text": "Why can taking a single normal step near a fallen power line electrocute you instantly?", "caps": "Why a single *step | near fallen wires *kills?"},
+            {"text": "When a high-voltage wire hits the ground, electricity radiates outward through the soil in concentric rings.", "caps": "Voltage *radiates | in ground *rings"},
+            {"text": "Voltage drops rapidly with distance, creating a steep electrical gradient across the earth.", "caps": "Steep electrical *rings | across the *dirt"},
+            {"text": "If your two feet stand apart across different rings, thousands of volts bridge directly between your legs.", "caps": "Feet on *two rings | complete the *circuit"},
+            {"text": "This lethal phenomenon is known to electrical engineers as step potential.", "caps": "Known as deadly | *step potential"},
+            {"text": "To escape safely, keep both ankles pressed tightly together and shuffle slowly without lifting your feet.", "caps": "Keep *ankles locked | shuffle slowly *away"},
+            {"text": "Never stride or run until you are at least thirty-five feet away from the energized...", "caps": "Stay *thirty-five feet | from live *ground", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The 1986 Lake Nyos limnic eruption: The invisible suffocating cloud",
+          "style": "2d-motion",
+          "title": "The Silent Lake That Suffocated A Valley #shorts",
+          "sources": ["Journal of Volcanology and Geothermal Research, 'The 1986 Lake Nyos Disaster'", "USGS Volcano Hazards Program"],
+          "lines": [
+            {"text": "In 1986, how did a peaceful volcanic lake in Cameroon silence an entire valley overnight?", "caps": "How a quiet *lake | suffocated a *valley?"},
+            {"text": "Deep beneath Lake Nyos, volcanic magma quietly leaked millions of tons of carbon dioxide into cold water.", "caps": "Magma *leaked | tons of *carbon dioxide"},
+            {"text": "Crushing water pressure kept the gas dissolved in deep layers like a sealed giant soda bottle.", "caps": "Pressure *trapped | gas like a *soda bottle"},
+            {"text": "One August night, a minor landslide disturbed the lake, triggering a sudden limnic eruption.", "caps": "A *landslide | uncorked the deep *water"},
+            {"text": "Over one million tons of invisible carbon dioxide erupted skyward and rolled down surrounding hills.", "caps": "Invisible *gas cloud | rolled *downhill"},
+            {"text": "Being heavier than normal air, the odorless blanket displaced all oxygen across fifteen miles.", "caps": "Heavier than *air | displaced *all oxygen"},
+            {"text": "Engineers later installed permanent degassing pipes so the silent lake can never build...", "caps": "Degassing *pipes | prevent a repeat *burst", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Carbon monoxide hypoxia: Why invisible gas triggers zero panic",
+          "style": "2d-motion",
+          "title": "Why Carbon Monoxide Gives Zero Warning Signs #shorts",
+          "sources": ["New England Journal of Medicine, 'Carbon Monoxide Poisoning Mechanisms'", "CDC Environmental Health Tracking"],
+          "lines": [
+            {"text": "Why can carbon monoxide knock a person unconscious without ever making them gasp for air?", "caps": "Why carbon *monoxide | causes zero *gasping?"},
+            {"text": "Your brain's suffocation alarm does not actually detect low oxygen; it detects rising carbon dioxide.", "caps": "Your brain *checks | carbon *dioxide levels"},
+            {"text": "When carbon monoxide enters your lungs, you still exhale carbon dioxide normally, keeping the alarm silent.", "caps": "Brain alarm | stays completely *silent"},
+            {"text": "Meanwhile, carbon monoxide binds to hemoglobin over two hundred times tighter than oxygen.", "caps": "Binds *200 times | tighter than *oxygen"},
+            {"text": "It hijacks red blood cells into carboxyhemoglobin, starving heart and brain cells of fuel.", "caps": "Hijacking *blood | starving vital *organs"},
+            {"text": "Early symptoms mimic mild tiredness or flu, causing victims to lie down instead of stepping outside.", "caps": "Feels like *sleepiness | hiding lethal *danger"},
+            {"text": "That silent biological blind spot is why battery detectors are essential before...", "caps": "A silent *blind spot | before you lose *air", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "The Wet-Bulb limit: Why extreme humidity stops sweat from cooling",
+          "style": "2d-motion",
+          "title": "The Humidity Threshold Where Sweat Fails #shorts",
+          "sources": ["Science Advances, 'The emergence of heat and humidity too severe for human tolerance'", "Penn State Human Performance Laboratory"],
+          "lines": [
+            {"text": "Why can ninety-five degrees in humid air kill faster than one hundred and twenty in dry heat?", "caps": "Why humid *heat | kills faster than *dry?"},
+            {"text": "Humans survive extreme heat through evaporative cooling: sweat absorbs body heat as it turns into vapor.", "caps": "Evaporating *sweat | pulls out *body heat"},
+            {"text": "In dry desert air, sweat evaporates rapidly, keeping your core safely around ninety-eight degrees.", "caps": "Dry air *pulls | moisture off *skin"},
+            {"text": "When humidity climbs toward saturation, the surrounding air has nowhere left to accept water vapor.", "caps": "Saturated *air | blocks all *evaporation"},
+            {"text": "Sweat simply beads on your skin without cooling you, trapping internal metabolic heat inside.", "caps": "Sweat *cannot dry | trapping core *heat"},
+            {"text": "Once wet-bulb temperatures cross ninety-five degrees Fahrenheit, even resting in shade causes fatal hyperthermia.", "caps": "At *95 wet-bulb | shade cannot *save you"},
+            {"text": "A brutal law of thermodynamics showing how air moisture decides survival before...", "caps": "Moisture and *heat | sealing human *limits", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Slot canyon flash floods: Why sunny skies hide deadly walls of water",
+          "style": "2d-motion",
+          "title": "Why Desert Canyons Flood Under Blue Skies #shorts",
+          "sources": ["National Weather Service Flash Flood Safety", "USGS Arid Watershed Hydrology"],
+          "lines": [
+            {"text": "How can hikers drown in a bone-dry desert canyon under completely cloudless blue skies?", "caps": "Drowning in a *canyon | under *blue skies?"},
+            {"text": "Sun-baked desert clay and sandstone act like paved concrete, absorbing almost zero rainwater.", "caps": "Baked *sandstone | repels falling *rain"},
+            {"text": "When a thunderstorm dumps rain twenty miles upstream, billions of gallons funnel into narrow ravines.", "caps": "Distant *storms | funnel into *ravines"},
+            {"text": "With nowhere to spread sideways, the surge turns into a fast-moving wall of mud and boulders.", "caps": "A wall of *mud | races *downhill"},
+            {"text": "Hikers inside tight slot canyons hear only a faint rumble seconds before water fills the walls.", "caps": "A faint *rumble | seconds before *impact"},
+            {"text": "To survive, never try to outrun the flood down the floor; scramble immediately up the steepest ledge.", "caps": "Climb *higher walls | never run *downstream"},
+            {"text": "Checking upstream weather radar twenty miles away is the golden rule before entering...", "caps": "Check *distant skies | before entering *canyons", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "1816 Year Without a Summer: How Mount Tambora froze crops worldwide",
+          "style": "2d-motion",
+          "title": "Why Snow Fell In June Across 1816 #shorts",
+          "sources": ["Smithsonian Global Volcanism Program, 'Tambora 1815'", "Gillen D'Arcy Wood, 'Tambora: The Eruption That Changed the World'"],
+          "lines": [
+            {"text": "Why did snowstorms bury New England crops in the middle of June 1816?", "caps": "Why *snow fell | in *June 1816?"},
+            {"text": "One year earlier, Mount Tambora in Indonesia unleashed the most powerful volcanic eruption in recorded history.", "caps": "Mount *Tambora | shook the *atmosphere"},
+            {"text": "The blast injected sixty million tons of sulfur gas high into the Earth's stratosphere.", "caps": "Sulfur *aerosols | circled the *stratosphere"},
+            {"text": "Upper-altitude winds spread a reflective sulfuric veil around the globe, bouncing sunlight back to space.", "caps": "A *reflective veil | blocked *sunlight"},
+            {"text": "Global temperatures dropped sharply, turning European summers into freezing rain and triggering widespread famine.", "caps": "Summers *froze | ruining global *harvests"},
+            {"text": "Trapped indoors by relentless storms that summer, Mary Shelley wrote Frankenstein.", "caps": "Relentless *storms | inspired *Frankenstein"},
+            {"text": "Proof that a single volcanic eruption can rewrite climate and culture for years before...", "caps": "One *eruption | rewriting global *climate", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Chernobyl Elephant's Foot: The radioactive corium mass that melted steel",
+          "style": "2d-motion",
+          "title": "The Radioactive Mass That Melted Concrete #shorts",
+          "sources": ["International Atomic Energy Agency (IAEA) Chernobyl Technical Report", "Journal of Nuclear Materials, 'Lava-like Fuel-Containing Materials'"],
+          "lines": [
+            {"text": "What is hiding beneath Chernobyl Reactor Four that could kill a person in five minutes?", "caps": "What hides *beneath | Chernobyl *Reactor Four?"},
+            {"text": "During the 1986 meltdown, uranium fuel melted past five thousand degrees and mixed with sand and steel.", "caps": "Melted *uranium | fused with *concrete"},
+            {"text": "The molten lava-like slurry burned downward through concrete floors and cooled into a dark wrinkled lump.", "caps": "Cooled into a | wrinkled *corium lump"},
+            {"text": "Inspectors nicknamed the dense mass the Elephant's Foot.", "caps": "Nicknamed the | *Elephant's Foot"},
+            {"text": "When discovered, its radiation field emitted nearly ten thousand roentgens per hour.", "caps": "Ten thousand *roentgens | every single *hour"},
+            {"text": "Thirty seconds of close exposure caused dizziness; five minutes delivered a fatal dose.", "caps": "Five *minutes | meant certain *death"},
+            {"text": "Even decades later, the solidified core continues releasing heat inside its steel sarcophagus before...", "caps": "Still *radiating heat | beneath *thick steel", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Ancient Roman lead sweetening: How sapa poisoned an empire",
+          "style": "2d-motion",
+          "title": "Why Ancient Roman Wine Damaged Brains #shorts",
+          "sources": ["Journal of Occupational and Environmental Medicine, 'Lead Poisoning in Ancient Rome'", "Proceedings of the National Academy of Sciences (PNAS) Tiber Sediment Study"],
+          "lines": [
+            {"text": "How did ancient Roman aristocrats unknowingly serve sweet lead poison at every banquet?", "caps": "Serving sweet *lead | at every *banquet?"},
+            {"text": "Roman winemakers boiled sour grape juice slowly inside heavy lead kettles to make a syrup called sapa.", "caps": "Grapes *boiled | inside *lead kettles"},
+            {"text": "Acidic grape juice reacted with the metal walls, forming lead acetate, also known as sugar of lead.", "caps": "Acid formed | sweet *sugar of lead"},
+            {"text": "Because it tasted delightfully sweet and killed spoilage bacteria, cooks added it to wine and sauces.", "caps": "Added to *wine | to keep it *sweet"},
+            {"text": "Modern bone analyses show upper-class Romans carried dangerously elevated skeletal lead concentrations.", "caps": "Roman *skeletons | packed with *heavy lead"},
+            {"text": "Chronic exposure eroded memory, harmed fertility, and caused erratic neurological symptoms across generations.", "caps": "Slowly *eroding | minds and *nerves"},
+            {"text": "A cautionary culinary tale showing how pleasant flavors masked silent toxins before...", "caps": "Sweet *flavors | hiding silent *poison", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Deep sea hull implosion: How extreme ocean pressure crushes titanium",
+          "style": "2d-motion",
+          "title": "How Deep Ocean Pressure Crushes Metal Instantly #shorts",
+          "sources": ["Woods Hole Oceanographic Institution Deep Submergence Lab", "Journal of Marine Science and Engineering"],
+          "lines": [
+            {"text": "How fast does extreme deep-ocean pressure collapse a faulty submersible hull?", "caps": "How fast *ocean pressure | crushes a *hull?"},
+            {"text": "Every thirty-three feet underwater adds another full atmosphere of crushing external weight.", "caps": "Every *33 feet | adds one *atmosphere"},
+            {"text": "At twelve thousand feet down, water presses inward at nearly six thousand pounds per square inch.", "caps": "Six thousand *pounds | per square *inch"},
+            {"text": "If a microscopic crack weakens the pressure shell, buckling occurs in less than two milliseconds.", "caps": "Shell *buckles | in two *milliseconds"},
+            {"text": "Rushing seawater acts like an inward piston, compressing interior cabin air adiabatically.", "caps": "Compressing *air | faster than *sound"},
+            {"text": "The collapse finishes faster than human nerve signals can travel from the eyes to the brain.", "caps": "Over faster than | *nerve signals"},
+            {"text": "A stark reminder of the unforgiving physics guarding Earth's abyssal trenches before...", "caps": "Unforgiving *physics | in deep *trenches", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Qin Shi Huang mercury tombs: The deadly immortality elixir of ancient China",
+          "style": "2d-motion",
+          "title": "The Deadly Liquid That Killed China's First Emperor #shorts",
+          "sources": ["Sima Qian, 'Records of the Grand Historian (Shiji)'", "Chinese Academy of Geological Sciences Mercury Anomaly Survey"],
+          "lines": [
+            {"text": "Why did China's first emperor consume toxic liquid mercury in pursuit of eternal life?", "caps": "Drinking *mercury | seeking *eternal life?"},
+            {"text": "After unifying China in 221 BC, Qin Shi Huang grew obsessed with escaping death.", "caps": "Obsessed with | escaping *mortality"},
+            {"text": "Court alchemists brewed cinnabar pills loaded with silvery quicksilver, believing its shine defied decay.", "caps": "Alchemists *brewed | shiny *cinnabar pills"},
+            {"text": "Instead of granting immortality, mercury vapor attacked his kidneys, liver, and central nervous system.", "caps": "Toxic *vapors | attacked his *nerves"},
+            {"text": "At age forty-nine, the emperor collapsed and died on an inspection tour, likely from chronic poisoning.", "caps": "Collapsed at *49 | from *toxic pills"},
+            {"text": "Ancient texts claim his buried tomb contains flowing rivers of liquid mercury, confirmed by modern soil readings.", "caps": "Tomb soil *confirms | hidden *mercury rivers"},
+            {"text": "One of history's sharpest ironies, showing how blind ambition turned medicine into...", "caps": "Blind *ambition | turned to *poison", "gap": 0.25}
+          ]
         }
       ]
     }
