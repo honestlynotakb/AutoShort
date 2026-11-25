@@ -525,5 +525,36 @@
       "1f0f331b0f170e00"
     ],
     "similarity_score": 0.688
+  },
+  {
+    "title": "The Track That Makes Trains Float #shorts",
+    "topic": "Quantum levitation using superconductors and magnetic flux pinning",
+    "theme": "ATOMIC_PHYSICS",
+    "style": "2d-motion",
+    "palette": "editorial_ivory",
+    "duration_sec": 31.74,
+    "lufs": -14.08,
+    "scene_sequence": [
+      "HOOK_ATOMIC_LATTICE",
+      "VECTOR_CALLOUT_ATOMIC_LATTICE",
+      "WAVE_OSCILLATION",
+      "METRIC_COMPARISON",
+      "MECH_ATOMIC_LATTICE",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "9cd39f02a81ea8e9ffbc815b21ce4353d1d6bea4e37af9fffdc94e3f33f31928",
+    "frame_hashes": [
+      "304ae8e4f8909600",
+      "90586848009c8c00",
+      "305ae4e4009c8c00",
+      "9058684800f48400",
+      "a030308800f48400",
+      "b030209420f48400",
+      "a04860c8d09e9600",
+      "a05ae86c90969600",
+      "b05ae8e400d09400",
+      "305ae8a430d09400"
+    ],
+    "similarity_score": 0.589
   }
 ]

@@ -59,6 +59,66 @@
         "index.html": "430775e162ae4f6c4e5d4f792622c89805033fc9547bb60bcf3027aaae3f46dc"
       },
       "recorded_at": "2026-11-25T18:01:14.593270+00:00"
+    },
+    {
+      "run_id": "slot2-20261125223010-3842",
+      "asset_seed": "abe736e9070d0a00",
+      "project_dir_name": "slot2-20261125223010-3842_the-track-that-makes-trains-float",
+      "title": "The Track That Makes Trains Float #shorts",
+      "topic": "Quantum levitation using superconductors and magnetic flux pinning",
+      "theme": "ATOMIC_PHYSICS",
+      "style": "2d-motion",
+      "palette_id": "editorial_ivory",
+      "focal_vector": "ATOMIC_LATTICE",
+      "has_subcuts": true,
+      "scene_sequence": [
+        "HOOK_ATOMIC_LATTICE",
+        "VECTOR_CALLOUT_ATOMIC_LATTICE",
+        "WAVE_OSCILLATION",
+        "METRIC_COMPARISON",
+        "MECH_ATOMIC_LATTICE",
+        "LOOP_OUTRO"
+      ],
+      "background_sequence": [
+        "BLUEPRINT",
+        "WAVEMESH",
+        "STARFIELD",
+        "HEX",
+        "CONTOURS",
+        "RADAR"
+      ],
+      "card_texts": [
+        "QUANTUM LOCKING",
+        "THE TRACK THAT MAKES TRAINS FLOAT",
+        "THE TRACK THAT MAKES",
+        "-180°C CHILL",
+        "-180°C",
+        "LIQUID NITROGEN",
+        "FLUX PINNING",
+        "FIELDS CANNOT PASS WAVE",
+        "PERFECT LEVITATION",
+        "INVISIBLE FORCE",
+        "MID-AIR DEFYING",
+        "LOAD CAPACITY",
+        "THOUSAND TIMES WEIGHT",
+        "QUANTUM FORCES",
+        "FLUX PINNING PHENOMENON"
+      ],
+      "music_config": {
+        "mode": "ambient",
+        "root_hz": 293.7,
+        "bpm": 90,
+        "music_seed": 49059
+      },
+      "shots_sha256": "bb6c97da27c447b57b628158186a884794d18a53bf520c02d9f115d2101b85bf",
+      "file_hashes": {
+        "src/core/kit2d.js": "c61ad29e1063ec369ca99f436311097cfcc0155d4a7d24569e083f92e599cd27",
+        "src/shots.js": "bb6c97da27c447b57b628158186a884794d18a53bf520c02d9f115d2101b85bf",
+        "src/main.js": "4fb3af34bf912887f4de62c65f59fec05d7e25c2ec5f47af8273bca42e123876",
+        "tools/mix.py": "f1b5d315a6e0c9d769c4156015a484754cc5c08963f9c5817c50ab5b87df750f",
+        "index.html": "87ca1580959f26c30e7486d58a1eaa891234d76d6ac8663c41683f9c3de7222d"
+      },
+      "recorded_at": "2026-11-25T22:33:41.092732+00:00"
     }
   ]
 }

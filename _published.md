@@ -36,3 +36,4 @@
 | 2026-11-22 | The Halifax Explosion of 1917: The pre-nuclear tsunami | 2d-motion | The Pre-Nuclear Blast That Shook Canada #shorts | [Manual/Pending Upload] the-pre-nuclear-blast-that-shook-ca.mp4 |
 | 2026-11-25 | What happens if Earth passes through a dark matter halo | 2d-motion | What If Earth Hits Invisible Matter? #shorts | [Manual/Pending Upload] what-if-earth-hits-invisible-matter.mp4 |
 | 2026-11-25 | What happens if Earth crosses a rogue black hole's event horizon invisibly | 2d-motion | What If A Black Hole Hides Near Earth? #shorts | [Zapier Release] what-if-a-black-hole-hides-near-ear.mp4 |
+| 2026-11-25 | Quantum levitation using superconductors and magnetic flux pinning | 2d-motion | The Track That Makes Trains Float #shorts | [Zapier Release] the-track-that-makes-trains-float.mp4 |

@@ -452,6 +452,25 @@
       "status": "published",
       "published_at": "2026-11-25T18:01:14.607441+00:00",
       "youtube_url": "[Zapier Release] what-if-a-black-hole-hides-near-ear.mp4"
+    },
+    "what if a black hole hides near earth": {
+      "topic": "What If A Black Hole Hides Near Earth? #shorts",
+      "title": "What If A Black Hole Hides Near Earth? #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-25",
+      "youtube_url": "[Zapier Release] what-if-a-black-hole-hides-near-ear.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-what if a bl"
+    },
+    "quantum levitation using superconductors and magnetic flux pinning": {
+      "topic": "Quantum levitation using superconductors and magnetic flux pinning",
+      "title": "The Track That Makes Trains Float #shorts",
+      "slot_id": "2",
+      "run_id": "slot2-20261125223010-3842",
+      "status": "published",
+      "published_at": "2026-11-25T22:33:41.102695+00:00",
+      "youtube_url": "[Zapier Release] the-track-that-makes-trains-float.mp4"
     }
   }
 }
