@@ -85,6 +85,8 @@ class ScriptGuard:
 
         historical = self.state_mgr.get_all_historical_scripts()
 
+        clean_candidate_lines = [cl.get("text", "").strip().lower() for cl in lines if cl.get("text", "").strip()]
+
         for prev in historical:
             prev_hash = prev.get("sha256", "")
             prev_text = prev.get("full_text", "")
@@ -104,14 +106,17 @@ class ScriptGuard:
                     {}
                 )
 
-            # 3. Line-by-line similarity check for template recycling
-            prev_lines = [l.strip() for l in prev_text.split(".") if l.strip()]
+            # 3. Line-by-line similarity check with exact mathematical length-ratio early exit
+            prev_lines = [l.strip().lower() for l in prev_text.split(".") if l.strip()]
             reused_lines = 0
-            for cl in lines:
-                ct = cl.get("text", "").strip()
-                for pl in prev_lines:
-                    sim = difflib.SequenceMatcher(None, ct.lower(), pl.lower()).ratio()
-                    if sim >= self.max_line_sim:
+            for ct_l in clean_candidate_lines:
+                lc = len(ct_l)
+                for pl_l in prev_lines:
+                    lp = len(pl_l)
+                    if (2.0 * min(lc, lp) / (lc + lp)) < self.max_line_sim:
+                        continue
+                    sm = difflib.SequenceMatcher(None, ct_l, pl_l)
+                    if sm.quick_ratio() >= self.max_line_sim and sm.ratio() >= self.max_line_sim:
                         reused_lines += 1
                         break
             if reused_lines >= 3:

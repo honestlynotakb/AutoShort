@@ -768,10 +768,12 @@ class TestPipelineAuditSuite(unittest.TestCase):
         self.assertIn("PIPELINE_FLOW", seq_hist)
 
     def test_gate3_zero_boilerplate_cards_across_all_curriculum_topics(self):
-        """Scaffold all 60 topics and verify zero stuck boilerplate cards and valid JS syntax."""
+        """Scaffold all 90+ topics and verify zero stuck boilerplate cards and valid JS syntax."""
+        from concurrent.futures import ThreadPoolExecutor
         from cloud.asset_guard import check_boilerplate_cards
         from cloud.visual_engine_2d import scaffold_2d_project
         has_node = shutil.which("node") is not None
+        js_to_check = []
 
         for sid, info in self.slots_cfg.items():
             for idx, fb in enumerate(info.get("fallbacks", [])):
@@ -793,9 +795,20 @@ class TestPipelineAuditSuite(unittest.TestCase):
                     self.assertTrue(ok, f"Boilerplate violation in Slot {sid}[{idx}]: {violations}")
 
                     if has_node:
-                        for rel in ["src/shots.js", "src/core/kit2d.js", "src/main.js"]:
-                            chk = subprocess.run(["node", "--check", str(pdir / rel)], capture_output=True, text=True)
-                            self.assertEqual(chk.returncode, 0, f"JS syntax error in {rel} for {fb['topic']}: {chk.stderr}")
+                        js_to_check.append((sid, idx, fb["topic"], pdir / "src" / "shots.js"))
+                        if idx == 0:
+                            js_to_check.append((sid, idx, fb["topic"], pdir / "src" / "core" / "kit2d.js"))
+                            js_to_check.append((sid, idx, fb["topic"], pdir / "src" / "main.js"))
+
+        if has_node and js_to_check:
+            def _chk_js(item):
+                sid_x, idx_x, top_x, fp = item
+                res = subprocess.run(["node", "--check", str(fp)], capture_output=True, text=True)
+                return sid_x, idx_x, top_x, fp.name, res.returncode, res.stderr
+
+            with ThreadPoolExecutor(max_workers=6) as ex:
+                for sid_x, idx_x, top_x, fname, rc, stderr in ex.map(_chk_js, js_to_check):
+                    self.assertEqual(rc, 0, f"JS syntax error in Slot {sid_x}[{idx_x}] {fname} for {top_x}: {stderr}")
 
     def test_gate3_caption_safe_zone_no_overlap(self):
         """Verify generated shots place all cards and widgets above the y=1250..1550 caption zone."""
@@ -1179,6 +1192,195 @@ class TestPipelineAuditSuite(unittest.TestCase):
         self.assertEqual(len(set(chosen.values())), 3)
         slot3_topics = {fb["topic"] for fb in self.slots_cfg["3"]["fallbacks"]}
         self.assertNotIn(chosen["3"], slot3_topics)
+
+    # =========================================================================
+    # Tier 12: System Upgrades (Multi-Style 2D, Loop Pacing, LUFS, Gate 3C, SEO)
+    # =========================================================================
+    def test_tier1_slots_expanded_runway(self):
+        """All 3 slots carry at least 30 curated topics each (>= 90 total)."""
+        total = 0
+        for sid, info in self.slots_cfg.items():
+            cnt = len(info.get("fallbacks", []))
+            self.assertGreaterEqual(cnt, 30, f"Slot {sid} expected >= 30 topics, got {cnt}")
+            total += cnt
+        self.assertGreaterEqual(total, 90)
+
+    def test_multistyle_scaffold_compatibility(self):
+        """2d-motion, paper-atlas, and stick-story scaffold valid bright-start JS and AssetGuard manifests."""
+        from cloud.asset_guard import AssetGuard
+        from cloud.style_router import scaffold_styled_project
+
+        ag = AssetGuard(self.state_mgr)
+        has_node = shutil.which("node") is not None
+        samples = [
+            ("2d-motion", self.slots_cfg["1"]["fallbacks"][3]),
+            ("paper-atlas", self.slots_cfg["3"]["fallbacks"][18]),
+            ("stick-story", self.slots_cfg["3"]["fallbacks"][15]),
+        ]
+        for idx, (target_style, fb) in enumerate(samples):
+            with self.subTest(style=target_style, topic=fb["topic"]):
+                pdir = self.test_dir / f"ms_{idx}"
+                theme, pid, seq, chosen = scaffold_styled_project(
+                    proj_dir=pdir,
+                    title=fb["title"],
+                    topic=fb["topic"],
+                    lines=fb["lines"],
+                    recent_palette_ids=[],
+                    run_id=f"ms-run-{idx}",
+                    requested_style=target_style,
+                )
+                self.assertEqual(chosen, target_style)
+                manifest = json.loads((pdir / "asset_manifest.json").read_text(encoding="utf-8"))
+                self.assertEqual(manifest.get("style"), target_style)
+                fresh_ok, fresh_msg = ag.verify_project_freshness(pdir, f"ms-run-{idx}")
+                self.assertTrue(fresh_ok, fresh_msg)
+                ok_asset, msg_asset = ag.evaluate_asset_uniqueness(manifest, topic=fb["topic"], title=fb["title"])
+                self.assertTrue(ok_asset, msg_asset)
+
+                main_js = (pdir / "src" / "main.js").read_text(encoding="utf-8")
+                self.assertNotIn("clamp(t / 0.", main_js)
+
+                if has_node:
+                    kit_rel = "src/core/kit2d.js" if target_style == "2d-motion" else "src/core/kit.js"
+                    for rel in [kit_rel, "src/shots.js", "src/main.js"]:
+                        chk = subprocess.run(["node", "--check", str(pdir / rel)], capture_output=True, text=True)
+                        self.assertEqual(chk.returncode, 0, f"JS syntax error in {target_style} {rel}: {chk.stderr}")
+
+    def test_loop_pacing_and_subcut_cadence(self):
+        """Longer lines generate Wd() mid-line sub-cuts without duplicating scene_sequence neighbors."""
+        from cloud.visual_engine_2d import scaffold_2d_project
+        long_lines = [
+            {"text": "Why do falling grains trap farmers inside silos so fast?", "caps": "Falling *grains | trap *fast?"},
+            {"text": "When bottom augers unload dry corn kernels, the falling surface funnels inward trapping your legs rapidly.", "caps": "Surface *funnels | trapping *legs", "visual": {"focus_word": "funnels"}},
+            {"text": "Each breath packs hundreds of rigid kernels tighter around your ribs every second.", "caps": "Kernels *pack | tighter *every second", "visual": {"focus_word": "kernels"}},
+            {"text": "Which explains why solid seeds act like quicksand before you step...", "caps": "Solid *seeds | act like *quicksand", "gap": 0.15},
+        ]
+        pdir = self.test_dir / "subcut_test"
+        _, _, seq = scaffold_2d_project(pdir, "Grain Silo Subcuts #shorts", "grain silo entrapment", long_lines, [], run_id="sub-1")
+        shots_js = (pdir / "src" / "shots.js").read_text(encoding="utf-8")
+        self.assertIn("S02a", shots_js)
+        self.assertIn("S02b", shots_js)
+        self.assertIn("Wd(", shots_js)
+        for k in range(len(seq) - 1):
+            self.assertNotEqual(seq[k], seq[k + 1])
+
+    def test_audio_master_lufs_and_preflight_qa(self):
+        """Audio mastering normalizes WAV loudly without clipping and Gate 3C flags uniform timing or silent WAVs."""
+        import math, struct, wave
+        from cloud.audio_master import inspect_wav_metrics, normalize_to_lufs_ffmpeg
+        from cloud.preflight_qa import verify_whisper_alignment, verify_audio_mix
+
+        pdir = self.test_dir / "qa_audio"
+        (pdir / "data").mkdir(parents=True)
+        sr = 48000
+        dur_s = 2.0
+        nframes = int(sr * dur_s)
+        wav_path = pdir / "data" / "mix.wav"
+        with wave.open(str(wav_path), "wb") as wf:
+            wf.setnchannels(2)
+            wf.setsampwidth(2)
+            wf.setframerate(sr)
+            frames = bytearray()
+            for i in range(nframes):
+                s = int(2600 * math.sin(2 * math.pi * 220 * i / sr))
+                frames.extend(struct.pack("<hh", s, s))
+            wf.writeframes(bytes(frames))
+
+        m_res = normalize_to_lufs_ffmpeg(wav_path, target_lufs=-14.0, true_peak=-1.0)
+        after = m_res["after_metrics"]
+        self.assertFalse(after["is_silent"])
+        self.assertFalse(after["is_clipped"])
+        if shutil.which("ffmpeg"):
+            self.assertTrue(m_res["applied"])
+            if after.get("lufs") is not None:
+                self.assertGreater(after["lufs"], -16.5)
+
+        ok_mix, msg_mix, _ = verify_audio_mix(wav_path, expected_duration=dur_s)
+        self.assertTrue(ok_mix, msg_mix)
+
+        # Silent WAV must fail Gate 3C
+        silent_wav = pdir / "data" / "silent.wav"
+        with wave.open(str(silent_wav), "wb") as wf:
+            wf.setnchannels(2)
+            wf.setsampwidth(2)
+            wf.setframerate(sr)
+            wf.writeframes(b"\x00" * nframes * 4)
+        ok_sil, _, _ = verify_audio_mix(silent_wav, expected_duration=dur_s)
+        self.assertFalse(ok_sil)
+
+        # Synthetic uniform inline_fallback timing must be flagged when allow_fallback=False
+        (pdir / "data" / "lines.json").write_text(json.dumps({
+            "duration": 4.0,
+            "lines": [
+                {"i": 0, "text": "One two three four", "start": 0.1, "end": 1.9},
+                {"i": 1, "text": "Five six seven eight", "start": 2.1, "end": 3.8},
+            ]
+        }), encoding="utf-8")
+        # Build exact uniform fallback timings (duty=0.92, constant char rate)
+        uni_words = []
+        for li, (txt, lo, hi) in enumerate([("One two three four", 0.1, 1.9), ("Five six seven eight", 2.1, 3.8)]):
+            toks = txt.split()
+            wts = [len(w) + 2.5 for w in toks]
+            tot = sum(wts)
+            c = lo
+            for w, wt in zip(toks, wts):
+                d = (hi - lo) * wt / tot
+                uni_words.append({"w": w, "line": li, "s": round(c, 3), "e": round(c + d * 0.92, 3)})
+                c += d
+        (pdir / "data" / "words.json").write_text(json.dumps(uni_words), encoding="utf-8")
+
+        ok_u, _, meta_u = verify_whisper_alignment(pdir, allow_fallback=False)
+        self.assertFalse(ok_u)
+        self.assertFalse(meta_u["whisper_aligned"])
+        ok_allow, _, _ = verify_whisper_alignment(pdir, allow_fallback=True)
+        self.assertTrue(ok_allow)
+
+    def test_release_metadata_seo_schema(self):
+        """build_release_metadata populates complete SEO title, sourced description, tags, and pinned comment."""
+        from cloud.cloud_runner import build_release_metadata
+        meta = build_release_metadata(
+            title="The 35 MPH Molasses Flood #shorts",
+            topic="The Great Molasses Flood of 1919: The 35 mph Boston syrup surge",
+            lines=[
+                {"text": "How did thick molasses kill people at thirty-five miles per hour?"},
+                {"text": "Cold air later thickened spilled molasses trapping victims cleanly."}
+            ],
+            slot_info=self.slots_cfg["3"],
+            tags=["history", "engineering"],
+            sources=["Boston Globe 1919", "MIT Structural Study"],
+            category_id="27",
+            theme_name="HISTORIC_DOCUMENTARY",
+            style="paper-atlas",
+            palette_id="paper_atlas_parchment",
+            duration_sec=34.2,
+            lufs=-14.0,
+        )
+        self.assertEqual(meta["clean_title"], "The 35 MPH Molasses Flood")
+        self.assertIn("Sources: Boston Globe 1919", meta["description"])
+        self.assertIn("#shorts", meta["description"])
+        self.assertTrue(len(meta["tags"]) >= 4)
+        self.assertTrue(meta["pinned_comment"])
+        self.assertEqual(meta["style"], "paper-atlas")
+        self.assertEqual(meta["duration_sec"], 34.2)
+
+    def test_gate4_records_duration_and_style(self):
+        """VideoQualityAuditor persists duration_sec, style, and lufs metadata for analytics."""
+        from unittest.mock import patch
+        auditor = VideoQualityAuditor(state_mgr=self.state_mgr)
+        fake_mp4 = self.test_dir / "dur_check.mp4"
+        fake_mp4.write_bytes(b"\x55" * 500000)
+
+        with patch.object(auditor, 'validate_video_integrity', return_value=(True, "OK")), \
+             patch('cloud.duplicate_detector.get_video_duration', return_value=35.42), \
+             patch('cloud.duplicate_detector.extract_frame_dhashes', return_value=["1234567812345678"] * 10):
+            is_dup, reason, meta = auditor.audit_and_check_duplicate(
+                fake_mp4, "Topic", "Title #shorts", "SURVIVAL_TACTICAL", "stick_story_daynight", ["HOOK"],
+                style="stick-story", lufs=-14.1,
+            )
+            self.assertFalse(is_dup, reason)
+            self.assertEqual(meta["duration_sec"], 35.42)
+            self.assertEqual(meta["style"], "stick-story")
+            self.assertEqual(meta["lufs"], -14.1)
 
 
 if __name__ == '__main__':

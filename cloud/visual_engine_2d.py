@@ -40,10 +40,13 @@ THEMES: Dict[str, Dict[str, Any]] = {
         "keywords": [
             "black hole", "gravity", "singularity", "outer space", "deep space",
             "in space", "spacesuit", "astronaut", "astronomy", "star", "starquake",
-            "planet", "rogue planet", "orbit", "orbital", "event horizon",
+            "planet", "rogue planet", "exoplanet", "orbit", "orbital", "event horizon",
             "spaghettification", "time dilation", "universe", "magnetar", "pulsar",
-            "nebula", "roche", "moon", "sun", "neptune", "uranus", "galaxy",
-            "milky way", "supernova", "wow! signal", "radio telescope", "armstrong limit"
+            "nebula", "roche", "moon", "lunar", "sun", "solar", "mars", "martian",
+            "venus", "neptune", "uranus", "galaxy", "milky way", "supernova",
+            "wow! signal", "radio telescope", "telescope", "voyager", "satellite",
+            "satellites", "starlink", "darksat", "kessler", "lagrange", "carrington",
+            "armstrong limit", "bootes void", "sagittarius"
         ],
         "palettes": [
             {
@@ -377,16 +380,16 @@ def detect_topic_focal_vector(topic: str, lines: List[Dict]) -> Tuple[str, str, 
             "K.drawBlackHole(540, 620, 150, lt * 1.4, 0.5);"
         )
 
-    # 13. Neutron Star / Magnetar / Boomerang / Wow Signal
-    if has_keyword(text, ["magnetar", "neutron star", "pulsar", "starquake", "magnetic field", "boomerang", "wow! signal", "radio burst"]):
+    # 13. Neutron Star / Magnetar / Boomerang / Wow Signal / Solar Flare
+    if has_keyword(text, ["magnetar", "neutron star", "pulsar", "starquake", "magnetic field", "boomerang", "wow! signal", "radio burst", "carrington", "solar flare"]):
         return (
             "NEUTRON_STAR",
             "K.drawNeutronStar(540, 660, 130, lt, 1.15);",
             "K.drawNeutronStar(540, 620, 110, lt * 1.8, 1.35);"
         )
 
-    # 14. Ocean Rip Currents & Flood Waves
-    if has_keyword(text, ["rip current", "shoreline", "undertow", "swimmer", "swimming", "tsunami", "molasses", "beer flood", "porter"]):
+    # 14. Ocean Rip Currents, Flood Waves & Superhydrophobic Drops
+    if has_keyword(text, ["rip current", "shoreline", "undertow", "swimmer", "swimming", "tsunami", "molasses", "beer flood", "porter", "lotus"]):
         return (
             "HYDRO_FLOW",
             "K.drawHydroFlow(540, 660, 580, 400, lt, 2.5);",
@@ -394,23 +397,23 @@ def detect_topic_focal_vector(topic: str, lines: List[Dict]) -> Tuple[str, str, 
         )
 
     # 15. Navigational Compass / Flags / Ants Navigation
-    if has_keyword(text, ["flag", "nepal", "mozambique", "purple", "dye", "snails", "ant", "desert", "navigate", "navigation", "polarization"]):
+    if has_keyword(text, ["flag", "nepal", "mozambique", "purple", "dye", "snails", "ant", "desert", "navigate", "navigation", "polarization", "dannebrog", "vatican"]):
         return (
             "TELEMETRY_COMPASS",
             "K.drawTelemetryCompass(540, 660, 190, lt * 0.4, lt);",
-            "K.drawFlagEmblem(540, 620, 540, 360, lt);" if has_keyword(text, ["flag", "nepal", "mozambique", "purple"]) else "K.drawTelemetryCompass(540, 620, 170, lt * 0.6, lt);"
+            "K.drawFlagEmblem(540, 620, 540, 360, lt);" if has_keyword(text, ["flag", "nepal", "mozambique", "purple", "dannebrog", "vatican"]) else "K.drawTelemetryCompass(540, 620, 170, lt * 0.6, lt);"
         )
 
     # 16. Submerged Vehicle / Elevator / Pressure Chamber
-    if has_keyword(text, ["car", "elevator", "submerged", "door", "hydrostatic", "byford", "decompression"]):
+    if has_keyword(text, ["car", "elevator", "submerged", "door", "hydrostatic", "byford", "decompression", "faraday", "airliner"]):
         return (
             "SUBMERGED_CABIN",
             "K.drawSubmergedCabin(540, 660, 480, 360, lt, seg(lt, 0, d));",
             "K.drawSubmergedCabin(540, 620, 440, 320, lt, 0.85);"
         )
 
-    # 17. Planetary Orbits / Exoplanets / Roche Limit / Vanished Sun / Moon
-    if has_keyword(text, ["planet", "orbit", "solar system", "roche", "sun", "moon", "great attractor", "milky way", "neptune", "uranus"]):
+    # 17. Planetary Orbits / Satellites / Exoplanets / Roche Limit / Moon / Voyager
+    if has_keyword(text, ["planet", "orbit", "solar system", "roche", "sun", "moon", "lunar", "great attractor", "milky way", "neptune", "uranus", "satellite", "satellites", "starlink", "darksat", "kessler", "lagrange", "venus", "mars", "voyager", "bootes", "55 cancri"]):
         return (
             "PLANETARY_ORBIT",
             "K.drawPlanetaryOrbit(540, 660, 220, lt, 4);",
@@ -418,7 +421,7 @@ def detect_topic_focal_vector(topic: str, lines: List[Dict]) -> Tuple[str, str, 
         )
 
     # 18. Asteroid Shards / Halifax Explosion / Cosmic Dust
-    if has_keyword(text, ["asteroid", "dust", "meteor", "halifax", "explosion", "blast", "kilotons"]):
+    if has_keyword(text, ["asteroid", "dust", "meteor", "halifax", "explosion", "blast", "kilotons", "sagittarius"]):
         return (
             "ASTEROID_FIELD",
             "K.drawAsteroidField(540, 660, 560, 420, lt, 35);",
@@ -426,7 +429,7 @@ def detect_topic_focal_vector(topic: str, lines: List[Dict]) -> Tuple[str, str, 
         )
 
     # 19. Molecular Brownian Simulation (checked BEFORE atomic lattice so "glass beakers" in Superfluid Helium doesn't misroute)
-    if has_keyword(text, ["helium", "superfluid", "nitrogen", "leidenfrost", "mpemba", "aerogel", "temperature", "kelvin", "boil", "gallium", "ferrofluid", "negative kelvin"]):
+    if has_keyword(text, ["helium", "superfluid", "nitrogen", "leidenfrost", "mpemba", "aerogel", "temperature", "kelvin", "boil", "gallium", "ferrofluid", "negative kelvin", "superconductor", "meissner", "nitinol", "casimir", "bitumen", "tardigrade", "gecko"]):
         return (
             "MOLECULAR_SIM",
             "K.drawMolecularSimulation(540, 660, 220, lt, 1.5);",
@@ -434,31 +437,31 @@ def detect_topic_focal_vector(topic: str, lines: List[Dict]) -> Tuple[str, str, 
         )
 
     # 20. Atomic Lattice & Molecular Crystals
-    if has_keyword(text, ["glass", "crystal", "amorphous", "solid", "rupert", "lattice"]):
+    if has_keyword(text, ["glass", "crystal", "amorphous", "solid", "rupert", "lattice", "bismuth", "quartz", "piezoelectric"]):
         return (
             "ATOMIC_LATTICE",
             "K.drawAtomicLattice(540, 660, 500, 460, lt, eio(seg(lt, 0.2, 1.2)));",
             "K.drawAtomicLattice(540, 620, 460, 420, lt, 1.0);"
         )
 
-    # 21. Prism Refraction & Optical Cloaking
-    if has_keyword(text, ["prism", "light", "optic", "cloak", "tape", "triboluminescence", "invisibility", "tunneling"]):
+    # 21. Prism Refraction & Optical Cloaking & Double-Slit
+    if has_keyword(text, ["prism", "light", "optic", "cloak", "tape", "triboluminescence", "invisibility", "tunneling", "double-slit", "electrons"]):
         return (
             "PRISM_REFRACTION",
             "K.drawPrismRefraction(540, 660, 175, lt);",
             "K.drawPrismRefraction(540, 620, 155, lt * 1.2);"
         )
 
-    # 22. Quicksand Vortex / Non-Newtonian Oobleck
-    if has_keyword(text, ["quicksand", "oobleck", "non-newtonian"]):
+    # 22. Quicksand Vortex / Non-Newtonian Oobleck / Chain Fountain
+    if has_keyword(text, ["quicksand", "oobleck", "non-newtonian", "cycloid", "brachistochrone", "chain fountain", "mould effect"]):
         return (
             "QUICKSAND_VORTEX",
             "K.drawQuicksandVortex(540, 660, 225, lt, seg(lt, 0, d));",
             "K.drawQuicksandVortex(540, 620, 205, lt, 0.8);"
         )
 
-    # 23. Acoustic Wave Chamber (Brazen Bull / Mayan Pyramids / Space Silence)
-    if has_keyword(text, ["brazen bull", "acoustic", "pyramid", "mayan", "echo", "sound", "chirp", "silence", "supernova"]):
+    # 23. Acoustic Wave Chamber (Brazen Bull / Mayan Pyramids / Chladni / Flutter)
+    if has_keyword(text, ["brazen bull", "acoustic", "pyramid", "mayan", "echo", "sound", "chirp", "silence", "supernova", "chladni", "flutter", "tacoma"]):
         return (
             "ACOUSTIC_RESONATOR",
             "K.drawAcousticResonator(540, 660, 1.2, lt, 1.0);",
@@ -639,7 +642,7 @@ def _extract_stat_from_line(line_text: str, topic_anchor: str) -> Tuple[str, str
         words = [re.sub(r'[^A-Za-z0-9-]+', '', w) for w in line_text.split()]
         desc = [w for w in words if len(w) >= 4 and w.lower() not in STOP_WORDS and m.group(1).lower() not in w.lower()]
         lbl = _clean_short_phrase(" ".join(desc[:3]) or topic_anchor, 32)
-        return val[:12], lbl
+        return _clean_short_phrase(val, 12), lbl
 
     wm = _WRITTEN_UNIT_RE.search(line_text)
     if wm:
@@ -670,7 +673,7 @@ def _extract_stat_from_line(line_text: str, topic_anchor: str) -> Tuple[str, str
         words = [re.sub(r'[^A-Za-z0-9-]+', '', w) for w in line_text.split()]
         desc = [w for w in words if len(w) >= 4 and w.lower() not in STOP_WORDS and w.lower() not in wm.group(0).lower()]
         lbl = _clean_short_phrase(" ".join(desc[:3]) or topic_anchor, 32)
-        return val[:14], lbl
+        return _clean_short_phrase(val, 14), lbl
 
     # Fallback: crisp 1-2 word focal concept from the line itself (never fake numbers)
     words = [re.sub(r'[^A-Za-z0-9-]+', '', w) for w in line_text.split()]
@@ -821,8 +824,11 @@ def compose_video_visual_plan(
         if i == 0:
             kind = f"HOOK_{vector_name}"
             stat_val, stat_lbl = _extract_stat_from_line(line_text, topic_anchor)
-            card_data = {"hook_callout": _clean_short_phrase(clean_title, 44)}
-            card_texts.extend([pill, card_data["hook_callout"]])
+            hook_sub = _clean_short_phrase(stat_val if any(c.isdigit() for c in stat_val) else topic_anchor, 28)
+            if normalize_card_text(hook_sub) == normalize_card_text(pill):
+                hook_sub = _clean_short_phrase(line_text, 28)
+            card_data = {"hook_callout": _clean_short_phrase(clean_title, 44), "hook_sub": hook_sub}
+            card_texts.extend([pill, card_data["hook_callout"], hook_sub])
         elif i == num_lines - 1:
             kind = "LOOP_OUTRO"
             loop_label = _clean_short_phrase(clean_title, 44)
@@ -923,6 +929,8 @@ def compose_video_visual_plan(
 
         scene_sequence.append(kind)
         sfx = _select_sfx_cue(line_text, kind, i == 0, i == num_lines - 1)
+        sub_bg_mode = bg_pool[(bg_offset + i + 3) % len(bg_pool)]
+        word_count = len(line_text.split())
         shots_spec.append({
             "index": i,
             "kind": kind,
@@ -930,6 +938,9 @@ def compose_video_visual_plan(
             "pill": pill,
             "focus_word": focus_word,
             "bg_mode": bg_mode,
+            "sub_bg_mode": sub_bg_mode,
+            "has_subcut": (0 < i < num_lines - 1) and (word_count >= 11),
+            "word_count": word_count,
             "card_data": card_data,
             "sfx": sfx,
             "cam_zoom": round(0.08 + ((i + seed_int) % 4) * 0.04, 2),
@@ -2027,6 +2038,8 @@ def generate_shots_js_from_plan(plan: Dict[str, Any]) -> Tuple[str, List[str], s
         shot_id = f"S{i+1:02d}"
         kind = sp["kind"]
         bg_mode = json.dumps(sp["bg_mode"])
+        sub_bg_mode = json.dumps(sp.get("sub_bg_mode", sp["bg_mode"]))
+        has_subcut = bool(sp.get("has_subcut", False))
         theme_js = json.dumps(theme)
         pill_js = json.dumps(sp["pill"])
         focus_js = json.dumps(sp["focus_word"])
@@ -2035,6 +2048,51 @@ def generate_shots_js_from_plan(plan: Dict[str, Any]) -> Tuple[str, List[str], s
         cx = sp["cam_x"]
         cy = sp["cam_y"]
         zoom = sp["cam_zoom"]
+        sub_cx = 540 + (26 if cx == 540 else -cx + 540)
+        sub_zoom = round(zoom + 0.03, 2)
+
+        def _wrap_middle_or_subcut(note: str, stage_expr_a: str, stage_expr_b: str, sfx_gain: float = 0.6) -> str:
+            if not has_subcut:
+                return f"""
+  {{ const st = cut({i});
+    const fw = {focus_js};
+    const hit = fw ? Math.max(0.15, Wd(fw, {i}) - st) : 0.3;
+    add({{ id: '{shot_id}', at: st, cam: [{cx}, {cy}], zoom: {zoom}, note: {json.dumps(note)}, draw(lt, d, t) {{
+      K.bgThemeParallax(t, {theme_js}, {i}, {bg_mode});
+      K.drawProgressStrip(t, T.dur);
+      K.drawTopicPill({pill_js}, 540, 195, eob(seg(lt, 0.05, 0.35)));
+      {stage_expr_b}
+    }} }});
+    cue(st, 'whoosh', {{ gain: 0.45 }}); cue(st + hit, {sfx}, {{ gain: {sfx_gain} }}); }}"""
+            beat_b_expr = re.sub(
+                r'lt\s*>\s*hit\s*\?\s*eob\(seg\(lt,\s*hit,\s*hit\s*\+\s*0\.\d+\)\)\s*:\s*eob\(seg\(lt,\s*0\.\d+,\s*0\.\d+\)\)',
+                'eob(seg(lt, 0.04, 0.30))',
+                stage_expr_b,
+            )
+            beat_b_expr = re.sub(
+                r'\(\s*lt\s*>\s*hit\s*\?\s*eob\(seg\(lt,\s*hit,\s*hit\s*\+\s*0\.\d+\)\)\s*:\s*eob\(seg\(lt,\s*0\.\d+,\s*0\.\d+\)\)\s*\)',
+                'eob(seg(lt, 0.04, 0.28))',
+                beat_b_expr,
+            )
+            return f"""
+  {{ const st = cut({i});
+    const fw = {focus_js};
+    const rawSplit = fw ? Wd(fw, {i}) - 0.08 : st + 2.0;
+    const nextSt = ({i} + 1 < T.lines.length) ? cut({i} + 1) : T.dur;
+    const splitAt = (rawSplit > st + 1.4 && rawSplit < nextSt - 1.0) ? rawSplit : (st + (nextSt - st) * 0.52);
+    add({{ id: '{shot_id}a', at: st, cam: [{cx}, {cy}], zoom: {zoom}, note: {json.dumps(note + ' (setup)')}, draw(lt, d, t) {{
+      K.bgThemeParallax(t, {theme_js}, {i}, {bg_mode});
+      K.drawProgressStrip(t, T.dur);
+      K.drawTopicPill({pill_js}, 540, 195, eob(seg(lt, 0.04, 0.32)));
+      {stage_expr_a}
+    }} }});
+    add({{ id: '{shot_id}b', at: splitAt, cam: [{sub_cx}, 710], zoom: {sub_zoom}, note: {json.dumps(note + ' (beat B sub-cut)')}, draw(lt, d, t) {{
+      K.bgThemeParallax(t, {theme_js}, {i + 7}, {sub_bg_mode});
+      K.drawProgressStrip(t, T.dur);
+      K.drawTopicPill({pill_js}, 540, 195, eob(seg(lt, 0.02, 0.24)));
+      {beat_b_expr}
+    }} }});
+    cue(st, 'whoosh', {{ gain: 0.42 }}); cue(splitAt, 'pop', {{ gain: 0.5 }}); cue(splitAt + 0.14, {sfx}, {{ gain: {sfx_gain} }}); }}"""
 
         # Safe vertical budget:
         #   Progress bar: y = 96
@@ -2044,16 +2102,17 @@ def generate_shots_js_from_plan(plan: Dict[str, Any]) -> Tuple[str, List[str], s
         if i == 0:
             hero_call = _vector_draw_call(vector_name, is_hook=True)
             hook_callout = json.dumps(cd["hook_callout"])
+            hook_sub_js = json.dumps(cd.get("hook_sub", sp["pill"]))
             block = f"""
   {{ const st = cut({i});
     const fw = {focus_js};
     const hit = fw ? Math.max(0.15, Wd(fw, {i}) - st) : 0.35;
-    add({{ id: '{shot_id}', at: st, cam: [{cx}, {cy}], zoom: {zoom}, note: 'Hook: bespoke subject illustration + word-synced callout', draw(lt, d, t) {{
+    add({{ id: '{shot_id}', at: st, cam: [{cx}, {cy}], zoom: {zoom}, note: 'Hook: bright frame-0 hero illustration + hook spotlight', draw(lt, d, t) {{
       K.bgThemeParallax(t, {theme_js}, {i}, {bg_mode});
       K.drawProgressStrip(t, T.dur);
-      K.drawTopicPill({pill_js}, 540, 195, eob(seg(lt, 0.05, 0.35)));
+      K.drawTopicPill({pill_js}, 540, 195, 0.88 + 0.12 * eob(seg(lt, 0, 0.24)));
       {hero_call}
-      K.drawStepCard(1, {hook_callout}, 540, 1080, lt > hit ? eob(seg(lt, hit, hit + 0.25)) : eob(seg(lt, 0.12, 0.42)));
+      K.drawBigStat({hook_callout}, {hook_sub_js}, 540, 1050, 0.88 + 0.12 * eob(seg(lt, 0, 0.28)));
     }} }});
     cue(st + hit, {sfx}, {{ gain: 0.6 }}); }}"""
 
@@ -2065,165 +2124,119 @@ def generate_shots_js_from_plan(plan: Dict[str, Any]) -> Tuple[str, List[str], s
   {{ const st = cut({i});
     const fw = {focus_js};
     const hit = fw ? Math.max(0.15, Wd(fw, {i}) - st) : 0.3;
-    add({{ id: '{shot_id}', at: st, cam: [{cx}, {cy}], zoom: {zoom}, note: 'Outro: topic-specific loopback takeaway', draw(lt, d, t) {{
+    add({{ id: '{shot_id}', at: st, cam: [{cx}, {cy}], zoom: {zoom}, note: 'Outro: seamless topic loopback takeaway', draw(lt, d, t) {{
       K.bgThemeParallax(t, {theme_js}, {i}, {bg_mode});
       K.drawProgressStrip(t, T.dur);
-      K.drawTopicPill({pill_js}, 540, 195, eob(seg(lt, 0.05, 0.35)));
+      K.drawTopicPill({pill_js}, 540, 195, eob(seg(lt, 0.04, 0.28)));
       {hero_call}
-      K.drawBigStat({takeaway_js}, {loop_js}, 540, 1040, eob(seg(lt, 0.15, 0.45)));
+      K.drawBigStat({takeaway_js}, {loop_js}, 540, 1040, eob(seg(lt, 0.12, 0.38)));
     }} }});
-    cue(st, 'whoosh'); cue(st + hit, {sfx}, {{ gain: 0.65 }}); }}"""
+    cue(st, 'whoosh', {{ gain: 0.45 }}); cue(st + hit, {sfx}, {{ gain: 0.62 }}); }}"""
 
         elif kind.startswith("MECH_"):
+            mech_call_a = _vector_draw_call(vector_name, is_hook=True)
             mech_call = _vector_draw_call(vector_name, is_hook=False)
             ptr_js = json.dumps(cd["pointer_label"])
-            block = f"""
-  {{ const st = cut({i});
-    const fw = {focus_js};
-    const hit = fw ? Math.max(0.15, Wd(fw, {i}) - st) : 0.3;
-    add({{ id: '{shot_id}', at: st, cam: [{cx}, {cy}], zoom: {zoom}, note: 'Mechanism diagram + word-synced pointer tag', draw(lt, d, t) {{
-      K.bgThemeParallax(t, {theme_js}, {i}, {bg_mode});
-      K.drawProgressStrip(t, T.dur);
-      K.drawTopicPill({pill_js}, 540, 195, eob(seg(lt, 0.05, 0.35)));
-      {mech_call}
-      K.drawPointerTag({ptr_js}, 540, 1060, 540, 820, lt > hit ? eob(seg(lt, hit, hit + 0.25)) : eob(seg(lt, 0.2, 0.5)));
-    }} }});
-    cue(st, 'whoosh'); cue(st + hit, {sfx}, {{ gain: 0.55 }}); }}"""
+            block = _wrap_middle_or_subcut(
+                "Mechanism diagram + word-synced pointer tag",
+                mech_call_a,
+                f"{mech_call}\n      K.drawPointerTag({ptr_js}, 540, 1060, 540, 820, lt > hit ? eob(seg(lt, hit, hit + 0.25)) : eob(seg(lt, 0.15, 0.42)));",
+                sfx_gain=0.55,
+            )
 
         elif kind == "COMPARE_SPLIT":
             la = json.dumps(cd["label_a"])
             ta = json.dumps(cd["title_a"])
             lb = json.dumps(cd["label_b"])
             tb = json.dumps(cd["title_b"])
-            block = f"""
-  {{ const st = cut({i});
-    const fw = {focus_js};
-    const hit = fw ? Math.max(0.15, Wd(fw, {i}) - st) : 0.3;
-    add({{ id: '{shot_id}', at: st, cam: [{cx}, {cy}], zoom: {zoom}, note: 'Full-stage contrast split comparison', draw(lt, d, t) {{
-      K.bgThemeParallax(t, {theme_js}, {i}, {bg_mode});
-      K.drawProgressStrip(t, T.dur);
-      K.drawTopicPill({pill_js}, 540, 195, eob(seg(lt, 0.05, 0.35)));
-      K.drawSplitComparison({la}, {ta}, {lb}, {tb}, 540, 680, lt > hit ? eob(seg(lt, hit, hit + 0.28)) : eob(seg(lt, 0.12, 0.42)));
-      K.drawImpactStamp('x', 320, 420, eob(seg(lt, 0.2, 0.45)) * 0.55);
-      K.drawImpactStamp('check', 760, 420, eob(seg(lt, 0.25, 0.5)) * 0.55);
-    }} }});
-    cue(st, 'whoosh'); cue(st + hit, {sfx}, {{ gain: 0.6 }}); }}"""
+            hero_a = _vector_draw_call(vector_name, is_hook=True)
+            block = _wrap_middle_or_subcut(
+                "Full-stage contrast split comparison",
+                f"{hero_a}\n      K.drawBigStat({ta}, {la}, 540, 1050, eob(seg(lt, 0.08, 0.34)));",
+                f"K.drawSplitComparison({la}, {ta}, {lb}, {tb}, 540, 680, lt > hit ? eob(seg(lt, hit, hit + 0.28)) : eob(seg(lt, 0.10, 0.38)));\n      K.drawImpactStamp('x', 320, 420, eob(seg(lt, 0.14, 0.38)) * 0.55);\n      K.drawImpactStamp('check', 760, 420, eob(seg(lt, 0.18, 0.42)) * 0.55);",
+                sfx_gain=0.6,
+            )
 
         elif kind == "BIG_STAT_METRIC":
             val_js = json.dumps(cd["value"])
             lbl_js = json.dumps(cd["label"])
-            block = f"""
-  {{ const st = cut({i});
-    const fw = {focus_js};
-    const hit = fw ? Math.max(0.15, Wd(fw, {i}) - st) : 0.3;
-    add({{ id: '{shot_id}', at: st, cam: [{cx}, {cy}], zoom: {zoom}, note: 'Hero quantitative stat stage', draw(lt, d, t) {{
-      K.bgThemeParallax(t, {theme_js}, {i}, {bg_mode});
-      K.drawProgressStrip(t, T.dur);
-      K.drawTopicPill({pill_js}, 540, 195, eob(seg(lt, 0.05, 0.35)));
-      K.drawBigStat({val_js}, {lbl_js}, 540, 680, lt > hit ? eob(seg(lt, hit, hit + 0.28)) : eob(seg(lt, 0.12, 0.42)));
-    }} }});
-    cue(st, 'whoosh'); cue(st + hit, {sfx}, {{ gain: 0.6 }}); }}"""
+            hero_a = _vector_draw_call(vector_name, is_hook=True)
+            block = _wrap_middle_or_subcut(
+                "Hero quantitative stat stage",
+                hero_a,
+                f"K.drawBigStat({val_js}, {lbl_js}, 540, 680, lt > hit ? eob(seg(lt, hit, hit + 0.28)) : eob(seg(lt, 0.10, 0.38)));",
+                sfx_gain=0.6,
+            )
 
         elif kind == "WAVE_OSCILLATION":
             wave_js = json.dumps(cd["wave_label"])
-            block = f"""
-  {{ const st = cut({i});
-    const fw = {focus_js};
-    const hit = fw ? Math.max(0.15, Wd(fw, {i}) - st) : 0.3;
-    add({{ id: '{shot_id}', at: st, cam: [{cx}, {cy}], zoom: {zoom}, note: 'Full-stage animated frequency wave', draw(lt, d, t) {{
-      K.bgThemeParallax(t, {theme_js}, {i}, {bg_mode});
-      K.drawProgressStrip(t, T.dur);
-      K.drawTopicPill({pill_js}, 540, 195, eob(seg(lt, 0.05, 0.35)));
-      K.drawWaveform(540, 680, 860, 420, lt, 3.6, {wave_js}, eob(seg(lt, 0.12, 0.42)));
-    }} }});
-    cue(st, 'whoosh'); cue(st + hit, {sfx}, {{ gain: 0.6 }}); }}"""
+            hero_a = _vector_draw_call(vector_name, is_hook=False)
+            block = _wrap_middle_or_subcut(
+                "Full-stage animated frequency wave",
+                hero_a,
+                f"K.drawWaveform(540, 680, 860, 420, lt, 3.6, {wave_js}, eob(seg(lt, 0.10, 0.38)));",
+                sfx_gain=0.6,
+            )
 
         elif kind == "PIPELINE_FLOW":
             stages_js = json.dumps(cd["stages"])
             active_step = cd["active"]
+            mech_a = _vector_draw_call(vector_name, is_hook=True)
             mech_call = _vector_draw_call(vector_name, is_hook=False)
-            block = f"""
-  {{ const st = cut({i});
-    const fw = {focus_js};
-    const hit = fw ? Math.max(0.15, Wd(fw, {i}) - st) : 0.3;
-    add({{ id: '{shot_id}', at: st, cam: [{cx}, {cy}], zoom: {zoom}, note: 'Topic causal progression stage', draw(lt, d, t) {{
-      K.bgThemeParallax(t, {theme_js}, {i}, {bg_mode});
-      K.drawProgressStrip(t, T.dur);
-      K.drawTopicPill({pill_js}, 540, 195, eob(seg(lt, 0.05, 0.35)));
-      ctx.save(); ctx.translate(0, -80); ctx.scale(0.88, 0.88); ctx.translate(72, 0);
-      {mech_call}
-      ctx.restore();
-      K.drawPipelineNodes(540, 990, 740, {active_step}, {stages_js}, lt > hit ? eob(seg(lt, hit, hit + 0.25)) : eob(seg(lt, 0.15, 0.45)));
-    }} }});
-    cue(st, 'whoosh'); cue(st + hit, {sfx}, {{ gain: 0.55 }}); }}"""
+            block = _wrap_middle_or_subcut(
+                "Topic causal progression stage",
+                mech_a,
+                f"ctx.save(); ctx.translate(0, -80); ctx.scale(0.88, 0.88); ctx.translate(72, 0);\n      {mech_call}\n      ctx.restore();\n      K.drawPipelineNodes(540, 990, 740, {active_step}, {stages_js}, lt > hit ? eob(seg(lt, hit, hit + 0.25)) : eob(seg(lt, 0.12, 0.4)));",
+                sfx_gain=0.55,
+            )
 
         elif kind == "METRIC_TELEMETRY":
             val_js = json.dumps(cd["value"])
             lbl_js = json.dumps(cd["label"])
             ratio = cd["ratio"]
-            block = f"""
-  {{ const st = cut({i});
-    const fw = {focus_js};
-    const hit = fw ? Math.max(0.15, Wd(fw, {i}) - st) : 0.3;
-    add({{ id: '{shot_id}', at: st, cam: [{cx}, {cy}], zoom: {zoom}, note: 'Hero fact-backed radial gauge stage', draw(lt, d, t) {{
-      K.bgThemeParallax(t, {theme_js}, {i}, {bg_mode});
-      K.drawProgressStrip(t, T.dur);
-      K.drawTopicPill({pill_js}, 540, 195, eob(seg(lt, 0.05, 0.35)));
-      const prog = eio(seg(lt, 0.1, d * 0.85)) * {ratio};
-      K.drawRadialGauge(540, 670, 220, prog, {lbl_js}, {val_js}, eob(seg(lt, 0.12, 0.42)));
-    }} }});
-    cue(st, 'whoosh'); cue(st + hit, {sfx}, {{ gain: 0.55 }}); }}"""
+            hero_a = _vector_draw_call(vector_name, is_hook=True)
+            block = _wrap_middle_or_subcut(
+                "Hero fact-backed radial gauge stage",
+                hero_a,
+                f"const prog = eio(seg(lt, 0.08, Math.max(0.4, d * 0.85))) * {ratio};\n      K.drawRadialGauge(540, 670, 220, prog, {lbl_js}, {val_js}, eob(seg(lt, 0.10, 0.38)));",
+                sfx_gain=0.55,
+            )
 
         elif kind == "HAZARD_TWIST":
             stamp_js = json.dumps(cd["stamp"])
             banner_js = json.dumps(cd["banner"])
-            block = f"""
-  {{ const st = cut({i});
-    const fw = {focus_js};
-    const hit = fw ? Math.max(0.15, Wd(fw, {i}) - st) : 0.3;
-    add({{ id: '{shot_id}', at: st, cam: [{cx}, {cy}], zoom: {zoom}, note: 'Word-synced impact stamp + bespoke hazard banner stage', draw(lt, d, t) {{
-      K.bgThemeParallax(t, {theme_js}, {i}, {bg_mode});
-      K.drawProgressStrip(t, T.dur);
-      K.drawTopicPill({pill_js}, 540, 195, eob(seg(lt, 0.05, 0.35)));
-      K.drawImpactStamp({stamp_js}, 540, 560, (lt > hit ? eob(seg(lt, hit, hit + 0.22)) : eob(seg(lt, 0.15, 0.4))) * 1.45);
-      K.drawHazardBanner({banner_js}, 540, 920, eob(seg(lt, 0.15, 0.45)));
-    }} }});
-    cue(st, 'whoosh'); cue(st + hit, {sfx}, {{ gain: 0.65 }}); }}"""
+            hero_a = _vector_draw_call(vector_name, is_hook=False)
+            block = _wrap_middle_or_subcut(
+                "Word-synced impact stamp + bespoke hazard banner stage",
+                hero_a,
+                f"K.drawImpactStamp({stamp_js}, 540, 560, (lt > hit ? eob(seg(lt, hit, hit + 0.22)) : eob(seg(lt, 0.12, 0.36))) * 1.45);\n      K.drawHazardBanner({banner_js}, 540, 920, eob(seg(lt, 0.12, 0.4)));",
+                sfx_gain=0.65,
+            )
 
         elif kind.startswith("VECTOR_CALLOUT_"):
             ptr_js = json.dumps(cd["pointer_label"])
             sub_js = json.dumps(cd["sub_label"])
+            mech_a = _vector_draw_call(vector_name, is_hook=False)
             mech_call = _vector_draw_call(vector_name, is_hook=True)
-            block = f"""
-  {{ const st = cut({i});
-    const fw = {focus_js};
-    const hit = fw ? Math.max(0.15, Wd(fw, {i}) - st) : 0.3;
-    add({{ id: '{shot_id}', at: st, cam: [{cx}, {cy}], zoom: {zoom}, note: 'Annotated vector detail callout', draw(lt, d, t) {{
-      K.bgThemeParallax(t, {theme_js}, {i}, {bg_mode});
-      K.drawProgressStrip(t, T.dur);
-      K.drawTopicPill({pill_js}, 540, 195, eob(seg(lt, 0.05, 0.35)));
-      {mech_call}
-      K.drawBigStat({ptr_js}, {sub_js}, 540, 1050, lt > hit ? eob(seg(lt, hit, hit + 0.25)) : eob(seg(lt, 0.15, 0.45)));
-    }} }});
-    cue(st, 'whoosh'); cue(st + hit, {sfx}, {{ gain: 0.55 }}); }}"""
+            block = _wrap_middle_or_subcut(
+                "Annotated vector detail callout",
+                mech_a,
+                f"{mech_call}\n      K.drawBigStat({ptr_js}, {sub_js}, 540, 1050, lt > hit ? eob(seg(lt, hit, hit + 0.25)) : eob(seg(lt, 0.12, 0.42)));",
+                sfx_gain=0.55,
+            )
 
         else:  # METRIC_COMPARISON
             left_js = json.dumps(cd["left"])
             right_js = json.dumps(cd["right"])
             ratio = cd["ratio"]
+            mech_a = _vector_draw_call(vector_name, is_hook=True)
             mech_call = _vector_draw_call(vector_name, is_hook=False)
-            block = f"""
-  {{ const st = cut({i});
-    const fw = {focus_js};
-    const hit = fw ? Math.max(0.15, Wd(fw, {i}) - st) : 0.3;
-    add({{ id: '{shot_id}', at: st, cam: [{cx}, {cy}], zoom: {zoom}, note: 'Dynamic comparison bar + subject scene', draw(lt, d, t) {{
-      K.bgThemeParallax(t, {theme_js}, {i}, {bg_mode});
-      K.drawProgressStrip(t, T.dur);
-      K.drawTopicPill({pill_js}, 540, 195, eob(seg(lt, 0.05, 0.35)));
-      {mech_call}
-      K.drawComparisonBar(540, 1040, 820, 74, {ratio}, {left_js}, {right_js}, eob(seg(lt, 0.15, 0.45)));
-    }} }});
-    cue(st, 'whoosh'); cue(st + hit, {sfx}, {{ gain: 0.6 }}); }}"""
+            block = _wrap_middle_or_subcut(
+                "Dynamic comparison bar + subject scene",
+                mech_a,
+                f"{mech_call}\n      K.drawComparisonBar(540, 1040, 820, 74, {ratio}, {left_js}, {right_js}, eob(seg(lt, 0.12, 0.4)));",
+                sfx_gain=0.6,
+            )
 
         shot_blocks.append(block)
 
@@ -2415,7 +2428,9 @@ def music_bed():
             pt = tt(0.5); pl = (np.sin(2 * np.pi * f * pt) + 0.35 * np.sin(4 * np.pi * f * pt)) * env(pn, 0.003, 7) * 0.12
             x[ps:ps + pn] += pl
     x = lp(x, 3000)
-    fade = np.ones(N); fo = int(1.2 * SR); fade[-fo:] = np.linspace(1, 0, fo)
+    fade = np.ones(N); fi = min(N, int(0.12 * SR)); fo = min(N, int(0.20 * SR))
+    if fi > 0: fade[:fi] *= np.linspace(0.35, 1, fi)
+    if fo > 0: fade[-fo:] *= np.linspace(1, 0.25, fo)
     return x / (np.abs(x).max() + 1e-9) * fade
 
 
@@ -2430,7 +2445,10 @@ def music_tension():
     for k in range(int(DUR / (beat * 2))):
         i = int(k * beat * 2 * SR); pg = ping(seq[(k // 2) % 4]) * 0.32
         if i + len(pg) < N: x[i:i + len(pg)] += pg
-    x = lp(x, 2200); fade = np.ones(N); fo = int(1.5 * SR); fade[-fo:] = np.linspace(1, 0, fo); fi = int(0.8 * SR); fade[:fi] *= np.linspace(0, 1, fi)
+    x = lp(x, 2200)
+    fade = np.ones(N); fi = min(N, int(0.12 * SR)); fo = min(N, int(0.22 * SR))
+    if fi > 0: fade[:fi] *= np.linspace(0.35, 1, fi)
+    if fo > 0: fade[-fo:] *= np.linspace(1, 0.25, fo)
     return x / (np.abs(x).max() + 1e-9) * fade
 
 
@@ -2440,7 +2458,9 @@ def music_ambient():
     for mul, g in [(1.0, 0.45), (1.498, 0.32), (2.0, 0.22), (2.245, 0.14)]:
         x += np.sin(2 * np.pi * base * mul * t + np.sin(t * 0.22 + mul) * 0.3) * g
     x = lp(x, 2400)
-    fade = np.ones(N); fo = int(1.4 * SR); fade[-fo:] = np.linspace(1, 0, fo); fi = int(0.7 * SR); fade[:fi] *= np.linspace(0, 1, fi)
+    fade = np.ones(N); fi = min(N, int(0.12 * SR)); fo = min(N, int(0.22 * SR))
+    if fi > 0: fade[:fi] *= np.linspace(0.35, 1, fi)
+    if fo > 0: fade[-fo:] *= np.linspace(1, 0.25, fo)
     return x / (np.abs(x).max() + 1e-9) * fade
 
 
@@ -2583,9 +2603,7 @@ function draw(t) {{
   sh.draw(lt, d, t);
   ctx.restore();
   ctx.globalAlpha = 1; ctx.letterSpacing = '0px';
-  if (i > 0 && lt < 0.12) {{ ctx.fillStyle = '#FFFFFF'; ctx.globalAlpha = 0.5 * (1 - lt / 0.12); ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }}
-  const fade = Math.min(clamp(t / 0.22), clamp((T.dur - t) / 0.30));
-  if (fade < 1) {{ ctx.fillStyle = '#000'; ctx.globalAlpha = 1 - fade; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }}
+  if (i > 0 && lt < 0.09) {{ ctx.fillStyle = '#FFFFFF'; ctx.globalAlpha = 0.35 * (1 - lt / 0.09); ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }}
   drawCaption(t);
 }}
 
@@ -2648,8 +2666,10 @@ body.capture canvas {{ height: auto; width: auto; }}
         "title": title,
         "topic": topic,
         "theme": theme_name,
+        "style": "2d-motion",
         "palette_id": palette["id"],
         "focal_vector": focal_vector,
+        "has_subcuts": any(sp.get("has_subcut") for sp in plan.get("shots", [])),
         "scene_sequence": scene_sequence,
         "background_sequence": plan["background_sequence"],
         "card_texts": plan["card_texts"],

@@ -216,7 +216,9 @@ class VideoQualityAuditor:
         theme: str,
         palette: str,
         scene_sequence: List[str],
-        max_similarity_threshold: Optional[float] = None
+        max_similarity_threshold: Optional[float] = None,
+        style: str = "2d-motion",
+        lufs: Optional[float] = None,
     ) -> Tuple[bool, str, Dict[str, Any]]:
         """Evaluates whether candidate video is a visual or structural duplicate across all history.
 
@@ -236,7 +238,8 @@ class VideoQualityAuditor:
             if entry.get("file_hash") == file_hash:
                 return True, f"Exact file duplicate detected (matches previously generated {entry.get('title')})", {}
 
-        # 4. Extract 10 perceptual frame hashes
+        # 4. Extract video duration and 10 perceptual frame hashes
+        duration_sec = round(get_video_duration(video_path), 2)
         frame_hashes = extract_frame_dhashes(video_path, num_frames=10)
 
         # 5. Check structural sequence against immediate predecessor
@@ -284,7 +287,10 @@ class VideoQualityAuditor:
             "title": title,
             "topic": topic,
             "theme": theme,
+            "style": style,
             "palette": palette,
+            "duration_sec": duration_sec if duration_sec > 0 else None,
+            "lufs": lufs,
             "scene_sequence": scene_sequence,
             "file_hash": file_hash,
             "frame_hashes": frame_hashes,

@@ -236,6 +236,231 @@
             {"text": "Despite decades of searching the same coordinates, no radio telescope has ever detected it again.", "caps": "Decades of *searches | found *nothing"},
             {"text": "A lonely cosmic whisper across the stars, making humanity wonder if anyone is...", "caps": "A cosmic *whisper | across the *stars", "gap": 0.25}
           ]
+        },
+        {
+          "topic": "Why Denmark owns the oldest continuously used national flag",
+          "style": "2d-motion",
+          "title": "The 800-Year-Old Flag Still Flying Today #shorts",
+          "music_mood": "ambient",
+          "sources": ["Danmarks-Samfundet Historical Archives", "Guinness World Records, 'Oldest Continuously Used National Flag'"],
+          "lines": [
+            {"text": "Why does Denmark fly the oldest continuously used national flag on Earth?", "caps": "The *oldest flag | still *flying today?", "visual": {"pill": "1219 DANNEBROG", "focus_word": "oldest"}},
+            {"text": "Called the Dannebrog, this red banner with a white cross has served continuously since 1219.", "caps": "Continuously used | since *1219", "visual": {"pill": "800 YEARS OLD", "focus_word": "1219", "card_data": {"value": "1219 AD", "label": "EARLIEST FLAG RECORD"}}},
+            {"text": "Chroniclers recorded it inspiring troops during a stormy medieval battle in Northern Estonia.", "caps": "Raised during | a *medieval battle", "visual": {"pill": "ESTONIA CAMPAIGN", "focus_word": "battle"}},
+            {"text": "Its simple white Nordic cross later became the blueprint copied across Scandinavia.", "caps": "Copied across | every *Nordic neighbor", "visual": {"pill": "NORDIC BLUEPRINT", "focus_word": "blueprint", "card_data": {"value": "5 NATIONS", "label": "NORDIC CROSS DESIGN"}}},
+            {"text": "While empires dissolved and borders redrew completely, Denmark never retired its original emblem.", "caps": "Empires fell | yet the *flag stayed", "visual": {"pill": "UNBROKEN LINEAGE", "focus_word": "emblem"}},
+            {"text": "Making one crimson rectangle the longest surviving national symbol before you ask...", "caps": "Longest surviving | *national symbol", "gap": 0.15, "visual": {"pill": "800-YEAR EMBLEM", "focus_word": "symbol", "card_data": {"takeaway": "OLDEST NATIONAL FLAG"}}}
+          ]
+        },
+        {
+          "topic": "DarkSat satellites: Why SpaceX painted Starlink mirrors ultra black",
+          "style": "2d-motion",
+          "title": "Why Satellites Are Painted Ultra Black #shorts",
+          "music_mood": "ambient",
+          "sources": ["American Astronomical Society, 'SATCON1 Working Group Report'", "SpaceX Astronomy Brightness Mitigation Statement"],
+          "lines": [
+            {"text": "Why did engineers start painting orbiting internet satellites matte black?", "caps": "Why paint *satellites | matte *black?", "visual": {"pill": "ORBITAL GLARE", "focus_word": "satellites"}},
+            {"text": "Low-Earth satellites carry flat phased-array antennas that reflect blinding sunlight straight back toward ground observatories.", "caps": "Flat antennas reflect | *blinding sunlight", "visual": {"pill": "SUNLIGHT BOUNCE", "focus_word": "sunlight", "card_data": {"value": "MAG 4.6", "label": "NAKED-EYE GLARE"}}},
+            {"text": "Even one bright satellite streak can ruin a multi-hour deep-sky telescope exposure.", "caps": "One streak *ruins | hours of *science", "visual": {"pill": "RUINED EXPOSURES", "focus_word": "ruin"}},
+            {"text": "To cut reflected brightness by fifty-five percent, engineers coated mirror surfaces in DarkSat black paint and visors.", "caps": "Cut glare by | *55 percent", "visual": {"pill": "DARKSAT COATING", "focus_word": "percent", "card_data": {"value": "55% DIMMER", "label": "OPTICAL REDUCTION"}}},
+            {"text": "Dark surfaces absorb more solar radiation, forcing thermal engineers to redesign cooling radiators.", "caps": "Absorbed *heat | forced *cooling upgrades", "visual": {"pill": "THERMAL TRADEOFF", "focus_word": "heat"}},
+            {"text": "A delicate balance between global internet speed and clean night skies before we ask...", "caps": "Clean *night skies | versus *orbiters", "gap": 0.15, "visual": {"pill": "DARK SKY SHIELD", "focus_word": "skies", "card_data": {"takeaway": "ANTI-GLARE SATELLITES"}}}
+          ]
+        },
+        {
+          "topic": "Lunar crust asymmetry: Why one face of Earth satellite lacks flat plains",
+          "style": "2d-motion",
+          "title": "Why The Moon Has Two Different Faces #shorts",
+          "music_mood": "tension",
+          "sources": ["NASA GRAIL Gravity Recovery Mission", "Science Advances, 'Procellarum KREEP Terrane Asymmetry'"],
+          "lines": [
+            {"text": "Why does the far side of the Moon look completely alien compared to the side facing Earth?", "caps": "Why two *halves | look completely *different?", "visual": {"pill": "LUNAR ASYMMETRY", "focus_word": "alien"}},
+            {"text": "The near side shows vast dark basalt plains called maria, while the far side is rugged highland crust.", "caps": "Smooth *dark plains | vs thick *crust", "visual": {"pill": "TWO CRUSTS", "focus_word": "highland", "card_data": {"label_a": "NEAR SIDE", "title_a": "THIN BASALT PLAINS", "label_b": "FAR SIDE", "title_b": "50 KM CRUST"}}},
+            {"text": "Early on, radioactive heat stayed trapped near the hot glow of molten Earth, thinning near-side rock.", "caps": "Earth's *heat | thinned near-side *rock", "visual": {"pill": "TIDAL HEATING", "focus_word": "heat"}},
+            {"text": "Meanwhile, cooling magma on the shadowed far side solidified into an extra twenty kilometers of thick armor.", "caps": "Shadowed crust froze | *extra thick", "visual": {"pill": "TWICE AS THICK", "focus_word": "thick", "card_data": {"value": "+20 KM", "label": "FAR-SIDE CRUST"}}},
+            {"text": "When ancient asteroids slammed into both sides, lava could only punch upward through the thinner Earth-facing shell.", "caps": "Lava only *erupted | on the *near side", "visual": {"pill": "MAGMA BREAKTHROUGH", "focus_word": "lava"}},
+            {"text": "Leaving the night sky permanently stamped with a lopsided crater face before we wonder...", "caps": "Stamped forever | in *two faces", "gap": 0.15, "visual": {"pill": "LOPSIDED CRUST", "focus_word": "faces", "card_data": {"takeaway": "THIN NEAR-SIDE CRUST"}}}
+          ]
+        },
+        {
+          "topic": "Carrington Event 1859: When geomagnetic currents ignited telegraph stations",
+          "style": "2d-motion",
+          "title": "The Solar Storm That Ignited Telegraphs #shorts",
+          "music_mood": "tension",
+          "sources": ["Royal Astronomical Society 1859 Report", "NOAA Space Weather Prediction Center"],
+          "lines": [
+            {"text": "Could a single solar eruption ignite electrical wires across entire continents?", "caps": "Can the *Sun | ignite ground *wires?", "visual": {"pill": "CARRINGTON 1859", "focus_word": "ignite"}},
+            {"text": "On September first, 1859, Richard Carrington sketched a blinding white flare erupting across sunspots.", "caps": "Blinding *flare | spotted in *1859", "visual": {"pill": "SOLAR FLARE 1859", "focus_word": "flare", "card_data": {"value": "17 HOURS", "label": "SUN TO EARTH"}}},
+            {"text": "Just seventeen hours later, charged plasma slammed into Earth's magnetic shield.", "caps": "Plasma slammed | *Earth's shield", "visual": {"pill": "17-HOUR STRIKE", "focus_word": "plasma"}},
+            {"text": "Auroras burned bright enough over Havana and Hawaii for locals to read newspapers after midnight.", "caps": "Midnight *auroras | lit *Hawaii", "visual": {"pill": "TROPICAL AURORA", "focus_word": "midnight"}},
+            {"text": "Operators disconnected telegraph batteries, yet geomagnetically induced currents still sent messages and sparked paper fires.", "caps": "Wires sparked | *without batteries", "visual": {"pill": "ZERO BATTERY", "focus_word": "batteries", "card_data": {"value": "0 VOLTS IN", "label": "GEOMAGNETIC CURRENT"}}},
+            {"text": "Warning modern power grids how violently solar weather hits before we ask...", "caps": "Warning modern | *power grids", "gap": 0.15, "visual": {"pill": "SOLAR EMP THREAT", "focus_word": "grids", "card_data": {"takeaway": "1859 SOLAR SUPERSTORM"}}}
+          ]
+        },
+        {
+          "topic": "Microgravity spinal expansion: Why astronauts grow taller in orbit",
+          "style": "2d-motion",
+          "title": "Why Astronauts Grow Two Inches In Space #shorts",
+          "music_mood": "bed",
+          "sources": ["NASA Human Research Program, 'Spinal Elongation in Microgravity'", "Journal of Orthopaedic Research"],
+          "lines": [
+            {"text": "Why do astronauts suddenly measure up to two inches taller after reaching orbit?", "caps": "Why grow *two inches | in *orbit?", "visual": {"pill": "ORBITAL GROWTH", "focus_word": "taller"}},
+            {"text": "On Earth, constant downward gravity squeezes twenty-three spongy spinal discs all day long.", "caps": "Earth gravity | *compresses discs", "visual": {"pill": "23 SPINAL DISCS", "focus_word": "squeezes", "card_data": {"value": "23 DISCS", "label": "EARTH COMPRESSION"}}},
+            {"text": "In microgravity free fall, that vertical load drops immediately to zero.", "caps": "Free fall drops | load to *zero", "visual": {"pill": "ZERO LOAD", "focus_word": "zero"}},
+            {"text": "Without gravity pressing down, soft cartilage absorbs fluid and expands along the entire spine.", "caps": "Cartilage absorbs *fluid | and *expands", "visual": {"pill": "+3% LENGTH", "focus_word": "expands", "card_data": {"value": "+5 CM", "label": "SPINAL EXPANSION"}}},
+            {"text": "Crew members even outgrow custom launch suits slightly until returning back under atmospheric weight.", "caps": "Outgrowing *launch suits | in *weeks", "visual": {"pill": "SUIT STRETCH", "focus_word": "suits"}},
+            {"text": "Gravity quietly shrinking every human down on Earth before you realize...", "caps": "Gravity shrinking *us | every *day", "gap": 0.15, "visual": {"pill": "SPINAL REBOUND", "focus_word": "gravity", "card_data": {"takeaway": "UNLOADED SPINE EXPANDS"}}}
+          ]
+        },
+        {
+          "topic": "Square national flags: Why Switzerland and Vatican City stand alone",
+          "style": "2d-motion",
+          "title": "Why Two Nations Keep Square Flags #shorts",
+          "music_mood": "bed",
+          "sources": ["Swiss Federal Flag Act (SR 232.21)", "Holy See Flag Specification"],
+          "lines": [
+            {"text": "Why do Switzerland and Vatican City refuse to fly wide rectangular flags?", "caps": "Why keep | *square banners?", "visual": {"pill": "TWO SQUARE FLAGS", "focus_word": "square"}},
+            {"text": "Nearly two hundred sovereign states fly elongated rectangles designed to ripple clearly on naval masts.", "caps": "Naval rectangles | built to *ripple", "visual": {"pill": "191 RECTANGLES", "focus_word": "naval", "card_data": {"label_a": "MOST NATIONS", "title_a": "2:3 RECTANGLE", "label_b": "SWISS / VATICAN", "title_b": "1:1 SQUARE"}}},
+            {"text": "Switzerland preserved the medieval square war heraldry stitched for Alpine cantonal infantry in 1339.", "caps": "Medieval *Alpine heraldry | from *1339", "visual": {"pill": "CANTON HERALDRY", "focus_word": "medieval"}},
+            {"text": "When federal law codified the white cross in 1889, parliament locked its exact 1:1 ratio.", "caps": "Parliament locked | exact *1:1 ratio", "visual": {"pill": "1:1 RATIO LAW", "focus_word": "ratio", "card_data": {"value": "1 : 1", "label": "EXACT SQUARE RATIO"}}},
+            {"text": "Similarly, the Vatican adapted square Papal State guardsman banners into modern yellow and white cloth.", "caps": "Papal *guardsman banners | in *gold and white", "visual": {"pill": "PAPAL HERITAGE", "focus_word": "banners"}},
+            {"text": "Only maritime merchant Swiss vessels switch temporarily to rectangles at sea before...", "caps": "Only ships switch | at *open sea", "gap": 0.15, "visual": {"pill": "SQUARE TRADITION", "focus_word": "sea", "card_data": {"takeaway": "HISTORIC WAR HERALDRY"}}}
+          ]
+        },
+        {
+          "topic": "Sagittarius B2: Why cosmic chemistry tastes like raspberries and rum",
+          "style": "2d-motion",
+          "title": "The Space Cloud That Smells Like Raspberries #shorts",
+          "music_mood": "ambient",
+          "sources": ["Max Planck Institute for Radio Astronomy", "Astronomy & Astrophysics, 'Detection of Ethyl Formate in Sgr B2'"],
+          "lines": [
+            {"text": "How does a dust cloud near our galaxy's core produce the flavor molecule of raspberries?", "caps": "A cosmic *cloud | tasting like *fruit?", "visual": {"pill": "SAGITTARIUS B2", "focus_word": "raspberries"}},
+            {"text": "Using Spanish radio telescopes, astronomers scanned Sagittarius B2 twenty-six thousand light years away.", "caps": "Scanned *26,000 | light years *away", "visual": {"pill": "RADIO SPECTRUM", "focus_word": "scanned", "card_data": {"value": "26,000 LY", "label": "GALACTIC CORE CLOUD"}}},
+            {"text": "Inside dense freezing ice grains, carbon, hydrogen, and oxygen atoms collide under starlight.", "caps": "Frozen *ice grains | fuse *molecules", "visual": {"pill": "INTERSTELLAR LAB", "focus_word": "collide"}},
+            {"text": "Radio signatures revealed vast reservoirs of ethyl formate, the exact ester scenting fresh raspberries and rum.", "caps": "Exact *ethyl formate | ester *molecule", "visual": {"pill": "ETHYL FORMATE", "focus_word": "formate", "card_data": {"value": "C3H6O2", "label": "RASPBERRY ESTER"}}},
+            {"text": "Wait before grabbing a helmet: toxic cyanide and methanol molecules swirl alongside it across three million solar masses.", "caps": "Mixed with *cyanide | and *methanol", "visual": {"pill": "TOXIC MIXTURE", "focus_word": "cyanide"}},
+            {"text": "Proving complex organic flavor chemistry brews naturally between stars before...", "caps": "Organic *chemistry | between *stars", "gap": 0.15, "visual": {"pill": "COSMIC CHEMISTRY", "focus_word": "chemistry", "card_data": {"takeaway": "ETHYL FORMATE IN SPACE"}}}
+          ]
+        },
+        {
+          "topic": "Kessler Syndrome: How orbital debris cascades could trap rockets",
+          "style": "2d-motion",
+          "title": "How Space Junk Could Trap Us On Earth #shorts",
+          "music_mood": "tension",
+          "sources": ["Donald J. Kessler (1978), Journal of Geophysical Research", "ESA Space Debris Office"],
+          "lines": [
+            {"text": "Could a single orbital crash seal off Earth behind an impenetrable cloud of shrapnel?", "caps": "Can space *junk | trap us on *Earth?", "visual": {"pill": "KESSLER CASCADE", "focus_word": "shrapnel"}},
+            {"text": "Satellites circle low orbit at seventeen thousand miles per hour, ten times rifle-bullet velocity.", "caps": "Ten times faster | than a *bullet", "visual": {"pill": "17,000 MPH", "focus_word": "velocity", "card_data": {"value": "17,000 MPH", "label": "ORBITAL IMPACT SPEED"}}},
+            {"text": "At that speed, a stray paint fleck packs the kinetic punch of a cannonball.", "caps": "A paint *fleck | hits like *artillery", "visual": {"pill": "HYPERVELOCITY", "focus_word": "fleck"}},
+            {"text": "If one collision shatters two craft into thousands of bolts, each shard triggers more impacts automatically.", "caps": "Every *shard triggers | cascading *impacts", "visual": {"pill": "CHAIN REACTION", "focus_word": "impacts", "card_data": {"value": "40,000+ PCS", "label": "TRACKED DEBRIS"}}},
+            {"text": "Over decades, that runaway chain reaction known as Kessler Syndrome turns low orbit into a blender.", "caps": "Turning *low orbit | into a *blender", "visual": {"pill": "RUNAWAY BELT", "focus_word": "Kessler"}},
+            {"text": "Halting GPS weather satellites and rocket launches alike until skies clear before...", "caps": "Locking *launches | behind *debris", "gap": 0.15, "visual": {"pill": "ORBITAL LOCKDOWN", "focus_word": "launches", "card_data": {"takeaway": "ORBITAL COLLISION CASCADE"}}}
+          ]
+        },
+        {
+          "topic": "Venus retrograde rotation: Why its spin day outlasts its solar year",
+          "style": "2d-motion",
+          "title": "The Planet Whose Day Beats Its Year #shorts",
+          "music_mood": "ambient",
+          "sources": ["NASA Venus Exploration Fact Sheet", "Nature Astronomy, 'Venus Atmospheric Super-Rotation'"],
+          "lines": [
+            {"text": "How can one single day on Venus last longer than an entire Venusian year?", "caps": "A single *day | longer than its *year?", "visual": {"pill": "VENUS BACKWARD SPIN", "focus_word": "day"}},
+            {"text": "While Earth spins once every twenty-four hours, Venus rotates backward at glacial speed.", "caps": "Venus rotates | *completely backward", "visual": {"pill": "RETROGRADE SPIN", "focus_word": "backward", "card_data": {"label_a": "SOLAR ORBIT", "title_a": "225 EARTH DAYS", "label_b": "ONE SPIN", "title_b": "243 EARTH DAYS"}}},
+            {"text": "Its rocky surface takes two hundred forty-three Earth days to complete just one axial turn.", "caps": "Two hundred forty-three | days per *turn", "visual": {"pill": "243-DAY TURN", "focus_word": "turn"}},
+            {"text": "Meanwhile, Venus loops quickly around the Sun every two hundred twenty-five Earth days.", "caps": "Completing orbit | in *225 days", "visual": {"pill": "225-DAY YEAR", "focus_word": "orbit", "card_data": {"value": "243 > 225", "label": "DAY EXCEEDS YEAR"}}},
+            {"text": "Astronomers suspect giant ancient impacts and dense atmospheric tides slowed and flipped its original spin.", "caps": "Giant impacts | *flipped its spin", "visual": {"pill": "TIDAL TORQUE", "focus_word": "impacts"}},
+            {"text": "Causing its bright Sun to crawl slowly backward from west to east before...", "caps": "Rising in the *west | creeping *east", "gap": 0.15, "visual": {"pill": "WEST SUNRISE", "focus_word": "west", "card_data": {"takeaway": "RETROGRADE VENUS SPIN"}}}
+          ]
+        },
+        {
+          "topic": "Voyager Golden Record map: Decoding Earth coordinates via pulsar beats",
+          "style": "2d-motion",
+          "title": "The Cosmic Map Aboard Voyager Spacecraft #shorts",
+          "music_mood": "ambient",
+          "sources": ["NASA Jet Propulsion Laboratory, 'Voyager Golden Record Cover Guide'", "Carl Sagan & Frank Drake Archives"],
+          "lines": [
+            {"text": "What did NASA engrave on gold metal so alien minds could locate Earth?", "caps": "Engraved in *gold | to locate *Earth?", "visual": {"pill": "VOYAGER MAP", "focus_word": "gold"}},
+            {"text": "Welded onto both Voyager probes, a twelve-inch gold-plated copper disc carries binary cosmic directions.", "caps": "A twelve-inch disc | carrying *directions", "visual": {"pill": "GOLDEN RECORD", "focus_word": "disc", "card_data": {"value": "14 PULSARS", "label": "GALACTIC LANDMARKS"}}},
+            {"text": "Fourteen etched starburst lines connect our Sun to rotating dead stars called pulsars.", "caps": "Fourteen lines | pointing to *pulsars", "visual": {"pill": "PULSAR CLOCKS", "focus_word": "pulsars"}},
+            {"text": "Because every pulsar blinks at an exact frequency, binary dashes encode each star's pulse rate like a clock.", "caps": "Exact *blink rates | act as *landmarks", "visual": {"pill": "HYDROGEN UNIT", "focus_word": "blinks", "card_data": {"value": "0.7 NS", "label": "HYDROGEN TICK UNIT"}}},
+            {"text": "Those lines triangulate our solar neighborhood in three dimensions across tens of thousands of years.", "caps": "Triangulating *Earth | in three *dimensions", "visual": {"pill": "3D TRIANGULATION", "focus_word": "dimensions"}},
+            {"text": "Acting as humanity's silent lighthouse floating past interstellar space before we wonder...", "caps": "Floating silently | past *stars", "gap": 0.15, "visual": {"pill": "INTERSTELLAR BEACON", "focus_word": "lighthouse", "card_data": {"takeaway": "14-PULSAR EARTH MAP"}}}
+          ]
+        },
+        {
+          "topic": "Bootes Void: The three-hundred-thirty-million light-year hole in deep cosmos",
+          "style": "2d-motion",
+          "title": "The Emptiest Place Known In The Universe #shorts",
+          "music_mood": "tension",
+          "sources": ["Astrophysical Journal, 'Kirshner et al. Discovery of the Bootes Void'", "NASA Goddard Cosmology Group"],
+          "lines": [
+            {"text": "What lies inside a pitch-black void stretching three hundred thirty million light years wide?", "caps": "Inside a *void | 330 million *wide?", "visual": {"pill": "BOOTES VOID", "focus_word": "void"}},
+            {"text": "Seven hundred million light years toward Bootes sits one of space's largest cosmic deserts.", "caps": "Space's largest | *cosmic desert", "visual": {"pill": "COSMIC DESERT", "focus_word": "desert", "card_data": {"value": "330M LY", "label": "SPHERE DIAMETER"}}},
+            {"text": "Ordinarily, such an immense sphere should pack nearly two thousand sprawling galaxies inside it.", "caps": "Should contain | *two thousand galaxies", "visual": {"pill": "2,000 EXPECTED", "focus_word": "thousand"}},
+            {"text": "Astronomers surveying the zone counted just sixty scattered galaxies drifting lonely inside.", "caps": "Contains barely | *sixty galaxies", "visual": {"pill": "60 FOUND ONLY", "focus_word": "sixty", "card_data": {"label_a": "EXPECTED", "title_a": "~2,000 GALAXIES", "label_b": "ACTUAL BOOTES", "title_b": "ONLY 60 GALAXIES"}}},
+            {"text": "Inside its center, not even another neighboring galaxy would glow to our eyes at night.", "caps": "No other *galaxies | visible at *night", "visual": {"pill": "ISOLATED CENTER", "focus_word": "glow"}},
+            {"text": "Formed as smaller voids merged over billions of years while surrounding filaments drained matter away...", "caps": "Surrounding gravity | drained *matter away", "gap": 0.15, "visual": {"pill": "FILAMENT DRAIN", "focus_word": "matter", "card_data": {"takeaway": "MERGED COSMIC VOIDS"}}}
+          ]
+        },
+        {
+          "topic": "55 Cancri e exoplanet: A tidally locked lava super-Earth",
+          "style": "2d-motion",
+          "title": "The Planet Where Oceans Boil As Molten Lava #shorts",
+          "music_mood": "tension",
+          "sources": ["NASA Exoplanet Archive (JWST Observations)", "Nature Astronomy, 'A Secondary Atmosphere on 55 Cancri e'"],
+          "lines": [
+            {"text": "Imagine standing under skies where rock vaporizes into clouds and rains molten lava.", "caps": "Skies raining | *molten lava?", "visual": {"pill": "55 CANCRI E", "focus_word": "lava"}},
+            {"text": "Just forty-one light years away, super-Earth 55 Cancri e hugs its parent star every eighteen hours.", "caps": "Orbits its *star | in *eighteen hours", "visual": {"pill": "18-HOUR ORBIT", "focus_word": "eighteen", "card_data": {"value": "18 HRS", "label": "FULL ORBITAL YEAR"}}},
+            {"text": "Being tidally locked, one hemisphere faces permanent searing glare exceeding two thousand degrees Celsius.", "caps": "Dayside tops | *2,400 Celsius", "visual": {"pill": "2,400°C DAYSIDE", "focus_word": "searing", "card_data": {"value": "2,400°C", "label": "SURFACE LAVA SEA"}}},
+            {"text": "Rock itself melts into deep magma oceans bubbling across the entire sunlit continent.", "caps": "Melting rock into | *magma oceans", "visual": {"pill": "SILICATE STEAM", "focus_word": "magma"}},
+            {"text": "James Webb spectra showed silicate gases escaping its ocean to condense as mineral rain on twilight cliffs.", "caps": "Silicate clouds | condense as *rain", "visual": {"pill": "TWILIGHT GLASS", "focus_word": "silicate"}},
+            {"text": "Making one neighboring rocky world resemble a glowing furnace rather than a quiet twin...", "caps": "A glowing *furnace | next *door", "gap": 0.15, "visual": {"pill": "LAVA EXOPLANET", "focus_word": "furnace", "card_data": {"takeaway": "MOLTEN SILICATE SEAS"}}}
+          ]
+        },
+        {
+          "topic": "Philippine wartime flag protocol: Inverting red stripe upward during conflict",
+          "style": "2d-motion",
+          "title": "The Flag That Signals War When Flipped #shorts",
+          "music_mood": "tension",
+          "sources": ["Republic Act No. 8491 (Flag and Heraldic Code of the Philippines)", "National Historical Commission Archives"],
+          "lines": [
+            {"text": "Which country announces a state of war simply by hanging its flag upside down?", "caps": "One banner announces | *war when flipped?", "visual": {"pill": "FLIPPED WAR FLAG", "focus_word": "upside"}},
+            {"text": "Under Philippine law, normal peacetime display places the royal blue field squarely on top.", "caps": "Peacetime keeps | *blue on top", "visual": {"pill": "BLUE TOP PEACE", "focus_word": "blue", "card_data": {"label_a": "PEACETIME", "title_a": "ROYAL BLUE TOP", "label_b": "STATE OF WAR", "title_b": "CRIMSON RED TOP"}}},
+            {"text": "Every stripe carries explicit legal code ratified in Republic Act 8491.", "caps": "Built directly | into *heraldic law", "visual": {"pill": "ACT 8491 RULE", "focus_word": "legal"}},
+            {"text": "If the nation enters declared war, citizens immediately invert the banner so crimson red climbs high.", "caps": "In wartime | *red climbs high", "visual": {"pill": "RED TOP SIGNAL", "focus_word": "crimson", "card_data": {"value": "180° FLIP", "label": "OFFICIAL WAR STATE"}}},
+            {"text": "Even accidental upside-down mistakes during speeches spark instant diplomatic apologies from event crews.", "caps": "Even accidents spark | *instant alerts", "visual": {"pill": "STRICT PROTOCOL", "focus_word": "accidental"}},
+            {"text": "Turning simple cloth geometry into a live national broadcast signal whenever crisis hits...", "caps": "Turning fabric | into a *live alert", "gap": 0.15, "visual": {"pill": "BUILT-IN ALERT", "focus_word": "signal", "card_data": {"takeaway": "FLIPPED WARTIME SIGNAL"}}}
+          ]
+        },
+        {
+          "topic": "Lagrange Point L2: How James Webb balances gravitational pulls in deep cold",
+          "style": "2d-motion",
+          "title": "How Telescopes Park In Empty Space #shorts",
+          "music_mood": "ambient",
+          "sources": ["NASA James Webb Space Telescope Orbit Guide", "ESA Lagrange Mechanics Reference"],
+          "lines": [
+            {"text": "How does a multi-billion dollar telescope stay parked steadily a million miles past Earth?", "caps": "Parked *steadily | a million *miles out?", "visual": {"pill": "LAGRANGE POINT L2", "focus_word": "parked"}},
+            {"text": "Normally, farther orbits move slower than Earth, making telescopes drift behind quickly.", "caps": "Farther orbits | naturally *fall behind", "visual": {"pill": "ORBITAL DRIFT", "focus_word": "slower"}},
+            {"text": "Wait directly behind Earth's night side, and gravity from Sun and Earth tug together simultaneously.", "caps": "Sun and Earth | *pull together", "visual": {"pill": "COMBINED GRAVITY", "focus_word": "together", "card_data": {"value": "1.5M KM", "label": "BEYOND EARTH ORBIT"}}},
+            {"text": "At precisely one point five million kilometers out, combined gravity speeds the orbit up to match Earth exactly.", "caps": "Combined tug | matches *Earth's year", "visual": {"pill": "MATCHED ORBIT", "focus_word": "precisely"}},
+            {"text": "This sweet spot, Lagrange Point L2, lets James Webb shade Sun, Earth, and Moon behind one mirror shield.", "caps": "Shading all heat | behind *one shield", "visual": {"pill": "FIVE-LAYER SHIELD", "focus_word": "shield", "card_data": {"value": "-233°C", "label": "PASSIVE MIRROR COOLING"}}},
+            {"text": "Keeping infrared sensors ice cold indefinitely using gentle orbital geometry before...", "caps": "Using gravity | as an *anchor", "gap": 0.15, "visual": {"pill": "GRAVITY ANCHOR", "focus_word": "geometry", "card_data": {"takeaway": "L2 GRAVITY BALANCE POINT"}}}
+          ]
+        },
+        {
+          "topic": "Martian blue twilight: How iron dust reverses terrestrial sunset hues",
+          "style": "2d-motion",
+          "title": "Why Sunsets Turn Neon Blue On Mars #shorts",
+          "music_mood": "ambient",
+          "sources": ["NASA Mars Curiosity Mastcam Archive", "Journal of Geophysical Research, 'Martian Dust Forward Scattering'"],
+          "lines": [
+            {"text": "Why do dusty rusty red skies on Mars turn icy cool blue at sunset?", "caps": "Red skies turn | *blue at sunset?", "visual": {"pill": "MARS BLUE TWILIGHT", "focus_word": "blue"}},
+            {"text": "On Earth, tiny nitrogen molecules scatter short blue wavelengths sideways, leaving red tones near the horizon.", "caps": "Earth scatters *blue | across the *sky", "visual": {"pill": "RAYLEIGH SCATTER", "focus_word": "scatter", "card_data": {"label_a": "EARTH SUNSET", "title_a": "WARM RED GLOW", "label_b": "MARS SUNSET", "title_b": "COOL BLUE HALO"}}},
+            {"text": "Mars has barely one percent of our atmosphere, packed instead with micron-sized iron dust grains.", "caps": "One percent air | full of *fine dust", "visual": {"pill": "1% AIR DENSITY", "focus_word": "dust", "card_data": {"value": "~1 MICRON", "label": "DUST PARTICLE SIZE"}}},
+            {"text": "Dust grains about one micron across scatter warm red light broadly out into daytime sky.", "caps": "Dust scatters *red | during *daytime", "visual": {"pill": "BUTTERSCOTCH DAY", "focus_word": "micron"}},
+            {"text": "Near dusk, Mie scattering channels blue rays straight forward toward rovers looking toward the sinking Sun.", "caps": "Channelling *blue light | straight *forward", "visual": {"pill": "FORWARD SCATTER", "focus_word": "forward"}},
+            {"text": "Reversing Earth's familiar sunset palette across a frozen desert horizon before...", "caps": "Reversing Earth's | *evening palette", "gap": 0.15, "visual": {"pill": "REVERSED COLORS", "focus_word": "palette", "card_data": {"takeaway": "MIE DUST SCATTERING"}}}
+          ]
         }
       ]
     },
@@ -475,6 +700,231 @@
             {"text": "Instead of bouncing, incoming light waves bend smoothly around the target like river water around a smooth stone.", "caps": "Light *bends smoothly | around the *object"},
             {"text": "The light rays recombine seamlessly on the far side, showing the background as if the target vanished.", "caps": "Showing the *background | as if *empty"},
             {"text": "A triumph of optical physics, hiding solid matter in plain sight before...", "caps": "Hiding solid *matter | in plain *sight", "gap": 0.25}
+          ]
+        },
+        {
+          "topic": "Chladni acoustic resonance: Sound waves sorting grains into geometry",
+          "style": "2d-motion",
+          "title": "How Sound Forces Chaos Into Geometry #shorts",
+          "music_mood": "ambient",
+          "sources": ["Ernst Chladni (1787), 'Entdeckungen uber die Theorie des Klanges'", "MIT Physics Acoustics Demo"],
+          "lines": [
+            {"text": "How can pure musical vibration organize scattered salt grains into sharp geometric stars?", "caps": "How *sound draws | sharp *geometry?", "visual": {"pill": "CHLADNI PATTERNS", "focus_word": "geometry"}},
+            {"text": "Sprinkle fine quartz sand across a thin metal sheet and draw a violin bow along one edge.", "caps": "Vibrate metal | with a *violin bow", "visual": {"pill": "STANDING WAVES", "focus_word": "metal", "card_data": {"value": "NODES = 0", "label": "STILL SILENT LINES"}}},
+            {"text": "Bending waves travel across the plate, colliding cleanly into fixed still lines called nodes.", "caps": "Waves collide | into *nodal lines", "visual": {"pill": "VIBRATION VALLEYS", "focus_word": "nodes"}},
+            {"text": "Violently shaking antinodes toss bouncing grains outward until every grain settles into quiet valleys.", "caps": "Grains settle into | *quiet lines", "visual": {"pill": "GEOMETRIC SORT", "focus_word": "settle"}},
+            {"text": "Raise the pitch higher, and smaller standing wavelengths lock into complex stars and honeycomb webs.", "caps": "Higher pitches | lock *tighter shapes", "visual": {"pill": "PITCH LOCK", "focus_word": "wavelengths", "card_data": {"value": "2,800 HZ", "label": "HIGHER NODE RINGS"}}},
+            {"text": "Revealing invisible sound frequencies sculpted instantly on metal before you realize...", "caps": "Invisible *sound | sculpted *instantly", "gap": 0.15, "visual": {"pill": "ACOUSTIC MAPPING", "focus_word": "frequencies", "card_data": {"takeaway": "SOUND NODES COLLECT GRAINS"}}}
+          ]
+        },
+        {
+          "topic": "Meissner Effect: Frozen superconductors hovering locked above magnets",
+          "style": "2d-motion",
+          "title": "Why Frozen Metals Hover Locked In Air #shorts",
+          "music_mood": "bed",
+          "sources": ["Meissner & Ochsenfeld (1933), Naturwissenschaften", "Tel Aviv University Quantum Levitation Lab"],
+          "lines": [
+            {"text": "Why can a chilled ceramic wafer hover upside down locked in space without touching magnets?", "caps": "Frozen ceramic | hovers *upside down?", "visual": {"pill": "QUANTUM LOCKING", "focus_word": "hover"}},
+            {"text": "Cool special superconductors below minus one hundred eighty Celsius in liquid nitrogen.", "caps": "Chilled below | *minus 180 Celsius", "visual": {"pill": "ZERO RESISTANCE", "focus_word": "nitrogen", "card_data": {"value": "-196°C", "label": "LIQUID NITROGEN BATH"}}},
+            {"text": "The Meissner effect triggers instantly, expelling external magnetic fields out of the crystal interior.", "caps": "Expelling magnetic | fields *outward", "visual": {"pill": "MEISSNER SHIELD", "focus_word": "expelling"}},
+            {"text": "Only microscopic weak spots admit tiny magnetic flux tubes, pinning the wafer in three dimensions.", "caps": "Flux tubes *pin | the frozen *disc", "visual": {"pill": "FLUX PINNING", "focus_word": "pinning", "card_data": {"value": "1,000X", "label": "WEIGHT SUPPORTED"}}},
+            {"text": "You can tilt the track upside down, spin the disc fast, and it stays trapped at exact height.", "caps": "Tracks hover | even *upside down", "visual": {"pill": "3D QUANTUM LOCK", "focus_word": "trapped"}},
+            {"text": "Until thermal warmth melts its superconducting quantum state before we explore...", "caps": "Locked in air | until *warmth hits", "gap": 0.15, "visual": {"pill": "FLUX TRAP", "focus_word": "warmth", "card_data": {"takeaway": "PINNED MAGNETIC FLUX"}}}
+          ]
+        },
+        {
+          "topic": "Casimir Effect: Quantum vacuum pushing close mirrors together",
+          "style": "2d-motion",
+          "title": "Why Empty Space Pushes Metal Plates Together #shorts",
+          "music_mood": "tension",
+          "sources": ["Hendrik Casimir (1948), Koninklijke Nederlandse Akademie", "Physical Review Letters, 'Precision Casimir Force Measurement'"],
+          "lines": [
+            {"text": "How can completely empty pitch-black space push two neutral metal mirrors physically together?", "caps": "Empty *space | pushes metal *plates?", "visual": {"pill": "CASIMIR VACUUM", "focus_word": "empty"}},
+            {"text": "Even with zero air and zero gravity, quantum vacuum ripples continuously with virtual electromagnetic waves.", "caps": "Quantum vacuum | seethes with *waves", "visual": {"pill": "ZERO-POINT WAVES", "focus_word": "virtual", "card_data": {"value": "< 100 NM", "label": "MIRROR GAP THRESHOLD"}}},
+            {"text": "Place two polished metal plates less than a micron apart inside total darkness.", "caps": "Plates placed | *nanometers apart", "visual": {"pill": "MIRROR CAVITY", "focus_word": "micron"}},
+            {"text": "Long virtual wavelengths simply cannot fit inside that ultra-narrow metal gap, blocking them out.", "caps": "Long waves *blocked | between the *plates", "visual": {"pill": "MODE EXCLUSION", "focus_word": "blocked", "card_data": {"label_a": "INSIDE GAP", "title_a": "FEWER MODES", "label_b": "OUTSIDE SPACE", "title_b": "FULL SPECTRUM"}}},
+            {"text": "Because more quantum waves strike the outside faces than inside, sheer vacuum pressure squeezes them shut.", "caps": "Outside *waves push | plates *together", "visual": {"pill": "VACUUM PRESSURE", "focus_word": "pressure"}},
+            {"text": "Turning supposedly nothing into measurable mechanical force at nanoscale gaps before...", "caps": "Nothingness *creating | physical *force", "gap": 0.15, "visual": {"pill": "QUANTUM FORCE", "focus_word": "force", "card_data": {"takeaway": "VACUUM WAVE IMBALANCE"}}}
+          ]
+        },
+        {
+          "topic": "Chain Fountain Mould Effect: Beaded chains arching high above glass rim",
+          "style": "2d-motion",
+          "title": "Why Falling Chains Leap Upward First #shorts",
+          "music_mood": "bed",
+          "sources": ["Proceedings of the Royal Society A (Biggins & Warner, 2014)", "Cambridge University Mechanics Group"],
+          "lines": [
+            {"text": "Why does pulling one end of a beaded chain down launch the rest upward into midair?", "caps": "Falling chains *leap | upward *first?", "visual": {"pill": "MOULD FOUNTAIN", "focus_word": "upward"}},
+            {"text": "Drop heavy steel ball chain from an elevated beaker toward the floor far below.", "caps": "Drop heavy *beads | over a *high edge", "visual": {"pill": "BEAD FOUNTAIN", "focus_word": "beaker", "card_data": {"value": "+0.8 M", "label": "ARCH ABOVE BEAKER"}}},
+            {"text": "Instead of sliding smoothly over the lip, an invisible arc rises dramatically inches above the rim.", "caps": "Rising inches | *above the glass", "visual": {"pill": "RISING ARCH", "focus_word": "arc"}},
+            {"text": "Cambridge physicists showed rigid metallic rod links cannot bend sharply without tilting like levers.", "caps": "Rigid rod links | pivot like *levers", "visual": {"pill": "LEVER RECOIL", "focus_word": "levers", "card_data": {"value": "100% KINETIC", "label": "BEAKER PUSH REBOUND"}}},
+            {"text": "When pulled horizontally, each tilting bead kicks downward against coiled metal underneath, launching an equal upward push.", "caps": "Tilting links *kick | against the *pile", "visual": {"pill": "UPWARD KICK", "focus_word": "kicks"}},
+            {"text": "Defying common intuition with pure linked-rod rotational inertia before you try...", "caps": "Rotational *inertia | lifting *steel", "gap": 0.15, "visual": {"pill": "CHAIN LEVERAGE", "focus_word": "inertia", "card_data": {"takeaway": "STIFF LINK KICKBACK"}}}
+          ]
+        },
+        {
+          "topic": "Nitinol memory metal: Bent crystal lattice snapping back on heating",
+          "style": "2d-motion",
+          "title": "The Metal Wire That Remembers Its Shape #shorts",
+          "music_mood": "bed",
+          "sources": ["US Naval Ordnance Laboratory (Nitinol 1962)", "ASM International Shape Memory Materials Handbook"],
+          "lines": [
+            {"text": "How can crumpled twisted wire snap instantly back into a perfect spring in warm tea?", "caps": "Twisted *wire snaps | back to *life?", "visual": {"pill": "NITINOL MEMORY", "focus_word": "wire"}},
+            {"text": "Nitinol blends equal nickel and titanium atoms arranged in two distinct solid crystal phases.", "caps": "Nickel and *titanium | crystal *phases", "visual": {"pill": "TWIN CRYSTAL", "focus_word": "titanium", "card_data": {"value": "50 / 50", "label": "NICKEL TITANIUM ATOMIC"}}},
+            {"text": "When cool, soft martensite bonds tilt flexibly so fingers crush it into tangled loops without breaking.", "caps": "Cold bonds *tilt | without *breaking", "visual": {"pill": "SOFT MARTENSITE", "focus_word": "tilt"}},
+            {"text": "Pour hot water over the crumpled knot, crossing sixty Celsius.", "caps": "Warm past *sixty | degrees *Celsius", "visual": {"pill": "PHASE SWITCH", "focus_word": "sixty", "card_data": {"label_a": "COLD PHASE", "title_a": "FLEXIBLE MARTENSITE", "label_b": "HOT PHASE", "title_b": "RIGID AUSTENITE"}}},
+            {"text": "Thermal energy flips every shifted atom straight back into rigid parent austenite bonds simultaneously.", "caps": "Every *atom snaps | back at *once", "visual": {"pill": "ATOMIC RESET", "focus_word": "austenite"}},
+            {"text": "Powering self-expanding medical heart stents inside arteries automatically before...", "caps": "Expanding *heart stents | automatically", "gap": 0.15, "visual": {"pill": "MEDICAL STENTS", "focus_word": "stents", "card_data": {"takeaway": "SOLID-PHASE SHAPE LOCK"}}}
+          ]
+        },
+        {
+          "topic": "Pitch Drop Experiment: Bitumen flowing ten drops per century since 1927",
+          "style": "2d-motion",
+          "title": "The Century Experiment Still Waiting To Drip #shorts",
+          "music_mood": "ambient",
+          "sources": ["University of Queensland Physics Department", "European Journal of Physics (Edgeworth, Dalton & Parnell)"],
+          "lines": [
+            {"text": "Why have scientists watched one funnel carefully since 1927 waiting for just nine drips?", "caps": "Watching one *funnel | since *1927?", "visual": {"pill": "99-YEAR DRIP", "focus_word": "1927"}},
+            {"text": "At the University of Queensland sits tar pitch so brittle you can shatter it cleanly with a hammer.", "caps": "Shatters like *stone | under a *hammer", "visual": {"pill": "230B VISCOSITY", "focus_word": "hammer", "card_data": {"value": "9 DROPS", "label": "FELL IN 99 YEARS"}}},
+            {"text": "Yet physics professor Thomas Parnell poured warmed bitumen into a glass funnel to test fluid creep.", "caps": "Testing true *creep | over *decades", "visual": {"pill": "ULTRA VISCOUS", "focus_word": "creep"}},
+            {"text": "Tar is roughly two hundred thirty billion times thicker than liquid water.", "caps": "230 *billion times | thicker than *water", "visual": {"pill": "230 BILLION X", "focus_word": "billion", "card_data": {"value": "230 BILLION", "label": "WATER VISCOSITY RATIO"}}},
+            {"text": "It took eight whole years for the very first single drop to pinch loose and fall.", "caps": "Eight whole *years | per single *drip", "visual": {"pill": "ONE DROP / DECADE", "focus_word": "eight"}},
+            {"text": "Proving seemingly rigid solids still flow invisibly on geological clocks before...", "caps": "Rigid *matter still | flows *slowly", "gap": 0.15, "visual": {"pill": "CREEPING SOLID", "focus_word": "flows", "card_data": {"takeaway": "WORLD'S LONGEST LAB TEST"}}}
+          ]
+        },
+        {
+          "topic": "Faraday Cage shielding: Why commercial jets survive midair lightning",
+          "style": "2d-motion",
+          "title": "Why Lightning Strikes Cannot Harm Airline Cabins #shorts",
+          "music_mood": "tension",
+          "sources": ["FAA Aviation Weather Handbook", "Scientific American, 'How Planes Survive Lightning'"],
+          "lines": [
+            {"text": "What happens inside a metal airliner when a thirty-thousand-amp lightning bolt strikes the nose?", "caps": "30,000 *amps hit | an airplane *nose?", "visual": {"pill": "FARADAY SKIN", "focus_word": "lightning"}},
+            {"text": "Commercial jets get struck roughly once per thousand flight hours without passengers feeling any shock.", "caps": "Struck without | *passengers noticing", "visual": {"pill": "1 PER 1,000 HRS", "focus_word": "passengers", "card_data": {"value": "30,000 AMPS", "label": "CHANNELLED OUTSIDE"}}},
+            {"text": "Aluminum fuselage panels act exactly like Michael Faraday's electrostatic conducting cage.", "caps": "Fuselage acts as | a *Faraday cage", "visual": {"pill": "OUTER CONDUCTOR", "focus_word": "Faraday"}},
+            {"text": "Like-charged electrons violently repel inward and race exclusively along the exterior skin.", "caps": "Charges race only | along *outer skin", "visual": {"pill": "ZERO INSIDE FIELD", "focus_word": "skin", "card_data": {"value": "0 VOLTS IN", "label": "CABIN ELECTRIC FIELD"}}},
+            {"text": "Electric fields inside the hollow interior cancel perfectly to zero before static wicks vent charges off wingtips.", "caps": "Static wicks *vent | off wingtips", "visual": {"pill": "WINGTIP WICKS", "focus_word": "wingtips"}},
+            {"text": "Guiding pure skyfire safely around cabins and sealed fuel tanks before...", "caps": "Channeling *skyfire | around *cabins", "gap": 0.15, "visual": {"pill": "SEALED SHIELD", "focus_word": "skyfire", "card_data": {"takeaway": "FARADAY SKIN PROTECTION"}}}
+          ]
+        },
+        {
+          "topic": "Brachistochrone cycloid: Why curved ramps win races over straight slopes",
+          "style": "2d-motion",
+          "title": "Why A Steep Curve Beats A Straight Path #shorts",
+          "music_mood": "bed",
+          "sources": ["Johann Bernoulli (1696), Acta Eruditorum", "Wolfram MathWorld Brachistochrone Problem"],
+          "lines": [
+            {"text": "How can a rolling ball reach a lower finish faster on a longer curved ramp than a straight line?", "caps": "Longer *curve wins | over a *straight line?", "visual": {"pill": "CYCLOID RACER", "focus_word": "faster"}},
+            {"text": "In 1696, mathematician Johann Bernoulli challenged Europe to find gravity's fastest descent path.", "caps": "Bernoulli's *1696 | gravity *challenge", "visual": {"pill": "1696 CHALLENGE", "focus_word": "1696", "card_data": {"label_a": "STRAIGHT LINE", "title_a": "SHORT DISTANCE", "label_b": "CYCLOID ARC", "title_b": "FASTEST TIME"}}},
+            {"text": "A straight slope covers the shortest distance, yet starts too gently to build quick early momentum.", "caps": "Straight lines start | *far too gently", "visual": {"pill": "SLOW START", "focus_word": "gently"}},
+            {"text": "Gravity rewards dropping steeply first along an inverted cycloid arc to maximize kinetic speed early.", "caps": "Steep *early drop | builds *speed", "visual": {"pill": "EARLY SPEED GAIN", "focus_word": "cycloid", "card_data": {"value": "100% WIN", "label": "CYCLOID DESCENT"}}},
+            {"text": "Carrying that surplus velocity across the flat middle easily beats the shorter straight ramp every single time.", "caps": "Surplus *velocity | beats the *shortcut", "visual": {"pill": "SPEED BEATS LENGTH", "focus_word": "velocity"}},
+            {"text": "Used identically in rollercoaster drops and water slides worldwide before you race...", "caps": "Shaping *coasters | around *gravity", "gap": 0.15, "visual": {"pill": "COASTER CURVES", "focus_word": "slides", "card_data": {"takeaway": "STEEP DROP BEATS SHORTCUT"}}}
+          ]
+        },
+        {
+          "topic": "Aeroelastic flutter: How steady wind tore Tacoma steel cables apart",
+          "style": "2d-motion",
+          "title": "Why Gentle Wind Can Tear Steel Bridges Apart #shorts",
+          "music_mood": "tension",
+          "sources": ["Federal Works Agency Board Report (1941)", "Am. Journal of Physics, 'Tacoma Narrows Aeroelastic Flutter'"],
+          "lines": [
+            {"text": "How did steady forty-mile-an-hour autumn wind twist steel bridge concrete like soft ribbon?", "caps": "Steady *wind | twisted *steel?", "visual": {"pill": "AEROELASTIC FLUTTER", "focus_word": "twist"}},
+            {"text": "In November 1940, Washington's Tacoma Narrows suspension span began bucking in moderate breeze.", "caps": "Span began *bucking | in moderate *breeze", "visual": {"pill": "TACOMA 1940", "focus_word": "1940", "card_data": {"value": "42 MPH", "label": "COLLAPSE WIND SPEED"}}},
+            {"text": "Solid steel plate girders blocked airflow cleanly instead of letting wind pass through open trusses.", "caps": "Solid girders | *blocked airflow", "visual": {"pill": "BLUNT EDGE", "focus_word": "girders"}},
+            {"text": "Alternating wind vortices fed torsional twist cycles faster than heavy cables could dampen.", "caps": "Twisting *vortices | amplified *motion", "visual": {"pill": "SELF-EXCITED TWIST", "focus_word": "vortices", "card_data": {"value": "NEGATIVE DAMP", "label": "WIND FEEDS TWIST"}}},
+            {"text": "Instead of damping out, every tilt scooped extra wind lift in a feedback loop called aeroelastic flutter.", "caps": "Aeroelastic *flutter | fed each *twist", "visual": {"pill": "FLUTTER FEEDBACK", "focus_word": "flutter"}},
+            {"text": "Reshaping every modern suspension deck with open wind-venting slots ever since...", "caps": "Adding *open vents | to every *deck", "gap": 0.15, "visual": {"pill": "VENTED DECKS", "focus_word": "decks", "card_data": {"takeaway": "SELF-FEEDING WIND FLUTTER"}}}
+          ]
+        },
+        {
+          "topic": "Tardigrade vitrification: Surviving vacuum radiation via sugar glass proteins",
+          "style": "2d-motion",
+          "title": "The Tiny Creature That Survives Cosmic Vacuum #shorts",
+          "music_mood": "bed",
+          "sources": ["Molecular Cell (Boothby et al., 2017), 'Tardigrade Intrinsically Disordered Proteins'", "European Space Agency FOTON-M3 Mission"],
+          "lines": [
+            {"text": "How can a half-millimeter water bear endure boiling heat, deep radiation, and bare cosmic vacuum?", "caps": "Tiny *water bear | survives bare *vacuum?", "visual": {"pill": "TARDIGRADE TUN", "focus_word": "vacuum"}},
+            {"text": "When droplets evaporate, tardigrades expel ninety-seven percent of body water and fold legs tightly.", "caps": "Expelling *97% | of body *water", "visual": {"pill": "97% DEHYDRATION", "focus_word": "legs", "card_data": {"value": "-97% H2O", "label": "TUN SURVIVAL STATE"}}},
+            {"text": "Unlike ordinary cells that crumble dry, they flood tissues with specialized glassy protective proteins.", "caps": "Flooding *cells with | *glassy shields", "visual": {"pill": "TDPS GLASS SHIELD", "focus_word": "proteins"}},
+            {"text": "Those proteins coat fragile DNA helices inside solid amorphous shields halting chemical decay.", "caps": "Locking fragile *DNA | against *decay", "visual": {"pill": "LOCKED HELICES", "focus_word": "DNA", "card_data": {"value": "150°C TO -200°C", "label": "SURVIVAL WINDOW"}}},
+            {"text": "Suspended in this lifeless tun state, specimens revived cleanly after ten days exposed directly outside satellites.", "caps": "Revived cleanly after | *ten days outside", "visual": {"pill": "REVIVED AFTER ORBIT", "focus_word": "revived"}},
+            {"text": "Waiting indefinitely for a single raindrop to dissolve shields and restart life...", "caps": "One *raindrop restarts | paused *life", "gap": 0.15, "visual": {"pill": "PAUSED METABOLISM", "focus_word": "raindrop", "card_data": {"takeaway": "BIOLOGICAL GLASS ARMOR"}}}
+          ]
+        },
+        {
+          "topic": "Bismuth hopper crystals: Lab metal growing colorful stepped pyramids",
+          "style": "2d-motion",
+          "title": "How Melted Metal Grows Rainbow Staircases #shorts",
+          "music_mood": "bed",
+          "sources": ["Materials Science & Engineering, 'Bismuth Hopper Crystal Growth'", "Royal Society of Chemistry"],
+          "lines": [
+            {"text": "Why does cooling melted silvery bismuth metal sprout iridescent rainbow geometric staircases?", "caps": "Melted *metal grows | rainbow *staircases?", "visual": {"pill": "BISMUTH HOPPERS", "focus_word": "rainbow"}},
+            {"text": "Unlike pure silver or copper, bismuth atoms lock quickest along sharp exterior corner edges.", "caps": "Atoms lock quickest | on *outer edges", "visual": {"pill": "EDGE CRYSTALLIZATION", "focus_word": "edges", "card_data": {"value": "271°C", "label": "BISMUTH MELT POINT"}}},
+            {"text": "Outer rims freeze taller before slower crystal centers catch up, leaving hollowed spiral steps.", "caps": "Hollowed *terraces | step *inward", "visual": {"pill": "HOLLOW TERRACES", "focus_word": "spiral"}},
+            {"text": "When hot crystals greet air, oxygen builds an ultra-thin transparent bismuth oxide skin.", "caps": "Air builds a | thin *oxide film", "visual": {"pill": "OXIDE INTERFERENCE", "focus_word": "oxide", "card_data": {"value": "~60 NM", "label": "THIN-FILM SPECTRUM"}}},
+            {"text": "Light reflecting from both surfaces collides constructively, shifting hues from gold to violet as thickness varies.", "caps": "Wave *interference paints | shifting *colors", "visual": {"pill": "RAINBOW INTERFERENCE", "focus_word": "thickness"}},
+            {"text": "Turning simple metal solidification into pure optical color gradients without any dye...", "caps": "Pure *crystal light | with *no paint", "gap": 0.15, "visual": {"pill": "NO PIGMENT USED", "focus_word": "dye", "card_data": {"takeaway": "OXIDE THIN-FILM OPTICS"}}}
+          ]
+        },
+        {
+          "topic": "Piezoelectric quartz: Squeezing silicon crystal lattices into steady sparks",
+          "style": "2d-motion",
+          "title": "How Squeezing Quartz Crystals Makes Electricity #shorts",
+          "music_mood": "bed",
+          "sources": ["Jacques & Pierre Curie (1880), Comptes Rendus", "IEEE Ultrasonics & Ferroelectrics Archive"],
+          "lines": [
+            {"text": "How can striking a clear piece of ordinary quartz rock create thousands of electric volts instantly?", "caps": "Striking *rock rock | makes *volts?", "visual": {"pill": "PIEZO QUARTZ", "focus_word": "quartz"}},
+            {"text": "Inside silicon dioxide quartz, positive silicon ions and negative oxygen ions sit slightly off-center.", "caps": "Ions sit arranged | slightly *off-center", "visual": {"pill": "ASYMMETRIC LATTICE", "focus_word": "ions", "card_data": {"value": "15,000 V", "label": "PIEZO LIGHTER SPARK"}}},
+            {"text": "At rest, opposite atomic charges cancel neatly so fingers feel zero shock.", "caps": "At rest, charges | balance *to zero", "visual": {"pill": "BALANCED REST", "focus_word": "cancel"}},
+            {"text": "Compress or tap the asymmetric crystal by microns, and shifting atoms separate positive and negative poles.", "caps": "Micro-squeezes *separate | electric *poles", "visual": {"pill": "DIPOLE SHIFT", "focus_word": "compress", "card_data": {"value": "32,768 HZ", "label": "QUARTZ WATCH BEAT"}}},
+            {"text": "That tiny charge spike sparks barbecue lighters while tiny voltage pulses vibrate quartz wristwatches steadily.", "caps": "Sparks lighters | and *keeps time", "visual": {"pill": "32KHZ CLOCKWORK", "focus_word": "wristwatches"}},
+            {"text": "Converting raw physical squeeze straight into clean electric voltage endlessly before...", "caps": "Squeezing force | into *clean sparks", "gap": 0.15, "visual": {"pill": "FORCE TO VOLTAGE", "focus_word": "voltage", "card_data": {"takeaway": "ASYMMETRIC ION LATTICE"}}}
+          ]
+        },
+        {
+          "topic": "Lotus superhydrophobic leaves: Nanoscale wax spikes repelling dirty drops",
+          "style": "2d-motion",
+          "title": "Why Water Refuses To Wet Certain Leaves #shorts",
+          "music_mood": "ambient",
+          "sources": ["Planta Journal (Barthlott & Neinhuis, 1997)", "Nature Reviews Materials, 'Superhydrophobic Surfaces'"],
+          "lines": [
+            {"text": "How do wild lotus petals emerge spotless every morning from thick muddy swamp water?", "caps": "Clean out of | *muddy swamps?", "visual": {"pill": "LOTUS EFFECT", "focus_word": "spotless"}},
+            {"text": "Smooth surfaces don't stay clean; zoom under an electron microscope, and lotus leaves bristle with cones.", "caps": "Microscopic *bumps | cover the *leaf", "visual": {"pill": "MICRO PAPILLAE", "focus_word": "cones", "card_data": {"value": "150°+ ANGLE", "label": "DROP CONTACT ANGLE"}}},
+            {"text": "Every microscopic bump is frosted further with tiny water-hating wax crystals.", "caps": "Frosted with | *waxy spikes", "visual": {"pill": "WAX NANOCRYSTALS", "focus_word": "wax"}},
+            {"text": "Because trapped air cushions underneath, raindrops balance precariously on just three percent solid contact.", "caps": "Drops ride on | *3% solid tip", "visual": {"pill": "97% AIR CUSHION", "focus_word": "three", "card_data": {"value": "97% AIR", "label": "UNDER WATER DROP"}}},
+            {"text": "Surface tension pulls drops into tight pearls that roll off instantly, scooping loose mud dirt cleanly away.", "caps": "Rolling pearls | *sweep away mud", "visual": {"pill": "SELF CLEANING", "focus_word": "scooping"}},
+            {"text": "Inspiring dirt-shedding exterior paints and rainproof fabrics globally before you notice...", "caps": "Inspiring *self-cleaning | paints *today", "gap": 0.15, "visual": {"pill": "BIOMIMETIC COATING", "focus_word": "fabrics", "card_data": {"takeaway": "AIR-CUSHION NANOSPIKES"}}}
+          ]
+        },
+        {
+          "topic": "Gecko Van der Waals hairs: Climbing sheer vertical planes cleanly",
+          "style": "2d-motion",
+          "title": "How Geckos Stick To Smooth Ceilings Unassisted #shorts",
+          "music_mood": "bed",
+          "sources": ["Proceedings of the National Academy of Sciences (Autumn et al., 2002)", "UC Berkeley Biomechanics Lab"],
+          "lines": [
+            {"text": "How can a gecko sprint across overhead ceilings without sticky glue or suction cups?", "caps": "Zero *glue | yet runs *upside down?", "visual": {"pill": "VAN DER WAALS", "focus_word": "glue"}},
+            {"text": "Flip a gecko toe under scanning microscopes and millions of branching bristles appear.", "caps": "Millions of | *branching bristles", "visual": {"pill": "MILLIONS OF SETAE", "focus_word": "bristles", "card_data": {"value": "1B TIPS", "label": "SPATULAE CONTACT POINTS"}}},
+            {"text": "Every bristle splits further into hundreds of nanometer-wide flat pads called spatulae.", "caps": "Splits into | *billion nano pads", "visual": {"pill": "NANO SPATULAE", "focus_word": "nanometer"}},
+            {"text": "They tuck within billionths of a meter of surface molecules, triggering weak intermolecular Van der Waals tugs.", "caps": "Weak *atomic tugs | lock *tight", "visual": {"pill": "QUANTUM FLUCTUATION", "focus_word": "molecules"}},
+            {"text": "One single foot generates enough collective atomic pull to hold forty pounds effortlessly.", "caps": "Collective *pull holds | forty *pounds", "visual": {"pill": "40 LBS PER FOOT", "focus_word": "forty", "card_data": {"value": "40 LBS", "label": "SINGLE FOOT GRIP"}}},
+            {"text": "Yet curling toes forward peels bonds effortlessly step by step without residue before...", "caps": "Peeling cleanly | step by *step", "gap": 0.15, "visual": {"pill": "RESIDUE-FREE GRIP", "focus_word": "peels", "card_data": {"takeaway": "ATOMIC VAN DER WAALS PULL"}}}
+          ]
+        },
+        {
+          "topic": "Quantum double-slit observation: Why detectors erase interference stripes",
+          "style": "2d-motion",
+          "title": "Why Particles Change Behavior When Watched #shorts",
+          "music_mood": "tension",
+          "sources": ["Feynman Lectures on Physics, Vol. III", "Zeitschrift fur Physik (Jonsson Electron Diffraction)"],
+          "lines": [
+            {"text": "Why do firing single electrons through twin slits create wave stripes until detectors watch?", "caps": "Electrons change when | *detectors watch?", "visual": {"pill": "DOUBLE-SLIT RULE", "focus_word": "watch"}},
+            {"text": "Aim single electrons one by one toward a barrier cut with two parallel narrow openings.", "caps": "Firing *single particles | toward *twin slits", "visual": {"pill": "SINGLE ELECTRON", "focus_word": "twin", "card_data": {"label_a": "UNOBSERVED", "title_a": "WAVE INTERFERENCE", "label_b": "MEASURED PATH", "title_b": "TWO PARTICLE BARS"}}},
+            {"text": "Left unobserved, each electron travels simultaneously as a probability wave, interfering with itself into bright bands.", "caps": "Acting as *waves | interfering *together", "visual": {"pill": "WAVE BANDS", "focus_word": "probability"}},
+            {"text": "Now place sensitive sensors right at either opening to check which hole it used.", "caps": "Check *which hole | it chose to *pass", "visual": {"pill": "WHICH-PATH PROBE", "focus_word": "hole"}},
+            {"text": "Any measurement bounces photons off the particle, destroying phase alignment and collapsing bands into two simple stripes.", "caps": "Measurement *collapses | waves into *particles", "visual": {"pill": "PHASE COLLAPSE", "focus_word": "collapsing", "card_data": {"value": "100% SHIFT", "label": "MEASUREMENT COLLAPSE"}}},
+            {"text": "Showing physical measurement alters microscopic outcomes fundamentally before we ask...", "caps": "Measurement alters | *quantum outcome", "gap": 0.15, "visual": {"pill": "OBSERVER INTERACTION", "focus_word": "measurement", "card_data": {"takeaway": "PROBE COLLAPSES WAVE PHASE"}}}
           ]
         }
       ]

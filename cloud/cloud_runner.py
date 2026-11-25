@@ -38,9 +38,12 @@ except ImportError:
     HttpError = Exception
 
 from cloud.state_manager import StateManager, get_state_manager
-from cloud.topic_guard import TopicGuard
+from cloud.topic_guard import TopicGuard, extract_content_tokens
 from cloud.script_guard import ScriptGuard
 from cloud.asset_guard import AssetGuard, compute_asset_seed
+from cloud.audio_master import normalize_to_lufs_ffmpeg
+from cloud.preflight_qa import verify_whisper_alignment, verify_audio_mix, run_chrome_smoke_check
+from cloud.style_router import scaffold_styled_project
 from cloud.visual_engine_2d import scaffold_2d_project, evaluate_visual_uniqueness, build_music_config
 from cloud.duplicate_detector import VideoQualityAuditor, compute_file_sha256
 
@@ -103,36 +106,143 @@ def get_published_topics(
     return topics
 
 
-def generate_with_gemini(api_key: str, published_topics: set, slot_info: dict, negative_constraints: str = "") -> dict:
+def _recent_published_list(published_topics: set, state_mgr: Optional[StateManager] = None, limit: int = 45) -> List[str]:
+    """Returns up to `limit` most recently published/reserved topics ordered newest-first."""
+    ordered: List[str] = []
+    seen = set()
+    if state_mgr is not None:
+        records = sorted(
+            state_mgr.get_all_published_and_reserved_topics(),
+            key=lambda r: str(r.get("published_at") or r.get("reserved_at") or r.get("updated_at") or ""),
+            reverse=True,
+        )
+        for r in records:
+            t = str(r.get("topic", "")).strip()
+            if t and t.lower() not in seen:
+                seen.add(t.lower())
+                ordered.append(t)
+    for t in sorted(published_topics):
+        if t and t.lower() not in seen:
+            seen.add(t.lower())
+            ordered.append(t)
+    return ordered[:limit]
+
+
+def build_release_metadata(
+    title: str,
+    topic: str,
+    lines: List[Dict],
+    slot_info: dict,
+    tags: List[str],
+    sources: List[str],
+    category_id: str,
+    theme_name: str,
+    style: str,
+    palette_id: str,
+    duration_sec: Optional[float] = None,
+    lufs: Optional[float] = None,
+    pinned_comment: str = "",
+    mirror_url: str = "",
+    cover_file: str = "cover.jpg",
+) -> Dict[str, Any]:
+    """Builds rich SEO metadata payload for direct YouTube upload and Zapier GitHub Releases."""
+    clean_title = re.sub(r'#shorts', '', title, flags=re.IGNORECASE).strip()
+    hook_line = str(lines[0].get("text", topic)).strip() if lines else topic
+    key_beat = str(lines[min(2, len(lines) - 1)].get("text", "")).strip() if lines else ""
+    genre_tag = re.sub(r'[^A-Za-z0-9]+', '', slot_info.get('name', 'Science'))
+    topic_tokens = [tok.capitalize() for tok in sorted(extract_content_tokens(topic))[:4]]
+    hashtags = ["#shorts", f"#{genre_tag}" if genre_tag else "#science", "#didyouknow", "#facts"]
+    for tok in topic_tokens:
+        ht = f"#{tok.lower()}"
+        if ht not in hashtags:
+            hashtags.append(ht)
+
+    desc_parts = [hook_line]
+    if key_beat and key_beat != hook_line:
+        desc_parts.append(key_beat)
+    if sources:
+        desc_parts.append("Sources: " + " | ".join(str(s) for s in sources[:3]))
+    desc_parts.append(" ".join(hashtags[:8]))
+    description = "\n\n".join(desc_parts)
+
+    merged_tags = list(dict.fromkeys(
+        [str(t).strip().lstrip("#") for t in (tags or []) if str(t).strip()]
+        + ["shorts", "facts", "explainer", theme_name.lower()]
+        + [tok.lower() for tok in topic_tokens]
+    ))[:12]
+
+    default_comment = pinned_comment.strip() or f"Did you already know how {clean_title.lower().rstrip('?.!')} works? Drop your take below!"
+
+    return {
+        "title": title,
+        "clean_title": clean_title,
+        "description": description,
+        "tags": merged_tags,
+        "hashtags": hashtags[:8],
+        "category_id": str(category_id),
+        "pinned_comment": default_comment,
+        "sources": list(sources or []),
+        "topic": topic,
+        "genre": slot_info.get("name", ""),
+        "theme": theme_name,
+        "style": style,
+        "palette_id": palette_id,
+        "duration_sec": duration_sec,
+        "lufs": lufs,
+        "cover_file": cover_file,
+        "mirror_url": mirror_url,
+    }
+
+
+def compute_curriculum_runway(slots_cfg: dict, published_topics: set) -> Dict[str, int]:
+    """Counts remaining unused fallback topics per slot for proactive GitHub Step Summary alerts."""
+    runway: Dict[str, int] = {}
+    for sid, info in slots_cfg.items():
+        rem = 0
+        for fb in info.get("fallbacks", []):
+            if fb["topic"].lower() not in published_topics and fb["title"].lower() not in published_topics:
+                rem += 1
+        runway[str(sid)] = rem
+    return runway
+
+
+def generate_with_gemini(
+    api_key: str,
+    published_topics: set,
+    slot_info: dict,
+    negative_constraints: str = "",
+    state_mgr: Optional[StateManager] = None,
+) -> dict:
     prompt_theme = slot_info['prompt_theme']
     genre_name = slot_info['name']
     style = slot_info.get('style', '2d-motion')
 
-    # Truncate published sample to fit token limits
-    sample_published = list(published_topics)[:30]
+    # Chronological most recent sample prevents stale topic collisions as history grows
+    sample_published = _recent_published_list(published_topics, state_mgr=state_mgr, limit=45)
 
-    prompt = f"""You are an expert producer of viral YouTube Shorts in the style of Zack D. Films / Deep Dive 3D.
-Your channel publishes calm, collected, high-curiosity educational explainers.
+    prompt = f"""You are an expert producer of high-retention YouTube Shorts (30-38s calm viral explainers).
+Your channel publishes calm, authoritative, high-curiosity educational explainers with fast visual storytelling.
 
 Current Specialized Genre: {genre_name}
 Genre Focus & Constraints: {prompt_theme}
-Visual Animation Style: {style}
+Visual Engine Mode: {style}
 Previously published topics to NEVER repeat or reword: {sample_published}
 {negative_constraints}
 
 Pick a completely fresh, unrepeated, viral curiosity topic strictly within this genre.
-Write an original script (~80-100 words, calm explanation pace, 0.88x speed).
-Structure:
-1. Hook question first line.
-2. Escalation & physical/historical mechanics.
-3. Surprising twist or lesser-known reality.
-4. Final line that loops back seamlessly to the start question.
+Write an original script (72-88 words total, 6-8 punchy spoken lines, calm explanation pace ~0.91x).
+Structure for maximum retention and seamless replay:
+1. Immediate scroll-stopping hook question in Line 1 (max 12 words).
+2. Rapid visual escalation & concrete numbers/mechanics in Lines 2-5.
+3. Surprising twist or counter-intuitive physical/historical truth in Line 6.
+4. Final line that loops directly back into the opening question without an outro sign-off.
 
 Format strictly as JSON with this schema:
 {{
   "topic": "Short topic description",
   "style": "{style}",
-  "title": "Curious Title Under 60 Chars Ending In #shorts",
+  "title": "Curiosity Title Under 48 Chars Ending In #shorts",
+  "pinned_comment": "Short engaging question for viewers in comments",
   "music_mood": "bed or tension or ambient",
   "sources": ["Source 1", "Source 2"],
   "lines": [
@@ -148,9 +258,9 @@ Format strictly as JSON with this schema:
     }},
     ...
     {{
-      "text": "Last line looping back to start...",
+      "text": "Last line looping directly back to start...",
       "caps": "Looping back | to *start",
-      "gap": 0.25,
+      "gap": 0.15,
       "visual": {{ "pill": "TOPIC CALLBACK LABEL", "focus_word": "start", "card_data": {{ "takeaway": "SHORT TOPIC SUMMARY" }} }}
     }}
   ]
@@ -169,39 +279,46 @@ Only return valid JSON."""
             if ver == "v1beta":
                 body["generationConfig"] = {"responseMimeType": "application/json"}
             payload = json.dumps(body).encode('utf-8')
-            try:
-                url = f"https://generativelanguage.googleapis.com/{ver}/models/{model}:generateContent?key={clean_key}"
-                req = urllib.request.Request(
-                    url,
-                    data=payload,
-                    headers={
-                        "Content-Type": "application/json",
-                        "x-goog-api-key": clean_key
-                    }
-                )
-                with urllib.request.urlopen(req, timeout=30) as resp:
-                    data = json.loads(resp.read().decode('utf-8'))
-                    raw_text = data['candidates'][0]['content']['parts'][0]['text']
-                    match = re.search(r'\{.*\}', raw_text, re.DOTALL)
-                    if match:
-                        res = json.loads(match.group(0))
-                        if isinstance(res, dict) and res.get("topic") and res.get("title") and isinstance(res.get("lines"), list) and res["lines"]:
-                            print(f"Successfully generated {genre_name} script using {model} ({ver})!")
-                            return res
-                        errors.append(f"{model} ({ver}): incomplete JSON schema")
-                    else:
-                        errors.append(f"{model} ({ver}): no JSON object in response")
-            except urllib.error.HTTPError as he:
-                err_body = ""
+            for net_attempt in range(2):
                 try:
-                    err_body = he.read().decode('utf-8', errors='replace')[:160].replace('\n', ' ')
-                except Exception:
-                    pass
-                err_body = re.sub(r'([?&]key=)[^&\s\'"]+', r'\1REDACTED', err_body)
-                errors.append(f"{model} ({ver}): HTTP {he.code} {err_body}")
-            except Exception as e:
-                safe_err = re.sub(r'([?&]key=)[^&\s\'"]+', r'\1REDACTED', str(e))
-                errors.append(f"{model} ({ver}): {type(e).__name__}: {safe_err}")
+                    url = f"https://generativelanguage.googleapis.com/{ver}/models/{model}:generateContent?key={clean_key}"
+                    req = urllib.request.Request(
+                        url,
+                        data=payload,
+                        headers={
+                            "Content-Type": "application/json",
+                            "x-goog-api-key": clean_key
+                        }
+                    )
+                    with urllib.request.urlopen(req, timeout=30) as resp:
+                        data = json.loads(resp.read().decode('utf-8'))
+                        raw_text = data['candidates'][0]['content']['parts'][0]['text']
+                        match = re.search(r'\{.*\}', raw_text, re.DOTALL)
+                        if match:
+                            res = json.loads(match.group(0))
+                            if isinstance(res, dict) and res.get("topic") and res.get("title") and isinstance(res.get("lines"), list) and res["lines"]:
+                                print(f"Successfully generated {genre_name} script using {model} ({ver})!")
+                                return res
+                            errors.append(f"{model} ({ver}): incomplete JSON schema")
+                        else:
+                            errors.append(f"{model} ({ver}): no JSON object in response")
+                        break
+                except urllib.error.HTTPError as he:
+                    err_body = ""
+                    try:
+                        err_body = he.read().decode('utf-8', errors='replace')[:160].replace('\n', ' ')
+                    except Exception:
+                        pass
+                    err_body = re.sub(r'([?&]key=)[^&\s\'"]+', r'\1REDACTED', err_body)
+                    errors.append(f"{model} ({ver}): HTTP {he.code} {err_body}")
+                    if he.code in (429, 500, 503) and net_attempt == 0:
+                        time.sleep(2)
+                        continue
+                    break
+                except Exception as e:
+                    safe_err = re.sub(r'([?&]key=)[^&\s\'"]+', r'\1REDACTED', str(e))
+                    errors.append(f"{model} ({ver}): {type(e).__name__}: {safe_err}")
+                    break
 
     summary = "; ".join(errors[:4])
     raise ValueError(f"All Gemini model endpoints failed ({summary})")
@@ -271,7 +388,7 @@ def pick_topic_for_slot(
         for attempt in range(1, 4):
             try:
                 neg_constraint = topic_guard.build_gemini_rejection_constraint(rejected_candidates)
-                candidate = generate_with_gemini(api_key, published_topics, slot_info, neg_constraint)
+                candidate = generate_with_gemini(api_key, published_topics, slot_info, neg_constraint, state_mgr=state_mgr)
 
                 # Gate 1: Check topic uniqueness
                 is_unique, reason, _ = topic_guard.evaluate_topic_uniqueness(
@@ -419,7 +536,18 @@ def write_adaptive_shots(proj_dir, title, sample_lines, style="2d-motion"):
     return shots_file
 
 
-def write_step_summary(title, slot_info, topic, style, video_name, short_url, stage_metrics, total_time, run_id):
+def write_step_summary(
+    title,
+    slot_info,
+    topic,
+    style,
+    video_name,
+    short_url,
+    stage_metrics,
+    total_time,
+    run_id,
+    runway: Optional[Dict[str, int]] = None,
+):
     summary_path = os.environ.get('GITHUB_STEP_SUMMARY')
     if not summary_path:
         return
@@ -432,9 +560,9 @@ def write_step_summary(title, slot_info, topic, style, video_name, short_url, st
 | **Video Title** | **{title}** |
 | **Genre** | {slot_info['name']} (Slot {slot_info.get('slot_id', 1)}) |
 | **Topic** | {topic} |
-| **Animation Style** | `{style}` |
+| **Visual Style** | `{style}` |
 | **Rendered File** | `{video_name}` |
-| **YouTube Link** | {short_url} |
+| **Publish Target** | {short_url} |
 | **Total Duration** | **{total_time:.2f}s** |
 
 ### ⚡ Pipeline Stage Telemetry
@@ -445,6 +573,13 @@ def write_step_summary(title, slot_info, topic, style, video_name, short_url, st
         content += f"| {stage} | {dur:.2f}s |\n"
 
     content += f"| **Total Pipeline** | **{total_time:.2f}s** |\n"
+
+    if runway:
+        low_slots = [f"Slot {sid}: {cnt} left" for sid, cnt in runway.items() if cnt <= 5]
+        runway_str = ", ".join(f"Slot {sid}={cnt}" for sid, cnt in runway.items())
+        content += f"\n**Offline Curriculum Runway:** {runway_str}\n"
+        if low_slots:
+            content += f"\n> [!WARNING]\n> Low offline topic runway detected ({', '.join(low_slots)}). Consider adding topics or checking `GEMINI_API_KEY`.\n"
 
     try:
         with open(summary_path, 'a', encoding='utf-8') as f:
@@ -522,6 +657,11 @@ def main():
     )
     published = get_published_topics(state_mgr=state_mgr)
     print(f"Found {len(published)} previously registered topics.", flush=True)
+    runway = compute_curriculum_runway(slots_cfg, published)
+    print(f"Offline Fallback Runway: {runway}", flush=True)
+    low_runway = [sid for sid, rem in runway.items() if rem <= 5]
+    if low_runway:
+        print(f"[RUNWAY WARNING] Low offline fallbacks remaining for Slot(s) {low_runway}: {runway}", flush=True)
 
     # Gate 1 & 2: Semantic Topic & Script Originality Verification
     item = pick_topic_for_slot(slot_info, published, state_mgr=state_mgr, slot_id=slot_id, run_id=run_id)
@@ -573,15 +713,17 @@ def main():
     ]
     recent_palettes = list(dict.fromkeys(recent_palettes))
 
-    print("\n--- [Stage 0.5/5] Scaffolding Fresh Per-Video 2D Assets ---")
+    print("\n--- [Stage 0.5/5] Scaffolding Fresh Multi-Style 2D Assets ---")
     PROJECTS_DIR.mkdir(parents=True, exist_ok=True)
     script_text_all = " ".join(l.get("text", "") for l in item['lines'])
 
     theme_name = ""
     palette_id = ""
+    chosen_style = style or "2d-motion"
     scene_sequence: List[str] = []
     manifest: Dict[str, Any] = {}
     last_gate3_reason = ""
+    requested_style = item.get("visual_style") or os.environ.get("FORCE_STYLE", "")
 
     for variant in range(5):
         if proj_dir.exists():
@@ -596,7 +738,7 @@ def main():
             requested_mood=item.get("music_mood", "")
         )
 
-        theme_name, palette_id, scene_sequence = scaffold_2d_project(
+        theme_name, palette_id, scene_sequence, chosen_style = scaffold_styled_project(
             proj_dir=proj_dir,
             title=title,
             topic=topic,
@@ -607,6 +749,7 @@ def main():
             recent_assets=recent_assets,
             music_config=music_cfg,
             variant_offset=variant,
+            requested_style=requested_style,
         )
 
         manifest = json.loads((proj_dir / "asset_manifest.json").read_text(encoding="utf-8"))
@@ -625,7 +768,7 @@ def main():
         fresh_ok, fresh_reason = asset_guard.verify_project_freshness(proj_dir, run_id)
 
         if vis_ok and asset_ok and fresh_ok:
-            print(f"[Gate 3 Visual] {vis_reason}")
+            print(f"[Gate 3 Visual] Style={chosen_style} | {vis_reason}")
             print(f"[Gate 3B Assets] {asset_reason} | {fresh_reason}")
             break
         last_gate3_reason = f"{vis_reason}; {asset_reason}; {fresh_reason}"
@@ -635,21 +778,25 @@ def main():
         raise ValueError(f"Gate 3 Asset/Visual Uniqueness Rejected after 5 attempts: {last_gate3_reason}")
 
     # Choose calm voice & per-video music configuration
-    voice_id = "bm_george" if theme_name == "HISTORIC_DOCUMENTARY" else "am_michael"
+    voice_id = "bm_george" if (theme_name == "HISTORIC_DOCUMENTARY" or chosen_style == "paper-atlas") else "am_michael"
     final_music_cfg = manifest.get("music_config", {"mode": "bed", "bpm": 82, "root_hz": 220.0, "music_seed": 17})
 
-    # Write script.json with mandatory calm collected tone settings
+    # Tighten opening lead and inter-sentence gap calmly while keeping 0.91x collected narrator tone
+    loop_lines = [dict(l) for l in item['lines']]
+    if loop_lines:
+        loop_lines[-1]["gap"] = min(float(loop_lines[-1].get("gap", 0.20)), 0.18)
+
     script_data = {
         "title": title,
         "voice": voice_id,
-        "speed": 0.88,
-        "lead": 0.35,
-        "outro": 1.0,
-        "gap": 0.40,
+        "speed": float(os.environ.get("VOICE_SPEED", "0.91")),
+        "lead": float(os.environ.get("SCRIPT_LEAD", "0.10")),
+        "outro": float(os.environ.get("SCRIPT_OUTRO", "0.20")),
+        "gap": float(os.environ.get("SCRIPT_GAP", "0.22")),
         "music": final_music_cfg.get("mode", "bed"),
         "music_config": final_music_cfg,
         "sources": item.get('sources', ["Scientific Literature & Historical Records"]),
-        "lines": item['lines']
+        "lines": loop_lines
     }
     (proj_dir / 'script.json').write_text(json.dumps(script_data, indent=2), encoding='utf-8')
 
@@ -663,10 +810,12 @@ def main():
     t_pipeline_start = time.time()
     stage_metrics = {}
 
-    # 0. Eager Pre-flight Auth Check (Fail-Fast before 15 min rendering)
-    print("\n--- [Stage 0/5] Pre-Flight YouTube Credential Check ---")
+    # 0. Eager Pre-flight Auth Check
+    print("\n--- [Stage 0/5] Pre-Flight Publishing & Auth Check ---")
     t0 = time.time()
     auth_ok = verify_youtube_auth()
+    if not auth_ok:
+        print("[Stage 0] Publishing Mode: Zapier via GitHub Releases (direct OAuth secrets unset).")
     stage_metrics['Pre-Flight Auth Check'] = round(time.time() - t0, 2)
 
     # 1. Synthesize Voice
@@ -681,16 +830,39 @@ def main():
     run_cmd(f'"{py}" "{SKILL_DIR}/scripts/words.py" "{proj_dir}"', env=env)
     stage_metrics['Whisper Alignment'] = round(time.time() - t0, 2)
 
-    # 3. Audio Cues & Calm Mixing
-    print("\n--- [Stage 3/5] Mixing Procedural Sound & Ambient Bed ---")
+    # 3. Audio Cues, Mixing & -14 LUFS Mastering
+    print("\n--- [Stage 3/5] Mixing Soundscape & -14 LUFS Audio Mastering ---")
     t0 = time.time()
     run_cmd('node tools/capture.mjs cues', cwd=proj_dir, env=env)
     run_cmd(f'"{py}" tools/mix.py .', cwd=proj_dir, env=env)
-    stage_metrics['Audio Cues & Mixing'] = round(time.time() - t0, 2)
+    master_res = normalize_to_lufs_ffmpeg(proj_dir / 'data' / 'mix.wav', target_lufs=-14.0, true_peak=-1.0)
+    measured_lufs = master_res.get("after_metrics", {}).get("lufs")
+    print(f"[Audio Mastering] applied={master_res.get('applied')} | lufs={measured_lufs} | peak={master_res.get('after_metrics', {}).get('peak_dbfs')} dBFS")
+    stage_metrics['Audio Cues & Mastering'] = round(time.time() - t0, 2)
 
-    # 4. Render Video
+    # 3.5. Gate 3C: Pre-Render Fail-Fast Alignment, Audio & Bright Hook Verification
     renders_dir = proj_dir / 'renders'
     renders_dir.mkdir(exist_ok=True)
+    cover_out = renders_dir / 'cover.jpg'
+    print("\n--- [Stage 3.5/5] Gate 3C: Pre-Render Alignment, Audio & Hook Frame QA ---")
+    t0 = time.time()
+    allow_est = os.environ.get("REQUIRE_WHISPER", "0") != "1"
+    ok_al, al_msg, al_meta = verify_whisper_alignment(proj_dir, allow_fallback=allow_est)
+    if not ok_al:
+        state_mgr.release_topic(topic)
+        raise RuntimeError(f"Gate 3C Whisper Alignment Rejected: {al_msg}")
+    ok_au, au_msg, au_meta = verify_audio_mix(proj_dir / 'data' / 'mix.wav', expected_duration=al_meta.get('duration_sec'))
+    if not ok_au:
+        state_mgr.release_topic(topic)
+        raise RuntimeError(f"Gate 3C Audio Mix Rejected: {au_msg}")
+    ok_ch, ch_msg, ch_meta = run_chrome_smoke_check(proj_dir, cover_out=cover_out, min_hook_luma=18.0)
+    if not ok_ch:
+        state_mgr.release_topic(topic)
+        raise RuntimeError(f"Gate 3C Chrome Smoke/Hook Check Rejected: {ch_msg}")
+    print(f"[Gate 3C PASSED] {al_msg} | {au_msg} | {ch_msg}")
+    stage_metrics['Gate 3C Pre-Render QA'] = round(time.time() - t0, 2)
+
+    # 4. Render Video
     video_out = renders_dir / f"{slug}.mp4"
     print("\n--- [Stage 4/5] Rendering 1080x1920 MP4 Video (Headless Chrome) ---")
     t0 = time.time()
@@ -711,7 +883,9 @@ def main():
         theme=theme_name,
         palette=palette_id,
         scene_sequence=scene_sequence,
-        max_similarity_threshold=float(os.environ.get("GATE4_SIMILARITY_THRESHOLD", "0.85"))
+        max_similarity_threshold=float(os.environ.get("GATE4_SIMILARITY_THRESHOLD", "0.85")),
+        style=chosen_style,
+        lufs=measured_lufs,
     )
     stage_metrics['Quality & Deduplication Audit'] = round(time.time() - t0, 2)
 
@@ -723,44 +897,81 @@ def main():
         print(f"[Gate 4 PASSED] {dup_reason}")
         auditor.record_approved_video(meta)
         asset_guard.record_approved_assets(manifest)
-        # Register script in script_registry.json
         script_guard = ScriptGuard(state_mgr)
         script_guard.record_approved_script(item['lines'], topic, title, script_meta.get('sha256', ''))
 
-    # Gate 5: Upload to YouTube (with Idempotency)
-    print("\n--- [Stage 5/5] Uploading Short to YouTube ---")
+    # Gate 5: Upload / Zapier Release Metadata Package
+    print("\n--- [Stage 5/5] Preparing SEO Metadata & Publishing Short ---")
     t0 = time.time()
     short_url = None
     vid_id = None
     video_hash = compute_file_sha256(video_out)
 
-    try:
-        from cloud.upload_youtube import upload_short
-        genre_tag = effective_slot_info['name'].replace(' ', '')
-        desc = f"{item['lines'][0]['text']}\n\n#shorts #{genre_tag} #curiosity"
-        vid_id, short_url = upload_short(
-            video_path=video_out,
-            title=title,
-            description=desc,
-            tags=tags,
-            category_id=category_id,
-            privacy_status="public",
-            run_id=run_id
-        )
-    except HttpError as he:
-        status_code = getattr(getattr(he, 'resp', None), 'status', None)
-        err_str = str(he)
-        if status_code == 403 and 'quotaExceeded' in err_str:
-            print("\n[CRITICAL WARNING] YouTube Data API daily upload quota exceeded!")
-        elif 'invalid_grant' in err_str:
-            print("\n[CRITICAL WARNING] YouTube OAuth token expired or revoked. Please run get_youtube_token.py.")
-        else:
-            print(f"YouTube HTTP Error {status_code or 'Unknown'}: {he}")
-        short_url = f"[Quota/Upload Error] {video_out.name}"
-    except Exception as e:
-        print(f"Direct YouTube upload failed or pending: {e}")
-        short_url = f"[Manual/Pending Upload] {video_out.name}"
-    stage_metrics['YouTube Upload'] = round(time.time() - t0, 2)
+    mirror_url = ""
+    if not auth_ok and os.environ.get("ENABLE_MIRROR_HOST") == "1":
+        try:
+            from cloud.upload_helper import upload_to_direct_host
+            mirror_url = upload_to_direct_host(video_out)
+        except Exception as me:
+            print(f"[Mirror Host Notice] Optional backup host skipped: {me}")
+
+    rel_meta = build_release_metadata(
+        title=title,
+        topic=topic,
+        lines=item['lines'],
+        slot_info=effective_slot_info,
+        tags=tags,
+        sources=item.get('sources', ["Scientific Literature & Historical Records"]),
+        category_id=category_id,
+        theme_name=theme_name,
+        style=chosen_style,
+        palette_id=palette_id,
+        duration_sec=meta.get("duration_sec") or al_meta.get("duration_sec"),
+        lufs=measured_lufs,
+        pinned_comment=item.get("pinned_comment", ""),
+        mirror_url=mirror_url,
+        cover_file=cover_out.name if cover_out.exists() else "",
+    )
+    (renders_dir / "release_metadata.json").write_text(
+        json.dumps(rel_meta, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+        newline="\n",
+    )
+
+    if auth_ok:
+        try:
+            from cloud.upload_youtube import upload_short
+            vid_id, short_url = upload_short(
+                video_path=video_out,
+                title=rel_meta["title"],
+                description=rel_meta["description"],
+                tags=rel_meta["tags"],
+                category_id=rel_meta["category_id"],
+                privacy_status="public",
+                run_id=run_id
+            )
+            pub_status = "PUBLISHED"
+        except HttpError as he:
+            status_code = getattr(getattr(he, 'resp', None), 'status', None)
+            err_str = str(he)
+            if status_code == 403 and 'quotaExceeded' in err_str:
+                print("\n[CRITICAL WARNING] YouTube Data API daily upload quota exceeded!")
+            elif 'invalid_grant' in err_str:
+                print("\n[CRITICAL WARNING] YouTube OAuth token expired or revoked. Please run get_youtube_token.py.")
+            else:
+                print(f"YouTube HTTP Error {status_code or 'Unknown'}: {he}")
+            short_url = f"[Quota/Upload Error] {video_out.name}"
+            pub_status = "PENDING_MANUAL"
+        except Exception as e:
+            print(f"Direct YouTube upload failed: {e}")
+            short_url = f"[Upload Error] {video_out.name}"
+            pub_status = "PENDING_MANUAL"
+    else:
+        short_url = mirror_url if mirror_url else f"[Zapier Release] {video_out.name}"
+        pub_status = "RELEASE_READY_ZAPIER"
+        print(f"[Stage 5] Generated SEO package renders/release_metadata.json -> {short_url}")
+
+    stage_metrics['YouTube / Release Handoff'] = round(time.time() - t0, 2)
 
     # 6. Record Publication in Persistent State and _published.md
     state_mgr.record_publication(
@@ -768,14 +979,14 @@ def main():
         topic=topic,
         title=title,
         video_hash=video_hash,
-        youtube_id=vid_id or "pending",
+        youtube_id=vid_id or ("zapier-release" if pub_status == "RELEASE_READY_ZAPIER" else "pending"),
         short_url=short_url,
         slot_id=effective_slot_id,
-        status="PUBLISHED" if vid_id else "PENDING_MANUAL"
+        status=pub_status
     )
 
     today = datetime.now().strftime("%Y-%m-%d")
-    log_line = f"| {today} | {topic} | {style} | {title} | {short_url} |\n"
+    log_line = f"| {today} | {topic} | {chosen_style} | {title} | {short_url} |\n"
     with open(state_mgr.published_file, 'a', encoding='utf-8') as f:
         f.write(log_line)
 
@@ -786,12 +997,13 @@ def main():
         title=title,
         slot_info=effective_slot_info,
         topic=topic,
-        style=style,
+        style=chosen_style,
         video_name=video_out.name,
         short_url=short_url,
         stage_metrics=stage_metrics,
         total_time=total_time,
-        run_id=run_id
+        run_id=run_id,
+        runway=runway,
     )
 
     print("\n" + "=" * 60)

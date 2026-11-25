@@ -157,14 +157,16 @@ class TopicGuard:
                     rec
                 )
 
-            seq_sim = compute_sequence_similarity(candidate_topic, prev_topic)
             has_shared_token = bool(candidate_tokens.intersection(prev_tokens))
-            if (seq_sim >= 0.85) or (seq_sim >= self.max_sequence and has_shared_token):
-                return (
-                    False,
-                    f"Syntactic similarity: Sequence ratio {seq_sim:.2f} >= {self.max_sequence:.2f} with '{prev_topic}'",
-                    rec
-                )
+            norm_b = normalize_text(prev_topic)
+            if has_shared_token or (candidate_norm and norm_b and (2.0 * min(len(candidate_norm), len(norm_b)) / (len(candidate_norm) + len(norm_b))) >= 0.85):
+                seq_sim = compute_sequence_similarity(candidate_topic, prev_topic)
+                if (seq_sim >= 0.85) or (seq_sim >= self.max_sequence and has_shared_token):
+                    return (
+                        False,
+                        f"Syntactic similarity: Sequence ratio {seq_sim:.2f} >= {self.max_sequence:.2f} with '{prev_topic}'",
+                        rec
+                    )
 
         return True, "Topic passed all Gate 1 semantic uniqueness checks.", None
 

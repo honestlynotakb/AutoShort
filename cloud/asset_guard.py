@@ -213,8 +213,10 @@ class AssetGuard:
         if manifest.get("run_id") != str(run_id):
             return False, f"Stale asset_manifest.json run_id={manifest.get('run_id')} != {run_id}"
 
+        style_name = manifest.get("style", "2d-motion")
+        kit_rel = "src/core/kit2d.js" if style_name == "2d-motion" else "src/core/kit.js"
         required_files = [
-            "src/core/kit2d.js",
+            kit_rel,
             "src/shots.js",
             "src/main.js",
             "tools/mix.py",
