@@ -176,6 +176,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-22T20:23:57.794577+00:00"
+    },
+    "slot1-20261125101159-3581": {
+      "run_id": "slot1-20261125101159-3581",
+      "topic": "What happens if Earth passes through a dark matter halo",
+      "title": "What If Earth Hits Invisible Matter? #shorts",
+      "video_hash": "da2758f82e6b4f895f7932f726ac2c46f8b44f14875930c6ff7846c0aad39871",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] what-if-earth-hits-invisible-matter.mp4",
+      "slot_id": "1",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-25T10:15:13.005492+00:00"
     }
   },
   "by_video_hash": {
@@ -354,6 +365,17 @@
       "slot_id": "3",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-22T20:23:57.794577+00:00"
+    },
+    "da2758f82e6b4f895f7932f726ac2c46f8b44f14875930c6ff7846c0aad39871": {
+      "run_id": "slot1-20261125101159-3581",
+      "topic": "What happens if Earth passes through a dark matter halo",
+      "title": "What If Earth Hits Invisible Matter? #shorts",
+      "video_hash": "da2758f82e6b4f895f7932f726ac2c46f8b44f14875930c6ff7846c0aad39871",
+      "youtube_id": "pending",
+      "short_url": "[Manual/Pending Upload] what-if-earth-hits-invisible-matter.mp4",
+      "slot_id": "1",
+      "status": "PENDING_MANUAL",
+      "published_at": "2026-11-25T10:15:13.005492+00:00"
     }
   }
 }

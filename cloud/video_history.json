@@ -468,5 +468,31 @@
       "060c1c0e16232300"
     ],
     "similarity_score": 0.764
+  },
+  {
+    "title": "What If Earth Hits Invisible Matter? #shorts",
+    "topic": "What happens if Earth passes through a dark matter halo",
+    "theme": "COSMIC_SPACE",
+    "palette": "cosmic_abyss",
+    "scene_sequence": [
+      "HOOK_PLANETARY_ORBIT",
+      "MECH_PLANETARY_ORBIT",
+      "BIG_STAT_METRIC",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "da2758f82e6b4f895f7932f726ac2c46f8b44f14875930c6ff7846c0aad39871",
+    "frame_hashes": [
+      "1400004a48570e00",
+      "080c080a00232300",
+      "080c000c00131600",
+      "0c08002c00370e00",
+      "080c000f310f1600",
+      "040c000f23171b00",
+      "0c000407311b1300",
+      "0c000407210d0c00",
+      "080c142a222b3300",
+      "0c08162a22171b00"
+    ],
+    "similarity_score": 0.8
   }
 ]

@@ -414,6 +414,25 @@
       "status": "published",
       "published_at": "2026-11-22T20:23:57.795754+00:00",
       "youtube_url": "[Manual/Pending Upload] the-pre-nuclear-blast-that-shook-ca.mp4"
+    },
+    "the prenuclear blast that shook canada": {
+      "topic": "The Pre-Nuclear Blast That Shook Canada #shorts",
+      "title": "The Pre-Nuclear Blast That Shook Canada #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-22",
+      "youtube_url": "[Manual/Pending Upload] the-pre-nuclear-blast-that-shook-ca.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-the prenucle"
+    },
+    "what happens if earth passes through a dark matter halo": {
+      "topic": "What happens if Earth passes through a dark matter halo",
+      "title": "What If Earth Hits Invisible Matter? #shorts",
+      "slot_id": "1",
+      "run_id": "slot1-20261125101159-3581",
+      "status": "published",
+      "published_at": "2026-11-25T10:15:13.007282+00:00",
+      "youtube_url": "[Manual/Pending Upload] what-if-earth-hits-invisible-matter.mp4"
     }
   }
 }

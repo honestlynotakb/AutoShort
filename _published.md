@@ -34,3 +34,4 @@
 | 2026-11-21 | Paradoxical undressing: Why freezing victims strip off their clothes | 2d-motion | Why Freezing Victims Strip Naked #shorts | [Manual/Pending Upload] why-freezing-victims-strip-naked.mp4 |
 | 2026-11-22 | Non-Newtonian shear-thickening fluids: Running across liquid water | 2d-motion | Why You Can Run Across Solid Slime #shorts | [Manual/Pending Upload] why-you-can-run-across-solid-slime.mp4 |
 | 2026-11-22 | The Halifax Explosion of 1917: The pre-nuclear tsunami | 2d-motion | The Pre-Nuclear Blast That Shook Canada #shorts | [Manual/Pending Upload] the-pre-nuclear-blast-that-shook-ca.mp4 |
+| 2026-11-25 | What happens if Earth passes through a dark matter halo | 2d-motion | What If Earth Hits Invisible Matter? #shorts | [Manual/Pending Upload] what-if-earth-hits-invisible-matter.mp4 |
