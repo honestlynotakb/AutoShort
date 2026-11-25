@@ -187,6 +187,17 @@
       "slot_id": "1",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-25T10:15:13.005492+00:00"
+    },
+    "slot1-20261125175822-3422": {
+      "run_id": "slot1-20261125175822-3422",
+      "topic": "What happens if Earth crosses a rogue black hole's event horizon invisibly",
+      "title": "What If A Black Hole Hides Near Earth? #shorts",
+      "video_hash": "70a76f6fa21591034bb955a562d5bd0df2c57ceceda24722fab59862a6bdc2ae",
+      "youtube_id": "zapier-release",
+      "short_url": "[Zapier Release] what-if-a-black-hole-hides-near-ear.mp4",
+      "slot_id": "1",
+      "status": "RELEASE_READY_ZAPIER",
+      "published_at": "2026-11-25T18:01:14.606474+00:00"
     }
   },
   "by_video_hash": {
@@ -376,6 +387,17 @@
       "slot_id": "1",
       "status": "PENDING_MANUAL",
       "published_at": "2026-11-25T10:15:13.005492+00:00"
+    },
+    "70a76f6fa21591034bb955a562d5bd0df2c57ceceda24722fab59862a6bdc2ae": {
+      "run_id": "slot1-20261125175822-3422",
+      "topic": "What happens if Earth crosses a rogue black hole's event horizon invisibly",
+      "title": "What If A Black Hole Hides Near Earth? #shorts",
+      "video_hash": "70a76f6fa21591034bb955a562d5bd0df2c57ceceda24722fab59862a6bdc2ae",
+      "youtube_id": "zapier-release",
+      "short_url": "[Zapier Release] what-if-a-black-hole-hides-near-ear.mp4",
+      "slot_id": "1",
+      "status": "RELEASE_READY_ZAPIER",
+      "published_at": "2026-11-25T18:01:14.606474+00:00"
     }
   }
 }

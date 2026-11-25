@@ -494,5 +494,36 @@
       "0c08162a22171b00"
     ],
     "similarity_score": 0.8
+  },
+  {
+    "title": "What If A Black Hole Hides Near Earth? #shorts",
+    "topic": "What happens if Earth crosses a rogue black hole's event horizon invisibly",
+    "theme": "COSMIC_SPACE",
+    "style": "2d-motion",
+    "palette": "solar_stellar",
+    "duration_sec": 28.96,
+    "lufs": -14.13,
+    "scene_sequence": [
+      "HOOK_BLACK_HOLE",
+      "HAZARD_TWIST",
+      "BIG_STAT_METRIC",
+      "VECTOR_CALLOUT_BLACK_HOLE",
+      "METRIC_COMPARISON",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "70a76f6fa21591034bb955a562d5bd0df2c57ceceda24722fab59862a6bdc2ae",
+    "frame_hashes": [
+      "0e9db332470f5300",
+      "440f170f00171600",
+      "071f330708171600",
+      "0c004d4d001f5900",
+      "0c00cc4d002f0c00",
+      "0e1733160c1b1e00",
+      "0f1533330f1b1e00",
+      "06173317373b2b00",
+      "4e0f3317801f1f40",
+      "1f0f331b0f170e00"
+    ],
+    "similarity_score": 0.688
   }
 ]

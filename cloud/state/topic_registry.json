@@ -433,6 +433,25 @@
       "status": "published",
       "published_at": "2026-11-25T10:15:13.007282+00:00",
       "youtube_url": "[Manual/Pending Upload] what-if-earth-hits-invisible-matter.mp4"
+    },
+    "what if earth hits invisible matter": {
+      "topic": "What If Earth Hits Invisible Matter? #shorts",
+      "title": "What If Earth Hits Invisible Matter? #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-25",
+      "youtube_url": "[Manual/Pending Upload] what-if-earth-hits-invisible-matter.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-what if eart"
+    },
+    "what happens if earth crosses a rogue black holes event horizon invisibly": {
+      "topic": "What happens if Earth crosses a rogue black hole's event horizon invisibly",
+      "title": "What If A Black Hole Hides Near Earth? #shorts",
+      "slot_id": "1",
+      "run_id": "slot1-20261125175822-3422",
+      "status": "published",
+      "published_at": "2026-11-25T18:01:14.607441+00:00",
+      "youtube_url": "[Zapier Release] what-if-a-black-hole-hides-near-ear.mp4"
     }
   }
 }

@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "run_id": "slot1-20261125175822-3422",
+      "asset_seed": "074418e616ac1724",
+      "project_dir_name": "slot1-20261125175822-3422_what-if-a-black-hole-hides-near-ear",
+      "title": "What If A Black Hole Hides Near Earth? #shorts",
+      "topic": "What happens if Earth crosses a rogue black hole's event horizon invisibly",
+      "theme": "COSMIC_SPACE",
+      "style": "2d-motion",
+      "palette_id": "solar_stellar",
+      "focal_vector": "BLACK_HOLE",
+      "has_subcuts": true,
+      "scene_sequence": [
+        "HOOK_BLACK_HOLE",
+        "HAZARD_TWIST",
+        "BIG_STAT_METRIC",
+        "VECTOR_CALLOUT_BLACK_HOLE",
+        "METRIC_COMPARISON",
+        "LOOP_OUTRO"
+      ],
+      "background_sequence": [
+        "RADAR",
+        "BLUEPRINT",
+        "WAVEMESH",
+        "STARFIELD",
+        "HEX",
+        "CONTOURS"
+      ],
+      "card_texts": [
+        "ROGUE BLACK HOLE",
+        "WHAT IF A BLACK HOLE HIDES NEAR EARTH",
+        "WHAT IF A BLACK HOLE",
+        "ZERO LIGHT EMISSION",
+        "GRAVITATIONAL",
+        "100 AU",
+        "DETECTION RADIUS",
+        "OORT CLOUD DISRUPTION",
+        "COMETS",
+        "INTERSTELLAR EJECTION",
+        "EARTH ITSELF",
+        "DEEP INTERSTELLAR",
+        "GRAVITATIONAL LENSING",
+        "SILENT COSMIC PREDATOR"
+      ],
+      "music_config": {
+        "mode": "ambient",
+        "root_hz": 261.6,
+        "bpm": 74,
+        "music_seed": 21157
+      },
+      "shots_sha256": "d7f0bef4f83df7ed5724f231662de33b7e1cfb08e7f5601b0bf37454c65c4be3",
+      "file_hashes": {
+        "src/core/kit2d.js": "b32af1a1bdc45bbd4d86a7bac25b8e0041f7ac050d31af74424c76a3fa3d5c02",
+        "src/shots.js": "d7f0bef4f83df7ed5724f231662de33b7e1cfb08e7f5601b0bf37454c65c4be3",
+        "src/main.js": "4b28f443fb0aed1b4570acbf602876de9e5497941587b0dc38bf2ba9cdf139bf",
+        "tools/mix.py": "6d91bf501e90e47f1bb67c5f00af329040333e69a093b23e0fb1e974918c91ca",
+        "index.html": "430775e162ae4f6c4e5d4f792622c89805033fc9547bb60bcf3027aaae3f46dc"
+      },
+      "recorded_at": "2026-11-25T18:01:14.593270+00:00"
+    }
+  ]
+}
