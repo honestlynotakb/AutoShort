@@ -37,3 +37,4 @@
 | 2026-11-25 | What happens if Earth passes through a dark matter halo | 2d-motion | What If Earth Hits Invisible Matter? #shorts | [Manual/Pending Upload] what-if-earth-hits-invisible-matter.mp4 |
 | 2026-11-25 | What happens if Earth crosses a rogue black hole's event horizon invisibly | 2d-motion | What If A Black Hole Hides Near Earth? #shorts | [Zapier Release] what-if-a-black-hole-hides-near-ear.mp4 |
 | 2026-11-25 | Quantum levitation using superconductors and magnetic flux pinning | 2d-motion | The Track That Makes Trains Float #shorts | [Zapier Release] the-track-that-makes-trains-float.mp4 |
+| 2026-11-26 | What happens if a rogue hypervelocity star ejects from the galactic core and passes through the solar system | 2d-motion | When A Rogue Star Invades Our Solar System #shorts | [Zapier Release] when-a-rogue-star-invades-our-solar.mp4 |

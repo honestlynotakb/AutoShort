@@ -119,6 +119,72 @@
         "index.html": "87ca1580959f26c30e7486d58a1eaa891234d76d6ac8663c41683f9c3de7222d"
       },
       "recorded_at": "2026-11-25T22:33:41.092732+00:00"
+    },
+    {
+      "run_id": "slot1-20261126174206-3620",
+      "asset_seed": "d16a00cf34d5a612",
+      "project_dir_name": "slot1-20261126174206-3620_when-a-rogue-star-invades-our-solar",
+      "title": "When A Rogue Star Invades Our Solar System #shorts",
+      "topic": "What happens if a rogue hypervelocity star ejects from the galactic core and passes through the solar system",
+      "theme": "COSMIC_SPACE",
+      "style": "2d-motion",
+      "palette_id": "nebula_violet",
+      "focal_vector": "PLANETARY_ORBIT",
+      "has_subcuts": true,
+      "scene_sequence": [
+        "HOOK_PLANETARY_ORBIT",
+        "VECTOR_CALLOUT_PLANETARY_ORBIT",
+        "BIG_STAT_METRIC",
+        "METRIC_COMPARISON",
+        "MECH_PLANETARY_ORBIT",
+        "METRIC_TELEMETRY",
+        "LOOP_OUTRO"
+      ],
+      "background_sequence": [
+        "BLUEPRINT",
+        "WAVEMESH",
+        "STARFIELD",
+        "HEX",
+        "CONTOURS",
+        "RADAR",
+        "BLUEPRINT"
+      ],
+      "card_texts": [
+        "STELLAR INTRUSION",
+        "WHEN A ROGUE STAR INVADES OUR SOLAR SYSTEM",
+        "WHEN A ROGUE STAR",
+        "2000000 MPH",
+        "2M MPH",
+        "HYPERVELOCITY",
+        "GRAVITATIONAL SHOCK",
+        "DOESNT",
+        "NEED COLLIDE EARTH",
+        "OORT CLOUD DISRUPTION",
+        "PASSING LIGHT-YEAR",
+        "INSTANTLY YANKS",
+        "COMET BOMBARDMENT",
+        "DORMANT COMETS RAIN",
+        "ORBITAL DISTORTION",
+        "EARTHS",
+        "CIRCULAR ORBIT",
+        "ORBITAL CHAOS",
+        "ORBITAL DESTRUCTION"
+      ],
+      "music_config": {
+        "mode": "tension",
+        "root_hz": 293.7,
+        "bpm": 74,
+        "music_seed": 74795
+      },
+      "shots_sha256": "d430c0e3128957876166394d072f5a29031963e66ff78e8a4cac8ea917ebd6bb",
+      "file_hashes": {
+        "src/core/kit2d.js": "00fd161f68794fa21b41a5ddbad73ddbd4ba1a45059e28b074857efbf5d0492e",
+        "src/shots.js": "d430c0e3128957876166394d072f5a29031963e66ff78e8a4cac8ea917ebd6bb",
+        "src/main.js": "30507d4c4bc97a33bdd5e9d31c3d936c4021706f6d3c96709d656e5e2537ac23",
+        "tools/mix.py": "5d1cc56da36308a49c273248bccbe71c969ad6b1747f16080ef77b00123a64c4",
+        "index.html": "03224366de9c6f047745828a9295bf5ea167da56c540db76e57a35c0d61ebbcd"
+      },
+      "recorded_at": "2026-11-26T17:46:33.103866+00:00"
     }
   ]
 }

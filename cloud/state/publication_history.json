@@ -209,6 +209,17 @@
       "slot_id": "2",
       "status": "RELEASE_READY_ZAPIER",
       "published_at": "2026-11-25T22:33:41.101954+00:00"
+    },
+    "slot1-20261126174206-3620": {
+      "run_id": "slot1-20261126174206-3620",
+      "topic": "What happens if a rogue hypervelocity star ejects from the galactic core and passes through the solar system",
+      "title": "When A Rogue Star Invades Our Solar System #shorts",
+      "video_hash": "1789a20bc0b8f64c2ecf2b5bb343f559b22ca10bd1b086397aa2eb60ccaa90aa",
+      "youtube_id": "zapier-release",
+      "short_url": "[Zapier Release] when-a-rogue-star-invades-our-solar.mp4",
+      "slot_id": "1",
+      "status": "RELEASE_READY_ZAPIER",
+      "published_at": "2026-11-26T17:46:33.113795+00:00"
     }
   },
   "by_video_hash": {
@@ -420,6 +431,17 @@
       "slot_id": "2",
       "status": "RELEASE_READY_ZAPIER",
       "published_at": "2026-11-25T22:33:41.101954+00:00"
+    },
+    "1789a20bc0b8f64c2ecf2b5bb343f559b22ca10bd1b086397aa2eb60ccaa90aa": {
+      "run_id": "slot1-20261126174206-3620",
+      "topic": "What happens if a rogue hypervelocity star ejects from the galactic core and passes through the solar system",
+      "title": "When A Rogue Star Invades Our Solar System #shorts",
+      "video_hash": "1789a20bc0b8f64c2ecf2b5bb343f559b22ca10bd1b086397aa2eb60ccaa90aa",
+      "youtube_id": "zapier-release",
+      "short_url": "[Zapier Release] when-a-rogue-star-invades-our-solar.mp4",
+      "slot_id": "1",
+      "status": "RELEASE_READY_ZAPIER",
+      "published_at": "2026-11-26T17:46:33.113795+00:00"
     }
   }
 }

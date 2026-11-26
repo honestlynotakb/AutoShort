@@ -556,5 +556,37 @@
       "305ae8a430d09400"
     ],
     "similarity_score": 0.589
+  },
+  {
+    "title": "When A Rogue Star Invades Our Solar System #shorts",
+    "topic": "What happens if a rogue hypervelocity star ejects from the galactic core and passes through the solar system",
+    "theme": "COSMIC_SPACE",
+    "style": "2d-motion",
+    "palette": "nebula_violet",
+    "duration_sec": 35.88,
+    "lufs": -14.2,
+    "scene_sequence": [
+      "HOOK_PLANETARY_ORBIT",
+      "VECTOR_CALLOUT_PLANETARY_ORBIT",
+      "BIG_STAT_METRIC",
+      "METRIC_COMPARISON",
+      "MECH_PLANETARY_ORBIT",
+      "METRIC_TELEMETRY",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "1789a20bc0b8f64c2ecf2b5bb343f559b22ca10bd1b086397aa2eb60ccaa90aa",
+    "frame_hashes": [
+      "06004a4f4c2b2b00",
+      "0c000e0c000f4d00",
+      "4c044c6a8e3b6300",
+      "16004d4d00233300",
+      "16144c2a001b1300",
+      "28904b1b38179620",
+      "0c140b8960331640",
+      "0e140b1a001b2300",
+      "06604a0e00030600",
+      "0606163c084d6f00"
+    ],
+    "similarity_score": 0.739
   }
 ]

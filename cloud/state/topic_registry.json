@@ -471,6 +471,25 @@
       "status": "published",
       "published_at": "2026-11-25T22:33:41.102695+00:00",
       "youtube_url": "[Zapier Release] the-track-that-makes-trains-float.mp4"
+    },
+    "the track that makes trains float": {
+      "topic": "The Track That Makes Trains Float #shorts",
+      "title": "The Track That Makes Trains Float #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-25",
+      "youtube_url": "[Zapier Release] the-track-that-makes-trains-float.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-the track th"
+    },
+    "what happens if a rogue hypervelocity star ejects from the galactic core and passes through the solar system": {
+      "topic": "What happens if a rogue hypervelocity star ejects from the galactic core and passes through the solar system",
+      "title": "When A Rogue Star Invades Our Solar System #shorts",
+      "slot_id": "1",
+      "run_id": "slot1-20261126174206-3620",
+      "status": "published",
+      "published_at": "2026-11-26T17:46:33.114834+00:00",
+      "youtube_url": "[Zapier Release] when-a-rogue-star-invades-our-solar.mp4"
     }
   }
 }
