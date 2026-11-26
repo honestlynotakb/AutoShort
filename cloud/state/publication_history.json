@@ -220,6 +220,17 @@
       "slot_id": "1",
       "status": "RELEASE_READY_ZAPIER",
       "published_at": "2026-11-26T17:46:33.113795+00:00"
+    },
+    "slot2-20261126221839-3411": {
+      "run_id": "slot2-20261126221839-3411",
+      "topic": "The Mpemba effect: Why hot water can freeze faster than cold water",
+      "title": "Why Hot Water Freezes Faster #shorts",
+      "video_hash": "35a0957ceb59cf97f1890f2976801920ca1b281865f083eb2107d6e8ea3afe19",
+      "youtube_id": "zapier-release",
+      "short_url": "[Zapier Release] why-hot-water-freezes-faster.mp4",
+      "slot_id": "2",
+      "status": "RELEASE_READY_ZAPIER",
+      "published_at": "2026-11-26T22:29:01.279933+00:00"
     }
   },
   "by_video_hash": {
@@ -442,6 +453,17 @@
       "slot_id": "1",
       "status": "RELEASE_READY_ZAPIER",
       "published_at": "2026-11-26T17:46:33.113795+00:00"
+    },
+    "35a0957ceb59cf97f1890f2976801920ca1b281865f083eb2107d6e8ea3afe19": {
+      "run_id": "slot2-20261126221839-3411",
+      "topic": "The Mpemba effect: Why hot water can freeze faster than cold water",
+      "title": "Why Hot Water Freezes Faster #shorts",
+      "video_hash": "35a0957ceb59cf97f1890f2976801920ca1b281865f083eb2107d6e8ea3afe19",
+      "youtube_id": "zapier-release",
+      "short_url": "[Zapier Release] why-hot-water-freezes-faster.mp4",
+      "slot_id": "2",
+      "status": "RELEASE_READY_ZAPIER",
+      "published_at": "2026-11-26T22:29:01.279933+00:00"
     }
   }
 }

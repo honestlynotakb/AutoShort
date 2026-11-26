@@ -588,5 +588,37 @@
       "0606163c084d6f00"
     ],
     "similarity_score": 0.739
+  },
+  {
+    "title": "Why Hot Water Freezes Faster #shorts",
+    "topic": "The Mpemba effect: Why hot water can freeze faster than cold water",
+    "theme": "SURVIVAL_TACTICAL",
+    "style": "stick-story",
+    "palette": "stick_story_daynight",
+    "duration_sec": 33.87,
+    "lufs": -14.16,
+    "scene_sequence": [
+      "STICK_OUTDOOR",
+      "STICK_STEP",
+      "STICK_HAZARD",
+      "STICK_OUTDOOR",
+      "STICK_CLOSEUP",
+      "STICK_STEP",
+      "STICK_SAFE_OUTRO"
+    ],
+    "file_hash": "35a0957ceb59cf97f1890f2976801920ca1b281865f083eb2107d6e8ea3afe19",
+    "frame_hashes": [
+      "ccc931323476b498",
+      "1719e99c24a85961",
+      "6061ba4869e9ae9c",
+      "6161bcc86c6ce2ba",
+      "2629c94c10900d2d",
+      "71e8f0e4f1f2ceaa",
+      "718af0c471f2d4f4",
+      "068b795c24881929",
+      "ccc833317137f0e8",
+      "ccc9343071b1b49a"
+    ],
+    "similarity_score": 0.548
   }
 ]

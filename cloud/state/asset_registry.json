@@ -185,6 +185,67 @@
         "index.html": "03224366de9c6f047745828a9295bf5ea167da56c540db76e57a35c0d61ebbcd"
       },
       "recorded_at": "2026-11-26T17:46:33.103866+00:00"
+    },
+    {
+      "run_id": "slot2-20261126221839-3411",
+      "asset_seed": "854ce8cd533aaf77",
+      "project_dir_name": "slot2-20261126221839-3411_why-hot-water-freezes-faster",
+      "title": "Why Hot Water Freezes Faster #shorts",
+      "topic": "The Mpemba effect: Why hot water can freeze faster than cold water",
+      "theme": "SURVIVAL_TACTICAL",
+      "style": "stick-story",
+      "palette_id": "stick_story_daynight",
+      "focal_vector": "STICK_STORY",
+      "has_subcuts": false,
+      "scene_sequence": [
+        "STICK_OUTDOOR",
+        "STICK_STEP",
+        "STICK_HAZARD",
+        "STICK_OUTDOOR",
+        "STICK_CLOSEUP",
+        "STICK_STEP",
+        "STICK_SAFE_OUTRO"
+      ],
+      "background_sequence": [
+        "ROOM_DAYNIGHT",
+        "ROOM_DAYNIGHT",
+        "ROOM_DAYNIGHT",
+        "ROOM_DAYNIGHT",
+        "ROOM_DAYNIGHT",
+        "ROOM_DAYNIGHT",
+        "ROOM_DAYNIGHT"
+      ],
+      "card_texts": [
+        "MPEMBA EFFECT",
+        "FREEZE FASTER COLD",
+        "THERMODYNAMIC",
+        "ENTIRELY",
+        "HYDROGEN",
+        "RISES HYDROGEN",
+        "HEAT",
+        "RECOIL ALLOWS HEAT",
+        "MASS LOSS",
+        "ALSO SLASHES TOTAL",
+        "PHYSICS",
+        "CONDITIONS LEAVES",
+        "INFINITE LOOP",
+        "BACK ASKING WATER"
+      ],
+      "music_config": {
+        "mode": "ambient",
+        "root_hz": 220.0,
+        "bpm": 86,
+        "music_seed": 70345
+      },
+      "shots_sha256": "baf4cb462404c6f362b851fa32574bf3d839738462de26cecaa76e1d43ff6ead",
+      "file_hashes": {
+        "src/core/kit.js": "da08da51fa700b762feb5cb310644d8fa49226a9871179779a6a63cb15573fd8",
+        "src/shots.js": "baf4cb462404c6f362b851fa32574bf3d839738462de26cecaa76e1d43ff6ead",
+        "src/main.js": "602434b9142f5709282649a672dadcda0de3efc9ba6f4a4f9ea270505e04803c",
+        "tools/mix.py": "d96b11325f87a462e97e817c41cf31d1b432c457dcd6225cb03702b0fb372a6f",
+        "index.html": "7ea1fbeac7243d1d1be6c610f49116c520692338a3f766af92e513e2b7fd36c7"
+      },
+      "recorded_at": "2026-11-26T22:29:01.274640+00:00"
     }
   ]
 }

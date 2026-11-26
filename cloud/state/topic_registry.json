@@ -490,6 +490,25 @@
       "status": "published",
       "published_at": "2026-11-26T17:46:33.114834+00:00",
       "youtube_url": "[Zapier Release] when-a-rogue-star-invades-our-solar.mp4"
+    },
+    "when a rogue star invades our solar system": {
+      "topic": "When A Rogue Star Invades Our Solar System #shorts",
+      "title": "When A Rogue Star Invades Our Solar System #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-26",
+      "youtube_url": "[Zapier Release] when-a-rogue-star-invades-our-solar.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-when a rogue"
+    },
+    "the mpemba effect why hot water can freeze faster than cold water": {
+      "topic": "The Mpemba effect: Why hot water can freeze faster than cold water",
+      "title": "Why Hot Water Freezes Faster #shorts",
+      "slot_id": "2",
+      "run_id": "slot2-20261126221839-3411",
+      "status": "published",
+      "published_at": "2026-11-26T22:29:01.281092+00:00",
+      "youtube_url": "[Zapier Release] why-hot-water-freezes-faster.mp4"
     }
   }
 }
