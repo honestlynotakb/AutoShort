@@ -63,6 +63,10 @@ async function openPage(port) {
     const st = await ev('window.OP ? (OP.bootError ? "ERR:" + OP.bootError : OP.ready) : false').catch(() => false);
     if (st === true) break;
     if (typeof st === 'string') throw new Error('boot failed: ' + st + '\n' + logs.join('\n'));
+    if (i > 10 && logs.some((l) => l.startsWith('EXCEPTION '))) {
+      const readyState = await ev('document.readyState').catch(() => null);
+      if (readyState === 'complete') throw new Error('boot failed with uncaught exception:\n' + logs.join('\n'));
+    }
     if (i > 1200) {
       const debugInfo = await ev('JSON.stringify({ hasOP: !!window.OP, opKeys: window.OP ? Object.keys(window.OP) : [], readyState: document.readyState, ready: window.OP ? window.OP.ready : null, bootError: window.OP ? window.OP.bootError : null })').catch((e) => `eval failed: ${e.message}`);
       throw new Error(`boot timeout after 120s (state: ${debugInfo})\n` + logs.join('\n'));

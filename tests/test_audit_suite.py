@@ -1246,6 +1246,43 @@ class TestPipelineAuditSuite(unittest.TestCase):
                         chk = subprocess.run(["node", "--check", str(pdir / rel)], capture_output=True, text=True)
                         self.assertEqual(chk.returncode, 0, f"JS syntax error in {target_style} {rel}: {chk.stderr}")
 
+    def test_stick_story_variants_valid_js_syntax(self):
+        """All stick-story stage variants (snow/avalanche, grain, water, indoor) emit valid JS syntax."""
+        from cloud.style_router import scaffold_styled_project
+
+        has_node = shutil.which("node") is not None
+        self.assertTrue(has_node, "Node.js is required to syntax-check generated JS")
+        variants = [
+            ("snow", "How to Survive an Avalanche #shorts", "surviving a snow avalanche burial"),
+            ("grain", "Why Grain Silos Swallow You Whole #shorts", "grain silo corn entrapment"),
+            ("water", "How to Escape a Rip Current #shorts", "escaping an ocean rip current"),
+            ("indoor", "What to Do During a House Fire #shorts", "escaping a nighttime house fire"),
+        ]
+        for idx, (label, title, topic) in enumerate(variants):
+            with self.subTest(variant=label):
+                pdir = self.test_dir / f"stick_{label}"
+                lines = [
+                    {"text": f"Here is what happens during {topic}.", "caps": "Here is *what"},
+                    {"text": "Panic makes your body sink deeper into the hazard every second.", "caps": "Panic *makes"},
+                    {"text": "Stay calm, create an air pocket, and wait for rescue.", "caps": "Stay *calm", "gap": 0.2},
+                ]
+                _, _, _, chosen = scaffold_styled_project(
+                    proj_dir=pdir,
+                    title=title,
+                    topic=topic,
+                    lines=lines,
+                    recent_palette_ids=[],
+                    run_id=f"stick-var-{idx}",
+                    requested_style="stick-story",
+                )
+                self.assertEqual(chosen, "stick-story")
+                for rel in ["src/core/kit.js", "src/shots.js", "src/main.js"]:
+                    chk = subprocess.run(["node", "--check", str(pdir / rel)], capture_output=True, text=True)
+                    self.assertEqual(chk.returncode, 0, f"JS syntax error in stick-story ({label}) {rel}: {chk.stderr}")
+                if label == "snow":
+                    shots_js = (pdir / "src" / "shots.js").read_text(encoding="utf-8")
+                    self.assertIn("ctx.fillStyle = '#DCE8F2';", shots_js)
+
     def test_loop_pacing_and_subcut_cadence(self):
         """Longer lines generate Wd() mid-line sub-cuts without duplicating scene_sequence neighbors."""
         from cloud.visual_engine_2d import scaffold_2d_project

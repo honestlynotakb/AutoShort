@@ -552,7 +552,7 @@ function drawWaterStage(t, night) {{
 
 function drawGrainStage(t, night) {{
   drawFieldStage(t, night);
-  ctx.fillStyle = {'#DCE8F2' if is_snow else ("night ? '#8F6A28' : '#E2AD42'")};
+  ctx.fillStyle = {"'#DCE8F2'" if is_snow else ("night ? '#8F6A28' : '#E2AD42'")};
   ctx.beginPath(); ctx.moveTo(-300, 1920);
   for (let x = -300; x <= W + 300; x += 60) ctx.lineTo(x, 1230 + Math.abs(x - 540) * -0.14 + Math.sin(x * 0.02 + t * 2.2) * 14);
   ctx.lineTo(W + 300, 1920); ctx.closePath(); ctx.fill();
