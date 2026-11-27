@@ -547,6 +547,25 @@
       "status": "published",
       "published_at": "2026-11-27T17:31:05.377921+00:00",
       "youtube_url": "[Zapier Release] when-earth-s-core-freezes-solid.mp4"
+    },
+    "when earths core freezes solid": {
+      "topic": "When Earth's Core Freezes Solid #shorts",
+      "title": "When Earth's Core Freezes Solid #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-27",
+      "youtube_url": "[Zapier Release] when-earth-s-core-freezes-solid.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-when earths "
+    },
+    "the leidenfrost effect liquid nitrogen drops floating on a hot skillet": {
+      "topic": "The Leidenfrost Effect: Liquid nitrogen drops floating on a hot skillet",
+      "title": "Why Droplets Float On Fire #shorts",
+      "slot_id": "2",
+      "run_id": "slot2-20261127215823-3419",
+      "status": "published",
+      "published_at": "2026-11-27T22:01:32.698471+00:00",
+      "youtube_url": "[Zapier Release] why-droplets-float-on-fire.mp4"
     }
   }
 }

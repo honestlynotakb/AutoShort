@@ -253,6 +253,17 @@
       "slot_id": "1",
       "status": "RELEASE_READY_ZAPIER",
       "published_at": "2026-11-27T17:31:05.376792+00:00"
+    },
+    "slot2-20261127215823-3419": {
+      "run_id": "slot2-20261127215823-3419",
+      "topic": "The Leidenfrost Effect: Liquid nitrogen drops floating on a hot skillet",
+      "title": "Why Droplets Float On Fire #shorts",
+      "video_hash": "e8dac281948ccff1dd6bddebac6dc7d1f48faf8f7f1ace42eb1eda1624cc588f",
+      "youtube_id": "zapier-release",
+      "short_url": "[Zapier Release] why-droplets-float-on-fire.mp4",
+      "slot_id": "2",
+      "status": "RELEASE_READY_ZAPIER",
+      "published_at": "2026-11-27T22:01:32.697397+00:00"
     }
   },
   "by_video_hash": {
@@ -508,6 +519,17 @@
       "slot_id": "1",
       "status": "RELEASE_READY_ZAPIER",
       "published_at": "2026-11-27T17:31:05.376792+00:00"
+    },
+    "e8dac281948ccff1dd6bddebac6dc7d1f48faf8f7f1ace42eb1eda1624cc588f": {
+      "run_id": "slot2-20261127215823-3419",
+      "topic": "The Leidenfrost Effect: Liquid nitrogen drops floating on a hot skillet",
+      "title": "Why Droplets Float On Fire #shorts",
+      "video_hash": "e8dac281948ccff1dd6bddebac6dc7d1f48faf8f7f1ace42eb1eda1624cc588f",
+      "youtube_id": "zapier-release",
+      "short_url": "[Zapier Release] why-droplets-float-on-fire.mp4",
+      "slot_id": "2",
+      "status": "RELEASE_READY_ZAPIER",
+      "published_at": "2026-11-27T22:01:32.697397+00:00"
     }
   }
 }

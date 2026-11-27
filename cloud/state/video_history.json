@@ -683,5 +683,36 @@
       "0f24163a0b716300"
     ],
     "similarity_score": 0.73
+  },
+  {
+    "title": "Why Droplets Float On Fire #shorts",
+    "topic": "The Leidenfrost Effect: Liquid nitrogen drops floating on a hot skillet",
+    "theme": "ATOMIC_PHYSICS",
+    "style": "2d-motion",
+    "palette": "quantum_matrix",
+    "duration_sec": 28.21,
+    "lufs": -14.29,
+    "scene_sequence": [
+      "HOOK_MOLECULAR_SIM",
+      "MECH_MOLECULAR_SIM",
+      "WAVE_OSCILLATION",
+      "METRIC_TELEMETRY",
+      "HAZARD_TWIST",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "e8dac281948ccff1dd6bddebac6dc7d1f48faf8f7f1ace42eb1eda1624cc588f",
+    "frame_hashes": [
+      "0e4d0e0f1d692900",
+      "4d0d8e0e003737c0",
+      "4d0d0e0e0e373780",
+      "1e0d0d61003b3b80",
+      "1e054519803b3b80",
+      "4c098f0e000b0b80",
+      "0d06163ec80b0b80",
+      "0f0d0e0d00474780",
+      "4f860c090d474380",
+      "0f0c8e0f0f574b80"
+    ],
+    "similarity_score": 0.727
   }
 ]

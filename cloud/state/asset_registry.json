@@ -373,6 +373,64 @@
         "index.html": "8de0ab27da8e22a689a610dc66db6983e862cc18e9e92e87884f66f1e72bc51d"
       },
       "recorded_at": "2026-11-27T17:31:05.366003+00:00"
+    },
+    {
+      "run_id": "slot2-20261127215823-3419",
+      "asset_seed": "8c22afe3f050daaf",
+      "project_dir_name": "slot2-20261127215823-3419_why-droplets-float-on-fire",
+      "title": "Why Droplets Float On Fire #shorts",
+      "topic": "The Leidenfrost Effect: Liquid nitrogen drops floating on a hot skillet",
+      "theme": "ATOMIC_PHYSICS",
+      "style": "2d-motion",
+      "palette_id": "quantum_matrix",
+      "focal_vector": "MOLECULAR_SIM",
+      "has_subcuts": true,
+      "scene_sequence": [
+        "HOOK_MOLECULAR_SIM",
+        "MECH_MOLECULAR_SIM",
+        "WAVE_OSCILLATION",
+        "METRIC_TELEMETRY",
+        "HAZARD_TWIST",
+        "LOOP_OUTRO"
+      ],
+      "background_sequence": [
+        "STARFIELD",
+        "HEX",
+        "CONTOURS",
+        "RADAR",
+        "BLUEPRINT",
+        "WAVEMESH"
+      ],
+      "card_texts": [
+        "LEIDENFROST EFFECT",
+        "WHY DROPLETS FLOAT ON FIRE",
+        "WHY DROPLETS FLOAT",
+        "VAPOR CUSHION",
+        "INSTANTLY BOILING AWAY",
+        "THERMAL INSULATION",
+        "INVISIBLE VAPOR CUSHION",
+        "ZERO FRICTION",
+        "300 SEC",
+        "MAX HOVER TIME",
+        "FINGER IN LEAD",
+        "THERMAL ARMOR",
+        "VAPOR BARRIER SHIELD"
+      ],
+      "music_config": {
+        "mode": "ambient",
+        "root_hz": 196.0,
+        "bpm": 74,
+        "music_seed": 63351
+      },
+      "shots_sha256": "fcdd3be61b51e582d7aa9908ab386f2fe322d8cfd24f05e842bc204538a7d625",
+      "file_hashes": {
+        "src/core/kit2d.js": "01fc83a7b666fd7b1303f44d62475dd724caec1658df1fb3506ce67bb800f330",
+        "src/shots.js": "fcdd3be61b51e582d7aa9908ab386f2fe322d8cfd24f05e842bc204538a7d625",
+        "src/main.js": "43757949edb00422a6e8b91ca3f01b9646abc0387ca275a804759fbe15455bfe",
+        "tools/mix.py": "8b2be7c30615e412df08200f0723f1430f7b2f065982b7c4f091b60f8b0e1da8",
+        "index.html": "85bd08dc49ba27f3c299e373441de42994b2371e7d2bb7e1a411c696f53e1443"
+      },
+      "recorded_at": "2026-11-27T22:01:32.690193+00:00"
     }
   ]
 }

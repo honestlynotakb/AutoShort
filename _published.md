@@ -41,3 +41,4 @@
 | 2026-11-26 | The Mpemba effect: Why hot water can freeze faster than cold water | stick-story | Why Hot Water Freezes Faster #shorts | [Zapier Release] why-hot-water-freezes-faster.mp4 |
 | 2026-11-27 | Surviving a grain silo engulfment: The lethal physics of grain entrapment | 2d-motion | Why You Sink In Grain Like QuickSand #shorts | [Zapier Release] why-you-sink-in-grain-like-quicksan.mp4 |
 | 2026-11-27 | What happens if Earth's core cools down completely | 2d-motion | When Earth's Core Freezes Solid #shorts | [Zapier Release] when-earth-s-core-freezes-solid.mp4 |
+| 2026-11-27 | The Leidenfrost Effect: Liquid nitrogen drops floating on a hot skillet | 2d-motion | Why Droplets Float On Fire #shorts | [Zapier Release] why-droplets-float-on-fire.mp4 |
