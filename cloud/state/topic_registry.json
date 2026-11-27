@@ -528,6 +528,25 @@
       "status": "published",
       "published_at": "2026-11-27T01:04:48.688724+00:00",
       "youtube_url": "[Zapier Release] why-you-sink-in-grain-like-quicksan.mp4"
+    },
+    "why you sink in grain like quicksand": {
+      "topic": "Why You Sink In Grain Like QuickSand #shorts",
+      "title": "Why You Sink In Grain Like QuickSand #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-27",
+      "youtube_url": "[Zapier Release] why-you-sink-in-grain-like-quicksan.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-why you sink"
+    },
+    "what happens if earths core cools down completely": {
+      "topic": "What happens if Earth's core cools down completely",
+      "title": "When Earth's Core Freezes Solid #shorts",
+      "slot_id": "1",
+      "run_id": "slot1-20261127172708-4099",
+      "status": "published",
+      "published_at": "2026-11-27T17:31:05.377921+00:00",
+      "youtube_url": "[Zapier Release] when-earth-s-core-freezes-solid.mp4"
     }
   }
 }

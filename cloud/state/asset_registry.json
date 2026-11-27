@@ -312,6 +312,67 @@
         "index.html": "f2daf2317ede823dcb1594d2715ebf07296a6694240b9262d2a0fd1fc9127a26"
       },
       "recorded_at": "2026-11-27T01:04:48.677135+00:00"
+    },
+    {
+      "run_id": "slot1-20261127172708-4099",
+      "asset_seed": "1354ddb9760f67a5",
+      "project_dir_name": "slot1-20261127172708-4099_when-earth-s-core-freezes-solid",
+      "title": "When Earth's Core Freezes Solid #shorts",
+      "topic": "What happens if Earth's core cools down completely",
+      "theme": "COSMIC_SPACE",
+      "style": "2d-motion",
+      "palette_id": "cosmic_abyss",
+      "focal_vector": "ATOMIC_LATTICE",
+      "has_subcuts": true,
+      "scene_sequence": [
+        "HOOK_ATOMIC_LATTICE",
+        "VECTOR_CALLOUT_ATOMIC_LATTICE",
+        "BIG_STAT_METRIC",
+        "METRIC_COMPARISON",
+        "MECH_ATOMIC_LATTICE",
+        "LOOP_OUTRO"
+      ],
+      "background_sequence": [
+        "BLUEPRINT",
+        "WAVEMESH",
+        "STARFIELD",
+        "HEX",
+        "CONTOURS",
+        "RADAR"
+      ],
+      "card_texts": [
+        "MOLTEN CORE FREEZE",
+        "WHEN EARTHS CORE FREEZES SOLID",
+        "WHEN EARTHS CORE",
+        "MAGNETIC FIELD COLLAPSE",
+        "0 GAUSS",
+        "SHIELD STRENGTH",
+        "ATMOSPHERE STRIPPING",
+        "450 KM/S",
+        "SOLAR WIND SPEED",
+        "OCEAN EVAPORATION",
+        "OCEANS EVAPORATE",
+        "TEMPERATURES",
+        "DEAD CORE ICE",
+        "UNDERGROUND DEAD CORE",
+        "PLANETARY DEATH",
+        "DEAD IRON CORE"
+      ],
+      "music_config": {
+        "mode": "tension",
+        "root_hz": 293.7,
+        "bpm": 86,
+        "music_seed": 85304
+      },
+      "shots_sha256": "1e8ccc5dec479e7f7c7c825cc36c2c34ce434c5b6fd105b612a3374690964d19",
+      "file_hashes": {
+        "src/core/kit2d.js": "a43186e4e34a8de33e95cc8c6297e46f480cd5cfcaaa9e0d73d6ba23bf5ec112",
+        "src/shots.js": "1e8ccc5dec479e7f7c7c825cc36c2c34ce434c5b6fd105b612a3374690964d19",
+        "src/main.js": "a67448fb78e83b39a915678f1d5f6af052fd8601e106ca4dc2b46c281bfaa766",
+        "tools/mix.py": "cc610212a06df2e669ce057ea1f3ef0516f82c4660559a98b7cd63092119b438",
+        "index.html": "8de0ab27da8e22a689a610dc66db6983e862cc18e9e92e87884f66f1e72bc51d"
+      },
+      "recorded_at": "2026-11-27T17:31:05.366003+00:00"
     }
   ]
 }

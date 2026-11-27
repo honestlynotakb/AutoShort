@@ -242,6 +242,17 @@
       "slot_id": "3",
       "status": "RELEASE_READY_ZAPIER",
       "published_at": "2026-11-27T01:04:48.687385+00:00"
+    },
+    "slot1-20261127172708-4099": {
+      "run_id": "slot1-20261127172708-4099",
+      "topic": "What happens if Earth's core cools down completely",
+      "title": "When Earth's Core Freezes Solid #shorts",
+      "video_hash": "9a68fe17b351d14c98f42446dd49a78806af1edd695a28fc2b1f5bb46846d9a5",
+      "youtube_id": "zapier-release",
+      "short_url": "[Zapier Release] when-earth-s-core-freezes-solid.mp4",
+      "slot_id": "1",
+      "status": "RELEASE_READY_ZAPIER",
+      "published_at": "2026-11-27T17:31:05.376792+00:00"
     }
   },
   "by_video_hash": {
@@ -486,6 +497,17 @@
       "slot_id": "3",
       "status": "RELEASE_READY_ZAPIER",
       "published_at": "2026-11-27T01:04:48.687385+00:00"
+    },
+    "9a68fe17b351d14c98f42446dd49a78806af1edd695a28fc2b1f5bb46846d9a5": {
+      "run_id": "slot1-20261127172708-4099",
+      "topic": "What happens if Earth's core cools down completely",
+      "title": "When Earth's Core Freezes Solid #shorts",
+      "video_hash": "9a68fe17b351d14c98f42446dd49a78806af1edd695a28fc2b1f5bb46846d9a5",
+      "youtube_id": "zapier-release",
+      "short_url": "[Zapier Release] when-earth-s-core-freezes-solid.mp4",
+      "slot_id": "1",
+      "status": "RELEASE_READY_ZAPIER",
+      "published_at": "2026-11-27T17:31:05.376792+00:00"
     }
   }
 }

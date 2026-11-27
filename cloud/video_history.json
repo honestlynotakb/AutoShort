@@ -652,5 +652,36 @@
       "4d2a96170b0e1fc0"
     ],
     "similarity_score": 0.68
+  },
+  {
+    "title": "When Earth's Core Freezes Solid #shorts",
+    "topic": "What happens if Earth's core cools down completely",
+    "theme": "COSMIC_SPACE",
+    "style": "2d-motion",
+    "palette": "cosmic_abyss",
+    "duration_sec": 31.42,
+    "lufs": -14.03,
+    "scene_sequence": [
+      "HOOK_ATOMIC_LATTICE",
+      "VECTOR_CALLOUT_ATOMIC_LATTICE",
+      "BIG_STAT_METRIC",
+      "METRIC_COMPARISON",
+      "MECH_ATOMIC_LATTICE",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "9a68fe17b351d14c98f42446dd49a78806af1edd695a28fc2b1f5bb46846d9a5",
+    "frame_hashes": [
+      "8c25171a07531300",
+      "5436160e4d716100",
+      "1625175a8e716300",
+      "14004d4d00232300",
+      "1c000f0d00232300",
+      "0c34160a00632300",
+      "0c2516022d6b1300",
+      "4e24171a006d0500",
+      "0c25124a0c074500",
+      "0f24163a0b716300"
+    ],
+    "similarity_score": 0.73
   }
 ]
