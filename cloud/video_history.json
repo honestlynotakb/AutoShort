@@ -620,5 +620,37 @@
       "ccc9343071b1b49a"
     ],
     "similarity_score": 0.548
+  },
+  {
+    "title": "Why You Sink In Grain Like QuickSand #shorts",
+    "topic": "Surviving a grain silo engulfment: The lethal physics of grain entrapment",
+    "theme": "SURVIVAL_TACTICAL",
+    "style": "2d-motion",
+    "palette": "tactical_hazard",
+    "duration_sec": 37.37,
+    "lufs": -14.23,
+    "scene_sequence": [
+      "HOOK_GRAIN_SILO",
+      "METRIC_COMPARISON",
+      "COMPARE_SPLIT",
+      "MECH_GRAIN_SILO",
+      "METRIC_TELEMETRY",
+      "HAZARD_TWIST",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "fdae1ca849a4eafcde3d17d89cc63ab8db751ddd2dd77aed80e0a6d712556d18",
+    "frame_hashes": [
+      "962b2b170d573b84",
+      "4e2b1717e01f17c0",
+      "4c0e2b170f177388",
+      "0e332331c82726c0",
+      "162b178f8c3b1bc0",
+      "4d0f2b92ec1f13c0",
+      "0c848ebecc737b84",
+      "0e0a9696c0272790",
+      "0e06cc0d55456388",
+      "4d2a96170b0e1fc0"
+    ],
+    "similarity_score": 0.68
   }
 ]

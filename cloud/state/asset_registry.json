@@ -246,6 +246,72 @@
         "index.html": "7ea1fbeac7243d1d1be6c610f49116c520692338a3f766af92e513e2b7fd36c7"
       },
       "recorded_at": "2026-11-26T22:29:01.274640+00:00"
+    },
+    {
+      "run_id": "slot3-20261127010039-3865",
+      "asset_seed": "c66facc3b3e6890c",
+      "project_dir_name": "slot3-20261127010039-3865_why-you-sink-in-grain-like-quicksan",
+      "title": "Why You Sink In Grain Like QuickSand #shorts",
+      "topic": "Surviving a grain silo engulfment: The lethal physics of grain entrapment",
+      "theme": "SURVIVAL_TACTICAL",
+      "style": "2d-motion",
+      "palette_id": "tactical_hazard",
+      "focal_vector": "GRAIN_SILO",
+      "has_subcuts": true,
+      "scene_sequence": [
+        "HOOK_GRAIN_SILO",
+        "METRIC_COMPARISON",
+        "COMPARE_SPLIT",
+        "MECH_GRAIN_SILO",
+        "METRIC_TELEMETRY",
+        "HAZARD_TWIST",
+        "LOOP_OUTRO"
+      ],
+      "background_sequence": [
+        "WAVEMESH",
+        "STARFIELD",
+        "HEX",
+        "CONTOURS",
+        "RADAR",
+        "BLUEPRINT",
+        "WAVEMESH"
+      ],
+      "card_texts": [
+        "GRAIN SILO ENTRAPMENT",
+        "WHY YOU SINK IN GRAIN LIKE QUICKSAND",
+        "WHY YOU SINK IN GRAIN",
+        "4-SECOND SINK RATE",
+        "FOUR SECONDS",
+        "CRUSTED GRAIN",
+        "300 LBS PRESSURE",
+        "CAUSE",
+        "GRAIN SHIFTS",
+        "EFFECT",
+        "THREE HUNDRED",
+        "CHEST COMPRESSION",
+        "COMPRESSES INSTANTLY",
+        "GRAIN FRICTION",
+        "15 G",
+        "PULL FORCE",
+        "RESCUE AIR POCKET",
+        "GRAIN SILO TRAP",
+        "STAY CALM & CUP HANDS"
+      ],
+      "music_config": {
+        "mode": "tension",
+        "root_hz": 329.6,
+        "bpm": 78,
+        "music_seed": 85003
+      },
+      "shots_sha256": "9305ab4e65df7dac11ac4ca80963a3c4da62d066be3c7625a94d103ef0bfb2d5",
+      "file_hashes": {
+        "src/core/kit2d.js": "dc092111732b05ef3b0cab4cac25ff154a55199324f8199029e6748c2929e4d6",
+        "src/shots.js": "9305ab4e65df7dac11ac4ca80963a3c4da62d066be3c7625a94d103ef0bfb2d5",
+        "src/main.js": "f757885c4a64c01eda88c8cd5f497b46510699b1918e87f547aafa332e641be7",
+        "tools/mix.py": "0718428cd7fc138aaf0a6bc497f28706676f54298f2fb2d236f050acdb93b3f0",
+        "index.html": "f2daf2317ede823dcb1594d2715ebf07296a6694240b9262d2a0fd1fc9127a26"
+      },
+      "recorded_at": "2026-11-27T01:04:48.677135+00:00"
     }
   ]
 }

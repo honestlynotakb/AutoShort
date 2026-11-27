@@ -509,6 +509,25 @@
       "status": "published",
       "published_at": "2026-11-26T22:29:01.281092+00:00",
       "youtube_url": "[Zapier Release] why-hot-water-freezes-faster.mp4"
+    },
+    "why hot water freezes faster": {
+      "topic": "Why Hot Water Freezes Faster #shorts",
+      "title": "Why Hot Water Freezes Faster #shorts",
+      "style": "stick-story",
+      "status": "published",
+      "published_at": "2026-11-26",
+      "youtube_url": "[Zapier Release] why-hot-water-freezes-faster.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-why hot wate"
+    },
+    "surviving a grain silo engulfment the lethal physics of grain entrapment": {
+      "topic": "Surviving a grain silo engulfment: The lethal physics of grain entrapment",
+      "title": "Why You Sink In Grain Like QuickSand #shorts",
+      "slot_id": "3",
+      "run_id": "slot3-20261127010039-3865",
+      "status": "published",
+      "published_at": "2026-11-27T01:04:48.688724+00:00",
+      "youtube_url": "[Zapier Release] why-you-sink-in-grain-like-quicksan.mp4"
     }
   }
 }

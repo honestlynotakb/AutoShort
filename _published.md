@@ -39,3 +39,4 @@
 | 2026-11-25 | Quantum levitation using superconductors and magnetic flux pinning | 2d-motion | The Track That Makes Trains Float #shorts | [Zapier Release] the-track-that-makes-trains-float.mp4 |
 | 2026-11-26 | What happens if a rogue hypervelocity star ejects from the galactic core and passes through the solar system | 2d-motion | When A Rogue Star Invades Our Solar System #shorts | [Zapier Release] when-a-rogue-star-invades-our-solar.mp4 |
 | 2026-11-26 | The Mpemba effect: Why hot water can freeze faster than cold water | stick-story | Why Hot Water Freezes Faster #shorts | [Zapier Release] why-hot-water-freezes-faster.mp4 |
+| 2026-11-27 | Surviving a grain silo engulfment: The lethal physics of grain entrapment | 2d-motion | Why You Sink In Grain Like QuickSand #shorts | [Zapier Release] why-you-sink-in-grain-like-quicksan.mp4 |

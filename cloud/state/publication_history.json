@@ -231,6 +231,17 @@
       "slot_id": "2",
       "status": "RELEASE_READY_ZAPIER",
       "published_at": "2026-11-26T22:29:01.279933+00:00"
+    },
+    "slot3-20261127010039-3865": {
+      "run_id": "slot3-20261127010039-3865",
+      "topic": "Surviving a grain silo engulfment: The lethal physics of grain entrapment",
+      "title": "Why You Sink In Grain Like QuickSand #shorts",
+      "video_hash": "fdae1ca849a4eafcde3d17d89cc63ab8db751ddd2dd77aed80e0a6d712556d18",
+      "youtube_id": "zapier-release",
+      "short_url": "[Zapier Release] why-you-sink-in-grain-like-quicksan.mp4",
+      "slot_id": "3",
+      "status": "RELEASE_READY_ZAPIER",
+      "published_at": "2026-11-27T01:04:48.687385+00:00"
     }
   },
   "by_video_hash": {
@@ -464,6 +475,17 @@
       "slot_id": "2",
       "status": "RELEASE_READY_ZAPIER",
       "published_at": "2026-11-26T22:29:01.279933+00:00"
+    },
+    "fdae1ca849a4eafcde3d17d89cc63ab8db751ddd2dd77aed80e0a6d712556d18": {
+      "run_id": "slot3-20261127010039-3865",
+      "topic": "Surviving a grain silo engulfment: The lethal physics of grain entrapment",
+      "title": "Why You Sink In Grain Like QuickSand #shorts",
+      "video_hash": "fdae1ca849a4eafcde3d17d89cc63ab8db751ddd2dd77aed80e0a6d712556d18",
+      "youtube_id": "zapier-release",
+      "short_url": "[Zapier Release] why-you-sink-in-grain-like-quicksan.mp4",
+      "slot_id": "3",
+      "status": "RELEASE_READY_ZAPIER",
+      "published_at": "2026-11-27T01:04:48.687385+00:00"
     }
   }
 }
