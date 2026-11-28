@@ -275,6 +275,17 @@
       "slot_id": "3",
       "status": "RELEASE_READY_ZAPIER",
       "published_at": "2026-11-28T00:34:31.216114+00:00"
+    },
+    "slot1-20261128160900-3741": {
+      "run_id": "slot1-20261128160900-3741",
+      "topic": "Time dilation at the edge of a supermassive black hole's photon sphere",
+      "title": "One Hour Here Equals Seven Years #shorts",
+      "video_hash": "d9a332d07bb75661337cc653c287e5c0cf318687ac3117faec4922a712e9a00f",
+      "youtube_id": "zapier-release",
+      "short_url": "[Zapier Release] one-hour-here-equals-seven-years.mp4",
+      "slot_id": "1",
+      "status": "RELEASE_READY_ZAPIER",
+      "published_at": "2026-11-28T16:13:52.604234+00:00"
     }
   },
   "by_video_hash": {
@@ -552,6 +563,17 @@
       "slot_id": "3",
       "status": "RELEASE_READY_ZAPIER",
       "published_at": "2026-11-28T00:34:31.216114+00:00"
+    },
+    "d9a332d07bb75661337cc653c287e5c0cf318687ac3117faec4922a712e9a00f": {
+      "run_id": "slot1-20261128160900-3741",
+      "topic": "Time dilation at the edge of a supermassive black hole's photon sphere",
+      "title": "One Hour Here Equals Seven Years #shorts",
+      "video_hash": "d9a332d07bb75661337cc653c287e5c0cf318687ac3117faec4922a712e9a00f",
+      "youtube_id": "zapier-release",
+      "short_url": "[Zapier Release] one-hour-here-equals-seven-years.mp4",
+      "slot_id": "1",
+      "status": "RELEASE_READY_ZAPIER",
+      "published_at": "2026-11-28T16:13:52.604234+00:00"
     }
   }
 }

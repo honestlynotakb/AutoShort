@@ -745,5 +745,36 @@
       "b0586868f0cce000"
     ],
     "similarity_score": 0.745
+  },
+  {
+    "title": "One Hour Here Equals Seven Years #shorts",
+    "topic": "Time dilation at the edge of a supermassive black hole's photon sphere",
+    "theme": "COSMIC_SPACE",
+    "style": "2d-motion",
+    "palette": "solar_stellar",
+    "duration_sec": 24.62,
+    "lufs": -14.25,
+    "scene_sequence": [
+      "HOOK_BLACK_HOLE",
+      "MECH_BLACK_HOLE",
+      "BIG_STAT_METRIC",
+      "METRIC_TELEMETRY",
+      "HAZARD_TWIST",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "d9a332d07bb75661337cc653c287e5c0cf318687ac3117faec4922a712e9a00f",
+    "frame_hashes": [
+      "8f2533334d060e00",
+      "4c1633170c272300",
+      "0c06339b0e272300",
+      "0c004d4d00160600",
+      "1c004d0d00161600",
+      "0c001c1c00331300",
+      "0c000000d40b2bc0",
+      "4e040c0d1d333600",
+      "0e1616171f1e1f00",
+      "1f07331f0f1e1f00"
+    ],
+    "similarity_score": 0.753
   }
 ]

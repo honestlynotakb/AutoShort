@@ -489,6 +489,65 @@
         "index.html": "1fed9e7cb410e74f0ddca7cd18045f5189bf5898f431c5806c6d27aebe5e9882"
       },
       "recorded_at": "2026-11-28T00:34:31.206169+00:00"
+    },
+    {
+      "run_id": "slot1-20261128160900-3741",
+      "asset_seed": "54e6154fb2e5b403",
+      "project_dir_name": "slot1-20261128160900-3741_one-hour-here-equals-seven-years",
+      "title": "One Hour Here Equals Seven Years #shorts",
+      "topic": "Time dilation at the edge of a supermassive black hole's photon sphere",
+      "theme": "COSMIC_SPACE",
+      "style": "2d-motion",
+      "palette_id": "solar_stellar",
+      "focal_vector": "BLACK_HOLE",
+      "has_subcuts": false,
+      "scene_sequence": [
+        "HOOK_BLACK_HOLE",
+        "MECH_BLACK_HOLE",
+        "BIG_STAT_METRIC",
+        "METRIC_TELEMETRY",
+        "HAZARD_TWIST",
+        "LOOP_OUTRO"
+      ],
+      "background_sequence": [
+        "STARFIELD",
+        "HEX",
+        "CONTOURS",
+        "RADAR",
+        "BLUEPRINT",
+        "WAVEMESH"
+      ],
+      "card_texts": [
+        "EVENT HORIZON TIME",
+        "ONE HOUR HERE EQUALS SEVEN YEARS",
+        "ONE HOUR HERE EQUALS",
+        "SPACETIME WARP",
+        "WARPS SPACETIME",
+        "PHOTON SPHERE",
+        "HOVER",
+        "OUTSIDE PHOTON SPHERE",
+        "CENTURIES PASS",
+        "100 YEARS",
+        "ELAPSED ON EARTH",
+        "SUBJECTIVE TIME",
+        "GRAVITATIONAL DELAY",
+        "EXTREME TIME DILATION"
+      ],
+      "music_config": {
+        "mode": "ambient",
+        "root_hz": 196.0,
+        "bpm": 74,
+        "music_seed": 97584
+      },
+      "shots_sha256": "1bdd8763edda04e0216d7cf251d9bc4ad82dbde8a9a1a532cfa8b5144ad270e1",
+      "file_hashes": {
+        "src/core/kit2d.js": "b32af1a1bdc45bbd4d86a7bac25b8e0041f7ac050d31af74424c76a3fa3d5c02",
+        "src/shots.js": "1bdd8763edda04e0216d7cf251d9bc4ad82dbde8a9a1a532cfa8b5144ad270e1",
+        "src/main.js": "4b28f443fb0aed1b4570acbf602876de9e5497941587b0dc38bf2ba9cdf139bf",
+        "tools/mix.py": "51219f26a4c933b9119e1e5e7bfe2920d99794d6dc922ed50b8198ecb93fbb46",
+        "index.html": "3bf36cf3237a7bb415c4aa6a2ef60b11de6d912a75e0ebce840c790c112d423a"
+      },
+      "recorded_at": "2026-11-28T16:13:52.590737+00:00"
     }
   ]
 }

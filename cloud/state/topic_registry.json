@@ -585,6 +585,25 @@
       "status": "published",
       "published_at": "2026-11-28T00:34:31.217603+00:00",
       "youtube_url": "[Zapier Release] why-bears-can-t-turn-fast.mp4"
+    },
+    "why bears cant turn fast": {
+      "topic": "Why Bears Can't Turn Fast #shorts",
+      "title": "Why Bears Can't Turn Fast #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-28",
+      "youtube_url": "[Zapier Release] why-bears-can-t-turn-fast.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-why bears ca"
+    },
+    "time dilation at the edge of a supermassive black holes photon sphere": {
+      "topic": "Time dilation at the edge of a supermassive black hole's photon sphere",
+      "title": "One Hour Here Equals Seven Years #shorts",
+      "slot_id": "1",
+      "run_id": "slot1-20261128160900-3741",
+      "status": "published",
+      "published_at": "2026-11-28T16:13:52.605423+00:00",
+      "youtube_url": "[Zapier Release] one-hour-here-equals-seven-years.mp4"
     }
   }
 }
