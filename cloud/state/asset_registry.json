@@ -431,6 +431,64 @@
         "index.html": "85bd08dc49ba27f3c299e373441de42994b2371e7d2bb7e1a411c696f53e1443"
       },
       "recorded_at": "2026-11-27T22:01:32.690193+00:00"
+    },
+    {
+      "run_id": "slot3-20261128003038-3623",
+      "asset_seed": "df7cfe0c98e8a258",
+      "project_dir_name": "slot3-20261128003038-3623_why-bears-can-t-turn-fast",
+      "title": "Why Bears Can't Turn Fast #shorts",
+      "topic": "Surviving a bear attack using lateral movement physics",
+      "theme": "ATOMIC_PHYSICS",
+      "style": "2d-motion",
+      "palette_id": "editorial_ivory",
+      "focal_vector": "ATOMIC_LATTICE",
+      "has_subcuts": true,
+      "scene_sequence": [
+        "HOOK_ATOMIC_LATTICE",
+        "MECH_ATOMIC_LATTICE",
+        "WAVE_OSCILLATION",
+        "METRIC_TELEMETRY",
+        "HAZARD_TWIST",
+        "LOOP_OUTRO"
+      ],
+      "background_sequence": [
+        "STARFIELD",
+        "HEX",
+        "CONTOURS",
+        "RADAR",
+        "BLUEPRINT",
+        "WAVEMESH"
+      ],
+      "card_texts": [
+        "PREDATOR PURSUIT",
+        "WHY BEARS CANT TURN FAST",
+        "WHY BEARS CANT TURN",
+        "BIOMECHANICAL MASS",
+        "GRIZZLY CARRIES",
+        "MUSCLE ANATOMY",
+        "SHOULDER HUMP HOUSES WAVE",
+        "PHYSICS LIMIT",
+        "CLOSING",
+        "FINAL DISTANCE CANNOT",
+        "EVASION GEOMETRY",
+        "MOMENTUM TRAP",
+        "USE INERTIA"
+      ],
+      "music_config": {
+        "mode": "tension",
+        "root_hz": 196.0,
+        "bpm": 90,
+        "music_seed": 65058
+      },
+      "shots_sha256": "8ad49fe82e9e8cc467e0d2f9784471f671eb5cee7f313fefa7254894e554143c",
+      "file_hashes": {
+        "src/core/kit2d.js": "c61ad29e1063ec369ca99f436311097cfcc0155d4a7d24569e083f92e599cd27",
+        "src/shots.js": "8ad49fe82e9e8cc467e0d2f9784471f671eb5cee7f313fefa7254894e554143c",
+        "src/main.js": "4fb3af34bf912887f4de62c65f59fec05d7e25c2ec5f47af8273bca42e123876",
+        "tools/mix.py": "b4379f1a302ef27a3a9078a2851a001cde8ba628d4b4022789ef1f61b89946e0",
+        "index.html": "1fed9e7cb410e74f0ddca7cd18045f5189bf5898f431c5806c6d27aebe5e9882"
+      },
+      "recorded_at": "2026-11-28T00:34:31.206169+00:00"
     }
   ]
 }

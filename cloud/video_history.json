@@ -714,5 +714,36 @@
       "0f0c8e0f0f574b80"
     ],
     "similarity_score": 0.727
+  },
+  {
+    "title": "Why Bears Can't Turn Fast #shorts",
+    "topic": "Surviving a bear attack using lateral movement physics",
+    "theme": "ATOMIC_PHYSICS",
+    "style": "2d-motion",
+    "palette": "editorial_ivory",
+    "duration_sec": 31.19,
+    "lufs": -14.1,
+    "scene_sequence": [
+      "HOOK_ATOMIC_LATTICE",
+      "MECH_ATOMIC_LATTICE",
+      "WAVE_OSCILLATION",
+      "METRIC_TELEMETRY",
+      "HAZARD_TWIST",
+      "LOOP_OUTRO"
+    ],
+    "file_hash": "eec74c069b2ad408855a5002e6073b5f02f108759443397484b8a57a8561158f",
+    "frame_hashes": [
+      "304a68e4b46c7800",
+      "a068685010b0f800",
+      "605ae8e430c8a800",
+      "a058685000e8e800",
+      "a070608800d8f800",
+      "b058605018606800",
+      "b05250e400c4c400",
+      "b03830d484e8e800",
+      "b038309686e8e000",
+      "b0586868f0cce000"
+    ],
+    "similarity_score": 0.745
   }
 ]

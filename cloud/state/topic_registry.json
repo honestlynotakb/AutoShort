@@ -566,6 +566,25 @@
       "status": "published",
       "published_at": "2026-11-27T22:01:32.698471+00:00",
       "youtube_url": "[Zapier Release] why-droplets-float-on-fire.mp4"
+    },
+    "why droplets float on fire": {
+      "topic": "Why Droplets Float On Fire #shorts",
+      "title": "Why Droplets Float On Fire #shorts",
+      "style": "2d-motion",
+      "status": "published",
+      "published_at": "2026-11-27",
+      "youtube_url": "[Zapier Release] why-droplets-float-on-fire.mp4",
+      "slot_id": "unknown",
+      "run_id": "legacy-why droplets"
+    },
+    "surviving a bear attack using lateral movement physics": {
+      "topic": "Surviving a bear attack using lateral movement physics",
+      "title": "Why Bears Can't Turn Fast #shorts",
+      "slot_id": "3",
+      "run_id": "slot3-20261128003038-3623",
+      "status": "published",
+      "published_at": "2026-11-28T00:34:31.217603+00:00",
+      "youtube_url": "[Zapier Release] why-bears-can-t-turn-fast.mp4"
     }
   }
 }

@@ -42,3 +42,4 @@
 | 2026-11-27 | Surviving a grain silo engulfment: The lethal physics of grain entrapment | 2d-motion | Why You Sink In Grain Like QuickSand #shorts | [Zapier Release] why-you-sink-in-grain-like-quicksan.mp4 |
 | 2026-11-27 | What happens if Earth's core cools down completely | 2d-motion | When Earth's Core Freezes Solid #shorts | [Zapier Release] when-earth-s-core-freezes-solid.mp4 |
 | 2026-11-27 | The Leidenfrost Effect: Liquid nitrogen drops floating on a hot skillet | 2d-motion | Why Droplets Float On Fire #shorts | [Zapier Release] why-droplets-float-on-fire.mp4 |
+| 2026-11-28 | Surviving a bear attack using lateral movement physics | 2d-motion | Why Bears Can't Turn Fast #shorts | [Zapier Release] why-bears-can-t-turn-fast.mp4 |

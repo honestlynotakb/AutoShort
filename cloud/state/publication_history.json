@@ -264,6 +264,17 @@
       "slot_id": "2",
       "status": "RELEASE_READY_ZAPIER",
       "published_at": "2026-11-27T22:01:32.697397+00:00"
+    },
+    "slot3-20261128003038-3623": {
+      "run_id": "slot3-20261128003038-3623",
+      "topic": "Surviving a bear attack using lateral movement physics",
+      "title": "Why Bears Can't Turn Fast #shorts",
+      "video_hash": "eec74c069b2ad408855a5002e6073b5f02f108759443397484b8a57a8561158f",
+      "youtube_id": "zapier-release",
+      "short_url": "[Zapier Release] why-bears-can-t-turn-fast.mp4",
+      "slot_id": "3",
+      "status": "RELEASE_READY_ZAPIER",
+      "published_at": "2026-11-28T00:34:31.216114+00:00"
     }
   },
   "by_video_hash": {
@@ -530,6 +541,17 @@
       "slot_id": "2",
       "status": "RELEASE_READY_ZAPIER",
       "published_at": "2026-11-27T22:01:32.697397+00:00"
+    },
+    "eec74c069b2ad408855a5002e6073b5f02f108759443397484b8a57a8561158f": {
+      "run_id": "slot3-20261128003038-3623",
+      "topic": "Surviving a bear attack using lateral movement physics",
+      "title": "Why Bears Can't Turn Fast #shorts",
+      "video_hash": "eec74c069b2ad408855a5002e6073b5f02f108759443397484b8a57a8561158f",
+      "youtube_id": "zapier-release",
+      "short_url": "[Zapier Release] why-bears-can-t-turn-fast.mp4",
+      "slot_id": "3",
+      "status": "RELEASE_READY_ZAPIER",
+      "published_at": "2026-11-28T00:34:31.216114+00:00"
     }
   }
 }
